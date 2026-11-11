@@ -1,0 +1,19 @@
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Third-party page text never enters git (spec section 6, rule 3). The default snapshot folder
+# is outside the repository; this catches a copy made inside it by mistake.
+/snapshots/
+/data/snapshots/
+
+# Python tooling
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
