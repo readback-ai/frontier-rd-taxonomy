@@ -10,7 +10,10 @@ import datetime as dt
 
 from .config import Paths
 from .locks import read_lock, stamp_is_current
-from .schema import Estimate
+from .pacing import digest, gate_document
+from .pool import FRONTIER, REQUIRED_LABS, canonical_lab, labs_behind
+from .schema import GATE_QUANTITIES, Estimate
+from .sensitivity import recorded_fingerprint
 from .store import Dataset, Problem, load
 from .textnorm import quote_hash
 
@@ -143,10 +146,49 @@ def validate(paths: Paths, as_of: dt.date | None = None) -> list[Problem]:
             )
     status = evidence_status(paths, dataset)
     _check_evidence(dataset, status, error, warning)
+    _check_gate_estimates(dataset, error)
     _check_coverage(dataset, problems)
     for estimate in stale_estimates(dataset, as_of or dt.date.today()):
         warning(estimate.id, f"stale since {estimate.stale_after}")
+    ran_on = recorded_fingerprint(paths)
+    if ran_on and ran_on != digest(gate_document(dataset)):
+        warning(
+            "reports/sensitivity.md",
+            "the gate inputs have changed since this was run. Run `taxo sensitivity` again",
+        )
     return problems
+
+
+def _check_gate_estimates(dataset: Dataset, error) -> None:
+    """Gate numbers must name one change type the task deploys, and be counted once."""
+    placed: dict[tuple[str, str, str], list[Estimate]] = {}
+    for estimate in dataset.estimates.values():
+        task = dataset.tasks.get(estimate.task)
+        if estimate.quantity not in GATE_QUANTITIES or task is None:
+            continue
+        own = task.change_type if task.change_type not in (None, "none") else None
+        if estimate.change_type and own and estimate.change_type != own:
+            error(estimate.id, f"{task.id} deploys {own}, not {estimate.change_type}")
+            continue
+        change_type = estimate.change_type or own
+        if not change_type:
+            error(estimate.id, f"{task.id} has no change type of its own: set change_type")
+            continue
+        if change_type not in dataset.change_types_under(task.id):
+            error(estimate.id, f"no task under {task.id} deploys {change_type}")
+            continue
+        key = (canonical_lab(estimate.scope), estimate.quantity, change_type)
+        placed.setdefault(key, []).append(estimate)
+    for (_, quantity, change_type), estimates in sorted(placed.items()):
+        by_task = {estimate.task: estimate for estimate in estimates}
+        for estimate in estimates:
+            above = [a for a in dataset.ancestors(estimate.task) if a in by_task]
+            if above:
+                error(
+                    by_task[above[0]].id,
+                    f"{change_type} {quantity} is counted twice: {estimate.id} records it "
+                    f"again below, at {estimate.task}",
+                )
 
 
 def _check_coverage(dataset: Dataset, problems: list[Problem]) -> None:
@@ -188,3 +230,16 @@ def _check_coverage(dataset: Dataset, problems: list[Problem]) -> None:
     for incident in dataset.incidents.values():
         if incident.comprehension_failure in ("yes", "partly") and not incident.backtest:
             add("warning", incident.id, "comprehension failure with no backtest")
+
+    # A figure for the frontier that cites evidence has to cite all three developers (D16).
+    # Judgment priors are exempt: they claim no evidence.
+    for estimate in dataset.estimates.values():
+        if estimate.scope != FRONTIER or estimate.basis == "judgment":
+            continue
+        lacking = [lab for lab in REQUIRED_LABS if lab not in labs_behind(dataset, estimate)]
+        if lacking:
+            add(
+                "warning",
+                estimate.id,
+                "frontier estimate cites no evidence from " + ", ".join(lacking),
+            )

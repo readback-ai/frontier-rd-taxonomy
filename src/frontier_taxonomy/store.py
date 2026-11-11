@@ -84,6 +84,20 @@ class Dataset:
     def depth(self, task_id: str) -> int:
         return len(self.ancestors(task_id)) + 1
 
+    def change_types_under(self, task_id: str) -> set[str]:
+        """The change types deployed by a task or by any task below it."""
+        tasks = [self.tasks[task_id], *self.descendants(task_id)] if task_id in self.tasks else []
+        return {t.change_type for t in tasks if t.change_type and t.change_type != "none"}
+
+    def change_type_of(self, estimate: Estimate) -> str | None:
+        """The change type a gate estimate is about: its own, or its leaf task's."""
+        if estimate.change_type:
+            return estimate.change_type
+        task = self.tasks.get(estimate.task)
+        if task and task.change_type and task.change_type != "none":
+            return task.change_type
+        return None
+
 
 _FOLDERS: dict[str, type[Record]] = {
     "sources": Source,

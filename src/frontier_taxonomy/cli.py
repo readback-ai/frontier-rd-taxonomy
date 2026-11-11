@@ -142,6 +142,62 @@ def _cmd_gate_inputs(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_pack_snapshots(args: argparse.Namespace) -> int:
+    from .archive import pack_snapshots
+    from .store import load
+
+    paths = Paths.discover()
+    out = Path(args.out)
+    packed = pack_snapshots(paths, out, include_raw=not args.text_only)
+    absent = sorted(set(load(paths).sources) - set(packed))
+    print(f"{out}: {len(packed)} snapshot(s), {out.stat().st_size / 1e6:.1f} MB")
+    for source_id in absent:
+        print(f"  no snapshot on disk: {source_id}")
+    return 0
+
+
+def _cmd_restore_snapshots(args: argparse.Namespace) -> int:
+    from .archive import restore_snapshots
+
+    paths = Paths.discover()
+    results = restore_snapshots(paths, Path(args.archive))
+    for result in results:
+        if result.status != "matches":
+            print(f"  {result.status}: {result.source_id}")
+    matched = sum(1 for r in results if r.status == "matches")
+    print(f"{len(results)} snapshot(s) restored to {paths.snapshots}, {matched} match their lock")
+    if matched < len(results):
+        print("Run `taxo verify-quotes` for the rest before relying on their quotes.")
+    return 0
+
+
+def _cmd_sensitivity(args: argparse.Namespace) -> int:
+    import os
+
+    from .sensitivity import write_sensitivity
+
+    paths = Paths.discover()
+    model_dir = args.model_dir or os.environ.get("FRT_PACING_MODEL_DIR")
+    if not model_dir:
+        print(
+            "Name the pacing model's folder with --model-dir or FRT_PACING_MODEL_DIR "
+            "(readback-ops/research/pacing-takeoff-model).",
+            file=sys.stderr,
+        )
+        return 2
+    try:
+        out = write_sensitivity(paths, Path(model_dir), draws=args.draws)
+    except ModuleNotFoundError as missing:
+        print(
+            f"The pacing model needs {missing.name}. Run with the extra: "
+            "uv run --extra pacing taxo sensitivity ...",
+            file=sys.stderr,
+        )
+        return 2
+    print(out.relative_to(paths.root))
+    return 0
+
+
 def _cmd_stale(args: argparse.Namespace) -> int:
     from .store import load
     from .validate import stale_estimates
@@ -191,6 +247,24 @@ def build_parser() -> argparse.ArgumentParser:
 
     gate = sub.add_parser("gate-inputs", help="write pacing-model gate inputs")
     gate.set_defaults(func=_cmd_gate_inputs)
+
+    pack = sub.add_parser("pack-snapshots", help="archive snapshots for storage outside git")
+    pack.add_argument("--out", default="snapshots.tar.gz", help="archive to write")
+    pack.add_argument("--text-only", action="store_true", help="leave out the raw captures")
+    pack.set_defaults(func=_cmd_pack_snapshots)
+
+    restore = sub.add_parser(
+        "restore-snapshots", help="unpack an archive and check it against locks"
+    )
+    restore.add_argument("archive")
+    restore.set_defaults(func=_cmd_restore_snapshots)
+
+    sens = sub.add_parser(
+        "sensitivity", help="run the readback-ops pacing model on the gate inputs and rank them"
+    )
+    sens.add_argument("--model-dir", help="readback-ops/research/pacing-takeoff-model")
+    sens.add_argument("--draws", type=int, default=150, help="joint draws over the priors")
+    sens.set_defaults(func=_cmd_sensitivity)
 
     stale = sub.add_parser("stale", help="list estimates past their stale-after date")
     stale.add_argument("--as-of")

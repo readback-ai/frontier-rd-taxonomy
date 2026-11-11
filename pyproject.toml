@@ -17,6 +17,10 @@ dependencies = [
 [project.scripts]
 taxo = "frontier_taxonomy.cli:main"
 
+[project.optional-dependencies]
+# Only `taxo sensitivity` needs this: the readback-ops pacing model imports scipy.
+pacing = ["scipy>=1.13"]
+
 [dependency-groups]
 dev = [
     "pytest>=8.3",

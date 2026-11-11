@@ -28,7 +28,7 @@ SOURCE = {
     "url": "https://example.org/risk-report",
     "type": "risk_report",
     "vantage": "first_party",
-    "labs": ["Lab"],
+    "labs": ["Anthropic", "OpenAI", "Google DeepMind"],
     "summary": "A test source.",
     "evidence": [
         {

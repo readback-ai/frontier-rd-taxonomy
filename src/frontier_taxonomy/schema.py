@@ -166,6 +166,7 @@ ChangeType = Literal[
     "system_software_change",
     "monitor_change",
     "evaluation_change",
+    "control_change",
     "decision",
     "none",
 ]
@@ -241,6 +242,13 @@ NUMERIC_QUANTITIES = SHARE_QUANTITIES | {
     "hours_to_understand",
     "elasticity_to_ai_labor",
 }
+# What the pacing model's gate takes for each change type (spec section 7).
+GATE_QUANTITIES = (
+    "changes_per_researcher_year",
+    "hours_to_understand",
+    "elasticity_to_ai_labor",
+    "advance_share",
+)
 
 
 class LevelValue(Record):
@@ -307,6 +315,9 @@ class Estimate(Record):
     task: TaskId
     quantity: Quantity
     scope: Text  # an organization's name, or "frontier" for the leading labs together
+    # For gate quantities recorded above the leaves: which of the task's change types this
+    # number is about. A leaf's own change type applies when this is absent.
+    change_type: ChangeType | None = None
     as_of: str
     value: EstimateValue
     denominator: str | None = None  # for shares: what the share is a share of
@@ -324,6 +335,10 @@ class Estimate(Record):
             raise ValueError(f"{self.id}: basis '{self.basis}' needs at least one evidence id")
         if self.basis == "judgment" and self.confidence == "high":
             raise ValueError(f"{self.id}: a judgment-only estimate cannot be high confidence")
+        if self.change_type and self.quantity not in GATE_QUANTITIES:
+            raise ValueError(f"{self.id}: change_type applies to gate quantities only")
+        if self.change_type == "none":
+            raise ValueError(f"{self.id}: change_type 'none' deploys nothing to count")
         kind = self.value.kind
         prefix = LEVEL_QUANTITIES.get(self.quantity)
         if prefix:

@@ -102,7 +102,20 @@ def test_comprehension_load_is_count_times_hours(verified: Paths):
 
 def test_gate_inputs_file_lists_what_is_missing(verified: Paths):
     document = yaml.safe_load(write_gate_inputs(verified).read_text())
-    assert document["missing"]["evaluation_change"] == ["elasticity_to_ai_labor", "advance_share"]
+    # evaluation changes are required overhead: count and hours are all the gate takes
+    assert document["missing"] == {}
+    tasks = copy.deepcopy(TASKS)
+    tasks["tasks"].append(dict(tasks["tasks"][1], id="T-x-code", change_type="dataset_update"))
+    write_record(verified, "tasks/T-x.yml", tasks)
+    document = yaml.safe_load(write_gate_inputs(verified).read_text())
+    assert document["missing"] == {
+        "dataset_update": [
+            "changes_per_researcher_year",
+            "hours_to_understand",
+            "elasticity_to_ai_labor",
+            "advance_share",
+        ]
+    }
 
 
 def test_reports_are_reproducible_and_dated_by_the_data(verified: Paths):

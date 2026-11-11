@@ -14,6 +14,7 @@ from pathlib import Path
 from .config import Paths
 from .locks import read_lock
 from .pacing import write_gate_inputs
+from .pool import POOLED_QUANTITIES, REQUIRED_LABS, pool
 from .schema import (
     TIER_OF_AREA,
     CategoryValue,
@@ -108,6 +109,38 @@ def _by_scope_cell(estimates: list[Estimate]) -> str:
     return "; ".join(f"{e.scope}: {format_value(e)} [{e.basis}]" for e in estimates)
 
 
+def _pooled_section(dataset: Dataset) -> list[str]:
+    """Per-developer values side by side, and the pooled figure where all three exist."""
+    labs = " and ".join([", ".join(REQUIRED_LABS[:-1]), REQUIRED_LABS[-1]])
+    out = [f"## Pooled across {labs}", ""]
+    out += [
+        "A pooled figure exists only where each of the three has its own estimate. It is the "
+        "spread across them, not an average. Other developers' estimates appear in the branch "
+        "tables above and are not pooled.",
+        "",
+    ]
+    complete = total = 0
+    for branch_id, branch in sorted(dataset.branches.items()):
+        if branch.status != "researched":
+            continue
+        for quantity in POOLED_QUANTITIES:
+            rows = []
+            for task in _leaves(dataset, branch_id):
+                pooled = pool(dataset, task.id, quantity)
+                cells = [
+                    format_value(pooled.by_lab[lab]) if lab in pooled.by_lab else ""
+                    for lab in REQUIRED_LABS
+                ]
+                rows.append([f"`{task.id}`", *cells, pooled.text()])
+                complete += pooled.complete
+                total += 1
+            title = quantity.replace("_", " ")
+            out += [f"### {dataset.tasks[branch_id].name}: {title}", ""]
+            out.append(table(["Task", *REQUIRED_LABS, "Pooled"], rows))
+    out += [f"{complete} of {total} cells have all three developers.", ""]
+    return out
+
+
 def _evidence_by_task(dataset: Dataset) -> Counter:
     counts: Counter = Counter()
     for item in dataset.evidence.values():
@@ -194,6 +227,8 @@ def coverage_report(paths: Paths, dataset: Dataset, as_of: dt.date | None) -> st
                 ["Task", "Name", "Automation", "Oversight", "Evidence", "Risks", "Questions"], rows
             )
         )
+
+    out += _pooled_section(dataset)
 
     out += ["## Risks", ""]
     by_status = Counter(r.status for r in dataset.risks.values())
