@@ -15,7 +15,11 @@ Every bottom-up input below is a judgment prior. This report shows what the paci
 | system software changes | 30 | 17 (8.4 to 63) | 5 | 4.4 (2.2 to 12) | 0.3 | 0.51 (0.25 to 0.87) | 0.2 | 0.24 |
 | required overhead (control_change, decision, evaluation_change, monitor_change) | 2 | 5.4 | 12 | 4.9 |  |  |  |  |
 
-Deployed changes per researcher-year: the model assumes 46; bottom-up gives 26 (27 to 121). Share of a researcher-year needed to understand all of it: the model assumes 15%; bottom-up gives 7% (8% to 55%).
+Deployed changes per researcher-year: the model assumes 46. Bottom-up gives 26 at central values, and a median of 54 (27 to 121) when the priors vary.
+
+Share of a researcher-year needed to understand all of it: the model assumes 15%. Bottom-up gives 7% at central values, and a median of 19% (8% to 55%) when the priors vary.
+
+The central values understate the typical case: wide, right-skewed priors add up to more than their medians. The run at central values below is therefore the low-load end, and the joint draws further down are the fairer summary.
 
 ## Results under each mechanism
 
@@ -37,7 +41,7 @@ Deployed changes per researcher-year: the model assumes 46; bottom-up gives 26 (
 | Pace in Jan 2029 | 1.7x | 3.1x | 8.4x |
 | Delay to SAR | +0.8 mo | +1.8 mo | +3.9 mo |
 
-In 14 of 150 draws the pace in January 2029 is above 10x or off scale, so on these priors central audits do not reliably hold the pace down.
+In 14 of 150 draws the pace in January 2029 is above 10x or off scale, so on these priors central audits do not reliably hold the pace down. What separates those draws is how fast deployed changes grow with AI labor: their progress-weighted elasticity has a median of 0.29, against 0.55 in the draws where the pace is held.
 
 ## Which input to measure first
 
