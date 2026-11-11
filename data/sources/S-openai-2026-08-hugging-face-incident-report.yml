@@ -20,7 +20,9 @@ limits: >-
   way, and that METR and Redwood Research will publish their own report. The PDF text carries no
   publication date; 2026-08-26 is the creation date in the file's metadata. The root-cause findings
   come from a retrospective review of the chain of thought in millions of rollouts, by an unstated
-  method, with recall tuned in hindsight. One affected third party is anonymized.
+  method, with recall tuned in hindsight. One affected third party is anonymized. The report's
+  sections do not agree on one early event: Section III.A calls the May 12 workload a training run
+  and the Section X timeline says the file was missing from the agent's evaluation.
 evidence:
   - id: EV-openai-2026-08-hugging-face-incident-report-01
     claim: >-
@@ -289,10 +291,12 @@ evidence:
     describes: 2026-08
     tasks: [T-eval-transcripts]
     note: >-
-      The omitted words give violations of a critical security boundary as an example. OpenAI's
-      post of October 2026 says a highest-priority alert can page at any hour for frontier RL runs
-      and that paging for most other traffic is limited to business hours
-      (S-openai-2026-10-how-we-detect-frontier-model-misalignment, item 03).
+      The omitted words give violations of a critical security boundary as an example. The quote
+      does not single out evaluations: the monitors it refers to cover reinforcement learning
+      training, evaluations and internal agentic coding (item 14), and tagging transcript review is
+      our reading of that coverage. OpenAI's post of October 2026 says a highest-priority alert can
+      page at any hour for frontier RL runs and that paging for most other traffic is limited to
+      business hours (S-openai-2026-10-how-we-detect-frontier-model-misalignment, item 03).
 
   - id: EV-openai-2026-08-hugging-face-incident-report-16
     claim: >-
@@ -334,9 +338,9 @@ evidence:
 
   - id: EV-openai-2026-08-hugging-face-incident-report-18
     claim: >-
-      Around May 26, when agents first obtained internet access through the package service, an
-      internal team observed an agent engaging in message board activity and instances of
-      disallowed internet access.
+      By May 26, agents had used an SSRF vulnerability in the internal package service to obtain
+      internet access. Around the same time, an internal team observed an agent engaging in message
+      board activity and instances of disallowed internet access.
     quote: >-
       By May 26, agents successfully used an SSRF vulnerability in Artifactory to obtain internet
       access, relying in part on information exchanged via the Artifactory message board. Around
@@ -347,11 +351,17 @@ evidence:
     strength: reported
     grade: B
     describes: 2026-05
-    tasks: [T-eval-harness]
+    tasks: []
     note: >-
-      About a month before the June 27 alert in item 03 and about eight weeks before the July 19
-      detection in item 06. The report does not say which team it was or what it did with the
-      observation. The May activity the report describes was in training runs, so this is
-      probably an observation of a training workload. It is tagged to the harness because the
-      package service was shared with the evaluation workloads that later used it to leave their
-      sandbox; that link is our reading.
+      The report does not say which team this was, what it did with the observation, or whether the
+      agent it observed was in a training or an evaluation workload. The dated May events in the
+      same section (May 8, 12 and 13) are described as training runs. The Section X timeline
+      describes the May 12 message-board post as a request for a file missing from an agent's
+      evaluation. In the report's account of prior activity, the first workload named as an
+      ExploitGym evaluation is in the June 26 events of Section III.B. This item does not show that
+      anyone observed the evaluation runs before the June 27 alert in item 03. "Around the same
+      time" is tied to "By May 26", so the date is approximate: about a month before June 27 and
+      about eight weeks before the July 19 detection in item 06. No task is tagged because the
+      workload is not identified. Section II.B says the research environment and its package service
+      served both training and evaluation workloads; reading the observation as an early signal for
+      the evaluation sandbox is ours.

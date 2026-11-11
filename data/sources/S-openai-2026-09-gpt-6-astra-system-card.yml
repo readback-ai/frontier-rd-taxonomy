@@ -264,8 +264,10 @@ evidence:
       The second part of the quote starts mid-sentence because a page break in the snapshot
       separates it from the words "we have now". Section 9.2.2 says the same system monitors all
       internal RL runs and evaluations as well as employee Codex traffic. The monitor looks for
-      misalignment. The card does not describe review of evaluation transcripts for other
-      failures such as harness errors.
+      misalignment. The card describes no routine review of evaluation transcripts for other
+      failures such as harness errors. It reports particular cases: staff manually reviewed
+      trajectories in one monitorability evaluation (item 07), and transcript analysis found a leak
+      in a retired biology evaluation (item 17).
 
   - id: EV-openai-2026-09-gpt-6-astra-system-card-14
     claim: >-
@@ -373,7 +375,10 @@ evidence:
     tasks: [T-eval-tasks, T-eval-safeguards]
     note: >-
       Half the prompts in each evaluation came from a held-out attacker that was not used to
-      generate training data. The card describes no human review of the prompts.
+      generate training data. The card describes no human review of the prompts. Section 5.1 says
+      these evaluations jailbreak the model directly, without the safeguards used in production, so
+      they test the model's own refusals. Tagging safeguard testing is our reading of refusal
+      training as one layer of the safeguards.
 
   - id: EV-openai-2026-09-gpt-6-astra-system-card-20
     claim: >-
@@ -389,9 +394,12 @@ evidence:
     grade: B
     tasks: [T-eval-safeguards]
     note: >-
-      OpenAI calls this a partial accounting. The section also describes regression testing of
-      known jailbreaks, systematic variation of attacks and automated searches for new ones, and
-      separate testing by people at four outside red-teaming organizations.
+      OpenAI calls this a partial accounting. The section also describes regression testing of known
+      jailbreaks, systematic variation of attacks and automated searches for new ones, and says
+      internal red-teamers had access to the model's chain of thought and to internal safeguard
+      policies. The next section reports jailbreak testing by four private red-teaming
+      organizations, whose work it says combines human expertise with automated testing methods. The
+      card gives no split between automated and human red-teaming.
 
   - id: EV-openai-2026-09-gpt-6-astra-system-card-21
     claim: >-

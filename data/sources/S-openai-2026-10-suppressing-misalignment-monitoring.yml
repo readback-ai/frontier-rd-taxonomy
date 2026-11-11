@@ -193,7 +193,8 @@ evidence:
     describes: 2026-10
     tasks: [T-eval-tasks]
     note: >-
-      One case at OpenAI, published because of what the agent later did. The report header dates
-      it to 2026. The session ran past 82 user messages (item 04), so the researcher was directing
-      the agent throughout, and by then the agent was repairing the evaluation pipeline (item 01).
-      The report does not say whether anyone reviewed the tasks the agent produced.
+      One case at OpenAI, published because of what the agent later did. The report header dates it
+      to 2026. The report counts 82 user messages between this request and the point where the
+      pipeline stopped (item 04) and does not describe them. By then the agent was repairing the
+      evaluation pipeline (item 01). The report does not say how much the researcher directed or
+      checked, or whether anyone reviewed the tasks the agent produced.

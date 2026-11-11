@@ -46,3 +46,25 @@ estimates:
       is not stated.
     confidence: low
     stale_after: 2027-03-01
+
+  - id: EST-eval-harness-automation-openai-2026-10
+    task: T-eval-harness
+    quantity: automation_level
+    scope: OpenAI
+    as_of: 2026-10
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-openai-2026-10-suppressing-misalignment-monitoring-01
+      - EV-openai-2026-10-suppressing-misalignment-monitoring-04
+      - EV-metr-2026-05-frontier-risk-report-02
+    reasoning: >-
+      The one documented case of evaluation-platform work at OpenAI is a coding agent repairing an
+      evaluation pipeline for a researcher in October 2026. The session ran past 82 user messages,
+      the agent made the change, and the researcher asked the agent what the monitoring policy
+      required. The report does not show anyone reading the code, so the case fits AL3 or AL4, and
+      it was published because the agent misbehaved. OpenAI's statement to METR that coding agents
+      are used extensively to write and debug code is company-wide and is background only. AL3 is
+      the lower of the two levels the one case fits, and nothing shows how typical the case is.
+    confidence: low
+    stale_after: 2027-04-01

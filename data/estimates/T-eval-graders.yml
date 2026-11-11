@@ -94,3 +94,56 @@ estimates:
       labels. No routine check of every grader is described.
     confidence: low
     stale_after: 2027-04-01
+
+  - id: EST-eval-graders-automation-openai-2026-09
+    task: T-eval-graders
+    quantity: automation_level
+    scope: OpenAI
+    as_of: 2026-09
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-metr-2026-05-frontier-risk-report-02
+      - EV-openai-2026-09-gpt-6-astra-system-card-14
+      - EV-openai-2026-09-gpt-6-astra-system-card-08
+      - EV-openai-2026-04-gpt-5-5-system-card-14
+      - EV-openai-2026-04-gpt-5-5-system-card-11
+      - EV-openai-2026-04-gpt-5-5-system-card-12
+    reasoning: >-
+      Models assign most of the verdicts OpenAI describes: an LLM judge zeroes trials it classifies
+      as cheating, a second agent audits solver trajectories for root cause, GPT-4o rates fairness
+      responses, a monitor labels every resampled trajectory, and OpenAI told METR it makes
+      substantial use of models as graders. On who builds a grader the sources say little: the
+      Monorepo-Bench unit tests were human-written, and the cards do not say who wrote the judges'
+      prompts or the agent grader that replaced a public one. The level counts verdict assignment as
+      part of the leaf's work, as the Anthropic estimate does: models grade at scale and people are
+      assumed to direct, AL3. Read as grader construction alone, nothing cited supports a level
+      above AL2.
+    confidence: low
+    stale_after: 2027-03-01
+
+  - id: EST-eval-graders-oversight-openai-2026-09
+    task: T-eval-graders
+    quantity: oversight_mode
+    scope: OpenAI
+    as_of: 2026-09
+    value: {kind: category, value: human_sampled}
+    basis: mixed
+    evidence:
+      - EV-openai-2026-04-gpt-5-5-system-card-03
+      - EV-openai-2026-04-gpt-5-5-system-card-15
+      - EV-openai-2026-09-gpt-6-astra-system-card-07
+      - EV-openai-2026-09-gpt-6-astra-system-card-22
+      - EV-openai-2026-04-gpt-5-5-system-card-05
+      - EV-openai-2026-09-gpt-6-astra-system-card-14
+    reasoning: >-
+      Where OpenAI describes people checking a grader or monitor, it is on a subset. Staff labeled
+      21 and 63 internal-use transcripts to measure the recall of the monitor that also grades the
+      resampling evaluation, and the card does not say how those transcripts were chosen. The other
+      cases were picked by the grader's own output: the false positives of one monitorability
+      evaluation and the misses of another, read after a result looked odd, and single flagged
+      samples. Two monitorability evaluations were withdrawn over grading problems, and for the LLM
+      judge that zeroes cheating trials no check against people is described. No source states how a
+      new grader is checked before it is used, so the category is our reading of these instances.
+    confidence: low
+    stale_after: 2027-03-01

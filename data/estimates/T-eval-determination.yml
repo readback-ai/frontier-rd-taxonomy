@@ -92,3 +92,50 @@ estimates:
       determinations ran on checkpoints 10 and 6 days before the final one.
     confidence: low
     stale_after: 2027-04-01
+
+  - id: EST-eval-determination-automation-openai-2026-09
+    task: T-eval-determination
+    quantity: automation_level
+    scope: OpenAI
+    as_of: 2026-09
+    value: {kind: level, level: AL2}
+    basis: mixed
+    evidence:
+      - EV-openai-2026-09-gpt-6-astra-system-card-23
+      - EV-openai-2026-08-hugging-face-incident-report-16
+      - EV-openai-2026-04-gpt-5-5-system-card-16
+      - EV-metr-2026-05-frontier-risk-report-06
+      - EV-openai-2026-09-gpt-6-astra-system-card-02
+    reasoning: >-
+      At OpenAI the Safety Advisory Group recommends and leadership determines, informed by an
+      internal report. METR knew of no company relying on agents for all-things-considered judgments
+      such as risk assessment as of March 2026. Models produce some of the evidence the Astra card
+      reports, such as the flags a monitor assigned across 54,218 replayed tasks, and the card does
+      not say which results the determination rested on. People decide and models prepare inputs:
+      AL2 for the decision itself, as in the frontier estimate. No source says whether models help
+      draft the internal report.
+    confidence: low
+    stale_after: 2027-03-01
+
+  - id: EST-eval-determination-oversight-openai-2026-09
+    task: T-eval-determination
+    quantity: oversight_mode
+    scope: OpenAI
+    as_of: 2026-09
+    value: {kind: category, value: human_every_change}
+    basis: mixed
+    evidence:
+      - EV-openai-2026-09-gpt-6-astra-system-card-23
+      - EV-openai-2026-04-gpt-5-5-system-card-16
+      - EV-openai-2026-08-hugging-face-incident-report-16
+      - EV-openai-2026-09-gpt-6-astra-system-card-01
+    reasoning: >-
+      The decisions the two cards describe are made by people. For GPT-5.5 the Safety Advisory Group
+      found that the cyber safeguards sufficiently minimize the risks, informed by an internal
+      report. For Astra the group recommended and leadership determined that the safeguards were
+      sufficient for public launch. For internal use, Astra got blocking alignment evaluations and a
+      period of restricted deployment before wider availability as a coding agent, and the card does
+      not say who signs off or what result would block. The category records that people decide. It
+      says nothing about what they examined, and the cards give no time allowed for the decision.
+    confidence: low
+    stale_after: 2027-03-01

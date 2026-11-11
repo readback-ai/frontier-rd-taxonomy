@@ -86,3 +86,25 @@ estimates:
       It says nothing about whether the plan was checked against the threat model.
     confidence: low
     stale_after: 2027-04-01
+
+  - id: EST-eval-design-oversight-openai-2026-09
+    task: T-eval-design
+    quantity: oversight_mode
+    scope: OpenAI
+    as_of: 2026-09
+    value: {kind: category, value: human_every_change}
+    basis: mixed
+    evidence:
+      - EV-openai-2026-09-gpt-6-astra-system-card-16
+      - EV-openai-2026-08-hugging-face-incident-report-16
+      - EV-openai-2026-09-gpt-6-astra-system-card-10
+    reasoning: >-
+      The preliminary thresholds for three new Critical-level biology evaluations in the Astra card
+      come from rounds of internal discussion and a survey of 14 external experts, and the Safety
+      Advisory Group oversees the framework the evaluations report against. Nothing found describes
+      an evaluation or a threshold adopted without people deciding it. That is the absence of a
+      counterexample. No source says who approves a change to the release suite or what they
+      examine, and one measure was in use before review found some of its problems unsolvable under
+      test conditions.
+    confidence: low
+    stale_after: 2027-03-01

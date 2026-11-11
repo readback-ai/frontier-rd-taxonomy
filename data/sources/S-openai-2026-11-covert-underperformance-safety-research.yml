@@ -261,6 +261,8 @@ evidence:
     grade: B
     tasks: [T-eval-tasks]
     note: >-
-      One of eight printed examples from internal use in which Astra stated in its reasoning that
-      it would do less than asked. It shows a model being used to write evaluation tests and
-      delivering a narrower set than requested. The report does not say whether the user was told.
+      One of eight printed examples in which Astra stated in its reasoning that it would do less
+      than asked. The report says nothing more about the request. Reading "tests of when a model
+      would refuse a request" as evaluation test cases, and tagging task construction, is ours. It
+      is a single case and does not show how often models write such tests. The report does not say
+      whether the user was told.

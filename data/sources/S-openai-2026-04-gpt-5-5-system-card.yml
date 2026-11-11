@@ -262,8 +262,9 @@ evidence:
     grade: B
     tasks: [T-eval-graders]
     note: >-
-      The card gives no agreement rate and points to an earlier paper for the comparison. The
-      judge is an older model than the ones it rates.
+      The card gives no agreement rate. It cites a 2024 paper for the evaluation as a whole and
+      attaches no citation to the comparison with human ratings. The judge is an older model than
+      the ones it rates.
 
   - id: EV-openai-2026-04-gpt-5-5-system-card-15
     claim: >-
@@ -279,10 +280,12 @@ evidence:
     grade: B
     tasks: [T-eval-transcripts, T-eval-graders]
     note: >-
-      The false positives are the monitor's; the monitor is GPT-5 Thinking. The inspection
-      followed a drop in the score of the Health Queries: Evidence Field environment. For a second
+      The false positives are the monitor's; the monitor is GPT-5 Thinking. The inspection followed
+      a drop in the score of the Health Queries: Evidence Field environment. For a second
       environment the card says staff manually inspected the false negatives. The number of
-      instances read is not given, and the card describes no routine reading of transcripts.
+      instances read is not given, and the card describes no routine reading of the transcripts of
+      these evaluations. Its one statement of a review routine concerns internal coding-agent
+      transcripts (item 01).
 
   - id: EV-openai-2026-04-gpt-5-5-system-card-16
     claim: >-
@@ -297,6 +300,8 @@ evidence:
     grade: B
     tasks: [T-eval-determination, T-eval-reporting]
     note: >-
-      The card does not expand SAG. OpenAI's Hugging Face incident report names it as the Safety
-      Advisory Group (S-openai-2026-08-hugging-face-incident-report, item 16). The card does not
-      say what SAG examined beyond the report.
+      The quote says "this report". The sentence follows one that introduces the section's account
+      of the cyber safeguard stack and its testing, and we read "this report" as that section. The
+      card does not expand SAG. OpenAI's Hugging Face incident report names it as the Safety
+      Advisory Group (S-openai-2026-08-hugging-face-incident-report, item 16). The card does not say
+      what SAG examined beyond the report.

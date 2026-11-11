@@ -129,3 +129,51 @@ estimates:
       contributions, and a model chose which ones people read.
     confidence: medium
     stale_after: 2027-10-01
+
+  - id: EST-eval-alignment-automation-openai-2026-09
+    task: T-eval-alignment
+    quantity: automation_level
+    scope: OpenAI
+    as_of: 2026-09
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-openai-2026-09-gpt-6-astra-system-card-02
+      - EV-openai-2026-09-gpt-6-astra-system-card-03
+      - EV-openai-2026-04-gpt-5-5-system-card-11
+      - EV-openai-2026-09-gpt-6-astra-system-card-05
+      - EV-openai-2026-04-gpt-5-5-system-card-04
+    reasoning: >-
+      In the Astra deployment simulation 54,218 internal coding tasks are replayed with an LLM
+      simulating tool responses, a prompted model judging the simulation's realism and a monitor
+      labeling the trajectories. A prompted monitor also labels oversight gaming in the alignment
+      evaluations. The human step described is narrow: in the April 2026 resampling evaluation,
+      subcategories of flagged trajectories were put to human review, and the card does not say what
+      the reviewers read. The cards do not say who or what builds the evaluations, and no source
+      describes a model agent planning and conducting an audit end to end at OpenAI. Models run
+      large parts and people are assumed to design the evaluations and draw the conclusions: AL3.
+    confidence: low
+    stale_after: 2027-03-01
+
+  - id: EST-eval-alignment-oversight-openai-2026-09
+    task: T-eval-alignment
+    quantity: oversight_mode
+    scope: OpenAI
+    as_of: 2026-09
+    value: {kind: category, value: ai_review_human_by_exception}
+    basis: mixed
+    evidence:
+      - EV-openai-2026-04-gpt-5-5-system-card-11
+      - EV-openai-2026-04-gpt-5-5-system-card-04
+      - EV-openai-2026-09-gpt-6-astra-system-card-22
+      - EV-openai-2026-09-gpt-6-astra-system-card-02
+    reasoning: >-
+      A monitor labels every trajectory in the resampling and simulation evaluations. The human
+      reading the cards describe is of what a model flagged: subcategories of flagged trajectories
+      put to human review in the April 2026 evaluation, and one flagged sample in an Astra appendix
+      evaluation that manual review found to be a false positive. The cards state no review rule for
+      evaluation trajectories and do not say that people read the 34 flagged in the Astra
+      simulation. Nothing describes people reading trajectories that were not flagged. Which
+      trajectories a person sees is decided by a model, and no count of those read is given.
+    confidence: low
+    stale_after: 2027-03-01

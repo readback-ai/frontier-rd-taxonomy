@@ -108,3 +108,51 @@ estimates:
       are not given, and the report does not say how the strata were set.
     confidence: low
     stale_after: 2027-04-01
+
+  - id: EST-eval-validity-automation-openai-2026-09
+    task: T-eval-validity
+    quantity: automation_level
+    scope: OpenAI
+    as_of: 2026-09
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-openai-2026-09-gpt-6-astra-system-card-05
+      - EV-openai-2026-09-gpt-6-astra-system-card-04
+      - EV-openai-2026-09-gpt-6-astra-system-card-14
+      - EV-openai-2026-09-gpt-6-astra-system-card-15
+    reasoning: >-
+      Three validity checks in the Astra card are run by models or classifiers across whole
+      evaluations: a prompted GPT-5.4 Thinking monitor reads the chain of thought to judge whether
+      behavior was shaped by awareness of oversight, an LLM judge classifies cheating trials, and
+      probes identify refusals. Evaluation awareness is measured from reasoning across the replayed
+      coding tasks, at a volume that implies a model reader; that inference is ours. The card
+      describes no human step in these checks, so the human share is not known. Models do the
+      reading and labeling, and people are assumed to set the monitor's instructions and decide what
+      the rates mean for the results: AL3. No source shows a model carrying out a validity analysis
+      end to end. Contamination checks are not described in enough detail to rate.
+    confidence: low
+    stale_after: 2027-03-01
+
+  - id: EST-eval-validity-oversight-openai-2026-09
+    task: T-eval-validity
+    quantity: oversight_mode
+    scope: OpenAI
+    as_of: 2026-09
+    value: {kind: category, value: ai_review_human_by_exception}
+    basis: mixed
+    evidence:
+      - EV-openai-2026-09-gpt-6-astra-system-card-05
+      - EV-openai-2026-09-gpt-6-astra-system-card-14
+      - EV-openai-2026-09-gpt-6-astra-system-card-07
+      - EV-openai-2026-09-gpt-6-astra-system-card-17
+    reasoning: >-
+      A prompted model monitor reads the chain of thought and labels oversight gaming, and an LLM
+      judge classifies cheating. The card describes no human reading of either check's output. The
+      human reading it does describe is of another kind: staff manually reviewed the trajectories a
+      monitor had missed in one monitorability evaluation and found most were evaluation
+      imperfections. A leak of task information through an environment variable was found by
+      transcript analysis, and the card does not say whether people or models did it. With no route
+      to a person described for the main checks, this may be model review only.
+    confidence: low
+    stale_after: 2027-03-01

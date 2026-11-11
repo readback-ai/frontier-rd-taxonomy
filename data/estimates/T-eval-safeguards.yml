@@ -27,3 +27,33 @@ estimates:
       summaries of outside testers' work.
     confidence: low
     stale_after: 2027-04-01
+
+  - id: EST-eval-safeguards-automation-openai-2026-10
+    task: T-eval-safeguards
+    quantity: automation_level
+    scope: OpenAI
+    as_of: 2026-10
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-openai-2026-09-gpt-6-astra-system-card-19
+      - EV-openai-2026-09-gpt-6-astra-system-card-20
+      - EV-openai-2026-09-gpt-6-astra-system-card-18
+      - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-14
+      - EV-openai-2026-04-gpt-5-5-system-card-03
+      - EV-openai-2026-09-gpt-6-astra-system-card-21
+      - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-09
+    reasoning: >-
+      Models produce attacks and test cases at scale in OpenAI's safeguard testing: one measured
+      portion of automated red-teaming of Astra's safeguards used an estimated 200,000 A100e
+      GPU-hours, GPT-6 Astra edited rollouts into test cases for the Auto-review monitor, and OpenAI
+      asks its most capable agents to try to evade or disable its monitoring system in controlled
+      environments. Attacker models such as GPT-Red also generated the static jailbreak prompts, in
+      an evaluation of the model without its production safeguards. People supply ground truth and
+      independent attack: staff labeled the 21 and 63 transcripts used to measure monitor recall,
+      experts and employees validated the misuse-monitor examples, and METR and Redwood Research
+      red-teamed the monitoring system for three weeks. No source gives the split between model and
+      human red-teaming or says who analyzes the results. Models do large parts under people's
+      direction: AL3.
+    confidence: low
+    stale_after: 2027-04-01

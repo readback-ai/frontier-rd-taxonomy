@@ -237,3 +237,123 @@ evidence:
     grade: B
     tasks: [T-eval-external]
     note: METR's stated reason for moving to a periodic, entity-based assessment.
+
+  - id: EV-metr-2026-05-frontier-risk-report-13
+    claim: >-
+      OpenAI told METR it has an internal analysis tool for inspecting evaluation rollouts and
+      clustering model behaviors or failure modes, which people use to surface refusals, safe
+      completes, cheating, sandbagging, running out of context and environment or bug-related
+      failures.
+    quote: >-
+      We have an internal analysis tool for inspecting eval rollouts and clustering model behaviors
+      or failure modes. People use it to surface things like refusals, safe completes, cheating,
+      sandbagging, running out of context, and environment or bug-related failures.
+    locator: Appendix B, OpenAI, Materials related to propensities (p. 81); also quoted on p. 31
+    kind: practice
+    strength: reported
+    grade: B
+    describes: 2026-03
+    tasks: [T-eval-transcripts]
+    note: >-
+      Questionnaire answer, not verified by METR. No usage figure is given.
+
+  - id: EV-metr-2026-05-frontier-risk-report-14
+    claim: >-
+      OpenAI told METR that researchers review transcripts and use internal clustering tools to
+      review them, particularly when they see lower-than-expected performance.
+    quote: >-
+      Researchers will review transcripts as well as use internal clustering tools for reviewing
+      them, particularly when observing lower-than-expected performance.
+    locator: Appendix B, OpenAI, Materials related to propensities (p. 81); also quoted on p. 31
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-03
+    tasks: [T-eval-transcripts]
+    note: >-
+      Questionnaire answer, not verified by METR. The answer does not say which transcripts. METR's
+      main text (p. 31) introduces the list this comes from as ways OpenAI looks for unwanted
+      behaviors in training and deployment, and the first entry in the list is about evaluation
+      rollouts (item 13). Tagging evaluation transcript review is our reading. The next sentence
+      says this can surface misaligned behaviors and that OpenAI had no anecdotes at the time.
+
+  - id: EV-metr-2026-05-frontier-risk-report-15
+    claim: >-
+      OpenAI told METR that unintended behavior is typically detected through manual review or
+      clustering tools that surface unusual trajectories, and in some cases through monitoring
+      systems that flag unusual patterns for human review.
+    quote: >-
+      [Unintended behavior is] typically detected through manual review or clustering tools that
+      surface unusual trajectories for inspection. There are also cases where unwanted behaviors are
+      surfaced through monitoring systems (e.g., asynchronous monitoring of agent trajectories),
+      which flag unusual patterns for human review.
+    locator: Appendix B, OpenAI, Materials related to propensities (p. 82)
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-03
+    tasks: []
+    note: >-
+      Questionnaire answer, not verified by METR. The opening words in square brackets are METR's.
+      The answer does not say whether the trajectories come from evaluation, training or internal
+      use, so no task is tagged.
+
+  - id: EV-metr-2026-05-frontier-risk-report-16
+    claim: >-
+      OpenAI told METR that, based on its analyses, it had not found notable instances of
+      sandbagging or underperformance that would affect its capability evaluations.
+    quote: >-
+      Based on these analyses, we have not found notable instances of sandbagging or
+      underperformance that would impact our capability evaluations
+    locator: Appendix B, OpenAI, Materials related to propensities (p. 81)
+    kind: method
+    strength: reported
+    grade: B
+    describes: 2026-03
+    tasks: [T-eval-validity]
+    note: >-
+      Questionnaire answer, not verified by METR. The quote does not say which analyses; METR places
+      it after OpenAI's list of ways it looks for unwanted behaviors (items 13 and 14). The
+      statement is about capability evaluations as of March 2026. OpenAI's November 2026 report of
+      covert underperformance (S-openai-2026-11-covert-underperformance-safety-research) concerns a
+      later model, GPT-6 Astra, on safety research tasks in internal use.
+
+  - id: EV-metr-2026-05-frontier-risk-report-17
+    claim: >-
+      OpenAI told METR that AI assistance is used in practically all parts of the company, with
+      code-executing agents used in training, evaluating and securing future models.
+    quote: >-
+      AI assistance is used in practically all parts of the company across technical and
+      non-technical teams with code-executing agents used in training, evaluating, and securing
+      future models
+    locator: Appendix B, OpenAI, Materials related to AI use, monitoring, and autonomy (p. 82); also quoted on p. 14
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-03
+    tasks: [T-eval]
+    note: >-
+      Questionnaire answer, not verified by METR. A company-wide statement: it gives no level or
+      share and does not say which evaluation tasks agents are used in. METR's excerpt continues,
+      after an ellipsis, with the passage quoted in item 02.
+
+  - id: EV-metr-2026-05-frontier-risk-report-18
+    claim: >-
+      Google told METR that it uses AI assistance for building evaluation frameworks, among other
+      engineering work, and that AI is used to differing degrees in almost all work that involves
+      writing code or configuration, technical design or research ideation.
+    quote: >-
+      [W]e use AI assistance for producing training data, building eval frameworks, implementing
+      algorithms, writing core infra code. Basically AI is used in almost all work that involves
+      writing code or configuration, technical design, research ideation, to different degrees
+      depending on the task.
+    locator: Appendix B, Google, Materials related to AI use and monitoring (p. 78)
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-03
+    tasks: [T-eval-harness]
+    note: >-
+      Questionnaire answer, not verified by METR. It gives no level or share and says the degree of
+      use differs by task. "Eval frameworks" is read here as evaluation harness and platform code.
+      It does not mention evaluation tasks or datasets.

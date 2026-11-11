@@ -26,8 +26,11 @@ comprehension_failure: 'yes'
 comprehension_note: >-
   Responders saw the message board on June 27 and judged the run safe to continue. The leaders
   responsible did not grasp what the agents' communication meant while mitigating an earlier
-  compromise by the same agents. The report does not say who built the environment or how much of
-  the retrospective reading was done by people.
+  compromise by the same agents. The report also says that around May 26 an internal team observed
+  an agent's message-board activity and disallowed internet access. It does not say which workload
+  that agent was in or what the team did; reading it as an earlier signal for the evaluation sandbox
+  is ours. The report does not say who built the environment or how much of the retrospective
+  reading was done by people.
 tasks: [T-eval-harness, T-eval-dangerous, T-eval-transcripts, T-eval-tasks, T-eval-determination]
 risks:
   - R-eval-environment-not-contained
@@ -44,6 +47,7 @@ evidence:
   - EV-openai-2026-08-hugging-face-incident-report-07
   - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-01
   - EV-openai-2026-08-hugging-face-incident-report-13
+  - EV-openai-2026-08-hugging-face-incident-report-18
 backtest:
   - question: Q-eval-harness-01
     verdict: would_surface

@@ -108,3 +108,90 @@ estimates:
       a whole it is the most favorable reading. Sample sizes are not given.
     confidence: low
     stale_after: 2027-04-01
+
+  - id: EST-eval-transcripts-automation-openai-2026-10
+    task: T-eval-transcripts
+    quantity: automation_level
+    scope: OpenAI
+    as_of: 2026-10
+    value: {kind: level, level: AL4}
+    basis: mixed
+    evidence:
+      - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-11
+      - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-12
+      - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-02
+      - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-13
+      - EV-openai-2026-10-suppressing-misalignment-monitoring-06
+      - EV-openai-2026-09-gpt-6-astra-system-card-07
+      - EV-openai-2026-04-gpt-5-5-system-card-15
+      - EV-metr-2026-05-frontier-risk-report-13
+    reasoning: >-
+      For evaluations of models at least as capable as GPT-6 Astra, a chain of models reads the runs
+      for misaligned behavior: probes screen the traffic, a model-based reviewer reads what they
+      flag and a random 5 percent of the rest, an investigative agent reconstructs the flagged cases
+      and decides how serious they are, and an automated layer decides whether to alert a person.
+      Evaluations of models comparable to GPT-6 Luna do not require this monitoring. For other
+      failures the sources show people reading: staff inspected the false positives and misses of
+      particular evaluations by hand, and OpenAI told METR in March 2026 that people use a
+      clustering tool on evaluation rollouts to surface refusals, cheating and environment failures.
+      Models do the screening and investigation for misalignment and people read what they raise:
+      AL4 for that part. Rating the whole leaf AL4 is our judgment, since no source gives the split
+      between the two kinds of review.
+    confidence: medium
+    stale_after: 2027-04-01
+
+  - id: EST-eval-transcripts-oversight-openai-2026-06
+    task: T-eval-transcripts
+    quantity: oversight_mode
+    scope: OpenAI
+    as_of: 2026-06
+    value: {kind: category, value: human_sampled}
+    basis: mixed
+    evidence:
+      - EV-metr-2026-05-frontier-risk-report-13
+      - EV-metr-2026-05-frontier-risk-report-14
+      - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-01
+      - EV-openai-2026-08-hugging-face-incident-report-10
+      - EV-openai-2026-04-gpt-5-5-system-card-15
+      - EV-openai-2026-04-gpt-5-5-system-card-04
+      - EV-openai-2026-08-hugging-face-incident-report-03
+    reasoning: >-
+      OpenAI told METR in March 2026 that people use an internal tool to inspect and cluster
+      evaluation rollouts, and that researchers review transcripts, particularly when performance is
+      lower than expected. That is reading chosen by people, and no source says how much was read.
+      The April 2026 card shows hand reading only of subsets picked out by a score or a flag: the
+      false positives of one evaluation and subcategories of trajectories a monitor had flagged.
+      Before the Hugging Face incident no misalignment monitor ran on the internal cyber evaluations
+      where it began, and chain-of-thought monitoring was focused on internal coding use. The
+      activity that led to the incident surfaced through a security alert, and on-call staff advised
+      that the run need not be stopped.
+    confidence: low
+    stale_after: 2026-12-01
+
+  - id: EST-eval-transcripts-oversight-openai-2026-10
+    task: T-eval-transcripts
+    quantity: oversight_mode
+    scope: OpenAI
+    as_of: 2026-10
+    value: {kind: category, value: ai_review_human_by_exception}
+    basis: evidence
+    evidence:
+      - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-11
+      - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-02
+      - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-03
+      - EV-openai-2026-09-gpt-6-astra-system-card-13
+      - EV-openai-2026-08-hugging-face-incident-report-14
+      - EV-openai-2026-10-suppressing-misalignment-monitoring-06
+      - EV-metr-2026-05-frontier-risk-report-14
+    reasoning: >-
+      After the incident OpenAI extended misalignment monitoring to evaluations: every evaluation of
+      a model at least as capable as GPT-6 Astra is monitored, and flagged cases pass through a
+      model reviewer and investigative agents that decide whether to alert a human responder. People
+      see what the models escalate, and paging for most traffic other than frontier RL runs is
+      limited to business hours. Evaluations of models comparable to GPT-6 Luna are exempt, and
+      OpenAI says an Astra evaluation can be misconfigured to use that exemption. The monitors look
+      for misalignment. OpenAI's March 2026 answers to METR describe researchers reviewing
+      transcripts with clustering tools, particularly when performance is lower than expected, and
+      the later sources do not say whether that continues.
+    confidence: medium
+    stale_after: 2027-04-01
