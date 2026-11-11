@@ -40,3 +40,49 @@ estimates:
       not.
     confidence: low
     stale_after: 2027-03-01
+
+  - id: EST-eval-design-automation-gdm-2026-10
+    task: T-eval-design
+    quantity: automation_level
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: level, level: AL2}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-15
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-28
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-01
+      - EV-metr-2026-05-frontier-risk-report-06
+    reasoning: >-
+      Google DeepMind describes its threat models and priority scenarios as the work of internal and
+      external experts: a Delphi process for CBRN, and feedback from its own teams, the UK AI
+      Security Institute and Redwood Research for loss of control. Neither passage mentions a model.
+      Its 12-person staff survey, which covers AI R&D company-wide and gives no figure for
+      evaluation, reports automation lowest in open-ended ideation and research taste, and METR knew
+      of no developer relying on agents to set research agendas as of March 2026. People drive the
+      plan, so AL2 is the ceiling the evidence allows. That models assist at all is judgment: the
+      sources are silent on it.
+    confidence: low
+    stale_after: 2027-04-01
+
+  - id: EST-eval-design-oversight-gdm-2026-10
+    task: T-eval-design
+    quantity: oversight_mode
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: category, value: human_every_change}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-15
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-28
+    reasoning: >-
+      In the two domains where the process is described, CBRN and loss of control, Google DeepMind
+      works out scenario choice and threat models with groups of internal and external experts. In
+      CBRN the experts gave iterative, anonymous assessments in a Delphi process. For loss of
+      control the threat models were refined through feedback from internal teams and outside
+      advisors. Nothing found describes an evaluation plan or threshold rule adopted without a
+      person deciding it. The sources do not say who reviews an evaluation plan or a pass threshold
+      once it is written, so the category rests on the expert input to scenarios and threat models.
+      It says nothing about whether the plan was checked against the threat model.
+    confidence: low
+    stale_after: 2027-04-01

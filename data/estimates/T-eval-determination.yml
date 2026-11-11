@@ -41,3 +41,54 @@ estimates:
       the window is a day and the review is lighter than a full audit.
     confidence: low
     stale_after: 2026-12-01
+
+  - id: EST-eval-determination-automation-gdm-2026-10
+    task: T-eval-determination
+    quantity: automation_level
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: level, level: AL2}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-17
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-19
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-06
+      - EV-gdm-2025-11-gemini-3-pro-fsf-report-04
+      - EV-metr-2026-05-frontier-risk-report-06
+    reasoning: >-
+      Every determination whose maker Google DeepMind names is made by people: a panel of experts
+      for CBRN and internal subject matter experts for cyber. For ML R&D and for stealth and
+      situational awareness no decision-maker is named. No model is described as taking part in the
+      judgment, and METR, which worked with Google among four developers in early 2026, knew of no
+      evidence that any relied on agents for risk assessment. Models prepare inputs such as
+      transcript checks. AL2 for the decision itself, as in the frontier estimate. AL1 is possible,
+      since no source says a model helps weigh the evidence.
+    confidence: low
+    stale_after: 2027-04-01
+
+  - id: EST-eval-determination-oversight-gdm-2026-10
+    task: T-eval-determination
+    quantity: oversight_mode
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: category, value: human_every_change}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-17
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-19
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-14
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-09
+      - EV-gdm-2025-11-gemini-3-pro-fsf-report-04
+      - EV-gdm-2025-11-gemini-3-pro-fsf-report-10
+    reasoning: >-
+      In the two domains where the report says who decides, each threshold determination is made by
+      groups of people: an expert panel for CBRN, which reviews aggregated scores and transcripts,
+      and internal subject matter experts for cyber, who analyze quantitative results and
+      qualitative information. Subject matter experts also fold in the external results. For ML R&D
+      and for stealth and situational awareness no decision-maker is named. For Gemini 3 Pro the
+      launch decision was reviewed and approved through Google's internal decision-making processes,
+      and the 2026 report does not describe the launch decision. The category records that people
+      decide each described case. It is an upper bound on depth. Some evaluations behind the 2026
+      determinations ran on checkpoints 10 and 6 days before the final one.
+    confidence: low
+    stale_after: 2027-04-01

@@ -41,3 +41,60 @@ estimates:
       reviewed; most tasks are not read by a person.
     confidence: low
     stale_after: 2027-03-01
+
+  - id: EST-eval-tasks-automation-gdm-2026-10
+    task: T-eval-tasks
+    quantity: automation_level
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-38
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-40
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-36
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-24
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-20
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-15
+    reasoning: >-
+      Practice splits and no shares are published. Models build tasks in three described places. An
+      LLM generates the side tasks of the internal-codebase monitor evasion evaluation and a second
+      agent reviews them. An auditor model simulates the environments in Gram. Safeguard coverage
+      sets draw on synthetic generation beside expert authoring and log mining, and the synthetic
+      sets were found to lack diversity. For the suites that decide thresholds the cited items name
+      who was involved and are silent on models: CBRN scenarios are prioritized with experts, and
+      the cyber benchmark was co-developed with Irregular. AL3 is a judgment across these: large
+      chunks by models under human direction where model use is described, with the side tasks of
+      one benchmark at AL4 or above. The threshold suites may sit lower. The report does not say.
+    confidence: low
+    stale_after: 2027-04-01
+
+  - id: EST-eval-tasks-oversight-gdm-2026-10
+    task: T-eval-tasks
+    quantity: oversight_mode
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: category, value: human_sampled}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-40
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-29
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-07
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-06
+      - EV-gdm-2025-11-gemini-3-pro-fsf-report-03
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-42
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-43
+    reasoning: >-
+      Review of tasks differs by suite. Google DeepMind says experts validated each high-level CBRN
+      scenario, and that its safeguard coverage evaluations use expert reviews. For the other suites
+      the cited items describe no person reviewing each task, or a sample of tasks, before it enters
+      a suite. In one benchmark the side tasks are written and reviewed by Gemini 4 Argon with no
+      human expert, which Google DeepMind lists as a limitation. An audit found that about a quarter
+      of the original tasks in the ML R&D benchmark had bugs that block any pass. The report does
+      not say who or what did the audit, and that the bugs went uncaught while earlier models were
+      scored is our inference. Elsewhere human checking reaches tasks indirectly: staff inspect a
+      stratified sample of transcripts in three suites, and transcript review surfaced environment
+      and prompt defects. human_sampled is the middle of that spread, with expert validation of each
+      CBRN scenario at one end and the side tasks of one benchmark at ai_review_only at the other.
+    confidence: low
+    stale_after: 2027-04-01

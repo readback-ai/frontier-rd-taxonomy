@@ -52,3 +52,59 @@ estimates:
       all transcripts is lower. The unit is transcripts, not contributions.
     confidence: medium
     stale_after: 2027-04-01
+
+  - id: EST-eval-validity-automation-gdm-2026-10
+    task: T-eval-validity
+    quantity: automation_level
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-06
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-18
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-22
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-32
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-12
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-41
+    reasoning: >-
+      Automated checks do the first pass for evaluation awareness and deliberate underperformance
+      wherever the report describes one. A named model, Gemini 3.5 Flash, checks sampled transcripts
+      in the cyber, stealth and situational awareness suites, and LLMs did all of the reviewing in
+      the cheating audit. In the CBRN and manipulation sections the checks are called automated
+      tests and automated checks, with no model named, and the CBRN check covers static biological
+      evaluations only. People add a manual pass on a stratified sample in the three agentic suites,
+      read every flagged response in two manipulation evaluations, and decide what the awareness
+      means for the results. Models do large parts and people check and conclude in the agentic
+      suites: AL3. The manipulation, CBRN and cheating checks, where people read flags or nothing,
+      are closer to AL4, so the single level is a judgment. Contamination checks are not described
+      in enough detail to rate.
+    confidence: low
+    stale_after: 2027-04-01
+
+  - id: EST-eval-validity-oversight-gdm-2026-10
+    task: T-eval-validity
+    quantity: oversight_mode
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: category, value: human_sampled}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-41
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-06
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-22
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-18
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-32
+      - EV-gdm-2025-11-gemini-3-pro-fsf-report-02
+    reasoning: >-
+      Google DeepMind says that across all risk domains it combined manual transcript inspection
+      with LLM-assisted triage on sampled trajectories. The domain sections differ. In the cyber,
+      stealth and situational awareness suites staff inspect a stratified sample, prioritizing
+      unexpected failures. In two manipulation evaluations people read only what automated checks
+      flagged, the CBRN section describes automated tests on static evaluations alone, and in the
+      cheating audit all of the reviewing was by LLMs. human_sampled is the mode stated for the
+      three agentic suites and in the general statement. The other described checks are by exception
+      or by models only, so for the leaf as a whole this is the most favorable reading. Sample sizes
+      are not given, and the report does not say how the strata were set.
+    confidence: low
+    stale_after: 2027-04-01

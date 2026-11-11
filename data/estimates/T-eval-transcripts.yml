@@ -64,18 +64,21 @@ estimates:
     scope: Google DeepMind
     as_of: 2026-10
     value: {kind: level, level: AL3}
-    basis: evidence
+    basis: mixed
     evidence:
       - EV-gdm-2026-10-gemini-4-argon-safety-report-06
       - EV-gdm-2026-10-gemini-4-argon-safety-report-12
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-32
       - EV-gdm-2025-11-gemini-3-pro-fsf-report-01
     reasoning: >-
-      Google DeepMind has a model check sampled evaluation transcripts for pre-specified failure
-      modes, evaluation awareness and deliberate underperformance, after which staff inspect a
-      stratified sample by hand. Its audit for benchmark cheating is run by model judges,
-      classifiers and a model reader, with staff checking that cited actions appear in the
-      transcripts. Models do large parts and people check and decide: AL3. Sample sizes are not
-      given.
+      Google DeepMind has Gemini 3.5 Flash check sampled transcripts from the cyber, stealth and
+      situational awareness suites for pre-specified failure modes, evaluation awareness and
+      deliberate underperformance, after which staff inspect a stratified sample by hand. Its audit
+      for benchmark cheating was run by a model judge, two model classifiers and a model reader. The
+      report says LLMs did all of the reviewing there, and it does not say who or what checked that
+      the judge's cited actions appear in the transcripts. Models do large parts and people read a
+      sample and decide in the capability suites: AL3. The cheating audit, where no human reading is
+      described, is closer to AL4. Sample sizes are not given.
     confidence: low
     stale_after: 2027-04-01
 
@@ -85,15 +88,23 @@ estimates:
     scope: Google DeepMind
     as_of: 2026-10
     value: {kind: category, value: human_sampled}
-    basis: evidence
+    basis: mixed
     evidence:
       - EV-gdm-2026-10-gemini-4-argon-safety-report-06
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-22
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-32
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-34
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-41
       - EV-gdm-2025-11-gemini-3-pro-fsf-report-02
     reasoning: >-
-      Staff manually inspect a stratified sample of evaluation transcripts, prioritizing
-      unexpected failures, in the cyber, stealth and situational awareness suites, and inspected
-      transcripts by hand in two risk domains for the previous model. A sample chosen by people,
-      alongside the model check. This is the one developer whose published account has people
-      reading transcripts a model did not select.
+      In the cyber, stealth and situational awareness suites, staff manually inspect a stratified
+      sample of transcripts, prioritizing unexpected failures, alongside the model check. For the
+      previous model, staff inspected transcripts by hand in two risk domains. The report does not
+      say how the strata were set or whether the model's flags fed the sample. Elsewhere people read
+      less. In two manipulation evaluations the team read only the responses that automated checks
+      flagged. In the audit of training rollouts people read only rollouts a judge flagged. In the
+      cheating audit LLMs did all of the reviewing. human_sampled is the mode stated for the three
+      capability suites and in the report's general statement for all risk domains. For the leaf as
+      a whole it is the most favorable reading. Sample sizes are not given.
     confidence: low
     stale_after: 2027-04-01

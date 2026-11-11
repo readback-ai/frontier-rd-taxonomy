@@ -215,6 +215,16 @@
       "quote_sha256": "424709c227634f2d49b59d3d5d8ac0452f72380c370d8b94287eb33f00bbbb33",
       "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
       "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-42": {
+      "quote_sha256": "d1ce49b32d6762a1fa5b132247dd18251d9f4302226b6fd45f48b6dcbf8d64b9",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-43": {
+      "quote_sha256": "0f9df6b367ac2a517990c2b2647e5cf2eebe3025376f3ac28930ac9c9d35ef04",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
     }
   }
 }

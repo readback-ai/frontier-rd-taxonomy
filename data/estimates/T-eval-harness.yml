@@ -36,9 +36,13 @@ estimates:
       - EV-gdm-2026-10-gemini-4-argon-safety-report-13
     reasoning: >-
       Google DeepMind's report says code changes remain subject to human review before submission,
-      while agents write a majority of production code. Its risk assessment lists as an uncertainty
-      that this review could become more porous as engineers rely on agents to author large changes.
-      Company-wide and for production code; nothing specific to evaluation harnesses. As with
-      Anthropic, the depth of the human reading is not stated.
+      while agents write a majority of production code and bug fixes. The sentence sits in the
+      paragraph that reports a survey of 12 senior leaders and researchers, and it is about
+      production code across the company. The report's code figures exclude experimental code, and
+      it does not say whether evaluation harness code counts as production code or gets the same
+      review. Its risk assessment lists as an uncertainty that two-party code review could become
+      more porous as engineers rely on agents to author large changes. Read human_every_change as an
+      upper bound on oversight of harness changes. As with Anthropic, the depth of the human reading
+      is not stated.
     confidence: low
     stale_after: 2027-03-01

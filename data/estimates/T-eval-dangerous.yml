@@ -1,0 +1,51 @@
+task: T-eval-dangerous
+estimates:
+  - id: EST-eval-dangerous-automation-gdm-2026-10
+    task: T-eval-dangerous
+    quantity: automation_level
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: level, level: AL2}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-16
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-17
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-19
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-18
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-06
+    reasoning: >-
+      People do the assessment work in the CBRN domain: expert red teamers write the prompts, steer
+      the conversations and score the results, and a panel of experts reads scores and transcripts.
+      In cyber, internal subject matter experts analyze the results of a fixed challenge suite.
+      Models help with one part, the checks of transcripts for failure modes, evaluation awareness
+      and underperformance. People drive and review while models speed up parts: AL2. How far models
+      help analyze results is not stated, and the ML R&D and stealth assessments are described in
+      less detail.
+    confidence: low
+    stale_after: 2027-04-01
+
+  - id: EST-eval-dangerous-oversight-gdm-2026-10
+    task: T-eval-dangerous
+    quantity: oversight_mode
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: category, value: human_every_change}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-17
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-19
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-06
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-29
+      - EV-gdm-2025-11-gemini-3-pro-fsf-report-04
+    reasoning: >-
+      In the two domains where reviewers are named, people read the assessment before it feeds a
+      determination: a panel of subject matter experts reviews the CBRN red-teaming scores and
+      transcripts, and internal experts analyze the cyber results. Inside an assessment the reading
+      is partial. A subset of red-teaming transcripts is peer reviewed, and agentic transcripts get
+      a model check plus manual inspection of a stratified sample. For the ML R&D benchmark and the
+      stealth and situational awareness suites no reviewer is named. An audit in this cycle found
+      that about a quarter of the ML R&D benchmark's original tasks could not be passed, and the
+      report kept those tasks in its results. human_every_change records that each described
+      assessment is reviewed by experts. It is an upper bound on depth.
+    confidence: low
+    stale_after: 2027-04-01

@@ -18,3 +18,46 @@ estimates:
       AL3. One evaluator; nothing comparable was found for the government institutes.
     confidence: low
     stale_after: 2027-04-01
+
+  - id: EST-eval-external-automation-gdm-2026-10
+    task: T-eval-external
+    quantity: automation_level
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-23
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-26
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-27
+    reasoning: >-
+      This estimate is for the outside testing Google DeepMind commissions, read from its summaries
+      of the testers' methods. Two testers leaned on models: one scored outputs with an LLM judge
+      and had its experts review a subset, and another ran an automated red-teaming agent against 25
+      tasks. A third worked by hand for 38 hours. Models do large chunks while the testers' people
+      design and check: AL3. The methods of the testers behind the CBRN, cyber capability and
+      loss-of-control findings are not described at this level, so the estimate covers only part of
+      the external work.
+    confidence: low
+    stale_after: 2027-04-01
+
+  - id: EST-eval-external-oversight-gdm-2026-10
+    task: T-eval-external
+    quantity: oversight_mode
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: category, value: human_every_change}
+    basis: evidence
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-14
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-23
+      - EV-gdm-2025-11-gemini-3-pro-fsf-report-11
+    reasoning: >-
+      Scope here is Google DeepMind's handling of outside results. Its subject matter experts
+      review, translate and integrate the external evaluations into the internal risk analysis, and
+      in 2025 the findings were reviewed for consistency with internal evaluations. External results
+      are read by people before they inform a determination. That is review of the testers' reports:
+      nothing says Google DeepMind staff read the testers' transcripts, and one tester's own experts
+      reviewed only a subset. The testers do not directly comment on the thresholds.
+    confidence: low
+    stale_after: 2027-04-01

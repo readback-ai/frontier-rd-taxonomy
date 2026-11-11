@@ -27,9 +27,7 @@ estimates:
     quantity: automation_level
     scope: Google DeepMind
     as_of: 2026-09
-    value:
-      kind: levels
-      shares: {AL3: 0.88, AL4: 0.12}
+    value: {kind: level, level: AL3}
     basis: mixed
     evidence:
       - EV-gdm-2026-10-gemini-4-argon-safety-report-03
@@ -37,12 +35,14 @@ estimates:
     reasoning: >-
       Google DeepMind reports that 11.9% of production pull requests were fully delegated in
       September 2026, up from 7.5% in April, and that about 88% still needed multi-turn human
-      steering or human-written code. Fully delegated is read here as AL4 and the rest is lumped
-      at AL3, which overstates it: some of the 88% is AL2 or lower. The figure is for production
-      code company-wide, not for evaluation work, and its unit (pull requests) differs from
-      Anthropic's (person-time), so the two developers' numbers should not be compared directly.
-      Its survey lists evaluation and training environment development as one component of AI
-      R&D with no figure.
+      steering or human-written code. These are shares of pull requests for production code across
+      the company. They are not shares of evaluation work, the report excludes experimental code,
+      and it does not say how fully delegated was determined. Mapping them to automation levels is
+      our judgment: fully delegated reads as AL4, and the 88% spans AL3 down to work a person wrote.
+      One level is recorded, AL3, and no shares, because the source gives none for this branch. The
+      unit (pull requests) differs from Anthropic's (person-time), so the two developers' numbers
+      should not be compared directly. The staff survey lists evaluation and training environment
+      development as one component of AI R&D with no figure.
     confidence: low
     stale_after: 2027-03-01
 

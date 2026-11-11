@@ -1,0 +1,26 @@
+task: T-eval-elicitation
+estimates:
+  - id: EST-eval-elicitation-automation-gdm-2026-10
+    task: T-eval-elicitation
+    quantity: automation_level
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-21
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-37
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-16
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-30
+    reasoning: >-
+      Elicitation is split between people and models. Expert red teamers elicit CBRN information by
+      hand. Models do the eliciting in two described places: an investigator agent in the
+      manipulation strategic planning evaluation, which the report calls significantly more
+      effective than direct prompting or standard jailbreaking, and prompts for monitor evasion on
+      LinuxArena that a version of Gemini optimized and that were tested beside hand-written ones.
+      The ML R&D evaluations run on the scaffolding researchers use, and the report does not say who
+      builds or tunes it. AL3 is a judgment: models do large chunks where their use is described and
+      people choose the method. AL2 fits the CBRN red teaming. The report does not say which prompts
+      gave the monitor-evasion results.
+    confidence: low
+    stale_after: 2027-04-01

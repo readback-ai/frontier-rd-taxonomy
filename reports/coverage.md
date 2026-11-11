@@ -12,7 +12,7 @@ Data date: 2026-11-11.
 | third party investigation | 8 | 72 |
 | lab research post | 7 | 68 |
 | system card | 5 | 64 |
-| risk report | 4 | 73 |
+| risk report | 4 | 75 |
 | academic paper | 4 | 28 |
 | lab measurement report | 2 | 20 |
 | readback internal | 2 | 11 |
@@ -26,21 +26,21 @@ Data date: 2026-11-11.
 | Grade | Items | Verified | Excused | Unverified |
 |---|---|---|---|---|
 | A | 38 | 38 | 0 | 0 |
-| B | 360 | 360 | 0 | 0 |
+| B | 362 | 362 | 0 | 0 |
 | C | 80 | 80 | 0 | 0 |
 | D | 7 | 7 | 0 | 0 |
 
-485 of 485 quotes are verified against a snapshot.
+487 of 487 quotes are verified against a snapshot.
 
 ## Estimates by basis
 
 | Basis | Estimates | Share |
 |---|---|---|
-| evidence | 12 | 15% |
-| mixed | 14 | 18% |
-| judgment | 54 | 68% |
+| evidence | 13 | 13% |
+| mixed | 32 | 32% |
+| judgment | 54 | 55% |
 
-54 of 80 estimates (68%) rest on judgment alone. They are priors, not findings.
+54 of 99 estimates (55%) rest on judgment alone. They are priors, not findings.
 
 ## Branches
 
@@ -77,20 +77,20 @@ Data date: 2026-11-11.
 
 | Task | Name | Automation | Oversight | Evidence | Risks | Questions |
 |---|---|---|---|---|---|---|
-| `T-eval-design` | Evaluation design and threshold setting | Anthropic: AL2 [mixed] | Anthropic: human every change [mixed] | 22 | 2 | 7 |
-| `T-eval-tasks` | Task, dataset and environment construction | Anthropic: AL3 [mixed] | Anthropic: human sampled [mixed] | 64 | 4 | 8 |
-| `T-eval-graders` | Graders, rubrics and model judges | Anthropic: AL3 [mixed] | Anthropic: human sampled [evidence] | 64 | 3 | 7 |
+| `T-eval-design` | Evaluation design and threshold setting | Anthropic: AL2 [mixed]; Google DeepMind: AL2 [mixed] | Anthropic: human every change [mixed]; Google DeepMind: human every change [mixed] | 23 | 2 | 7 |
+| `T-eval-tasks` | Task, dataset and environment construction | Anthropic: AL3 [mixed]; Google DeepMind: AL3 [mixed] | Anthropic: human sampled [mixed]; Google DeepMind: human sampled [mixed] | 66 | 4 | 8 |
+| `T-eval-graders` | Graders, rubrics and model judges | Anthropic: AL3 [mixed]; Google DeepMind: AL2 [mixed] | Anthropic: human sampled [evidence]; Google DeepMind: human sampled [mixed] | 64 | 3 | 7 |
 | `T-eval-harness` | Harness, sandboxes and evaluation platform |  | Anthropic: human every change [mixed]; Google DeepMind: human every change [mixed] | 68 | 4 | 9 |
-| `T-eval-elicitation` | Capability elicitation and scaffolding |  |  | 9 | 2 | 6 |
+| `T-eval-elicitation` | Capability elicitation and scaffolding | Google DeepMind: AL3 [mixed] |  | 9 | 2 | 6 |
 | `T-eval-inloop` | In-loop capability evaluations and regression checks | Anthropic: AL3 [mixed] |  | 17 | 1 | 7 |
-| `T-eval-dangerous` | Dangerous-capability assessments |  |  | 48 | 6 | 7 |
-| `T-eval-alignment` | Alignment assessments and behavioral audits | Anthropic: AL4 [evidence] | Anthropic: ai review human by exception [evidence] | 80 | 7 | 7 |
-| `T-eval-safeguards` | Safeguard and monitor testing |  |  | 44 | 3 | 7 |
-| `T-eval-transcripts` | Transcript review and anomaly investigation | Anthropic: AL4 [evidence]; Google DeepMind: AL3 [evidence] | Anthropic: ai review human by exception [evidence]; Google DeepMind: human sampled [evidence] | 78 | 4 | 6 |
-| `T-eval-validity` | Validity checks | Anthropic: AL4 [evidence] | Anthropic: ai review human by exception [evidence] | 93 | 4 | 6 |
+| `T-eval-dangerous` | Dangerous-capability assessments | Google DeepMind: AL2 [mixed] | Google DeepMind: human every change [mixed] | 48 | 6 | 7 |
+| `T-eval-alignment` | Alignment assessments and behavioral audits | Anthropic: AL4 [evidence]; Google DeepMind: AL3 [mixed] | Anthropic: ai review human by exception [evidence]; Google DeepMind: ai review human by exception [evidence] | 80 | 7 | 7 |
+| `T-eval-safeguards` | Safeguard and monitor testing | Google DeepMind: AL3 [mixed] |  | 45 | 3 | 7 |
+| `T-eval-transcripts` | Transcript review and anomaly investigation | Anthropic: AL4 [evidence]; Google DeepMind: AL3 [mixed] | Anthropic: ai review human by exception [evidence]; Google DeepMind: human sampled [mixed] | 78 | 4 | 6 |
+| `T-eval-validity` | Validity checks | Anthropic: AL4 [evidence]; Google DeepMind: AL3 [mixed] | Anthropic: ai review human by exception [evidence]; Google DeepMind: human sampled [mixed] | 93 | 4 | 6 |
 | `T-eval-reporting` | System cards and risk reports | Anthropic: AL3 [mixed] |  | 24 | 2 | 7 |
-| `T-eval-determination` | Threshold determinations and release sign-off | frontier: AL2 [mixed] | Anthropic: human every change [mixed] | 31 | 3 | 7 |
-| `T-eval-external` | External and third-party evaluation | METR: AL3 [evidence] |  | 46 | 3 | 6 |
+| `T-eval-determination` | Threshold determinations and release sign-off | Google DeepMind: AL2 [mixed]; frontier: AL2 [mixed] | Anthropic: human every change [mixed]; Google DeepMind: human every change [mixed] | 31 | 3 | 7 |
+| `T-eval-external` | External and third-party evaluation | Google DeepMind: AL3 [mixed]; METR: AL3 [evidence] | Google DeepMind: human every change [evidence] | 46 | 3 | 6 |
 
 ### Compute and infrastructure software (`T-infra`, draft)
 
@@ -156,39 +156,39 @@ A pooled figure exists only where each of the three has its own estimate. It is 
 
 | Task | Anthropic | OpenAI | Google DeepMind | Pooled |
 |---|---|---|---|---|
-| `T-eval-design` | AL2 |  |  | needs OpenAI, Google DeepMind |
-| `T-eval-tasks` | AL3 |  |  | needs OpenAI, Google DeepMind |
-| `T-eval-graders` | AL3 |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-design` | AL2 |  | AL2 | needs OpenAI |
+| `T-eval-tasks` | AL3 |  | AL3 | needs OpenAI |
+| `T-eval-graders` | AL3 |  | AL2 | needs OpenAI |
 | `T-eval-harness` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
-| `T-eval-elicitation` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-elicitation` |  |  | AL3 | needs Anthropic, OpenAI |
 | `T-eval-inloop` | AL3 |  |  | needs OpenAI, Google DeepMind |
-| `T-eval-dangerous` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
-| `T-eval-alignment` | AL4 |  |  | needs OpenAI, Google DeepMind |
-| `T-eval-safeguards` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-dangerous` |  |  | AL2 | needs Anthropic, OpenAI |
+| `T-eval-alignment` | AL4 |  | AL3 | needs OpenAI |
+| `T-eval-safeguards` |  |  | AL3 | needs Anthropic, OpenAI |
 | `T-eval-transcripts` | AL4 |  | AL3 | needs OpenAI |
-| `T-eval-validity` | AL4 |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-validity` | AL4 |  | AL3 | needs OpenAI |
 | `T-eval-reporting` | AL3 |  |  | needs OpenAI, Google DeepMind |
-| `T-eval-determination` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
-| `T-eval-external` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-determination` |  |  | AL2 | needs Anthropic, OpenAI |
+| `T-eval-external` |  |  | AL3 | needs Anthropic, OpenAI |
 
 ### Evaluation: oversight mode
 
 | Task | Anthropic | OpenAI | Google DeepMind | Pooled |
 |---|---|---|---|---|
-| `T-eval-design` | human every change |  |  | needs OpenAI, Google DeepMind |
-| `T-eval-tasks` | human sampled |  |  | needs OpenAI, Google DeepMind |
-| `T-eval-graders` | human sampled |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-design` | human every change |  | human every change | needs OpenAI |
+| `T-eval-tasks` | human sampled |  | human sampled | needs OpenAI |
+| `T-eval-graders` | human sampled |  | human sampled | needs OpenAI |
 | `T-eval-harness` | human every change |  | human every change | needs OpenAI |
 | `T-eval-elicitation` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
 | `T-eval-inloop` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
-| `T-eval-dangerous` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
-| `T-eval-alignment` | ai review human by exception |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-dangerous` |  |  | human every change | needs Anthropic, OpenAI |
+| `T-eval-alignment` | ai review human by exception |  | ai review human by exception | needs OpenAI |
 | `T-eval-safeguards` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
 | `T-eval-transcripts` | ai review human by exception |  | human sampled | needs OpenAI |
-| `T-eval-validity` | ai review human by exception |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-validity` | ai review human by exception |  | human sampled | needs OpenAI |
 | `T-eval-reporting` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
-| `T-eval-determination` | human every change |  |  | needs OpenAI, Google DeepMind |
-| `T-eval-external` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-determination` | human every change |  | human every change | needs OpenAI |
+| `T-eval-external` |  |  | human every change | needs Anthropic, OpenAI |
 
 0 of 28 cells have all three developers.
 

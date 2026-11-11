@@ -40,3 +40,57 @@ estimates:
       people.
     confidence: medium
     stale_after: 2027-03-01
+
+  - id: EST-eval-graders-automation-gdm-2026-10
+    task: T-eval-graders
+    quantity: automation_level
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: level, level: AL2}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-35
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-39
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-33
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-12
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-16
+    reasoning: >-
+      Two things are separate here. Assigning verdicts is done by model judges in the alignment
+      audit of training rollouts and in the cheating audit, and by the red teamers themselves in
+      CBRN red teaming. Building the grader, which this estimate covers, is described in two places.
+      The alignment-faking autorater's prompt has an author, and a second researcher red-teamed it
+      with AI assistance. In the internal-codebase monitor evasion evaluation the scoring script was
+      generated and reviewed alongside the side task prompts, which a model writes and reviews. That
+      a model also wrote the script is our reading. People drive and a model assists in the one
+      judge prompt whose making is described: AL2, with one benchmark's scoring scripts at AL4 or
+      above. No source says how much of a judge prompt or rubric a model drafts, so AL3 cannot be
+      excluded.
+    confidence: low
+    stale_after: 2027-04-01
+
+  - id: EST-eval-graders-oversight-gdm-2026-10
+    task: T-eval-graders
+    quantity: oversight_mode
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: category, value: human_sampled}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-35
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-34
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-32
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-29
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-39
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-04
+    reasoning: >-
+      Some graders get a human check and others none. One autorater prompt was red-teamed for false
+      negatives by a second researcher. People read 419 of the 517 rollouts one judge flagged in one
+      tier. That checks the judge's positives on rollouts the judge chose. In the cheating audit,
+      runs the judge did not flag were checked only in a random sample, and LLMs did all of the
+      reviewing. An audit found crashing verifiers and incorrect ground truth among the bugs in
+      about a quarter of one benchmark's original tasks, and the report does not say who or what did
+      the audit. One scoring script was generated and reviewed alongside model-written side tasks,
+      and the judge behind the internal autonomy measurement is reported with no check against human
+      labels. No routine check of every grader is described.
+    confidence: low
+    stale_after: 2027-04-01

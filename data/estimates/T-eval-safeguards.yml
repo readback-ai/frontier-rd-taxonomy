@@ -1,0 +1,29 @@
+task: T-eval-safeguards
+estimates:
+  - id: EST-eval-safeguards-automation-gdm-2026-10
+    task: T-eval-safeguards
+    quantity: automation_level
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-25
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-26
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-27
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-24
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-38
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-37
+    reasoning: >-
+      Safeguard testing mixes automated and manual attack. Automated orchestrators run the cyber
+      adaptive jailbreak evaluation, and an outside tester ran an automated red-teaming agent
+      against 25 cyber tasks built on scenarios Google DeepMind supplied. In the monitor evasion
+      work, an LLM generates the side tasks of the internal-codebase evaluation, and on LinuxArena
+      prompts optimized by a version of Gemini were tested beside hand-written ones. The report does
+      not say which gave the reported results. Manual work sits beside it: one outside team spent 38
+      hours red teaming by hand, and coverage sets are partly expert-written. Models do large chunks
+      on goals and scenarios that people supply: AL3. No shares are given, and who reads the
+      automated attackers' output is not stated. Two of the six items are Google DeepMind's
+      summaries of outside testers' work.
+    confidence: low
+    stale_after: 2027-04-01

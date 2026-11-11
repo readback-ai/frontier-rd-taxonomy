@@ -62,3 +62,70 @@ estimates:
       coverage figure is published.
     confidence: low
     stale_after: 2027-09-01
+
+  - id: EST-eval-alignment-automation-gdm-2026-10
+    task: T-eval-alignment
+    quantity: automation_level
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-33
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-36
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-12
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-34
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-35
+    reasoning: >-
+      Models run and score most of the alignment assessment: LLM autoraters evaluated 10,000 sampled
+      training rollouts, an auditor model conducts the Gram sessions and an LLM judge scores them,
+      and the cheating audit was reviewed by models in stages. People read what the judges flag,
+      wrote at least one of the judge prompts and draw the conclusions. The report presents the
+      static scenario suites as the team's work and does not say whether models helped build them.
+      Large chunks by models with people making the calls: AL3, with Gram closer to AL4.
+    confidence: low
+    stale_after: 2027-04-01
+
+  - id: EST-eval-alignment-oversight-gdm-2026-10
+    task: T-eval-alignment
+    quantity: oversight_mode
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: category, value: ai_review_human_by_exception}
+    basis: evidence
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-34
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-33
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-36
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-32
+    reasoning: >-
+      LLM judges score every rollout, and people read what the judges flag or rank highest: the 419
+      highest-scoring of 517 rollouts flagged in one tier and all 9 flagged on the second rubric,
+      out of 10,000 sampled. No human reading of unflagged rollouts is described. In the cheating
+      audit unflagged runs were checked only in a random sample, and LLMs did all of the reviewing.
+      Which transcripts a person sees is decided by a model, and the judges are earlier Gemini
+      models.
+    confidence: medium
+    stale_after: 2027-04-01
+
+  - id: EST-eval-alignment-human-coverage-gdm-2026-10
+    task: T-eval-alignment
+    quantity: human_review_coverage
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: point, value: 0.042}
+    denominator: reinforcement learning training rollouts sampled for the alignment-faking and beyond-episode-drives audit of one model
+    basis: evidence
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-34
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-33
+    reasoning: >-
+      People manually audited 419 of the 10,000 sampled rollouts, the highest-scoring of the 517
+      that one judge flagged in one tier: 4.2%. All 9 rollouts flagged on the second rubric were
+      also read, which lifts the share to 4.3% at most if none overlap. The ratio is ours, computed
+      from counts the report states. It covers the reading the report describes for this one audit.
+      Other parts of the alignment assessment give no counts. The 10,000 are themselves a sample of
+      training rollouts, so coverage of all rollouts is far lower. The unit is rollouts, not
+      contributions, and a model chose which ones people read.
+    confidence: medium
+    stale_after: 2027-10-01

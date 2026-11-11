@@ -15,13 +15,16 @@ summary: >-
   assessment that rests on monitoring, an alignment assessment, chain-of-thought transparency
   tests, and a section on evaluation awareness and its effects.
 limits: >-
-  Self-reported. The automation findings rest on a 12-person survey and on trajectories labeled
-  by a model; experimental code is excluded from the code figures. Findings of external testers
-  are Google's summaries. Some evaluations ran on checkpoints 6 and 10 days before the final
-  one. Figures are not in the extracted text. Only parts of the report were read for this
-  record: Sections 1 to 3.4.4 and 3.5 to 3.7 in full, and Section 3.4.5 in part (3.4.5.3, the
-  results pages of 3.4.5.4, 3.4.5.8 and 3.4.5.9 were not read). Sections 4 to 7 were searched
-  by keyword only.
+  Self-reported. The automation findings rest on a 12-person survey and on trajectories labeled by a
+  model; experimental code is excluded from the code figures. Findings of external testers are
+  Google's summaries. Some evaluations ran on checkpoints 6 and 10 days before the final one.
+  Figures are not in the extracted text. Only parts of the report were read for this record:
+  Sections 1 to 3.4.4 and 3.5 to 3.7 in full, and Section 3.4.5 in part (3.4.5.3, the results pages
+  of 3.4.5.4, 3.4.5.8 and 3.4.5.9 were not read). Sections 4 to 7 were searched by keyword only. The
+  report withholds its CBRN threat scenarios and the details of its dynamic prompting method. Model
+  judges do nearly all of the scoring in the alignment assessment, and models did all of the
+  reviewing in the audit for benchmark cheating. The methods of outside testers, like their
+  findings, are given only in Google's summaries.
 evidence:
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-01
     claim: >-
@@ -191,9 +194,13 @@ evidence:
     grade: B
     tasks: [T-eval-dangerous, T-eval-external, T-eval-determination]
     note: >-
-      Google says an internal capability index showed no material change between checkpoints.
-      The time between the final checkpoint and release is not stated. All other evaluations
-      ran on the final release candidate.
+      Google says its internal capability index showed no material change between checkpoints. It
+      counts a difference as material only above four months of capability progress. Table 3.8
+      assigns all other evaluations to the final release candidate, but the manipulation section
+      says the propensity evaluation ran on Model A and that experts reviewed strategic planning
+      outputs from Model A (PDF pages 42 to 52). The table also puts external manipulation testing
+      and the CBRN static evaluations on Model B. The time between the final checkpoint and release
+      is not stated.
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-10
     claim: >-
@@ -251,9 +258,13 @@ evidence:
     grade: B
     tasks: [T-eval-transcripts, T-eval-validity, T-eval-graders]
     note: >-
-      The report does not say whether people or a script did that check. Staff also wrote, per task,
-      what counts as withheld information and a disallowed route. Table 3.6 lists as a limitation
-      that 17% of TerminalBench runs lacked transcripts.
+      Footnote 26 says LLMs did all of the reviewing in this audit, so no human reading of
+      transcripts can be assumed at any stage. The report does not say who or what checked that the
+      judge's cited actions appear in the transcripts. It says "we" wrote down, per task, what
+      counts as withheld information and a disallowed route, and does not say whether a model
+      drafted these. "Read every run" is taken here as every flagged run, since the footnote says
+      runs the judge did not flag were checked only in a random sample. Table 3.6 lists as a
+      limitation that 17% of TerminalBench runs lacked transcripts.
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-13
     claim: >-
@@ -275,9 +286,9 @@ evidence:
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-14
     claim: >-
-      External evaluators do not comment on Google DeepMind's risk thresholds. Google DeepMind's
-      subject matter experts review, translate and integrate the external results into its own
-      internal risk analyses.
+      External evaluators do not directly comment on the risk thresholds in Google DeepMind's
+      Frontier Safety Framework. Google DeepMind's subject matter experts review, translate and
+      integrate the external results into its own internal risk analyses.
     quote: >-
       The independent external evaluators explore frontier safety risk domains, however they do
       not directly comment on risk thresholds as contemplated under our FSF. [...] Our subject
@@ -324,9 +335,15 @@ evidence:
     grade: B
     tasks: [T-eval-dangerous, T-eval-elicitation, T-eval-graders]
     note: >-
-      Evidence that people do this work. The results section says eight expert red teamers
-      assessed the three biological scenarios (PDF page 26). The CBRN threshold assessments
-      rest on this red teaming.
+      Evidence that people do this work. The same paragraph says red teamers are trained on internal
+      evaluation tools and that Google DeepMind also applied advanced jailbreaking techniques in the
+      red teaming. The results section says it employed additional specialized jailbreak methods on
+      top of the guidance and strategies it gives red teamers (PDF page 29). Whether those methods
+      are automated is not stated. Eight expert red teamers assessed the three biological scenarios
+      (PDF page 26). The biological threshold assessment focuses on this red teaming, and the report
+      also draws on external testing and, for radiological and nuclear risks, on static evaluations.
+      The quote shows who applies the rubric. It does not say who wrote it, so the link to
+      T-eval-graders is to scoring practice only.
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-17
     claim: >-
@@ -349,9 +366,10 @@ evidence:
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-18
     claim: >-
-      In the CBRN domain, the check for evaluation awareness and deliberate underperformance was
-      run by automated tests on 390 trajectories. The tests flagged 65 trajectories (16.7%) for
-      evaluation awareness and none for deliberate underperformance.
+      Google DeepMind checked for evaluation awareness and deliberate underperformance in the CBRN
+      domain by running automated tests on responses and thinking traces from static evaluations,
+      390 trajectories in all. The tests flagged 65 trajectories (16.7%) for evaluation awareness
+      and none for deliberate underperformance.
     quote: >-
       we used automated tests to analyze the model's responses and raw thinking traces from static
       evaluations of Gemini 4 Argon. [...] Running 10 replicates per set yielded 390 total test
@@ -364,9 +382,12 @@ evidence:
     grade: B
     tasks: [T-eval-validity]
     note: >-
-      This section describes no human reading of the 390 trajectories. Section 3.5.3 says manual
-      inspection was combined with LLM-assisted triage across all risk domains. What the automated
-      tests are is not stated.
+      The 390 trajectories come from biological question sets: the additional static evaluations
+      plus dual-use and non-hazardous biological questions. This section describes no such check on
+      the expert red-teaming conversations, on which the biological threshold assessment focuses,
+      and no human reading of the 390 trajectories. Section 3.5.3 says manual inspection was
+      combined with LLM-assisted triage across all risk domains. What the automated tests are is not
+      stated, so the item does not show that a model did the checking.
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-19
     claim: >-
@@ -415,14 +436,18 @@ evidence:
     grade: B
     tasks: [T-eval-elicitation]
     note: >-
-      Table 3.4 gives the share of attempts that elicited a plan for each method. The report
-      withholds the details of the method.
+      The two halves of the quote are ten pages apart. "This dynamic method" on page 53 refers to a
+      standardized dynamic prompting approach described in the elicitation section. That it is the
+      investigator agent of page 43 is our reading, from the "Dynamic prompting" column of Table
+      3.4, which gives the share of attempts that elicited a plan for each method. The report
+      withholds the details of the method and does not say what model the investigator agent runs
+      on.
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-22
     claim: >-
-      In the harmful manipulation evaluations, automated checks flagged responses showing
-      evaluation awareness or deliberate underperformance, and the evaluation team reviewed all
-      flagged responses and chains of thought.
+      In the strategic planning and efficacy evaluations for harmful manipulation, automated checks
+      flagged responses showing evaluation awareness or deliberate underperformance, and the
+      evaluation team reviewed all flagged responses and chains of thought.
     quote: >-
       We used automated checks to flag model responses from our strategic planning and efficacy
       evaluations that exhibited evaluation awareness or deliberate underperformance on safety.
@@ -435,7 +460,8 @@ evidence:
     tasks: [T-eval-validity, T-eval-transcripts]
     note: >-
       People read what the automated checks flagged. No reading of unflagged responses is described
-      in this section.
+      in this section, and the propensity evaluation is not mentioned. What the automated checks are
+      is not stated.
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-23
     claim: >-
@@ -697,9 +723,9 @@ evidence:
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-37
     claim: >-
-      To elicit monitor evasion, Google DeepMind tested system prompts red-teamed by hand and
-      prompts iteratively optimized by a version of Gemini, and reported results for the prompts
-      with the highest evasion rates.
+      To elicit monitor evasion on LinuxArena, Google DeepMind tested system prompts red-teamed by
+      hand and prompts iteratively optimized by a version of Gemini, and reported results for the
+      prompts with the highest evasion rates in each category.
     quote: >-
       we test both manually red-teamed system prompts and prompts iteratively optimized by a version
       of Gemini on a held-out set of 200 task pairs. We report results using the prompts with the
@@ -709,7 +735,9 @@ evidence:
     strength: reported
     grade: B
     tasks: [T-eval-elicitation, T-eval-safeguards]
-    note: The report does not say which kind of prompt gave the reported results.
+    note: >-
+      The report does not say which kind of prompt gave the reported results. It does not say
+      whether the internal-codebase version used the same prompts.
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-38
     claim: >-
@@ -731,8 +759,8 @@ evidence:
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-39
     claim: >-
-      In the same evaluation, the script that decides whether a side task succeeded was generated
-      and reviewed alongside the side task prompt.
+      In Google DeepMind's internal-codebase monitor evasion evaluation, the script that decides
+      whether a side task succeeded was generated and reviewed alongside the side task prompt.
     quote: >-
       Side task success is determined by a script that was generated and reviewed alongside the
       side task prompt.
@@ -748,9 +776,9 @@ evidence:
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-40
     claim: >-
-      Google DeepMind lists as a limitation that the side tasks in this evaluation are written and
-      reviewed by Gemini 4 Argon and no human expert, so the benchmark may inherit that model's
-      blind spots.
+      Google DeepMind lists as a limitation of its internal-codebase monitor evasion evaluation that
+      the side tasks are written and reviewed by Gemini 4 Argon rather than by human experts, so the
+      benchmark may inherit that model's blind spots.
     quote: >-
       Side tasks are written and reviewed by Gemini 4 Argon rather than by human experts, so the
       benchmark may inherit that model's blind spots about what constitutes plausible cover or
@@ -766,9 +794,9 @@ evidence:
 
   - id: EV-gdm-2026-10-gemini-4-argon-safety-report-41
     claim: >-
-      Across all risk domains, sampled trajectories were screened for 9 failure modes and for
-      deliberate underperformance by manual transcript inspection combined with LLM-assisted
-      triage.
+      Google DeepMind says that across all risk domains it combined manual transcript inspection
+      with LLM-assisted triage to screen sampled trajectories for 9 environment and execution
+      failure modes, alongside dedicated checks for deliberate underperformance.
     quote: >-
       Across all risk domains, we combined manual transcript inspection with LLM-assisted triage to
       screen sampled trajectories for 9 environment and execution failure modes (including
@@ -780,5 +808,38 @@ evidence:
     grade: B
     tasks: [T-eval-validity, T-eval-transcripts]
     note: >-
-      Extends item 06, which covers the cyber, stealth and situational awareness suites. Sample
+      Extends item 06, which covers the cyber, stealth and situational awareness suites. The
+      sentence does not say how the dedicated underperformance checks were done. The domain sections
+      are narrower: the CBRN section describes automated tests on static evaluations only (item 18),
+      and the manipulation section describes people reading only flagged responses (item 22). Sample
       sizes and the split between manual and model reading are not given.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-42
+    claim: >-
+      Google DeepMind says it worked with threat intelligence and counter-terrorism experts to
+      validate each high-level CBRN scenario and to develop a detailed scenario for each.
+    quote: >-
+      We worked with threat intelligence and counter-terrorism experts to validate each high-level
+      scenario and develop a plausible detailed scenario for each.
+    locator: PDF page 24
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-design, T-eval-tasks]
+    note: >-
+      Found by the verifier while checking a draft estimate that said no person reviewed each task.
+      The report withholds the scenarios themselves.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-43
+    claim: >-
+      Google DeepMind says its coverage evaluations of safeguards cover benign and malicious cyber
+      and CBRN usage and use expert reviews.
+    quote: >-
+      These evaluations cover benign and malicious cyber/CBRN usage, leveraging expert reviews.
+    locator: PDF page 56
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-safeguards, T-eval-tasks]
+    note: >-
+      Found by the verifier. The sentence does not say what the experts review or how much of it.
