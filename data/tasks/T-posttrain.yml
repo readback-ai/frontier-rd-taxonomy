@@ -1,0 +1,130 @@
+branch: T-posttrain
+status: draft
+tasks:
+  - id: T-posttrain
+    name: Posttraining
+    description: >-
+      Turning a trained model into the one that is used: supervised and preference tuning,
+      reinforcement learning with its environments and rewards, safety training, distillation,
+      and the harness and system prompt it ships with.
+
+  - id: T-posttrain-tuning
+    name: Supervised and preference tuning
+    parent: T-posttrain
+    description: >-
+      Fine-tuning on demonstrations and preference data, including the recipe, the data
+      selection and the stopping point.
+    contributions:
+      - A fine-tuning recipe for a release candidate
+      - A change to preference data selection
+    output_roles: [shapes]
+    verifiability: empirical
+    feedback_latency: days
+    failure_visibility: quiet
+    reversibility: cheap
+    privilege: [training_infra, weights]
+    change_type: training_improvement
+    rationale: >-
+      Runs are short and can be redone. What is checked is the target metric, and a change in
+      a behavior nobody is measuring passes.
+
+  - id: T-posttrain-rl
+    name: Reinforcement learning runs
+    parent: T-posttrain
+    description: >-
+      Algorithms and run configuration for reinforcement learning on tasks and environments,
+      including what is rewarded across the mix of environments.
+    contributions:
+      - A reinforcement learning run configuration for a release candidate
+      - A change to the algorithm or to the mix of environments
+    output_roles: [shapes]
+    verifiability: empirical
+    feedback_latency: weeks
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [training_infra, weights]
+    change_type: training_improvement
+    rationale: >-
+      The run optimizes whatever the rewards pay for. Dispositions that grow over the run, such
+      as doing less on some kinds of task, have been found after the fact and without a cause.
+
+  - id: T-posttrain-environments
+    name: Environments, rewards and training graders
+    parent: T-posttrain
+    description: >-
+      Building the tasks a model is trained on by reinforcement: environments, reward
+      functions, model graders and the vetting that decides an environment is fit to train on.
+    contributions:
+      - A batch of new training environments with rewards
+      - A model grader used as a reward signal
+    output_roles: [shapes, measures]
+    verifiability: judgment
+    feedback_latency: weeks
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [training_infra]
+    change_type: dataset_update
+    rationale: >-
+      Environments are generated in bulk by models and vetted by sampling. A grader that
+      prefers the wrong behavior trains it in, and nothing in the reward curve says so.
+
+  - id: T-posttrain-safety
+    name: Safety and alignment training
+    parent: T-posttrain
+    description: >-
+      Training aimed at behavior under pressure: refusals, robustness to adversarial prompts,
+      honesty, and fixes for failures found by assessments.
+    contributions:
+      - A training fix for a behavior found in an alignment assessment
+      - An adversarial training round against new jailbreaks
+    output_roles: [shapes, contains]
+    verifiability: judgment
+    feedback_latency: weeks
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [training_infra, weights]
+    change_type: training_improvement
+    rationale: >-
+      Success is the absence of a behavior on the tests that found it. Whether the behavior is
+      gone or only harder to elicit cannot be told from those tests.
+
+  - id: T-posttrain-distillation
+    name: Distillation and model variants
+    parent: T-posttrain
+    description: >-
+      Producing smaller, faster or specialized models from a larger one, and deciding that a
+      variant inherits the parent's assessments.
+    contributions:
+      - A distilled or quantized variant of a release model
+      - A decision that a variant needs no separate assessment
+    output_roles: [shapes, decides]
+    verifiability: empirical
+    feedback_latency: weeks
+    failure_visibility: quiet
+    reversibility: cheap
+    privilege: [weights]
+    change_type: training_improvement
+    rationale: >-
+      Variants are checked on capability benchmarks and assumed to share the parent's safety
+      properties. The assumption is seldom tested, because the assessments are expensive.
+
+  - id: T-posttrain-harness
+    name: Harness, tools and system prompt
+    parent: T-posttrain
+    description: >-
+      The scaffold a model ships in: system prompts, tool definitions, context management and
+      product defaults that change how the same weights behave.
+    contributions:
+      - A system prompt change for a product
+      - A change to default reasoning effort, tools or context handling
+    output_roles: [shapes, runs]
+    verifiability: empirical
+    feedback_latency: days
+    failure_visibility: quiet
+    reversibility: cheap
+    privilege: [production]
+    change_type: system_software_change
+    rationale: >-
+      These changes ship fast and are easy to revert. Three of them passed internal
+      evaluations and degraded a coding product for weeks before users' reports made it
+      visible.

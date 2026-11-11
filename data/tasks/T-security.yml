@@ -1,0 +1,86 @@
+branch: T-security
+status: draft
+tasks:
+  - id: T-security
+    name: Security
+    description: >-
+      Protecting weights, systems and records from outsiders, insiders and the models
+      themselves: access, logging and control over what changes reach production.
+
+  - id: T-security-weights
+    name: Weight protection
+    parent: T-security
+    description: >-
+      Storage, encryption, egress limits and handling rules for model weights.
+    contributions:
+      - A change to egress limits on systems that hold weights
+      - A change to who or what can read a checkpoint
+    output_roles: [contains]
+    verifiability: mechanical
+    feedback_latency: never
+    failure_visibility: silent
+    reversibility: irreversible
+    privilege: [weights, security]
+    change_type: control_change
+    rationale: >-
+      A weakened control gives no signal until it is used, and weights that have left cannot be
+      recalled.
+
+  - id: T-security-access
+    name: Access control and identity
+    parent: T-security
+    description: >-
+      Who and what can act on internal systems: identity, roles, service accounts and the
+      credentials given to agents.
+    contributions:
+      - A new role or service account with access to training infrastructure
+      - A change to how agent credentials are scoped
+    output_roles: [contains]
+    verifiability: mechanical
+    feedback_latency: never
+    failure_visibility: silent
+    reversibility: cheap
+    privilege: [security]
+    change_type: control_change
+    rationale: >-
+      Access grows by small grants, each reasonable. The sum is examined only in an audit or
+      after an incident.
+
+  - id: T-security-logging
+    name: Logging, audit trails and detection
+    parent: T-security
+    description: >-
+      The records that let anyone reconstruct what happened, and the detection built on them.
+    contributions:
+      - A change to what agent actions are logged and for how long
+      - A new detection rule on infrastructure logs
+    output_roles: [contains, measures]
+    verifiability: mechanical
+    feedback_latency: never
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [security]
+    change_type: control_change
+    rationale: >-
+      Every later investigation depends on these records. A gap is found when the record is
+      needed and cannot be filled afterwards.
+
+  - id: T-security-change
+    name: Change management
+    parent: T-security
+    description: >-
+      The controls on what reaches production: two-party review, deploy approval, and the
+      exceptions to them.
+    contributions:
+      - A change to the two-party review rule or its exemptions
+      - An emergency deploy path
+    output_roles: [contains, decides]
+    verifiability: mechanical
+    feedback_latency: never
+    failure_visibility: silent
+    reversibility: cheap
+    privilege: [security, production]
+    change_type: control_change
+    rationale: >-
+      The rule can be met in form while the second party reads less of each change. Nothing in
+      the control's own records shows how much was read.

@@ -4,25 +4,25 @@ source: S-readback-2026-11-pacing-calibration
 description: >-
   The 18 activity categories in OpenAI's "Research acceleration: The view inside OpenAI"
   (2026-09-06), as transcribed in the pacing model's calibration file, mapped to task ids
-  here. Only the evaluation branch exists so far; categories that belong to branches not yet
-  built map to nothing and say which branch they wait for. A category maps to a task when
-  most of the task's work would be logged under it; the mapping is many-to-many and loose.
+  here. A category maps to a task when most of the task's work would be logged under it; the
+  mapping is many-to-many and loose. The categories describe activities and the task tree
+  describes what is produced, so one category often spans several branches.
 entries:
-  - {external_id: "1.1", external_label: what to work on, note: Waits for T-direction}
-  - {external_id: "1.2", external_label: what to continue or stop, note: Waits for T-direction}
-  - {external_id: "1.3", external_label: compute and staffing decisions, note: Waits for T-direction}
-  - {external_id: "2.1", external_label: research and experiment planning, tasks: [T-eval-design], note: Mostly T-direction and the training branches}
-  - {external_id: "2.2", external_label: technical specifications, note: Waits for the training branches}
-  - {external_id: "3.1", external_label: research and infrastructure code, tasks: [T-eval-harness, T-eval-graders], note: Mostly T-infra and the training branches}
-  - {external_id: "3.2", external_label: training and eval datasets, tasks: [T-eval-tasks], note: Joins training and evaluation data; mostly T-data}
-  - {external_id: "4.1", external_label: "launch, monitor and debug runs", tasks: [T-eval-assessments], note: Mostly the training branches}
-  - {external_id: "4.2", external_label: compute-cluster operations, note: Waits for T-infra}
-  - {external_id: "4.3", external_label: production serving reliability, note: Waits for T-infra}
-  - {external_id: "5.1", external_label: analyze experiment results, tasks: [T-eval-inloop]}
+  - {external_id: "1.1", external_label: what to work on, tasks: [T-direction-priorities]}
+  - {external_id: "1.2", external_label: what to continue or stop, tasks: [T-direction-priorities, T-direction-promotion]}
+  - {external_id: "1.3", external_label: compute and staffing decisions, tasks: [T-direction-compute]}
+  - {external_id: "2.1", external_label: research and experiment planning, tasks: [T-pretrain-research, T-pretrain-scaling, T-posttrain-rl, T-eval-design]}
+  - {external_id: "2.2", external_label: technical specifications, tasks: [T-pretrain-scaling, T-midtrain-character, T-infra-training]}
+  - {external_id: "3.1", external_label: research and infrastructure code, tasks: [T-infra, T-agents-harness, T-pretrain-research, T-posttrain-tuning, T-eval-harness, T-eval-graders], note: The largest category by growth in agent output. It joins research code and infrastructure code}
+  - {external_id: "3.2", external_label: training and eval datasets, tasks: [T-data, T-midtrain-corpora, T-posttrain-environments, T-eval-tasks], note: Joins training and evaluation data}
+  - {external_id: "4.1", external_label: "launch, monitor and debug runs", tasks: [T-pretrain-execution, T-posttrain-rl, T-eval-assessments]}
+  - {external_id: "4.2", external_label: compute-cluster operations, tasks: [T-infra-compute]}
+  - {external_id: "4.3", external_label: production serving reliability, tasks: [T-infra-inference]}
+  - {external_id: "5.1", external_label: analyze experiment results, tasks: [T-direction-promotion, T-eval-inloop]}
   - {external_id: "5.2", external_label: analyze model behavior and capabilities, tasks: [T-eval-interpretation, T-eval-alignment, T-eval-dangerous]}
-  - {external_id: "5.3", external_label: analyze production usage, note: Waits for T-safeguards}
-  - {external_id: "5.4", external_label: review external research, note: Waits for T-direction}
-  - {external_id: "6.1", external_label: research write-ups and documentation, tasks: [T-eval-reporting]}
-  - {external_id: "6.2", external_label: technical help and review, note: Cuts across every branch. The category that most directly concerns review}
-  - {external_id: "6.3", external_label: status updates and work logs}
-  - {external_id: "6.4", external_label: decision announcements, tasks: [T-eval-determination]}
+  - {external_id: "5.3", external_label: analyze production usage, tasks: [T-safeguards-operations, T-safeguards-monitors]}
+  - {external_id: "5.4", external_label: review external research, tasks: [T-direction-priorities]}
+  - {external_id: "6.1", external_label: research write-ups and documentation, tasks: [T-eval-reporting, T-direction-promotion]}
+  - {external_id: "6.2", external_label: technical help and review, tasks: [T-agents-workflow, T-security-change], note: Cuts across every branch. The category that most directly concerns review}
+  - {external_id: "6.3", external_label: status updates and work logs, note: "No task. These are records of work and deploy nothing"}
+  - {external_id: "6.4", external_label: decision announcements, tasks: [T-direction-scale, T-eval-determination]}

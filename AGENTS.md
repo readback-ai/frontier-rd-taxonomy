@@ -29,6 +29,9 @@ uv run taxo verify-quotes [<source-id> ...]
 uv run taxo validate
 uv run taxo report
 uv run taxo gate-inputs
+uv run --extra pacing taxo sensitivity --model-dir <readback-ops>/research/pacing-takeoff-model
+uv run taxo pack-snapshots --out <archive>
+uv run taxo restore-snapshots <archive>
 uv run taxo stale
 ```
 

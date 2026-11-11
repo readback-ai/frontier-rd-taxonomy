@@ -1,0 +1,79 @@
+task: T-pretrain
+estimates:
+  # ---- Judgment priors for the pacing model's gate (spec decision D14) ---------------------------
+  - id: EST-pretrain-training-count-frontier-2026-11
+    task: T-pretrain
+    quantity: changes_per_researcher_year
+    scope: frontier
+    change_type: training_improvement
+    as_of: 2026-11
+    value: {kind: range, low: 0.04, central: 0.51, high: 5}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for training improvements from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 2 (0.5 to 5), leaning on the
+      pacing model's assumed 6 training improvements per researcher-year at 10 hours, split across
+      branches. The second, blind to the first and to the pacing model, built up from staffing and
+      landing rates and gave 0.13 (0.04 to 0.45). Pooled: the lower 10th percentile, the higher 90th
+      percentile and the geometric mean of the two medians. The two medians differ by a factor of
+      15, which is disagreement about what counts as one deployed change more than about the work.
+      Second elicitation's reasoning: About 6% of staff in pretraining research, each getting one to
+      three improvements promoted into a production or baseline configuration per year, plus about
+      ten large-run configurations and some tens of mid-run interventions, so 200 to 600 a year in
+      total. A promoted improvement takes about 10 hours (evidence, mechanism, interactions), a
+      mid-run intervention about 4, and a full large-run configuration 40 or more.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-pretrain-training-hours-frontier-2026-11
+    task: T-pretrain
+    quantity: hours_to_understand
+    scope: frontier
+    change_type: training_improvement
+    as_of: 2026-11
+    value: {kind: range, low: 3, central: 11, high: 35}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for training improvements from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 12 (5 to 30), leaning on the
+      pacing model's assumed 6 training improvements per researcher-year at 10 hours, split across
+      branches. The second, blind to the first and to the pacing model, built up from staffing and
+      landing rates and gave 10 (3 to 35). Pooled: the lower 10th percentile, the higher 90th
+      percentile and the geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-pretrain-training-elasticity-frontier-2026-11
+    task: T-pretrain
+    quantity: elasticity_to_ai_labor
+    scope: frontier
+    change_type: training_improvement
+    as_of: 2026-11
+    value: {kind: range, low: 0.1, central: 0.35, high: 0.9}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for training improvements from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 0.5 (0.2 to 0.9). The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      0.25 (0.1 to 0.6). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-pretrain-training-share-frontier-2026-11
+    task: T-pretrain
+    quantity: advance_share
+    scope: frontier
+    change_type: training_improvement
+    as_of: 2026-11
+    value: {kind: range, low: 0.12, central: 0.26, high: 0.42}
+    denominator: capability progress carried by deployed changes of the progress types
+    basis: judgment
+    reasoning: >-
+      Judgment prior for training improvements from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 0.25 (0.12 to 0.4). The
+      second, blind to the first and to the pacing model, built up from staffing and landing rates
+      and gave 0.28 (0.15 to 0.42). Pooled: the lower 10th percentile, the higher 90th percentile
+      and the geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01

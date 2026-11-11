@@ -1,0 +1,43 @@
+task: T-direction
+estimates:
+  # ---- Judgment priors for the pacing model's gate (spec decision D14) ---------------------------
+  - id: EST-direction-decision-count-frontier-2026-11
+    task: T-direction
+    quantity: changes_per_researcher_year
+    scope: frontier
+    change_type: decision
+    as_of: 2026-11
+    value: {kind: range, low: 0.25, central: 1.6, high: 10}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for decisions from this branch, pooled from two elicitations made on 2026-11-11
+      with no measurement behind either. The first gave 3 (1 to 10), leaning on a guess at how many
+      consequential decisions a researcher is party to in a year. The second, blind to the first and
+      to the pacing model, built up from staffing and landing rates and gave 0.9 (0.25 to 4).
+      Pooled: the lower 10th percentile, the higher 90th percentile and the geometric mean of the
+      two medians. Second elicitation's reasoning: Counting only recorded team-level decisions:
+      about 300 teams making around six start or stop calls a year (0.6), 500 to 1,000 promotion
+      decisions and written interpretations (0.25), compute allocations and moves (0.1) and a few
+      tens of scale or internal-use decisions. If every ranked experiment list handed to agents
+      counted, the figure would be ten times higher, which is why the upper bound is loose. About 4
+      hours each; quarterly compute allocations and scale decisions take 15 to 40.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-direction-decision-hours-frontier-2026-11
+    task: T-direction
+    quantity: hours_to_understand
+    scope: frontier
+    change_type: decision
+    as_of: 2026-11
+    value: {kind: range, low: 1, central: 3.5, high: 14}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for decisions from this branch, pooled from two elicitations made on 2026-11-11
+      with no measurement behind either. The first gave 3 (1 to 8), leaning on a guess at how many
+      consequential decisions a researcher is party to in a year. The second, blind to the first and
+      to the pacing model, built up from staffing and landing rates and gave 4 (1.5 to 14). Pooled:
+      the lower 10th percentile, the higher 90th percentile and the geometric mean of the two
+      medians.
+    confidence: low
+    stale_after: 2027-05-01

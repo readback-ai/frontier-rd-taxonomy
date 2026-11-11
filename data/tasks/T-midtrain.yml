@@ -1,0 +1,70 @@
+branch: T-midtrain
+status: draft
+tasks:
+  - id: T-midtrain
+    name: Midtraining
+    description: >-
+      Continued training between pretraining and posttraining, on curated or generated
+      corpora, to add knowledge, extend context and modalities, and teach the model its
+      specification and character.
+
+  - id: T-midtrain-corpora
+    name: Curated and synthetic corpora for continued training
+    parent: T-midtrain
+    description: >-
+      Assembling and generating the corpora used in continued training, including documents
+      written for the purpose of teaching the model something.
+    contributions:
+      - A generated corpus that teaches a domain or a set of facts
+      - A refresh of knowledge up to a new cutoff date
+    output_roles: [shapes]
+    verifiability: judgment
+    feedback_latency: weeks
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [training_infra]
+    change_type: dataset_update
+    rationale: >-
+      These corpora are small enough to steer a model and large enough that nobody reads them
+      whole. What else they teach besides the intended content is not measured.
+
+  - id: T-midtrain-capability
+    name: Context, modality and tool-format extension
+    parent: T-midtrain
+    description: >-
+      Training stages that extend what the model can take in and produce: longer context, new
+      modalities, tool and agent formats.
+    contributions:
+      - A training stage that adds a modality or a tool-calling format
+      - A long-context training recipe
+    output_roles: [shapes]
+    verifiability: empirical
+    feedback_latency: weeks
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [training_infra, weights]
+    change_type: training_improvement
+    rationale: >-
+      The new capability is measured directly. What the stage did to earlier behavior is
+      checked only where an existing evaluation happens to cover it.
+
+  - id: T-midtrain-character
+    name: Specification and character corpora
+    parent: T-midtrain
+    description: >-
+      Writing and generating the data that teaches a model its developer's specification:
+      values, character, how it describes itself and how it handles conflicts.
+    contributions:
+      - A corpus generated from a constitution or model specification
+      - A change to how the specification is turned into training data
+    output_roles: [shapes]
+    verifiability: judgment
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [training_infra]
+    change_type: dataset_update
+    rationale: >-
+      The target is the model's dispositions, which are measured by the alignment assessments
+      whose limits the evaluation branch records. A model writes most of the data about what the
+      next model should be.

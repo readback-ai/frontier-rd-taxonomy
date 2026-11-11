@@ -38,7 +38,7 @@ Add incidents. Run the backtest in `draft-questions` for each new incident again
 
 ## 5. Report
 
-`uv run taxo report` and `make check`. The pull request carries the readback from `AGENTS.md`, plus:
+`uv run taxo report` and `make check`. If any gate input changed, run `taxo sensitivity` again (`taxo validate` warns when it is out of date). Pack the snapshots with `uv run taxo pack-snapshots` and put the archive in the organization's snapshot folder (spec decision D15); a session's disk does not last. The pull request carries the readback from `AGENTS.md`, plus:
 
 - Sources added, by type. Sources edited by their publisher since last month.
 - Estimates changed: old value, new value, the evidence that moved it.

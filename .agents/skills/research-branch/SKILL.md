@@ -34,6 +34,8 @@ For each leaf, in `data/estimates/<task>.yml`:
 - Start from what the evidence fixes. Use `scope` for one developer when the evidence is about one developer. Estimate `frontier` only when you can say why it generalizes.
 - If nothing constrains the value, either leave it out or record it as `judgment` with wide bounds and low confidence. A judgment estimate is worth recording when the pacing model needs the cell; say so in `reasoning`.
 - Never average an analog number into a frontier estimate.
+- Estimate each of Anthropic, OpenAI and Google DeepMind separately. A pooled figure exists only where all three have their own estimate (spec decision D16), so a leaf with one developer is a gap to report, not a result. Check `reports/coverage.md`, "Pooled across", for who is missing.
+- Gate quantities with no evidence get a judgment prior from two independent elicitations (`docs/codebook.md`, section 4). The second estimator must not see the first's numbers or the pacing model's assumptions.
 
 Exit: each estimate's `reasoning` can be followed from the cited quotes by someone who has not read the sources.
 

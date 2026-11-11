@@ -1,0 +1,154 @@
+task: T-midtrain
+estimates:
+  # ---- Judgment priors for the pacing model's gate (spec decision D14) ---------------------------
+  - id: EST-midtrain-training-count-frontier-2026-11
+    task: T-midtrain
+    quantity: changes_per_researcher_year
+    scope: frontier
+    change_type: training_improvement
+    as_of: 2026-11
+    value: {kind: range, low: 0.006, central: 0.1, high: 1.5}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for training improvements from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 0.5 (0.1 to 1.5), leaning on
+      the pacing model's assumed 6 training improvements per researcher-year at 10 hours, split
+      across branches. The second, blind to the first and to the pacing model, built up from
+      staffing and landing rates and gave 0.02 (0.006 to 0.07). Pooled: the lower 10th percentile,
+      the higher 90th percentile and the geometric mean of the two medians. The two medians differ
+      by a factor of 25, which is disagreement about what counts as one deployed change more than
+      about the work. Second elicitation's reasoning: A small group (1 to 2% of staff) shipping 5 to
+      15 context, modality or tool-format stage recipes per model generation over roughly five
+      generations or tiers a year, so 30 to 100 a year. Each is a full training stage with
+      regression risk to earlier behavior, about 10 hours.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-midtrain-training-hours-frontier-2026-11
+    task: T-midtrain
+    quantity: hours_to_understand
+    scope: frontier
+    change_type: training_improvement
+    as_of: 2026-11
+    value: {kind: range, low: 4, central: 10, high: 30}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for training improvements from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 10 (4 to 25), leaning on the
+      pacing model's assumed 6 training improvements per researcher-year at 10 hours, split across
+      branches. The second, blind to the first and to the pacing model, built up from staffing and
+      landing rates and gave 10 (4 to 30). Pooled: the lower 10th percentile, the higher 90th
+      percentile and the geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-midtrain-training-elasticity-frontier-2026-11
+    task: T-midtrain
+    quantity: elasticity_to_ai_labor
+    scope: frontier
+    change_type: training_improvement
+    as_of: 2026-11
+    value: {kind: range, low: 0.1, central: 0.39, high: 0.9}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for training improvements from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 0.5 (0.2 to 0.9). The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      0.3 (0.1 to 0.6). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-midtrain-training-share-frontier-2026-11
+    task: T-midtrain
+    quantity: advance_share
+    scope: frontier
+    change_type: training_improvement
+    as_of: 2026-11
+    value: {kind: range, low: 0.01, central: 0.04, high: 0.1}
+    denominator: capability progress carried by deployed changes of the progress types
+    basis: judgment
+    reasoning: >-
+      Judgment prior for training improvements from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 0.04 (0.01 to 0.1). The
+      second, blind to the first and to the pacing model, built up from staffing and landing rates
+      and gave 0.04 (0.015 to 0.08). Pooled: the lower 10th percentile, the higher 90th percentile
+      and the geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-midtrain-data-count-frontier-2026-11
+    task: T-midtrain
+    quantity: changes_per_researcher_year
+    scope: frontier
+    change_type: dataset_update
+    as_of: 2026-11
+    value: {kind: range, low: 0.01, central: 0.17, high: 3}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for dataset updates from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 1 (0.3 to 3), leaning on the
+      pacing model's assumed 8 dataset updates per researcher-year at 8 hours, split across
+      branches. The second, blind to the first and to the pacing model, built up from staffing and
+      landing rates and gave 0.03 (0.01 to 0.1). Pooled: the lower 10th percentile, the higher 90th
+      percentile and the geometric mean of the two medians. The two medians differ by a factor of
+      33, which is disagreement about what counts as one deployed change more than about the work.
+      Second elicitation's reasoning: Some 50 to 150 generated domain corpora, knowledge refreshes
+      and specification or character corpora a year from a few dozen people. About 7 hours each,
+      with character corpora the slow ones because the target is disposition and the side effects
+      are not in the text.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-midtrain-data-hours-frontier-2026-11
+    task: T-midtrain
+    quantity: hours_to_understand
+    scope: frontier
+    change_type: dataset_update
+    as_of: 2026-11
+    value: {kind: range, low: 2.5, central: 7.5, high: 20}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for dataset updates from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 8 (3 to 20), leaning on the
+      pacing model's assumed 8 dataset updates per researcher-year at 8 hours, split across
+      branches. The second, blind to the first and to the pacing model, built up from staffing and
+      landing rates and gave 7 (2.5 to 20). Pooled: the lower 10th percentile, the higher 90th
+      percentile and the geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-midtrain-data-elasticity-frontier-2026-11
+    task: T-midtrain
+    quantity: elasticity_to_ai_labor
+    scope: frontier
+    change_type: dataset_update
+    as_of: 2026-11
+    value: {kind: range, low: 0.25, central: 0.57, high: 1}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for dataset updates from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 0.6 (0.25 to 1). The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      0.55 (0.25 to 0.9). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-midtrain-data-share-frontier-2026-11
+    task: T-midtrain
+    quantity: advance_share
+    scope: frontier
+    change_type: dataset_update
+    as_of: 2026-11
+    value: {kind: range, low: 0.01, central: 0.035, high: 0.1}
+    denominator: capability progress carried by deployed changes of the progress types
+    basis: judgment
+    reasoning: >-
+      Judgment prior for dataset updates from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 0.04 (0.01 to 0.1). The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      0.03 (0.01 to 0.07). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01

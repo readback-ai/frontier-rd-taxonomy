@@ -1,0 +1,109 @@
+branch: T-safeguards
+status: draft
+tasks:
+  - id: T-safeguards
+    name: Safeguards and monitoring
+    description: >-
+      The systems that watch and constrain models in training, internal use and deployment:
+      classifiers, monitors, control protocols, and interpretability used as assurance. Testing
+      them belongs to the evaluation branch; building and running them belongs here.
+
+  - id: T-safeguards-classifiers
+    name: Input and output classifiers
+    parent: T-safeguards
+    description: >-
+      Classifiers and filters on prompts and completions that block or flag misuse, with
+      their thresholds and the policy they implement.
+    contributions:
+      - A retrained misuse classifier and its threshold
+      - A change to which traffic a classifier covers
+    output_roles: [contains]
+    verifiability: empirical
+    feedback_latency: weeks
+    failure_visibility: silent
+    reversibility: cheap
+    privilege: [production]
+    change_type: monitor_change
+    rationale: >-
+      A miss produces no signal. Recall is known only for the attacks in the test set, and a
+      coverage exemption looks the same in the metrics as full coverage.
+
+  - id: T-safeguards-monitors
+    name: Monitors of agents and internal use
+    parent: T-safeguards
+    description: >-
+      Monitors that read the actions and reasoning of models used inside the developer,
+      including the prompts, the severity scale and what gets shown to a person.
+    contributions:
+      - A change to a misalignment monitor's prompt or model
+      - A change to the severity at which a person is alerted
+    output_roles: [contains, measures]
+    verifiability: empirical
+    feedback_latency: weeks
+    failure_visibility: silent
+    reversibility: cheap
+    privilege: [production, security]
+    change_type: monitor_change
+    rationale: >-
+      The monitor is a model reading a model. What it rates low is not read by anyone, and
+      behavior that leaves no trace in reasoning is outside what it can see.
+
+  - id: T-safeguards-control
+    name: Control protocols
+    parent: T-safeguards
+    description: >-
+      Rules about what a model may do without a person: approval gates, trusted monitoring,
+      automatic review of agent actions and the conditions under which work is paused.
+    contributions:
+      - A change to which agent actions need human approval
+      - An automatic reviewer that can block agent actions
+    output_roles: [contains, decides]
+    verifiability: judgment
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: cheap
+    privilege: [security, production]
+    change_type: monitor_change
+    rationale: >-
+      A protocol is tested against the attacks its designers thought of. Whether it holds
+      against the model it constrains is known only if that model is tested as an adversary.
+
+  - id: T-safeguards-interpretability
+    name: Interpretability used for assurance
+    parent: T-safeguards
+    description: >-
+      Probes, feature-based detectors and audits of a model's internals whose results are
+      used as evidence in a safety decision.
+    contributions:
+      - A probe deployed as a detector in monitoring
+      - An internals-based finding cited in a risk report
+    output_roles: [measures, contains]
+    verifiability: judgment
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: cheap
+    privilege: [weights]
+    change_type: monitor_change
+    rationale: >-
+      Few people can check an interpretability claim, and there is seldom ground truth to
+      check it against.
+
+  - id: T-safeguards-operations
+    name: Monitoring operations and incident response
+    parent: T-safeguards
+    description: >-
+      Running the safeguards day to day: triaging alerts, deciding what is a false positive,
+      pausing work and investigating incidents.
+    contributions:
+      - A triage decision on a monitor alert
+      - An incident investigation and its findings
+    output_roles: [contains, decides]
+    verifiability: judgment
+    feedback_latency: days
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [security, production]
+    change_type: none
+    rationale: >-
+      Responders have looked at the first sign of an incident and judged it safe to continue.
+      The work is judgment under load, and its volume grows with the number of agents.

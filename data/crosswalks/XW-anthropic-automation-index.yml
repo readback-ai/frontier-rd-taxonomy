@@ -10,5 +10,5 @@ description: >-
   attached, and it sits inside one developer.
 entries:
   - {external_id: leaf-eval-platform, external_label: eval platform defect diagnosis and fixes, tasks: [T-eval-harness]}
-  - {external_id: leaf-rl-sandbox, external_label: RL sandbox egress and network policy, note: Waits for T-posttrain and T-security}
-  - {external_id: leaf-serving-postmortems, external_label: serving incident postmortems, note: Waits for T-infra}
+  - {external_id: leaf-rl-sandbox, external_label: RL sandbox egress and network policy, tasks: [T-posttrain-environments, T-agents-permissions, T-security-access]}
+  - {external_id: leaf-serving-postmortems, external_label: serving incident postmortems, tasks: [T-infra-inference, T-safeguards-operations]}

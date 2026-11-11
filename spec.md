@@ -41,7 +41,7 @@ Branches, defined by function:
 | `T-security` | Security: weights, access, logging, change management |
 | `T-direction` | Research direction and decisions: prioritization, compute allocation, interpreting results, scale and ship decisions |
 
-Only `T-eval` exists as records. The others are created when researched (milestone M2).
+`T-eval` is researched. The other nine exist at level 2 as drafts (M2): task definitions, attributes and change types, with no evidence, risks or questions attached yet. A draft branch's tasks are our reading of how the work divides, not a finding.
 
 Each leaf carries the attributes that drive risk: output role, verifiability, feedback latency, failure visibility, reversibility, privilege and change type (`docs/codebook.md` section 1).
 
@@ -80,15 +80,16 @@ Enforced by `taxo validate`, which CI runs.
 
 ## 7. Pacing interface
 
-The pacing model in `readback-ops` is top-down: two published models of AI R&D acceleration with a gate on deployed changes. Its gate inputs are assumptions (its README, "Where the inputs are weak or disputed"). This repository does not duplicate that model. It supplies the gate's inputs bottom-up:
+The pacing model in `readback-ops` is top-down: two published models of AI R&D acceleration with a gate on deployed changes. Its gate inputs are assumptions (its README, "Where the inputs are weak or disputed"). This repository does not duplicate that model. It supplies the gate's inputs bottom-up and runs the model on them.
 
-- `taxo gate-inputs` writes `reports/gate-inputs.yml`: for each change type, the count per researcher-year, hours to understand one, elasticity to AI labor and share of progress, combined from leaf-task estimates, each cell with its basis and estimate ids. Counts and shares add across tasks; hours and elasticities are averaged by count.
-- It also reports the share of a researcher-year needed to understand everything deployed, by change type, sampled from the ranges. The pacing model's figure for all types is 15%.
-- The file lists which cells have no estimate. The pacing model keeps its assumption for those.
-- `evaluation_change` and `decision` are change types the pacing model does not have. Its `monitor_change` type covers part of what `T-eval-safeguards` and the future `T-safeguards` branch produce.
+- **Gate quantities.** For each change type: deployed changes per researcher-year, hours to understand one, elasticity of the count to AI labor, and share of progress. They are recorded as estimates on a leaf, or higher in the tree with `change_type` set, for example one count of training improvements for all of `T-pretrain`. A change type is counted at one level only.
+- **Two roles.** Training improvements, dataset updates and system software changes carry progress and take all four numbers. Monitor, evaluation and control changes and decisions are required overhead: they carry no progress and a developer cannot drop them to save review time. They take a count and hours, and are folded into the model's one required term, `monitor_changes`.
+- **`taxo gate-inputs`** writes `reports/gate-inputs.yml`: each change type's numbers with basis and estimate ids, the split by branch, totals, what is missing, and a `pacing_model` block in the shape of the model's `comprehension_gate`. Counts and shares add across branches; hours and elasticities are averaged by count. `central` is the value at every input's central estimate; `low` and `high` are percentiles with the inputs varied independently.
+- **`taxo sensitivity --model-dir <readback-ops>/research/pacing-takeoff-model`** imports the model from a checkout, replaces its gate assumptions with the bottom-up values, and writes `reports/sensitivity.md`: the two sets of inputs side by side, results under each mechanism, the spread over joint draws from the priors, and every input ranked by how far it moves the result. It needs the `pacing` extra (scipy) and runs Model A only. `taxo validate` warns when the gate inputs have changed since the report was run.
+- **Pooling.** For the frontier, a pool of Anthropic, OpenAI and Google DeepMind replaces a `frontier` estimate wherever each of the three has its own number (decision D16).
 - `data/crosswalks/` maps task ids to the activity categories in developers' own reports, so their published shares can be attached to tasks.
 
-Sensitivity analysis in the pacing model ranks its inputs. Its README names the elasticity of deployed changes as the parameter to measure first. Research here follows that ranking (M3).
+Research follows the ranking in `reports/sensitivity.md` (M3).
 
 ## 8. Milestones
 
@@ -122,6 +123,17 @@ Taken as defaults by the build, for the PI to confirm or change:
 - **D11 `incident_report` covers any organization whose work failed,** including evaluators and benchmark builders.
 - **D12 In-loop evaluation includes release regression checks** on serving and product changes, so the two postmortems where such checks passed and users found the fault attach to `T-eval-inloop` directly.
 - **D13 Paywalled text is not used** even when a plain fetch returns it. Four items from one press summary were removed on this ground.
+
+Decided 2026-11-11 (PI, in session, after M1):
+
+- **D14 Gate inputs get judgment priors in M2.** No source gives a count of deployed changes, the hours to understand one, or an elasticity. Each is recorded as a wide prior with `basis: judgment`, pooled from two independent elicitations, so the pacing model can run and its inputs can be ranked for measurement. A prior is replaced when evidence arrives.
+- **D15 Snapshots are kept in the organization's storage,** in Google Drive under Readback Labs, Research Data, "frontier-rd-taxonomy snapshots", or in a private dataset under the Hugging Face organization. `taxo pack-snapshots` writes the archive and `taxo restore-snapshots` unpacks one and checks it against the lock files.
+- **D16 Pooled figures need Anthropic, OpenAI and Google DeepMind.** A pooled figure for a task and quantity exists only when each of the three has its own estimate, and it is the spread across them. A `frontier` estimate that cites evidence must cite all three; `taxo validate` warns otherwise. Judgment priors are exempt because they claim no evidence.
+
+Taken as defaults by the M2 build, for the PI to confirm or change:
+
+- **D17 A seventh change type, `control_change`,** for security, access, permission, review-rule and record-keeping changes. With monitor and evaluation changes and decisions it is required overhead in the gate. The alternative, calling these system software changes, would give them a share of progress and let the model drop them when review time is short.
+- **D18 A developer-scoped estimate of external evaluation** describes the outside testing that developer commissions and what it does with the results. Estimates scoped to an evaluator, such as METR, describe the evaluator's own work and are not pooled.
 
 Open:
 

@@ -1,0 +1,43 @@
+task: T-security
+estimates:
+  # ---- Judgment priors for the pacing model's gate (spec decision D14) ---------------------------
+  - id: EST-security-control-count-frontier-2026-11
+    task: T-security
+    quantity: changes_per_researcher_year
+    scope: frontier
+    change_type: control_change
+    as_of: 2026-11
+    value: {kind: range, low: 0.1, central: 0.84, high: 6}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for control changes from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 2 (0.7 to 6), leaning on the
+      monitor-change assumption, taking controls to be smaller and quicker to read. The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      0.35 (0.1 to 1.2). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians. The two medians differ by a factor of 6, which is
+      disagreement about what counts as one deployed change more than about the work. Second
+      elicitation's reasoning: Dominated by reviewable grants and rules: 300 to 1,000 new roles,
+      service accounts or credential scopes with sensitive access and 200 to 500 detection or
+      logging changes a year, with tens of weight-egress and change-management rule changes. Most
+      are small (1 to 2 hours); egress and review-rule changes take 5 to 10.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-security-control-hours-frontier-2026-11
+    task: T-security
+    quantity: hours_to_understand
+    scope: frontier
+    change_type: control_change
+    as_of: 2026-11
+    value: {kind: range, low: 0.75, central: 3.5, high: 12}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for control changes from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 5 (2 to 12), leaning on the
+      monitor-change assumption, taking controls to be smaller and quicker to read. The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      2.5 (0.75 to 8). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01

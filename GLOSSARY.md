@@ -36,7 +36,11 @@ A meaningful unit of R&D work for which a person or team is accountable and whic
 _Avoid_: Change (alone), PR, artifact
 
 **Change type**:
-The class of deployed change a task produces, as the pacing model counts them: training improvement, dataset update, system software change, monitor change, evaluation change, decision.
+The class of deployed change a task produces, as the pacing model counts them. Progress types: training improvement, dataset update, system software change. Required-overhead types: monitor change, evaluation change, control change, decision.
+
+**Deployed change**:
+A contribution that reaches a production artifact: a training run, a dataset, a platform, an evaluation used for a decision, a monitor or control, or a decision. The unit the pacing model's gate counts.
+_Avoid_: PR, commit, experiment
 
 **Output role**:
 What a task's output does to the model or the organization: shapes it, measures it, contains it, runs it, or decides about it.
@@ -109,6 +113,14 @@ A rule or tool that changes how much human time a contribution needs or how much
 
 **Gate inputs**:
 The numbers the pacing model's gate needs for each change type: count per researcher-year, hours to understand one, growth with AI labor, share of progress.
+
+**Judgment prior**:
+An estimate with no evidence behind it, recorded so the pacing model can run and its inputs can be ranked. Pooled from two independent elicitations.
+_Avoid_: guess, assumption (for a recorded prior)
+
+**Pooled estimate**:
+The spread of Anthropic's, OpenAI's and Google DeepMind's own estimates of one quantity for one task. Exists only when all three do.
+_Avoid_: frontier average, industry figure
 
 **Data date**:
 The latest day any quote was verified. The date printed on generated reports.

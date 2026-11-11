@@ -1,0 +1,68 @@
+branch: T-pretrain
+status: draft
+tasks:
+  - id: T-pretrain
+    name: Pretraining
+    description: >-
+      Research and execution of the main training run: finding improvements at small scale,
+      predicting how they behave at large scale, and running the large run.
+
+  - id: T-pretrain-research
+    name: Architecture, objective and optimizer research
+    parent: T-pretrain
+    description: >-
+      Proposing and testing changes to architecture, training objective, optimizer and
+      hyperparameters in small-scale experiments.
+    contributions:
+      - A training improvement promoted from small-scale experiments
+      - A negative result that closes a line of work
+    output_roles: [shapes]
+    verifiability: empirical
+    feedback_latency: days
+    failure_visibility: quiet
+    reversibility: cheap
+    privilege: [training_infra]
+    change_type: training_improvement
+    rationale: >-
+      An experiment returns a number within days. Why the number moved is a separate question
+      that the experiment does not answer and that agents running many experiments leave open.
+
+  - id: T-pretrain-scaling
+    name: Scaling prediction and run planning
+    parent: T-pretrain
+    description: >-
+      Deciding which small-scale results will hold at full scale and fixing the configuration
+      of a large run: size, data, schedule and the improvements included.
+    contributions:
+      - The configuration of a large training run
+      - A forecast of loss or capability at the next scale
+    output_roles: [shapes, decides]
+    verifiability: deferred
+    feedback_latency: months
+    failure_visibility: quiet
+    reversibility: irreversible
+    privilege: [training_infra]
+    change_type: training_improvement
+    rationale: >-
+      The run is the test, it takes months and it cannot be repeated. Improvements stacked into
+      one configuration interact in ways no small experiment showed.
+
+  - id: T-pretrain-execution
+    name: Large-run execution and intervention
+    parent: T-pretrain
+    description: >-
+      Running the large run: watching loss and health metrics, diagnosing anomalies, and
+      changing the run while it is in progress.
+    contributions:
+      - A mid-run intervention such as a learning-rate change or a rollback to a checkpoint
+      - A diagnosis of a training anomaly
+    output_roles: [runs, shapes]
+    verifiability: empirical
+    feedback_latency: days
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [training_infra, weights]
+    change_type: training_improvement
+    rationale: >-
+      Interventions are made under time pressure on partial information and become part of the
+      model. The reason for one is often recorded only in a chat thread.

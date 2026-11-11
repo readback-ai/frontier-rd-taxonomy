@@ -49,7 +49,21 @@ Rate the task as it is done at a frontier developer today. Write the reason in `
 
 **`privilege`**: access the work needs: `none`, `internal_code`, `training_infra`, `eval_infra`, `weights`, `production`, `security`.
 
-**`change_type`**: the pacing model's class for what the task deploys: `training_improvement`, `dataset_update`, `system_software_change`, `monitor_change`, `evaluation_change`, `decision`, or `none` for analysis that deploys nothing. The first four are the readback-ops model's own types. `evaluation_change` and `decision` are added here (spec decision D6).
+**`change_type`**: the pacing model's class for what the task deploys, or `none` for analysis that deploys nothing.
+
+| Change type | What is deployed | Role in the gate |
+|---|---|---|
+| `training_improvement` | A change to how a model is trained that goes into a production or baseline run | Progress |
+| `dataset_update` | A change to what a model is trained on, including environments and rewards | Progress |
+| `system_software_change` | A change to the software that training, evaluation, serving or internal agents run on | Progress |
+| `monitor_change` | A change to a classifier, monitor, control protocol or assurance probe | Required overhead |
+| `evaluation_change` | A change to an evaluation used for a decision | Required overhead |
+| `control_change` | A change to security, access, permissions, review rules or records | Required overhead |
+| `decision` | A recorded decision about direction, promotion, scale, internal use or release | Required overhead |
+
+The first four are the readback-ops model's own types. `evaluation_change` and `decision` were added in M1 (spec decision D6) and `control_change` in M2 (D17). Progress types carry capability progress and take all four gate numbers. Required-overhead types carry none: a developer cannot stop deploying them to save review time, so the pacing model takes their hours off the top, in the term it calls monitor changes.
+
+A **deployed change** is a contribution that reaches a production artifact: the training run or its configuration, a training dataset or environment set, the serving or research platform, an evaluation used for a decision, a monitor or control, or a decision itself. It is the unit a design review or comprehension audit would examine. It is not a pull request: one deployed change may be many pull requests, and most experiments never become one. Two elicitations disagreed by a factor of ten or more on counts under this definition, so it is not yet tight enough to count with (spec open item 11).
 
 ## 2. Scales
 
@@ -100,11 +114,13 @@ A person approving a model's summary without examining the work is `ai_review_hu
 | `compute_share` | share of compute | Give the denominator |
 | `advance_share` | share of capability progress riding on the task | The pacing model's progress weight. Usually judgment |
 | `human_review_coverage` | share of contributions a person reviews in substance | Denominator: contributions of this task |
-| `changes_per_researcher_year` | deployed contributions per researcher-year | Per researcher across model R&D, as in the pacing model |
+| `changes_per_researcher_year` | deployed changes per researcher-year | The denominator is all research and engineering staff of the developer, not the staff of the branch |
 | `hours_to_understand` | researcher-hours to understand one contribution to audit standard | |
 | `elasticity_to_ai_labor` | percent growth in the count per percent growth in AI labor | |
 
 A `range` is an 80% interval: `low` is the 10th percentile, `high` the 90th, `central` the median. Use `point` only for a number a source states outright.
+
+The last three and `advance_share` are the **gate quantities**. They may be recorded on a leaf, where the leaf's own change type applies, or higher in the tree with `change_type` set on the estimate, for example one count of training improvements for all of `T-pretrain`. A change type is counted at one level only: recording it at a task and again below that task is an error.
 
 ## 3. Sources and evidence
 
@@ -178,6 +194,8 @@ A self-reported measurement is still A: the grade says how direct the evidence i
 - `reasoning` says how the value follows from the evidence, in two to four sentences.
 - `confidence` is `low` unless a grade A or B item about this task and scope supports the value directly. Judgment is never `high`.
 - `stale_after`: six months from `as_of` for automation and oversight; twelve for shares and gate inputs. Automation evidence ages fast.
+- **Pooling (spec decision D16).** A figure for the frontier that cites evidence must cite Anthropic, OpenAI and Google DeepMind. The reports pool per-developer estimates only where each of the three has its own: levels and oversight modes pool to the range across the three, numbers to the lowest low, the middle central value and the highest high. A pool is a spread, never an average. One or two developers' estimates stay under their own names.
+- **Judgment priors (spec decision D14).** A gate quantity with no evidence gets a prior with `basis: judgment`, `scope: frontier` and `confidence: low`. Two estimators give 10th, 50th and 90th percentiles independently, the second without sight of the first or of the pacing model's assumptions. The record takes the lower 10th percentile, the higher 90th and the geometric mean of the medians, and its `reasoning` gives both sets. A prior is replaced, not averaged, when evidence arrives.
 
 ## 5. Risks
 

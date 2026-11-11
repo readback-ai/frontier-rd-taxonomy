@@ -1,0 +1,43 @@
+task: T-safeguards
+estimates:
+  # ---- Judgment priors for the pacing model's gate (spec decision D14) ---------------------------
+  - id: EST-safeguards-monitor-count-frontier-2026-11
+    task: T-safeguards
+    quantity: changes_per_researcher_year
+    scope: frontier
+    change_type: monitor_change
+    as_of: 2026-11
+    value: {kind: range, low: 0.07, central: 0.66, high: 6}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for monitor changes from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 2 (0.7 to 6), leaning on the
+      pacing model's assumed 2 monitor changes per researcher-year at 12 hours. The second, blind to
+      the first and to the pacing model, built up from staffing and landing rates and gave 0.22
+      (0.07 to 0.7). Pooled: the lower 10th percentile, the higher 90th percentile and the geometric
+      mean of the two medians. The two medians differ by a factor of 9, which is disagreement about
+      what counts as one deployed change more than about the work. Second elicitation's reasoning:
+      Some 30 to 50 production classifiers retrained or re-thresholded 6 to 12 times a year, 100 to
+      200 monitor prompt, model or severity changes, 50 to 100 control protocol changes and a few
+      tens of probes or internals findings, about 650 a year. Classifier and monitor changes take 3
+      to 4 hours, control protocols about 8, interpretability claims 15 or more.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-safeguards-monitor-hours-frontier-2026-11
+    task: T-safeguards
+    quantity: hours_to_understand
+    scope: frontier
+    change_type: monitor_change
+    as_of: 2026-11
+    value: {kind: range, low: 2, central: 7.1, high: 25}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for monitor changes from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 10 (4 to 25), leaning on the
+      pacing model's assumed 2 monitor changes per researcher-year at 12 hours. The second, blind to
+      the first and to the pacing model, built up from staffing and landing rates and gave 5 (2 to
+      16). Pooled: the lower 10th percentile, the higher 90th percentile and the geometric mean of
+      the two medians.
+    confidence: low
+    stale_after: 2027-05-01

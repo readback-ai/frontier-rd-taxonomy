@@ -1,0 +1,108 @@
+branch: T-direction
+status: draft
+tasks:
+  - id: T-direction
+    name: Research direction and decisions
+    description: >-
+      Deciding what gets worked on, what gets compute, what a result means, and what is scaled
+      up, used internally or shipped. Developers report this as the part people still do.
+
+  - id: T-direction-priorities
+    name: Research prioritization
+    parent: T-direction
+    description: >-
+      Choosing which questions and ideas are pursued, by people and increasingly from options
+      that agents generate and rank.
+    contributions:
+      - A decision to start or stop a line of research
+      - A ranked list of experiments for agents to run
+    output_roles: [decides]
+    verifiability: deferred
+    feedback_latency: months
+    failure_visibility: quiet
+    reversibility: cheap
+    privilege: [none]
+    change_type: decision
+    rationale: >-
+      A person who picks from options an agent prepared has decided less than it appears. What
+      was never offered is not seen.
+
+  - id: T-direction-compute
+    name: Compute allocation
+    parent: T-direction
+    description: >-
+      Dividing compute between training runs, experiments, evaluation, safety work and
+      serving.
+    contributions:
+      - A quarterly compute allocation across teams
+      - A decision to move compute from evaluation to a training run
+    output_roles: [decides]
+    verifiability: deferred
+    feedback_latency: months
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [training_infra]
+    change_type: decision
+    rationale: >-
+      Allocation decides how much checking the rest of the work gets. Its cost shows as
+      assessments compressed for lack of time.
+
+  - id: T-direction-promotion
+    name: Interpreting results and promoting changes
+    parent: T-direction
+    description: >-
+      Deciding what an experiment showed and whether its change goes into the next run, the
+      dataset or production.
+    contributions:
+      - A decision that an improvement is real and goes into the next large run
+      - A written interpretation of a surprising result
+    output_roles: [decides]
+    verifiability: judgment
+    feedback_latency: weeks
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [training_infra]
+    change_type: decision
+    rationale: >-
+      This is the point where a change becomes a deployed change. It is made from a summary of
+      experiments that an agent ran and wrote up.
+
+  - id: T-direction-scale
+    name: Scale, internal-use and ship decisions
+    parent: T-direction
+    description: >-
+      Deciding to start a large run, to let a model be used inside the developer, and to
+      release it. The safety determination behind a release is in the evaluation branch.
+    contributions:
+      - A decision to make a new model available to internal agents
+      - A decision to begin a larger training run
+    output_roles: [decides]
+    verifiability: deferred
+    feedback_latency: months
+    failure_visibility: quiet
+    reversibility: irreversible
+    privilege: [weights, production]
+    change_type: decision
+    rationale: >-
+      Internal use has begun before the risk of a model was understood, and it is the setting
+      in which the worst behavior later appeared.
+
+  - id: T-direction-measurement
+    name: Measuring automation and oversight
+    parent: T-direction
+    description: >-
+      The developer's own measurement of how much of its work models do and how much of that
+      work people check and understand.
+    contributions:
+      - An internal index of automation by task
+      - A measurement of how much agent-written work a person reviewed
+    output_roles: [measures]
+    verifiability: judgment
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: cheap
+    privilege: [none]
+    change_type: none
+    rationale: >-
+      Every pacing or oversight rule depends on these numbers, the developer produces them
+      about itself, and outside reviewers have found published versions understated.

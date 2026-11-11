@@ -45,3 +45,158 @@ estimates:
       R&D with no figure.
     confidence: low
     stale_after: 2027-03-01
+
+  # ---- Judgment priors for the pacing model's gate (spec decision D14) ---------------------------
+  - id: EST-eval-software-count-frontier-2026-11
+    task: T-eval
+    quantity: changes_per_researcher_year
+    scope: frontier
+    change_type: system_software_change
+    as_of: 2026-11
+    value: {kind: range, low: 0.2, central: 1.4, high: 8}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for system software changes from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 3 (1 to 8), leaning on the
+      pacing model's assumed 30 system software changes per researcher-year at 5 hours, split across
+      branches. The second, blind to the first and to the pacing model, built up from staffing and
+      landing rates and gave 0.7 (0.2 to 2.2). Pooled: the lower 10th percentile, the higher 90th
+      percentile and the geometric mean of the two medians. Second elicitation's reasoning: An
+      evaluation platform group of about 2% of staff at 30 to 40 scaffold, sandbox, orchestration or
+      defect-fix changes each per year. About 4 hours each, more when the change touches sandbox or
+      network policy because containment has to be reasoned about as well as scores.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-eval-software-hours-frontier-2026-11
+    task: T-eval
+    quantity: hours_to_understand
+    scope: frontier
+    change_type: system_software_change
+    as_of: 2026-11
+    value: {kind: range, low: 1.5, central: 4.5, high: 12}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for system software changes from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 5 (2 to 12), leaning on the
+      pacing model's assumed 30 system software changes per researcher-year at 5 hours, split across
+      branches. The second, blind to the first and to the pacing model, built up from staffing and
+      landing rates and gave 4 (1.5 to 12). Pooled: the lower 10th percentile, the higher 90th
+      percentile and the geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-eval-software-elasticity-frontier-2026-11
+    task: T-eval
+    quantity: elasticity_to_ai_labor
+    scope: frontier
+    change_type: system_software_change
+    as_of: 2026-11
+    value: {kind: range, low: 0.15, central: 0.51, high: 1}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for system software changes from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 0.4 (0.15 to 0.9). The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      0.65 (0.3 to 1). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-eval-software-share-frontier-2026-11
+    task: T-eval
+    quantity: advance_share
+    scope: frontier
+    change_type: system_software_change
+    as_of: 2026-11
+    value: {kind: range, low: 0.005, central: 0.02, high: 0.05}
+    denominator: capability progress carried by deployed changes of the progress types
+    basis: judgment
+    reasoning: >-
+      Judgment prior for system software changes from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 0.02 (0.005 to 0.05). The
+      second, blind to the first and to the pacing model, built up from staffing and landing rates
+      and gave 0.02 (0.005 to 0.05). Pooled: the lower 10th percentile, the higher 90th percentile
+      and the geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-eval-evaluation-count-frontier-2026-11
+    task: T-eval
+    quantity: changes_per_researcher_year
+    scope: frontier
+    change_type: evaluation_change
+    as_of: 2026-11
+    value: {kind: range, low: 0.35, central: 1.8, high: 8}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for evaluation changes from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 3 (1 to 8), leaning on the
+      monitor-change assumption, taking evaluation work to be somewhat more frequent. The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      1.1 (0.35 to 3.5). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians. Second elicitation's reasoning: Summed by task per
+      researcher-year: tasks 0.25, graders 0.18, design 0.05, elicitation 0.03, dangerous-capability
+      0.03, alignment 0.06, safeguard testing 0.06, and in-loop results and metrics about 0.5, which
+      is the uncertain half. In-loop results take 2 to 3 hours, tasks and graders 4 to 6, a release
+      assessment for one domain 20 to 40; weighted by count about 4.5.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-eval-evaluation-hours-frontier-2026-11
+    task: T-eval
+    quantity: hours_to_understand
+    scope: frontier
+    change_type: evaluation_change
+    as_of: 2026-11
+    value: {kind: range, low: 1.5, central: 6, high: 20}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for evaluation changes from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 8 (3 to 20), leaning on the
+      monitor-change assumption, taking evaluation work to be somewhat more frequent. The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      4.5 (1.5 to 14). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-eval-decision-count-frontier-2026-11
+    task: T-eval
+    quantity: changes_per_researcher_year
+    scope: frontier
+    change_type: decision
+    as_of: 2026-11
+    value: {kind: range, low: 0.012, central: 0.042, high: 0.2}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for decisions from this branch, pooled from two elicitations made on 2026-11-11
+      with no measurement behind either. The first gave 0.05 (0.015 to 0.2), leaning on a guess at
+      how many consequential decisions a researcher is party to in a year. The second, blind to the
+      first and to the pacing model, built up from staffing and landing rates and gave 0.035 (0.012
+      to 0.1). Pooled: the lower 10th percentile, the higher 90th percentile and the geometric mean
+      of the two medians. Second elicitation's reasoning: About 10 system cards, 3 risk reports, 50
+      threshold determinations (five domains times ten models or snapshots) and 30 internal-use or
+      release sign-offs a year, near 100 in all over 3,000 staff. A system card or risk report is of
+      the order of 100 hours, a determination or sign-off 10 to 15, so about 20 at the median with a
+      long tail.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-eval-decision-hours-frontier-2026-11
+    task: T-eval
+    quantity: hours_to_understand
+    scope: frontier
+    change_type: decision
+    as_of: 2026-11
+    value: {kind: range, low: 6, central: 20, high: 60}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for decisions from this branch, pooled from two elicitations made on 2026-11-11
+      with no measurement behind either. The first gave 20 (8 to 60), leaning on a guess at how many
+      consequential decisions a researcher is party to in a year. The second, blind to the first and
+      to the pacing model, built up from staffing and landing rates and gave 20 (6 to 60). Pooled:
+      the lower 10th percentile, the higher 90th percentile and the geometric mean of the two
+      medians.
+    confidence: low
+    stale_after: 2027-05-01

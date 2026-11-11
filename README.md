@@ -20,7 +20,7 @@ This repository is private and unreleased under Readback's tiered disclosure pol
 | `docs/codebook.md` | Every scale and category |
 | `.agents/skills/` | The agent workflows: sweep sources, verify evidence, research a branch, draft questions, monthly sweep |
 
-Status: the evaluation branch (`T-eval`) is researched in first draft. The other nine branches are named in the spec and not yet built.
+Status: the evaluation branch (`T-eval`) is researched in first draft, with estimates for Anthropic, OpenAI and Google DeepMind. The other nine branches exist at level 2 as drafts. The pacing model's gate inputs are judgment priors for every change type.
 
 ## Reading the results
 
@@ -31,6 +31,8 @@ Status: the evaluation branch (`T-eval`) is researched in first draft. The other
 | What should a reviewer ask? | `reports/question-pack-eval.md` |
 | Would those questions have caught real incidents? | `reports/backtest.md` |
 | What does this give the pacing model? | `reports/gate-inputs.yml` |
+| What does the pacing model do with it, and what should be measured first? | `reports/sensitivity.md` |
+| Where do the three leading developers differ? | `reports/coverage.md`, "Pooled across Anthropic, OpenAI and Google DeepMind" |
 
 ## Set up
 
@@ -54,6 +56,24 @@ uv run taxo snapshot S-anthropic-2026-09-measuring-pace
 
 ```sh
 uv run taxo verify-quotes S-anthropic-2026-09-measuring-pace
+```
+
+A cloud session's disk does not last. The snapshots are kept in the organization's Drive (Readback Labs, Research Data, "frontier-rd-taxonomy snapshots"). Download an archive and restore it; the command checks each snapshot against its lock file:
+
+```sh
+uv run taxo restore-snapshots frontier-rd-taxonomy-snapshots-text-2026-11-11.tar.gz
+```
+
+After adding sources, pack again and put the archive in the same folder:
+
+```sh
+uv run taxo pack-snapshots --out snapshots.tar.gz
+```
+
+The pacing model lives in `readback-ops`. To run it on the gate inputs recorded here and rank them:
+
+```sh
+uv run --extra pacing taxo sensitivity --model-dir ../readback-ops/research/pacing-takeoff-model
 ```
 
 ## How the evidence is kept honest

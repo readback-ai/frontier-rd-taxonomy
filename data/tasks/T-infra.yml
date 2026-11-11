@@ -1,0 +1,109 @@
+branch: T-infra
+status: draft
+tasks:
+  - id: T-infra
+    name: Compute and infrastructure software
+    description: >-
+      The software that training, evaluation and serving run on: scheduling, numerical kernels,
+      the distributed training stack, inference and the tooling that launches and tracks
+      experiments. A fault here changes every result produced on top of it.
+
+  - id: T-infra-compute
+    name: Cluster scheduling and resource management
+    parent: T-infra
+    description: >-
+      Schedulers, quotas, job orchestration and capacity planning that decide which work gets
+      accelerators and when.
+    contributions:
+      - A change to scheduling priority or preemption policy
+      - A new job launcher or orchestration layer
+    output_roles: [runs]
+    verifiability: empirical
+    feedback_latency: days
+    failure_visibility: loud
+    reversibility: cheap
+    privilege: [training_infra]
+    change_type: system_software_change
+    rationale: >-
+      A bad scheduling change shows as idle or starved jobs within days and can be rolled back.
+      It also decides which experiments run, which nobody reads as a research decision.
+
+  - id: T-infra-kernels
+    name: Accelerator kernels, compilers and numerics
+    parent: T-infra
+    description: >-
+      Performance work close to the hardware: kernels, compiler passes, precision and memory
+      layout, where a speedup can change numerical results.
+    contributions:
+      - A faster kernel for an attention or convolution variant
+      - A change to numerical precision or a fused operation
+    output_roles: [runs, shapes]
+    verifiability: empirical
+    feedback_latency: days
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [training_infra]
+    change_type: system_software_change
+    rationale: >-
+      Speed is measured at once. A small numerical difference is not, and it enters every run
+      trained afterwards, so finding it later means retraining to compare.
+
+  - id: T-infra-training
+    name: Distributed training stack
+    parent: T-infra
+    description: >-
+      Training frameworks, data loaders, checkpointing, fault tolerance and the code that
+      keeps a large run alive across failures.
+    contributions:
+      - A change to the data loader or shuffling
+      - A change to checkpoint format or restart logic
+    output_roles: [runs, shapes]
+    verifiability: empirical
+    feedback_latency: weeks
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [training_infra, weights]
+    change_type: system_software_change
+    rationale: >-
+      Loader and restart bugs change what the model sees without stopping the run. They show as
+      a slightly worse model weeks later, if at all.
+
+  - id: T-infra-inference
+    name: Inference and serving stack
+    parent: T-infra
+    description: >-
+      The systems that run trained models for internal use, evaluation and customers: serving,
+      routing, sampling, caching and quantization.
+    contributions:
+      - A change to sampling, caching or routing in serving
+      - A quantized or otherwise optimized serving build
+    output_roles: [runs]
+    verifiability: empirical
+    feedback_latency: days
+    failure_visibility: quiet
+    reversibility: cheap
+    privilege: [production, weights]
+    change_type: system_software_change
+    rationale: >-
+      Serving changes have degraded model output for weeks while evaluations showed nothing,
+      because the evaluations ran on a different configuration.
+
+  - id: T-infra-tooling
+    name: Experiment tooling, build and deploy
+    parent: T-infra
+    description: >-
+      Experiment tracking, configuration systems, continuous integration, build and deployment
+      pipelines used by every other branch.
+    contributions:
+      - A change to the experiment configuration system
+      - A change to continuous integration or the deploy pipeline
+    output_roles: [runs]
+    verifiability: mechanical
+    feedback_latency: hours
+    failure_visibility: loud
+    reversibility: cheap
+    privilege: [internal_code]
+    change_type: system_software_change
+    rationale: >-
+      Most failures break a build and are seen within hours. The exceptions are changes to what
+      the pipeline checks, which fail silently by passing things they used to stop.

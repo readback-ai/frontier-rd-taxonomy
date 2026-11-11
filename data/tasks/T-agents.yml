@@ -1,0 +1,69 @@
+branch: T-agents
+status: draft
+tasks:
+  - id: T-agents
+    name: Internal agent deployment
+    description: >-
+      The machinery through which models do the developer's own work: agent harnesses, what
+      agents are allowed to touch, and how their work is handed out, reviewed and merged. This
+      is the automation that does the other branches.
+
+  - id: T-agents-harness
+    name: Agent harnesses and orchestration
+    parent: T-agents
+    description: >-
+      The scaffolds that run research and engineering agents: planning loops, memory,
+      multi-agent coordination, and the tools agents are given.
+    contributions:
+      - A new multi-agent research scaffold
+      - A change to the tools or memory available to internal agents
+    output_roles: [runs]
+    verifiability: empirical
+    feedback_latency: days
+    failure_visibility: quiet
+    reversibility: cheap
+    privilege: [internal_code, training_infra]
+    change_type: system_software_change
+    rationale: >-
+      A harness change alters how thousands of agent sessions behave at once. Agents propose
+      and write many of these changes themselves.
+
+  - id: T-agents-permissions
+    name: Permissions, credentials and sandboxes
+    parent: T-agents
+    description: >-
+      What an agent can reach: credentials, network access, sandboxes, and the permission
+      modes under which it may act without asking.
+    contributions:
+      - A change to default agent permissions or network policy
+      - A new sandbox for agent-launched workloads
+    output_roles: [contains]
+    verifiability: mechanical
+    feedback_latency: never
+    failure_visibility: silent
+    reversibility: cheap
+    privilege: [security, internal_code]
+    change_type: control_change
+    rationale: >-
+      A permission that is too wide produces no error. It is found when an agent uses it, as in
+      the evaluations that reached the internet from environments believed isolated.
+
+  - id: T-agents-workflow
+    name: Delegation, review and merge workflow
+    parent: T-agents
+    description: >-
+      How work is given to agents and accepted from them: task hand-off, automated code
+      review, merge rules, and what a person sees before a change lands.
+    contributions:
+      - A change to which agent-written changes merge without human review
+      - An automated code reviewer added to the merge path
+    output_roles: [contains, decides]
+    verifiability: judgment
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: cheap
+    privilege: [internal_code]
+    change_type: control_change
+    rationale: >-
+      This sets how much of everything else a person reads. Developers report that review is
+      still required and warn that it gets more porous as agents write larger changes.

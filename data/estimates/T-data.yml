@@ -1,0 +1,118 @@
+task: T-data
+estimates:
+  # ---- Judgment priors for the pacing model's gate (spec decision D14) ---------------------------
+  - id: EST-data-data-count-frontier-2026-11
+    task: T-data
+    quantity: changes_per_researcher_year
+    scope: frontier
+    change_type: dataset_update
+    as_of: 2026-11
+    value: {kind: range, low: 0.1, central: 1.1, high: 10}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for dataset updates from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 4 (1.5 to 10), leaning on the
+      pacing model's assumed 8 dataset updates per researcher-year at 8 hours, split across
+      branches. The second, blind to the first and to the pacing model, built up from staffing and
+      landing rates and gave 0.3 (0.1 to 1). Pooled: the lower 10th percentile, the higher 90th
+      percentile and the geometric mean of the two medians. The two medians differ by a factor of
+      13, which is disagreement about what counts as one deployed change more than about the work.
+      Second elicitation's reasoning: Summed by task per year: 50 to 100 new sources or crawl
+      changes, 50 to 150 filter changes, 200 to 500 synthetic pipelines or generator changes, 50 to
+      100 mixture changes and 200 to 500 human data campaigns, about 900 in all. About 6 hours each
+      to understand the pipeline and a sample, since nobody reads the data whole.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-data-data-hours-frontier-2026-11
+    task: T-data
+    quantity: hours_to_understand
+    scope: frontier
+    change_type: dataset_update
+    as_of: 2026-11
+    value: {kind: range, low: 2, central: 6.9, high: 20}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for dataset updates from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 8 (3 to 20), leaning on the
+      pacing model's assumed 8 dataset updates per researcher-year at 8 hours, split across
+      branches. The second, blind to the first and to the pacing model, built up from staffing and
+      landing rates and gave 6 (2 to 20). Pooled: the lower 10th percentile, the higher 90th
+      percentile and the geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-data-data-elasticity-frontier-2026-11
+    task: T-data
+    quantity: elasticity_to_ai_labor
+    scope: frontier
+    change_type: dataset_update
+    as_of: 2026-11
+    value: {kind: range, low: 0.25, central: 0.55, high: 1}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for dataset updates from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 0.6 (0.25 to 1). The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      0.5 (0.25 to 0.9). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-data-data-share-frontier-2026-11
+    task: T-data
+    quantity: advance_share
+    scope: frontier
+    change_type: dataset_update
+    as_of: 2026-11
+    value: {kind: range, low: 0.04, central: 0.11, high: 0.25}
+    denominator: capability progress carried by deployed changes of the progress types
+    basis: judgment
+    reasoning: >-
+      Judgment prior for dataset updates from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 0.12 (0.05 to 0.25). The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      0.1 (0.04 to 0.18). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-data-control-count-frontier-2026-11
+    task: T-data
+    quantity: changes_per_researcher_year
+    scope: frontier
+    change_type: control_change
+    as_of: 2026-11
+    value: {kind: range, low: 0.003, central: 0.06, high: 1}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for control changes from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 0.3 (0.1 to 1), leaning on the
+      monitor-change assumption, taking controls to be smaller and quicker to read. The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      0.012 (0.003 to 0.04). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians. The two medians differ by a factor of 25, which is
+      disagreement about what counts as one deployed change more than about the work. Second
+      elicitation's reasoning: A group of 10 to 20 people making 20 to 60 changes a year to lineage
+      tracking or to who may add data to a run without review. About 4 hours each, mostly on what
+      the record no longer captures.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-data-control-hours-frontier-2026-11
+    task: T-data
+    quantity: hours_to_understand
+    scope: frontier
+    change_type: control_change
+    as_of: 2026-11
+    value: {kind: range, low: 1.5, central: 4, high: 12}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for control changes from this branch, pooled from two elicitations made on
+      2026-11-11 with no measurement behind either. The first gave 4 (1.5 to 10), leaning on the
+      monitor-change assumption, taking controls to be smaller and quicker to read. The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      4 (1.5 to 12). Pooled: the lower 10th percentile, the higher 90th percentile and the geometric
+      mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01

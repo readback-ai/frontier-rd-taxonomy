@@ -1,0 +1,129 @@
+branch: T-data
+status: draft
+tasks:
+  - id: T-data
+    name: Data
+    description: >-
+      Everything that decides what a model is trained on: where data comes from, what is
+      removed, what is generated, how sources are weighted and what record is kept of it.
+
+  - id: T-data-acquisition
+    name: Acquisition
+    parent: T-data
+    description: >-
+      Crawling, licensing, partnerships and ingestion of new data sources, including the
+      decision that a source is acceptable to train on.
+    contributions:
+      - A new data source added to the training corpus
+      - A change to crawl scope or exclusion rules
+    output_roles: [shapes]
+    verifiability: judgment
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [training_infra]
+    change_type: dataset_update
+    rationale: >-
+      What a source teaches is seen only in the trained model, months later and mixed with
+      everything else. Removing it means retraining.
+
+  - id: T-data-filtering
+    name: Filtering, deduplication and quality classifiers
+    parent: T-data
+    description: >-
+      Removing data by rule or by classifier: duplicates, low quality, unsafe content,
+      evaluation material and personal data.
+    contributions:
+      - A new or retrained quality or safety filter
+      - A change to the exclusion list that keeps evaluation material out of training
+    output_roles: [shapes, contains]
+    verifiability: empirical
+    feedback_latency: weeks
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [training_infra]
+    change_type: dataset_update
+    rationale: >-
+      A filter is judged by samples of what it removed. What it wrongly kept or dropped at
+      scale is not looked at, and a leak of evaluation material shows only as a score that is
+      too good.
+
+  - id: T-data-synthetic
+    name: Synthetic data generation
+    parent: T-data
+    description: >-
+      Using models to write training data: prompts, pipelines, verification and the choice of
+      which generated data is kept.
+    contributions:
+      - A pipeline that generates and filters a synthetic corpus
+      - A change to the generator model or its instructions
+    output_roles: [shapes]
+    verifiability: judgment
+    feedback_latency: weeks
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [training_infra]
+    change_type: dataset_update
+    rationale: >-
+      Volume is far beyond what people can read, the generator and the checker are both
+      models, and a trait passed from one model to the next through data may not be visible in
+      the text at all.
+
+  - id: T-data-mixture
+    name: Mixture design and curriculum
+    parent: T-data
+    description: >-
+      Deciding the weights of sources in a training run and the order in which data is seen.
+    contributions:
+      - A change to mixture weights for a training run
+      - A curriculum or staged data schedule
+    output_roles: [shapes, decides]
+    verifiability: empirical
+    feedback_latency: weeks
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [training_infra]
+    change_type: dataset_update
+    rationale: >-
+      Mixture changes are tested on benchmark scores from small runs. Effects on behavior that
+      no benchmark measures ride along unexamined.
+
+  - id: T-data-human
+    name: Human data
+    parent: T-data
+    description: >-
+      Annotation, expert demonstrations, preference labels and red-team data collected from
+      people, with the instructions and quality control that shape them.
+    contributions:
+      - A labeling guideline or rubric for a human data campaign
+      - A new expert demonstration set
+    output_roles: [shapes, measures]
+    verifiability: judgment
+    feedback_latency: weeks
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [none]
+    change_type: dataset_update
+    rationale: >-
+      Label quality is spot-checked. A guideline that teaches the wrong thing consistently
+      passes every agreement check.
+
+  - id: T-data-provenance
+    name: Provenance and lineage records
+    parent: T-data
+    description: >-
+      The record of what went into a run: lineage, access logs, licenses and the ability to
+      say afterwards which data a model saw.
+    contributions:
+      - A change to lineage tracking for training corpora
+      - A change to who can add data to a run without review
+    output_roles: [contains]
+    verifiability: mechanical
+    feedback_latency: never
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [training_infra, security]
+    change_type: control_change
+    rationale: >-
+      A gap in the record is found only when someone needs the record, for example after a
+      poisoning or contamination question, and by then it cannot be rebuilt.

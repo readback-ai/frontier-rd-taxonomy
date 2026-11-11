@@ -1,0 +1,78 @@
+task: T-infra
+estimates:
+  # ---- Judgment priors for the pacing model's gate (spec decision D14) ---------------------------
+  - id: EST-infra-software-count-frontier-2026-11
+    task: T-infra
+    quantity: changes_per_researcher_year
+    scope: frontier
+    change_type: system_software_change
+    as_of: 2026-11
+    value: {kind: range, low: 2.5, central: 12, high: 45}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for system software changes from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 15 (5 to 45), leaning on the
+      pacing model's assumed 30 system software changes per researcher-year at 5 hours, split across
+      branches. The second, blind to the first and to the pacing model, built up from staffing and
+      landing rates and gave 9 (2.5 to 30). Pooled: the lower 10th percentile, the higher 90th
+      percentile and the geometric mean of the two medians. Second elicitation's reasoning: About a
+      quarter of staff work on compute, kernels, training stack, serving and tooling, and with
+      agents writing most code each lands roughly one meaningful production change every one to two
+      weeks (10 to 150 a year depending on where the unit is cut, about 35 at the median). One such
+      change is several pull requests and a few thousand lines, so about 5 hours to trace design,
+      dependencies and failure modes; numerics and data-loader changes sit in the tail.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-infra-software-hours-frontier-2026-11
+    task: T-infra
+    quantity: hours_to_understand
+    scope: frontier
+    change_type: system_software_change
+    as_of: 2026-11
+    value: {kind: range, low: 1.5, central: 4.5, high: 16}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for system software changes from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 4 (1.5 to 10), leaning on the
+      pacing model's assumed 30 system software changes per researcher-year at 5 hours, split across
+      branches. The second, blind to the first and to the pacing model, built up from staffing and
+      landing rates and gave 5 (1.5 to 16). Pooled: the lower 10th percentile, the higher 90th
+      percentile and the geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-infra-software-elasticity-frontier-2026-11
+    task: T-infra
+    quantity: elasticity_to_ai_labor
+    scope: frontier
+    change_type: system_software_change
+    as_of: 2026-11
+    value: {kind: range, low: 0.15, central: 0.49, high: 0.95}
+    basis: judgment
+    reasoning: >-
+      Judgment prior for system software changes from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 0.4 (0.15 to 0.8). The second,
+      blind to the first and to the pacing model, built up from staffing and landing rates and gave
+      0.6 (0.3 to 0.95). Pooled: the lower 10th percentile, the higher 90th percentile and the
+      geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
+
+  - id: EST-infra-software-share-frontier-2026-11
+    task: T-infra
+    quantity: advance_share
+    scope: frontier
+    change_type: system_software_change
+    as_of: 2026-11
+    value: {kind: range, low: 0.05, central: 0.12, high: 0.25}
+    denominator: capability progress carried by deployed changes of the progress types
+    basis: judgment
+    reasoning: >-
+      Judgment prior for system software changes from this branch, pooled from two elicitations made
+      on 2026-11-11 with no measurement behind either. The first gave 0.12 (0.05 to 0.25). The
+      second, blind to the first and to the pacing model, built up from staffing and landing rates
+      and gave 0.12 (0.05 to 0.22). Pooled: the lower 10th percentile, the higher 90th percentile
+      and the geometric mean of the two medians.
+    confidence: low
+    stale_after: 2027-05-01
