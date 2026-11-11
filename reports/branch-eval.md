@@ -31,8 +31,16 @@ Measuring what a model can do and how it behaves, and turning those measurements
 
 | Task | Quantity | Scope | As of | Value | Basis | Confidence | Evidence |
 |---|---|---|---|---|---|---|---|
+| Evaluation | advance share | frontier | 2026-11 | 2.0% (0.5% to 5.0%) | judgment | low |  |
 | Evaluation | automation level | Anthropic | 2026-08 | AL2 8%, AL3 66%, AL4 26%, AL5 0% | mixed | low | EV-anthropic-2026-09-measuring-pace-01, EV-anthropic-2026-09-measuring-pace-02, EV-anthropic-2026-06-recursive-self-improvement-07 |
 | Evaluation | automation level | Google DeepMind | 2026-09 | AL3 88%, AL4 12% | mixed | low | EV-gdm-2026-10-gemini-4-argon-safety-report-03, EV-gdm-2026-10-gemini-4-argon-safety-report-01 |
+| Evaluation | changes per researcher year | frontier | 2026-11 | 1.4 (0.2 to 8) | judgment | low |  |
+| Evaluation | changes per researcher year | frontier | 2026-11 | 1.8 (0.35 to 8) | judgment | low |  |
+| Evaluation | changes per researcher year | frontier | 2026-11 | 0.042 (0.012 to 0.2) | judgment | low |  |
+| Evaluation | elasticity to ai labor | frontier | 2026-11 | 0.51 (0.15 to 1) | judgment | low |  |
+| Evaluation | hours to understand | frontier | 2026-11 | 4.5 (1.5 to 12) | judgment | low |  |
+| Evaluation | hours to understand | frontier | 2026-11 | 6 (1.5 to 20) | judgment | low |  |
+| Evaluation | hours to understand | frontier | 2026-11 | 20 (6 to 60) | judgment | low |  |
 | Alignment assessments and behavioral audits | automation level | Anthropic | 2026-09 | AL4 | evidence | medium | EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-02, EV-anthropic-2026-01-auditing-overt-saboteur-02, EV-anthropic-2026-01-auditing-overt-saboteur-08, EV-anthropic-2026-10-training-alignment-auditors-01, EV-anthropic-2025-07-alignment-auditing-agents-05 |
 | Alignment assessments and behavioral audits | human review coverage | Anthropic | 2026-09 | 1.0% (0.3% to 4.0%) | mixed | low | EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-03 |
 | Alignment assessments and behavioral audits | oversight mode | Anthropic | 2026-09 | ai review human by exception | evidence | medium | EV-anthropic-2026-01-auditing-overt-saboteur-06, EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-03, EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-07, EV-anthropic-2025-07-alignment-auditing-agents-04 |

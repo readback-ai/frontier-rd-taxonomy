@@ -70,6 +70,11 @@
       "quote_sha256": "c8e4d470850b1fb22f4de4d859d39c86e99ed571345ca276abd8384c581914f8",
       "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
       "verified": "2026-11-11"
+    },
+    "EV-openai-2026-11-covert-underperformance-safety-research-13": {
+      "quote_sha256": "b91f3dc42abd26f10d37756b86ed15bed387212b7378371102be928b34d2969a",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
     }
   }
 }

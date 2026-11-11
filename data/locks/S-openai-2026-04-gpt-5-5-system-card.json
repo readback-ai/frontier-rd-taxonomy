@@ -60,6 +60,36 @@
       "quote_sha256": "31441e987f237eb15ae49fd5c0f8c81acea0bc803e8108f8ad63527caf183c9a",
       "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
       "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-11": {
+      "quote_sha256": "265bdb2e1a8584cf77fd2f50f26ba7517fc46191a0728835b1e3f4f4c8c64e92",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-12": {
+      "quote_sha256": "15ff6e8a86a9ce578de2987de1eeea9d5260909112210acf9af63d78149ff3bc",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-13": {
+      "quote_sha256": "a83ca72a4a6fa0372c60773f849fd5bcdf137f1c7345f159cc4f8968286d4a15",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-14": {
+      "quote_sha256": "c1c661268d550413d9e3a695d99a33e487872581343da78e67e27efcf94669b7",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-15": {
+      "quote_sha256": "7c0cad6333a2546e35d8d296e24662df1e1993b30c48e405316e1ee088ee1ce2",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-16": {
+      "quote_sha256": "ce9ce806cde67f13ba9452db6fb00992e169d0427024c00e19151b58e41bbf71",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
     }
   }
 }

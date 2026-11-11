@@ -75,6 +75,31 @@
       "quote_sha256": "cc0c3f3f175631c026f5ba7f154db1cd1ff5297fce12ce81510ef06b6078dda9",
       "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
       "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-14": {
+      "quote_sha256": "134f06eddfd86a1a89b73e2e95242cbc149a16792787c529bcbefd1a6f30ac49",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-15": {
+      "quote_sha256": "696d72b8b93d9418d5b03a71c610def39074b740c1d9ce09bd2edeb149d48352",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-16": {
+      "quote_sha256": "ae9b66fa1ffe3954a0ef4dc0d0f93ba6d6937eb311d158eceb08c4768dd25444",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-17": {
+      "quote_sha256": "7cd73bc166e9b2db6d2df8e0d5d5f863a04cebd5427723b4a9745fe9d19e5ecd",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-18": {
+      "quote_sha256": "023f5d8d192ceea81bf374ac8e4b6d1b35a5976fe92c4ac7d157ad4bcaa4859e",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
     }
   }
 }

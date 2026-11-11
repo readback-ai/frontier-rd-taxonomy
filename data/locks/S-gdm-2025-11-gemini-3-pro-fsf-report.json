@@ -55,6 +55,16 @@
       "quote_sha256": "ee2d1f1d6de1fd8003a413f6210f1cbb70797936a17287d2617283bb9306b2fb",
       "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
       "verified": "2026-11-11"
+    },
+    "EV-gdm-2025-11-gemini-3-pro-fsf-report-10": {
+      "quote_sha256": "c6d6dc9428f87b6f41c00f699d94be153f6a11c8d96c19aca9b737d4e0627be7",
+      "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2025-11-gemini-3-pro-fsf-report-11": {
+      "quote_sha256": "815ba0ab73440f13f5642b6d35484e7c0633089c1957f37077162178eab05c8d",
+      "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
+      "verified": "2026-11-11"
     }
   }
 }

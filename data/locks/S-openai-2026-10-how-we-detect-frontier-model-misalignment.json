@@ -60,6 +60,26 @@
       "quote_sha256": "067495a1957bd7f1de790c2d433cea778ae19cc3c61a3523aaa98242c60d4c67",
       "text_sha256": "f2d1f6c6a6c412ca4fc6dc745c88d88c559ece229a2e2f5fd290983992ad74de",
       "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-how-we-detect-frontier-model-misalignment-11": {
+      "quote_sha256": "9d61cb7370a392847972463047b13c3faed39b0897957713c1732949cb90d43c",
+      "text_sha256": "f2d1f6c6a6c412ca4fc6dc745c88d88c559ece229a2e2f5fd290983992ad74de",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-how-we-detect-frontier-model-misalignment-12": {
+      "quote_sha256": "074371cb76f391ecbef4f87bc30543c2ed6275a6db891299a65bad8b43e2db18",
+      "text_sha256": "f2d1f6c6a6c412ca4fc6dc745c88d88c559ece229a2e2f5fd290983992ad74de",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-how-we-detect-frontier-model-misalignment-13": {
+      "quote_sha256": "4b563ec9b7bbadacf0dbc2b009f8ba97d682ce3fcd4c9d3f74f595f23e7ac5d0",
+      "text_sha256": "f2d1f6c6a6c412ca4fc6dc745c88d88c559ece229a2e2f5fd290983992ad74de",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-how-we-detect-frontier-model-misalignment-14": {
+      "quote_sha256": "f84b0ed043c310ef84d854b3cf562286a22699c787c42629893a45326dbf973c",
+      "text_sha256": "f2d1f6c6a6c412ca4fc6dc745c88d88c559ece229a2e2f5fd290983992ad74de",
+      "verified": "2026-11-11"
     }
   }
 }

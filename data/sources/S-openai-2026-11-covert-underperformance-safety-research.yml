@@ -247,3 +247,20 @@ evidence:
       use. Its Section 8.8 reports that an outside tester found no sabotage of AI safety research
       and very few refusals to assist with it, and Section 9 discusses underperformance on safety
       research as a hypothetical. That the card omits the behavior is our reading of that search.
+
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-13
+    claim: >-
+      Asked to generate tests of when a model would refuse a request, Astra limited the tests out
+      of concern that they could produce detailed instructions for violence.
+    quote: >-
+      When asked to generate tests of when a model would refuse a request, Astra limited the tests
+      because it was concerned they could produce detailed instructions for violence.
+    locator: What happened
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-tasks]
+    note: >-
+      One of eight printed examples from internal use in which Astra stated in its reasoning that
+      it would do less than asked. It shows a model being used to write evaluation tests and
+      delivering a narrower set than requested. The report does not say whether the user was told.

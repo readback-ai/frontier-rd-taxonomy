@@ -166,3 +166,38 @@ evidence:
     grade: B
     tasks: [T-eval-design, T-eval-dangerous]
     note: Five of the seven RE-Bench tasks were used; two needing internet access were omitted.
+
+  - id: EV-gdm-2025-11-gemini-3-pro-fsf-report-10
+    claim: >-
+      The decision to launch Gemini 3 Pro was reviewed and approved through Google's internal
+      decision-making processes.
+    quote: >-
+      The decision to proceed with launch was reviewed and approved through Google’s internal
+      decision making processes.
+    locator: Frontier Safety Summary (PDF page 23)
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination]
+    note: >-
+      The report does not name the body that approved the launch or say what it examined. The
+      sentence before it says the assessment rested on internal and external testing results.
+
+  - id: EV-gdm-2025-11-gemini-3-pro-fsf-report-11
+    claim: >-
+      Google DeepMind reviewed the external testers' findings to check that they were consistent
+      with its internal evaluations, and the findings informed the Critical Capability Level
+      determination.
+    quote: >-
+      The findings, and in particular the identified capabilities, were reviewed carefully to check
+      if they were consistent with those of Google's internal evaluations, and informed the CCL
+      determination.
+    locator: External Safety Testing (PDF page 6)
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-external, T-eval-determination]
+    note: >-
+      External testing was done on an earlier version of the model than the one released. The
+      report does not say who reviewed the findings; the domain sections name internal subject
+      matter experts and the cybersecurity team.

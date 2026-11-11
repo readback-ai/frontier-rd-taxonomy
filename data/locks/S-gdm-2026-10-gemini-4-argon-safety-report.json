@@ -75,6 +75,146 @@
       "quote_sha256": "1080c82fa144d62bc9d4146578a997fb16bc8f435b6bf7d6f25d01b2b839abd9",
       "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
       "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-14": {
+      "quote_sha256": "e8ed3e0ed3d441ec7eeda26c1c71f5c61a5d8e5b910d6e2620ef398ea402fa2c",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-15": {
+      "quote_sha256": "f0881f9d0e6ca7d421897375d6339549d728bf6e269d23ff87b58687f742ff8b",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-16": {
+      "quote_sha256": "0c4df101178f95851c98bc973279b5f3a22b421bafe5fea51f1f60c5fdd60624",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-17": {
+      "quote_sha256": "395c6d2705bc8608d5da893c85c0c18c0804c73cf12bb9993ef9a8b55573501a",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-18": {
+      "quote_sha256": "2ff86c144b5c778cb009adaf51c52079f7d877dc4a115a941bb5042bdcb02239",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-19": {
+      "quote_sha256": "2af0ae4b393245669bd12fd638e59250b38f447f02a08922d9029bce820a3c6d",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-20": {
+      "quote_sha256": "31e023434211d7d53a3a750ca7470e733eed0f7ff24a885e3ed5d35115250c5e",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-21": {
+      "quote_sha256": "051f8fecab2a5f14abfad5c5a861f559a6f22146825500b51ca916bb88e3a08a",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-22": {
+      "quote_sha256": "52548171562f40a82427de10f927d396ac9dce852de95747191bce2ef01e230f",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-23": {
+      "quote_sha256": "c43c6498c142553f846fabacb5cd235d297d04e9485b5ea00f2557312e4e8c37",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-24": {
+      "quote_sha256": "7c64b73781f8e23e5374781ed08aecc57f8ed729b651d5e9bba497e2bb9c2cfc",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-25": {
+      "quote_sha256": "69eeccb37b1d4beeef9a4d56b3c741a1fc6297a8b5548bf2fd9f77ffbed55fb7",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-26": {
+      "quote_sha256": "8a7fa3812862c86989e2146b940e995fb81f71dfead71d0c880533ac4fd5fffb",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-27": {
+      "quote_sha256": "159262943b3a96a627f97fc537fea576de3b0bca39717418f672c35768273e79",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-28": {
+      "quote_sha256": "a91a43c0624ba918463e422b9cd48692eff8b90426a38aca1a9e30e270ef6212",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-29": {
+      "quote_sha256": "c17799fe079d95bba12f6df098fee806220fa25f14e7e307d75c8e0ed9a01e52",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-30": {
+      "quote_sha256": "87233f1c3b4b4adf00697ffc87d923f10c49080d634927487b7d8db130acdbdc",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-31": {
+      "quote_sha256": "41b8722599742d65be6e4b9cd3098314713bcd6cff7a0e50ecf6bb7b2a7a7b0e",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-32": {
+      "quote_sha256": "730131371befd9ef66cd1907e3c5d1d3ac9761bf3361afa152131776f48b8293",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-33": {
+      "quote_sha256": "53304dbb6515c96bf922c9ec1cf94cab115f9a14d7b6cd102fb832ef1b374416",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-34": {
+      "quote_sha256": "2445ccefa41f73a01df0724fdf090133d8ee5584799cf71baee504d9f721c06f",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-35": {
+      "quote_sha256": "a6d7b5988a538ada81a845c920db5d6edcc9458833be46ba678b2e2202759a94",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-36": {
+      "quote_sha256": "12d5b5a90598463d18691f21bb4ee536595a6854b3e6fca828e5307c8c030748",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-37": {
+      "quote_sha256": "615fa7ab8a09840c4c559f9e0a6eece6e9fbc373d3681d401c1279b3500cb253",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-38": {
+      "quote_sha256": "80db620ef43369326797686b6404c383217762146f5ef46e62a05264ba3f90ae",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-39": {
+      "quote_sha256": "9ca3cee755a5c7433f8f5e4865436e94edf02255f3e9f5bce54c3db08fad3c3d",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-40": {
+      "quote_sha256": "acaf220b42451f30518344198d7e7c7ba9d08fd98a75a94378bd2619387051ba",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-41": {
+      "quote_sha256": "424709c227634f2d49b59d3d5d8ac0452f72380c370d8b94287eb33f00bbbb33",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
     }
   }
 }

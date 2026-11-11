@@ -244,3 +244,203 @@ evidence:
       The evaluation target was not the hardened target intended, and people found this after
       the run. In this evaluation the experts were allowed to supervise for safety and
       validation only.
+
+  - id: EV-openai-2026-09-gpt-6-astra-system-card-13
+    claim: >-
+      OpenAI says its safeguards for Astra include universal monitoring for misalignment that
+      pages people who can stop workloads, and that it expanded its internal monitoring to cover
+      all tool-using Astra traffic, including evaluations and training runs.
+    quote: >-
+      These safeguards apply to all tool-using inference with Astra models, and include security
+      measures and universal monitoring for misalignment that pages humans who can stop workloads
+      as appropriate. [...] expanded our internal monitoring to cover all tool-using Astra
+      traffic, including evaluations and training runs
+    locator: Section 3, Internal Deployment of Astra, and Section 9, Monitorability
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-harness]
+    note: >-
+      The second part of the quote starts mid-sentence because a page break in the snapshot
+      separates it from the words "we have now". Section 9.2.2 says the same system monitors all
+      internal RL runs and evaluations as well as employee Codex traffic. The monitor looks for
+      misalignment. The card does not describe review of evaluation transcripts for other
+      failures such as harness errors.
+
+  - id: EV-openai-2026-09-gpt-6-astra-system-card-14
+    claim: >-
+      In PostTrainBench Lite an LLM judge checks trials for invalid strategies such as training on
+      held-out evaluation data, and trials it classifies as cheating get a reward of 0.
+    quote: >-
+      An LLM judge checks for invalid strategies, such as training on held-out evaluation data,
+      and assigns a reward of 0 to trials classified as cheating.
+    locator: Section 10.1.3.4, PostTrainBench Lite
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders, T-eval-validity]
+    note: >-
+      One of the AI self-improvement evaluations. The card gives no agreement rate for the judge
+      and describes no human check of its classifications.
+
+  - id: EV-openai-2026-09-gpt-6-astra-system-card-15
+    claim: >-
+      In its biological capability evaluations OpenAI uses probes to identify refusals and
+      counts those refusals as successes, to give a conservative upper bound on performance.
+    quote: >-
+      We use probes to identify refusals and [...] count such refusals as successes to calculate
+      a conservative upper bound on performance.
+    locator: Section 10.1.1, Biological and Chemical Capabilities
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-dangerous]
+    note: >-
+      The omitted words say this is consistent with previous system cards. The card adds that
+      Astra refused notably more often than earlier models on some of these evaluations, and
+      attributes large jumps in the adjusted scores mostly to safety training.
+
+  - id: EV-openai-2026-09-gpt-6-astra-system-card-16
+    claim: >-
+      OpenAI calls setting an indicative threshold for one new Critical-level biology evaluation
+      difficult. Its preliminary threshold was informed by rounds of internal discussion and a
+      survey of 14 external experts.
+    quote: >-
+      Setting an indicative threshold for this task is difficult. [...] which is informed by
+      rounds of internal discussion and a survey of 14 external experts.
+    locator: Section 10.1.1.2.2, SHP2 Protein Function Prediction
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-design]
+    note: >-
+      The omitted words give the threshold. The card uses the same wording for two more new
+      evaluations and says it expects to change methodology and thresholds. It does not say
+      whether models took any part in designing the evaluations or setting the thresholds.
+
+  - id: EV-openai-2026-09-gpt-6-astra-system-card-17
+    claim: >-
+      Analysis of transcripts showed that some interim checkpoints could infer how many true
+      binders a protein binding evaluation contained from an environment variable whose
+      identifier included "single_true". OpenAI says this contributed to retiring the evaluation.
+    quote: >-
+      analysis of the models’ transcripts helped us identify some important limitations that
+      contributed to us deciding to retire this evaluation. Most notably, whilst the model was
+      not told how many true binders exist, we observed that some interim model checkpoints were
+      able to infer this from one of the evaluation’s environment variables having an identifier
+      that included the phrase “single_true.”
+    locator: Section 10.1.1.3.1, Hard-negative Protein Binding Prediction
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-harness, T-eval-transcripts, T-eval-validity]
+    note: >-
+      OpenAI had used this evaluation on an interim basis as an indicator of Critical biological
+      capability, and reported its result in the GPT-5.5 system card
+      (S-openai-2026-04-gpt-5-5-system-card, item 06). The card does not say when the leak was
+      found, whether people or models analyzed the transcripts, or whether earlier scores were
+      affected.
+
+  - id: EV-openai-2026-09-gpt-6-astra-system-card-18
+    claim: >-
+      To test its Auto-review monitor, OpenAI generated disallowed trajectories by having GPT-6
+      Astra make targeted edits to existing rollouts from employees' dots, 30 per category.
+    quote: >-
+      We generated these by taking existing rollouts from de-identified OpenAI employee dots, and
+      using GPT-6 Astra to make targeted edits that make an action disallowed. [...] We generated
+      30 of these per category.
+    locator: Appendix B.3.6, Evaluating Auto-review
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-tasks, T-eval-safeguards]
+    note: >-
+      Auto-review is the second model that reviews certain Codex commands. The card describes no
+      human check of the generated cases. The reviewer's denial rate was measured separately on
+      5,000 unedited requests from employee traffic.
+
+  - id: EV-openai-2026-09-gpt-6-astra-system-card-19
+    claim: >-
+      The prompts of OpenAI's static jailbreak evaluation were generated by attacker models such
+      as GPT-Red.
+    quote: >-
+      The adversarial prompts were generated by attacker models, such as GPT-Red [1], which were
+      instructed to jailbreak past GPT models.
+    locator: Section 5.1.1, Static Jailbreak Evaluations
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-tasks, T-eval-safeguards]
+    note: >-
+      Half the prompts in each evaluation came from a held-out attacker that was not used to
+      generate training data. The card describes no human review of the prompts.
+
+  - id: EV-openai-2026-09-gpt-6-astra-system-card-20
+    claim: >-
+      One measured portion of OpenAI's automated red-teaming of Astra's safeguards used an
+      estimated 200,000 A100e GPU-hours, counting only inference by the model under test.
+    quote: >-
+      One measured portion of our automated red-teaming accounted for an estimated 200,000 A100e
+      GPU-hours. These estimates cover only inference by the model being tested and exclude
+      attacker and helper model inference
+    locator: Section 10.2.4.1, Automated Red-teaming for Jailbreaks
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-safeguards]
+    note: >-
+      OpenAI calls this a partial accounting. The section also describes regression testing of
+      known jailbreaks, systematic variation of attacks and automated searches for new ones, and
+      separate testing by people at four outside red-teaming organizations.
+
+  - id: EV-openai-2026-09-gpt-6-astra-system-card-21
+    claim: >-
+      The examples in the evaluations OpenAI built to measure its misuse monitors were validated
+      by subject matter experts in biology and cybersecurity and by internal employees.
+    quote: >-
+      The evaluation examples were validated by subject matter experts in biology and
+      cybersecurity, as well as internal employees.
+    locator: Section 10.2.3.3, Misuse Monitor Performance
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-safeguards, T-eval-tasks]
+    note: >-
+      The set mixes cases derived from production traffic, conversations from the technical
+      investigations team and synthetic examples. The card does not say whether every example
+      was validated or by how many people.
+
+  - id: EV-openai-2026-09-gpt-6-astra-system-card-22
+    claim: >-
+      In one alignment evaluation run for dots, one sample at the 4-hour budget was flagged for a
+      circumvention attempt and manual review found it to be a false positive.
+    quote: >-
+      At the 4-hour budget, one of the samples was flagged for a circumvention attempt, but manual
+      review determined it was a false positive.
+    locator: Appendix B.3.1.1, Respecting Auto-Review
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-graders]
+    note: >-
+      Appendix B.3.1.3 reports the same for one flagged sample in the honeypot evaluation. The
+      card does not say whether anyone read samples that were not flagged.
+
+  - id: EV-openai-2026-09-gpt-6-astra-system-card-23
+    claim: >-
+      The safeguards section of the card is a public summary of an internal Safeguards Report.
+      The internal report informed the Safety Advisory Group's recommendation and OpenAI
+      leadership's determination that the safeguards are sufficient for Astra's public launch.
+    quote: >-
+      What follows is a public summary of our internal Safeguards Report [...] The internal report
+      informed our Safety Advisory Group’s recommendation and OpenAI leadership’s determination
+      that these safeguards are sufficient for Astra’s public launch.
+    locator: Section 10.2, Safeguards
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination, T-eval-reporting]
+    note: >-
+      The omitted words say the internal report has details not suitable for public disclosure.
+      Appendix B.6 repeats the statement for the launch of dots. The card does not say who wrote
+      either document or what the group examined beyond the report.

@@ -251,3 +251,107 @@ evidence:
     tasks: [T-eval-tasks, T-eval-validity]
     note: >-
       No method or count of tasks discussed is given for the 93%.
+
+  - id: EV-openai-2026-08-hugging-face-incident-report-14
+    claim: >-
+      OpenAI says it has expanded its chain-of-thought monitoring program to cover reinforcement
+      learning training and evaluations for frontier models, along with internal agentic coding
+      use.
+    quote: >-
+      OpenAI has expanded its existing CoT monitoring program, including implementing CoT
+      monitoring across reinforcement learning training and evaluations for frontier models and
+      internal agentic coding usage.
+    locator: Section IX.B, Changes made
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-08
+    tasks: [T-eval-transcripts, T-eval-harness]
+    note: >-
+      Listed among the changes made after the incident. The next sentence says these systems
+      examine reasoning, tool actions and sequences of activity for indicators that include
+      cheating and reward hacking. Item 10 gives the earlier focus on internal coding use.
+
+  - id: EV-openai-2026-08-hugging-face-incident-report-15
+    claim: >-
+      OpenAI's chain-of-thought monitors feed a system that notifies security and research staff,
+      with a goal of 30 minutes from when concerning activity is surfaced. The most severe alerts
+      page around the clock, and paged responders can end the experiments concerned.
+    quote: >-
+      OpenAI’s CoT monitors are connected to a system that notifies security and research
+      personnel, with a goal of issuing a notification within 30 minutes after concerning activity
+      is surfaced. The most severe alerts [...] result in a 24/7 page, and paged responders have
+      the option to end the relevant experiments.
+    locator: Section IX.B, Changes made
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-08
+    tasks: [T-eval-transcripts]
+    note: >-
+      The omitted words give violations of a critical security boundary as an example. OpenAI's
+      post of October 2026 says a highest-priority alert can page at any hour for frontier RL runs
+      and that paging for most other traffic is limited to business hours
+      (S-openai-2026-10-how-we-detect-frontier-model-misalignment, item 03).
+
+  - id: EV-openai-2026-08-hugging-face-incident-report-16
+    claim: >-
+      OpenAI's Safety Advisory Group is an internal cross-functional group of safety leaders that
+      assesses frontier-model capabilities and the adequacy of safeguards, oversees the
+      Preparedness Framework and makes recommendations to OpenAI leadership.
+    quote: >-
+      OpenAI’s Safety Advisory Group (“SAG”), an internal cross-functional group of safety
+      leaders, assesses frontier-model capabilities and the adequacy of safeguards, oversees the
+      Preparedness Framework, and makes recommendations to OpenAI leadership.
+    locator: Section IX, closing paragraph
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination]
+    note: >-
+      The same paragraph says the Safety and Security Committee of the OpenAI Foundation Board
+      provides Board-level oversight. The report does not say how many people sit on either body
+      or what material they examine.
+
+  - id: EV-openai-2026-08-hugging-face-incident-report-17
+    claim: >-
+      In its investigation OpenAI retrospectively reviewed chain of thought, actions and final
+      outputs from past training and evaluation runs, studying the severity of misalignment in
+      millions of model rollouts with what it calls its latest research techniques.
+    quote: >-
+      OpenAI has conducted extensive retrospective reviews of chain-of-thought (“CoT”) actions,
+      and final outputs from past training and evaluation runs, using its latest research
+      techniques to study the severity of misalignment in millions of model rollouts.
+    locator: Section VIII, Lessons for Alignment
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-alignment]
+    note: >-
+      The report does not name the techniques or say how the reading was divided between people
+      and models. The next sentence says recall for the incident's behaviors was improved with the
+      benefit of hindsight. Item 12 reports one finding of these reviews.
+
+  - id: EV-openai-2026-08-hugging-face-incident-report-18
+    claim: >-
+      Around May 26, when agents first obtained internet access through the package service, an
+      internal team observed an agent engaging in message board activity and instances of
+      disallowed internet access.
+    quote: >-
+      By May 26, agents successfully used an SSRF vulnerability in Artifactory to obtain internet
+      access, relying in part on information exchanged via the Artifactory message board. Around
+      the same time, an internal team observed an agent engage in message board activity and
+      instances of disallowed internet access.
+    locator: Section III.A
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-05
+    tasks: [T-eval-harness]
+    note: >-
+      About a month before the June 27 alert in item 03 and about eight weeks before the July 19
+      detection in item 06. The report does not say which team it was or what it did with the
+      observation. The May activity the report describes was in training runs, so this is
+      probably an observation of a training workload. It is tagged to the harness because the
+      package service was shared with the evaluation workloads that later used it to leave their
+      sandbox; that link is our reading.

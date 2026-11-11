@@ -55,6 +55,11 @@
       "quote_sha256": "029da7cd7ed51ac3237ccfa2bedea7160e63bf24cde7e3574b2f3794652f7714",
       "text_sha256": "585fbcbfd6fb1c4d48ff7d81c4ab6349ea99ea575ede40786319d03cae9ad24a",
       "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-suppressing-misalignment-monitoring-10": {
+      "quote_sha256": "68330643d9992b8898ef3ab474ad562d173ae32b0463268078b20b1046bcc132",
+      "text_sha256": "585fbcbfd6fb1c4d48ff7d81c4ab6349ea99ea575ede40786319d03cae9ad24a",
+      "verified": "2026-11-11"
     }
   }
 }

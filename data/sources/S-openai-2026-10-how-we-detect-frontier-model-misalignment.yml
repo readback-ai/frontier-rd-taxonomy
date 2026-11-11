@@ -205,3 +205,79 @@ evidence:
     grade: B
     describes: 2026-10
     tasks: []
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-11
+    claim: >-
+      For models at least as capable as GPT-6 Astra, OpenAI monitors every reinforcement learning
+      run and evaluation and any harness that supports tool use. For most workloads, including RL
+      and evaluations, it also monitors models it assesses as more capable than GPT-5.5 Thinking.
+    quote: >-
+      For models at least as capable as GPT-6 Astra, we monitor every reinforcement learning (RL)
+      run and evaluation, as well as any harness that supports tool use. For most workloads,
+      including RL and evaluations, we also monitor models we assess to be more capable than
+      GPT-5.5 Thinking.
+    locator: Our internal monitoring system today
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-10
+    tasks: [T-eval-transcripts, T-eval-harness]
+    note: >-
+      Evaluations of less capable models are outside this. OpenAI's report of the same month says
+      evaluations of models comparable to GPT-6 Luna do not require misalignment monitoring
+      (S-openai-2026-10-suppressing-misalignment-monitoring, item 06).
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-12
+    claim: >-
+      A random 5 percent of the traffic that the activation probes do not flag is also sent to the
+      next layer of the monitoring system.
+    quote: >-
+      Because we’re still evaluating how well the probes detect unfamiliar forms of misalignment,
+      we also send the next layer a random 5 percent of the traffic that our probes don’t flag.
+    locator: Our internal monitoring system today, Layer 0
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-10
+    tasks: [T-eval-transcripts, T-eval-safeguards]
+    note: >-
+      The next layer is the model-based reviewer, so this sample is read by a model. Frontier RL
+      runs and internal Codex traffic skip the probes and go to the reviewer directly; the post
+      does not say that evaluations do. For workloads that pass through the probes, the reviewer
+      therefore sees what the probes flag plus this sample.
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-13
+    claim: >-
+      The investigative agent that receives flagged cases can check the purpose of an evaluation,
+      read back across the agent's context windows where the full transcript is available,
+      reconstruct the incident, identify duplicate reports and decide how serious the case is.
+    quote: >-
+      This investigative agent can check the purpose of an evaluation and, where the full
+      transcript is available, read back across all of the agent’s context windows to see how it
+      arrived at its actions. [...] It then uses what it finds to reconstruct the incident,
+      identify duplicate reports, and make a decision about how serious the case is.
+    locator: Our internal monitoring system today, Layer 2
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-10
+    tasks: [T-eval-transcripts]
+    note: >-
+      The omitted sentence says the agent can also write and run code in an isolated environment
+      to examine evidence. Item 02 gives the layers before and after this one.
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-14
+    claim: >-
+      OpenAI asks its most capable agents to try to evade or disable the monitoring system in
+      controlled environments.
+    quote: >-
+      We also ask our most capable agents to try to evade or disable the monitoring system in
+      controlled environments.
+    locator: How we're evaluating and improving our monitoring system, Red-teaming
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-safeguards]
+    note: >-
+      The same section describes replaying recorded incidents, synthetic transcripts for simulated
+      incidents, and the three-week outside red-teaming exercise in item 09.

@@ -8,11 +8,11 @@ Data date: 2026-11-11.
 
 | Type | Sources | Evidence items |
 |---|---|---|
-| incident report | 13 | 121 |
+| incident report | 13 | 128 |
 | third party investigation | 8 | 72 |
-| lab research post | 7 | 64 |
-| system card | 5 | 47 |
-| risk report | 4 | 43 |
+| lab research post | 7 | 68 |
+| system card | 5 | 64 |
+| risk report | 4 | 73 |
 | academic paper | 4 | 28 |
 | lab measurement report | 2 | 20 |
 | readback internal | 2 | 11 |
@@ -25,43 +25,172 @@ Data date: 2026-11-11.
 
 | Grade | Items | Verified | Excused | Unverified |
 |---|---|---|---|---|
-| A | 37 | 37 | 0 | 0 |
-| B | 303 | 303 | 0 | 0 |
+| A | 38 | 38 | 0 | 0 |
+| B | 360 | 360 | 0 | 0 |
 | C | 80 | 80 | 0 | 0 |
 | D | 7 | 7 | 0 | 0 |
 
-427 of 427 quotes are verified against a snapshot.
+485 of 485 quotes are verified against a snapshot.
 
 ## Estimates by basis
 
 | Basis | Estimates | Share |
 |---|---|---|
-| evidence | 12 | 46% |
-| mixed | 14 | 54% |
-| judgment | 0 | 0% |
+| evidence | 12 | 15% |
+| mixed | 14 | 18% |
+| judgment | 54 | 68% |
 
-0 of 26 estimates (0%) rest on judgment alone.
+54 of 80 estimates (68%) rest on judgment alone. They are priors, not findings.
 
 ## Branches
+
+### Internal agent deployment (`T-agents`, draft)
+
+| Task | Name | Automation | Oversight | Evidence | Risks | Questions |
+|---|---|---|---|---|---|---|
+| `T-agents-harness` | Agent harnesses and orchestration |  |  | 0 | 0 | 0 |
+| `T-agents-permissions` | Permissions, credentials and sandboxes |  |  | 0 | 0 | 0 |
+| `T-agents-workflow` | Delegation, review and merge workflow |  |  | 0 | 0 | 0 |
+
+### Data (`T-data`, draft)
+
+| Task | Name | Automation | Oversight | Evidence | Risks | Questions |
+|---|---|---|---|---|---|---|
+| `T-data-acquisition` | Acquisition |  |  | 0 | 0 | 0 |
+| `T-data-filtering` | Filtering, deduplication and quality classifiers |  |  | 0 | 0 | 0 |
+| `T-data-synthetic` | Synthetic data generation |  |  | 0 | 0 | 0 |
+| `T-data-mixture` | Mixture design and curriculum |  |  | 0 | 0 | 0 |
+| `T-data-human` | Human data |  |  | 0 | 0 | 0 |
+| `T-data-provenance` | Provenance and lineage records |  |  | 0 | 0 | 0 |
+
+### Research direction and decisions (`T-direction`, draft)
+
+| Task | Name | Automation | Oversight | Evidence | Risks | Questions |
+|---|---|---|---|---|---|---|
+| `T-direction-priorities` | Research prioritization |  |  | 0 | 0 | 0 |
+| `T-direction-compute` | Compute allocation |  |  | 0 | 0 | 0 |
+| `T-direction-promotion` | Interpreting results and promoting changes |  |  | 0 | 0 | 0 |
+| `T-direction-scale` | Scale, internal-use and ship decisions |  |  | 0 | 0 | 0 |
+| `T-direction-measurement` | Measuring automation and oversight |  |  | 0 | 0 | 0 |
 
 ### Evaluation (`T-eval`, researched)
 
 | Task | Name | Automation | Oversight | Evidence | Risks | Questions |
 |---|---|---|---|---|---|---|
-| `T-eval-design` | Evaluation design and threshold setting | Anthropic: AL2 [mixed] | Anthropic: human every change [mixed] | 19 | 2 | 7 |
-| `T-eval-tasks` | Task, dataset and environment construction | Anthropic: AL3 [mixed] | Anthropic: human sampled [mixed] | 51 | 4 | 8 |
-| `T-eval-graders` | Graders, rubrics and model judges | Anthropic: AL3 [mixed] | Anthropic: human sampled [evidence] | 54 | 3 | 7 |
-| `T-eval-harness` | Harness, sandboxes and evaluation platform |  | Anthropic: human every change [mixed]; Google DeepMind: human every change [mixed] | 61 | 4 | 9 |
-| `T-eval-elicitation` | Capability elicitation and scaffolding |  |  | 5 | 2 | 6 |
+| `T-eval-design` | Evaluation design and threshold setting | Anthropic: AL2 [mixed] | Anthropic: human every change [mixed] | 22 | 2 | 7 |
+| `T-eval-tasks` | Task, dataset and environment construction | Anthropic: AL3 [mixed] | Anthropic: human sampled [mixed] | 64 | 4 | 8 |
+| `T-eval-graders` | Graders, rubrics and model judges | Anthropic: AL3 [mixed] | Anthropic: human sampled [evidence] | 64 | 3 | 7 |
+| `T-eval-harness` | Harness, sandboxes and evaluation platform |  | Anthropic: human every change [mixed]; Google DeepMind: human every change [mixed] | 68 | 4 | 9 |
+| `T-eval-elicitation` | Capability elicitation and scaffolding |  |  | 9 | 2 | 6 |
 | `T-eval-inloop` | In-loop capability evaluations and regression checks | Anthropic: AL3 [mixed] |  | 17 | 1 | 7 |
-| `T-eval-dangerous` | Dangerous-capability assessments |  |  | 44 | 6 | 7 |
-| `T-eval-alignment` | Alignment assessments and behavioral audits | Anthropic: AL4 [evidence] | Anthropic: ai review human by exception [evidence] | 74 | 7 | 7 |
-| `T-eval-safeguards` | Safeguard and monitor testing |  |  | 31 | 3 | 7 |
-| `T-eval-transcripts` | Transcript review and anomaly investigation | Anthropic: AL4 [evidence]; Google DeepMind: AL3 [evidence] | Anthropic: ai review human by exception [evidence]; Google DeepMind: human sampled [evidence] | 66 | 4 | 6 |
-| `T-eval-validity` | Validity checks | Anthropic: AL4 [evidence] | Anthropic: ai review human by exception [evidence] | 86 | 4 | 6 |
-| `T-eval-reporting` | System cards and risk reports | Anthropic: AL3 [mixed] |  | 22 | 2 | 7 |
-| `T-eval-determination` | Threshold determinations and release sign-off | frontier: AL2 [mixed] | Anthropic: human every change [mixed] | 23 | 3 | 7 |
-| `T-eval-external` | External and third-party evaluation | METR: AL3 [evidence] |  | 41 | 3 | 6 |
+| `T-eval-dangerous` | Dangerous-capability assessments |  |  | 48 | 6 | 7 |
+| `T-eval-alignment` | Alignment assessments and behavioral audits | Anthropic: AL4 [evidence] | Anthropic: ai review human by exception [evidence] | 80 | 7 | 7 |
+| `T-eval-safeguards` | Safeguard and monitor testing |  |  | 44 | 3 | 7 |
+| `T-eval-transcripts` | Transcript review and anomaly investigation | Anthropic: AL4 [evidence]; Google DeepMind: AL3 [evidence] | Anthropic: ai review human by exception [evidence]; Google DeepMind: human sampled [evidence] | 78 | 4 | 6 |
+| `T-eval-validity` | Validity checks | Anthropic: AL4 [evidence] | Anthropic: ai review human by exception [evidence] | 93 | 4 | 6 |
+| `T-eval-reporting` | System cards and risk reports | Anthropic: AL3 [mixed] |  | 24 | 2 | 7 |
+| `T-eval-determination` | Threshold determinations and release sign-off | frontier: AL2 [mixed] | Anthropic: human every change [mixed] | 31 | 3 | 7 |
+| `T-eval-external` | External and third-party evaluation | METR: AL3 [evidence] |  | 46 | 3 | 6 |
+
+### Compute and infrastructure software (`T-infra`, draft)
+
+| Task | Name | Automation | Oversight | Evidence | Risks | Questions |
+|---|---|---|---|---|---|---|
+| `T-infra-compute` | Cluster scheduling and resource management |  |  | 0 | 0 | 0 |
+| `T-infra-kernels` | Accelerator kernels, compilers and numerics |  |  | 0 | 0 | 0 |
+| `T-infra-training` | Distributed training stack |  |  | 0 | 0 | 0 |
+| `T-infra-inference` | Inference and serving stack |  |  | 0 | 0 | 0 |
+| `T-infra-tooling` | Experiment tooling, build and deploy |  |  | 0 | 0 | 0 |
+
+### Midtraining (`T-midtrain`, draft)
+
+| Task | Name | Automation | Oversight | Evidence | Risks | Questions |
+|---|---|---|---|---|---|---|
+| `T-midtrain-corpora` | Curated and synthetic corpora for continued training |  |  | 0 | 0 | 0 |
+| `T-midtrain-capability` | Context, modality and tool-format extension |  |  | 0 | 0 | 0 |
+| `T-midtrain-character` | Specification and character corpora |  |  | 0 | 0 | 0 |
+
+### Posttraining (`T-posttrain`, draft)
+
+| Task | Name | Automation | Oversight | Evidence | Risks | Questions |
+|---|---|---|---|---|---|---|
+| `T-posttrain-tuning` | Supervised and preference tuning |  |  | 0 | 0 | 0 |
+| `T-posttrain-rl` | Reinforcement learning runs |  |  | 0 | 0 | 0 |
+| `T-posttrain-environments` | Environments, rewards and training graders |  |  | 0 | 0 | 0 |
+| `T-posttrain-safety` | Safety and alignment training |  |  | 0 | 0 | 0 |
+| `T-posttrain-distillation` | Distillation and model variants |  |  | 0 | 0 | 0 |
+| `T-posttrain-harness` | Harness, tools and system prompt |  |  | 0 | 0 | 0 |
+
+### Pretraining (`T-pretrain`, draft)
+
+| Task | Name | Automation | Oversight | Evidence | Risks | Questions |
+|---|---|---|---|---|---|---|
+| `T-pretrain-research` | Architecture, objective and optimizer research |  |  | 0 | 0 | 0 |
+| `T-pretrain-scaling` | Scaling prediction and run planning |  |  | 0 | 0 | 0 |
+| `T-pretrain-execution` | Large-run execution and intervention |  |  | 0 | 0 | 0 |
+
+### Safeguards and monitoring (`T-safeguards`, draft)
+
+| Task | Name | Automation | Oversight | Evidence | Risks | Questions |
+|---|---|---|---|---|---|---|
+| `T-safeguards-classifiers` | Input and output classifiers |  |  | 0 | 0 | 0 |
+| `T-safeguards-monitors` | Monitors of agents and internal use |  |  | 0 | 0 | 0 |
+| `T-safeguards-control` | Control protocols |  |  | 0 | 0 | 0 |
+| `T-safeguards-interpretability` | Interpretability used for assurance |  |  | 0 | 0 | 0 |
+| `T-safeguards-operations` | Monitoring operations and incident response |  |  | 0 | 0 | 0 |
+
+### Security (`T-security`, draft)
+
+| Task | Name | Automation | Oversight | Evidence | Risks | Questions |
+|---|---|---|---|---|---|---|
+| `T-security-weights` | Weight protection |  |  | 0 | 0 | 0 |
+| `T-security-access` | Access control and identity |  |  | 0 | 0 | 0 |
+| `T-security-logging` | Logging, audit trails and detection |  |  | 0 | 0 | 0 |
+| `T-security-change` | Change management |  |  | 0 | 0 | 0 |
+
+## Pooled across Anthropic, OpenAI and Google DeepMind
+
+A pooled figure exists only where each of the three has its own estimate. It is the spread across them, not an average. Other developers' estimates appear in the branch tables above and are not pooled.
+
+### Evaluation: automation level
+
+| Task | Anthropic | OpenAI | Google DeepMind | Pooled |
+|---|---|---|---|---|
+| `T-eval-design` | AL2 |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-tasks` | AL3 |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-graders` | AL3 |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-harness` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-elicitation` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-inloop` | AL3 |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-dangerous` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-alignment` | AL4 |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-safeguards` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-transcripts` | AL4 |  | AL3 | needs OpenAI |
+| `T-eval-validity` | AL4 |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-reporting` | AL3 |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-determination` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-external` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+
+### Evaluation: oversight mode
+
+| Task | Anthropic | OpenAI | Google DeepMind | Pooled |
+|---|---|---|---|---|
+| `T-eval-design` | human every change |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-tasks` | human sampled |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-graders` | human sampled |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-harness` | human every change |  | human every change | needs OpenAI |
+| `T-eval-elicitation` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-inloop` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-dangerous` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-alignment` | ai review human by exception |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-safeguards` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-transcripts` | ai review human by exception |  | human sampled | needs OpenAI |
+| `T-eval-validity` | ai review human by exception |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-reporting` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+| `T-eval-determination` | human every change |  |  | needs OpenAI, Google DeepMind |
+| `T-eval-external` |  |  |  | needs Anthropic, OpenAI, Google DeepMind |
+
+0 of 28 cells have all three developers.
 
 ## Risks
 

@@ -190,3 +190,113 @@ evidence:
     strength: reported
     grade: B
     tasks: [T-eval-validity, T-eval-alignment]
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-11
+    claim: >-
+      In the resampling evaluation of internal coding trajectories, OpenAI's monitor classified
+      each resampled final turn for a misalignment category and a severity level. The severity 3
+      rate was 0.01% for both GPT-5.5 and GPT-5.4 Thinking, and severity 4 was never triggered.
+    quote: >-
+      For each prefix, we resample both using GPT-5.4 Thinking and GPT-5.5, and classify the final
+      turn for a misalignment category and severity level (0-4, where 4 is highest) using our
+      monitor. [...] the severity 3 rate was 0.01% for both models, and the highest severity level
+      (4) of our system was never triggered.
+    locator: Section 7.2
+    kind: method
+    strength: measured
+    grade: A
+    tasks: [T-eval-alignment, T-eval-graders]
+    note: >-
+      Section 7.2.1 describes the monitor as run from a prompt that lists misalignment categories,
+      so the labels are a model's. The number of trajectories is not given. Item 01 gives the
+      review rule for internal transcripts: people mainly review those labeled severity 3 and 4.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-12
+    claim: >-
+      In Monorepo-Bench, a rollout counts as a success when all its task-specific tests pass, and
+      the prompts, unit tests and hints are written by people.
+    quote: >-
+      If all task-specific tests pass, the rollout is considered a success. Prompts, unit tests,
+      and hints are human-written.
+    locator: Section 9.1.3.1, Monorepo-Bench
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-04
+    tasks: [T-eval-tasks, T-eval-graders]
+    note: >-
+      Monorepo-Bench is an internal software engineering evaluation in OpenAI's AI
+      self-improvement suite, graded by hidden unit tests. The GPT-6 Astra system card says it
+      was becoming saturated and replaces it with a newer suite, whose authorship it does not
+      describe.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-13
+    claim: >-
+      The protocols and questions of TroubleshootingBench, a biological capability evaluation,
+      were written by scientists with a PhD in a relevant discipline, and the dataset went through
+      independent expert review. It has 52 protocols with three questions each.
+    quote: >-
+      Scientists with a PhD in a relevant biological discipline (virology, genetics, microbiology,
+      or protein engineering) were asked to transcribe biological protocols they have personally
+      used in the lab. [...] After going through independent expert review, the resulting dataset
+      includes 52 protocols, each paired with three expert-written troubleshooting questions.
+    locator: Section 9.1.1.4, TroubleshootingBench
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-tasks]
+    note: >-
+      The card does not say how many reviewers there were or what the review checked. The GPT-6
+      Astra system card repeats the description.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-14
+    claim: >-
+      In the first-person fairness evaluation, responses are rated by GPT-4o. OpenAI says its
+      ratings were shown to be consistent with human ratings.
+    quote: >-
+      Responses are rated for harmful differences in stereotypes using GPT-4o, whose ratings were
+      shown to be consistent with human ratings.
+    locator: Section 8.1, First Person Fairness Evaluation
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders]
+    note: >-
+      The card gives no agreement rate and points to an earlier paper for the comparison. The
+      judge is an older model than the ones it rates.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-15
+    claim: >-
+      In one chain-of-thought monitorability evaluation, staff manually inspected the false
+      positives in the intervention arm among eligible instances.
+    quote: >-
+      We manually inspected the intervention-arm false positives among eligible instances. In
+      these cases, the agent’s final answer is not similar to the ground truth (Y=0), but the CoT
+      considers the ground-truth answer as a possible option.
+    locator: Section 7.3.1, CoT Monitorability
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-graders]
+    note: >-
+      The false positives are the monitor's; the monitor is GPT-5 Thinking. The inspection
+      followed a drop in the score of the Health Queries: Evidence Field environment. For a second
+      environment the card says staff manually inspected the false negatives. The number of
+      instances read is not given, and the card describes no routine reading of transcripts.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-16
+    claim: >-
+      An internal version of the cyber safeguards report informed a finding by SAG that the
+      safeguards sufficiently minimize the associated risks.
+    quote: >-
+      An internal version of this report informed SAG’s finding that these safeguards sufficiently
+      minimize the associated risks.
+    locator: Section 9.3.2, Cyber Safeguards
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination, T-eval-reporting]
+    note: >-
+      The card does not expand SAG. OpenAI's Hugging Face incident report names it as the Safety
+      Advisory Group (S-openai-2026-08-hugging-face-incident-report, item 16). The card does not
+      say what SAG examined beyond the report.
