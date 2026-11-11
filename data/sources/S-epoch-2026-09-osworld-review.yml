@@ -1,0 +1,145 @@
+id: S-epoch-2026-09-osworld-review
+title: "Benchmark Review: OSWorld 2.1"
+publisher: Epoch AI
+published: 2026-09-28
+url: https://epoch.ai/benchmarks/osworld-2-1/review
+type: third_party_investigation
+vantage: external_third_party
+labs: []
+summary: >-
+  Epoch AI's audit of the computer-use benchmark OSWorld v2.1 (XLANG Lab), rated Flawed. In a
+  sample of 50 of 108 tasks it found grader and task errors in 36: impossible checkpoints,
+  graders that refuse correct work and graders that pay for wrong work. Claude Opus 5.5
+  subagents flagged candidate errors and people confirmed each one. Epoch estimates that GPT-6
+  Astra lost about a fifth of its score on these tasks to wrong grading.
+limits: >-
+  A partial review of a stratified sample; Epoch stopped once its threshold was passed. Impact
+  figures are upper bounds on what grading errors could change, except the Astra estimate. As
+  described, people reviewed only what the model flagged, and only one model's traces were read. The
+  benchmark is built by XLANG Lab, not a frontier developer; the review does not name Astra's
+  developer, and OpenAI is listed on the strength of the GPT name. No response from the benchmark's
+  developer is linked. The review does not say how the faulty graders were built. Two of the
+  "impossible" findings exist only under the GPT harness. The number and background of the human
+  reviewers are not given.
+evidence:
+  - id: EV-epoch-2026-09-osworld-review-01
+    claim: >-
+      Epoch audited 50 of OSWorld v2.1's 108 tasks and found errors in 36. The errors could
+      affect up to 50.4% of the score across the audited tasks.
+    quote: >-
+      We audited 50 of its 108 tasks and found errors in 36. [...] Overall, these errors could
+      affect up to 50.4% of the score across the audited tasks.
+    locator: Summary
+    kind: incident
+    strength: measured
+    grade: C
+    tasks: [T-eval-tasks, T-eval-graders]
+
+  - id: EV-epoch-2026-09-osworld-review-02
+    claim: >-
+      The errors were 4 tasks or checkpoints impossible as written, 24 cases where the grader
+      denied credit for correct work and 12 where it gave credit for clearly incorrect work.
+    quote: >-
+      We found 4 tasks or checkpoints that were impossible to complete as written, 24 cases where
+      the grader failed to award credit for correct work (false negatives), and 12 cases where it
+      awarded credit for clearly incorrect work (false positives).
+    locator: Summary
+    kind: incident
+    strength: measured
+    grade: C
+    tasks: [T-eval-graders, T-eval-tasks]
+    note: Grader errors in both directions, so the net effect on a given model's score is unclear.
+
+  - id: EV-epoch-2026-09-osworld-review-03
+    claim: >-
+      The audit was model-led with human confirmation: Claude Opus 5.5 flagged potential errors,
+      one subagent per task, and people reviewed each flagged error.
+    quote: >-
+      We used Claude Opus 5.5 to flag potential errors, with one subagent per task, then manually
+      reviewed each flagged error to confirm or discard it.
+    locator: Methodology
+    kind: method
+    strength: reported
+    grade: C
+    tasks: [T-eval-validity, T-eval-tasks]
+    note: >-
+      What the model did not flag was, on this description, not reviewed by people. That reading
+      is my inference.
+
+  - id: EV-epoch-2026-09-osworld-review-04
+    claim: >-
+      Epoch calculates that GPT-6 Astra lost around 20.8% of its score on the tasks it examined to
+      incorrect grading.
+    quote: >-
+      Astra lost around 20.8% of its score on these tasks due to incorrect grading
+    locator: Findings
+    kind: incident
+    strength: reported
+    grade: C
+    tasks: [T-eval-graders]
+    note: >-
+      Epoch adds that Astra gained nothing from false positives. The runs and the denominator behind
+      the figure are not stated.
+
+  - id: EV-epoch-2026-09-osworld-review-05
+    claim: >-
+      In one task an LLM judge rejected a correct row because the item name was longer than the
+      answer key's; the model copied the name exactly as given and scored 0%.
+    quote: >-
+      An LLM judge compares each row with the answer key and rejects the longer name. [...] Astra
+      copied the item name exactly as Emily wrote it, submitting the two correct rows, but it
+      scored 0%.
+    locator: Representative Errors, False Negative, task 035
+    kind: incident
+    strength: reported
+    grade: C
+    tasks: [T-eval-graders]
+    note: >-
+      A model judge inside the grader, with an answer key that disagreed with the task's own
+      materials. The review says an agent that left the request out would have scored 50%.
+
+  - id: EV-epoch-2026-09-osworld-review-06
+    claim: >-
+      In one task, uploading every document into each of the 10 categories (1,300 uploads) scores
+      100%, because the grader does not penalize excess submissions.
+    quote: >-
+      uploading all documents in each of the 10 categories (1,300 uploads) produces a score of
+      100%, as the grader doesn’t penalize an excessive number of submissions.
+    locator: Representative Errors, False Positive, task 022
+    kind: incident
+    strength: reported
+    grade: C
+    tasks: [T-eval-graders]
+    note: Epoch confirms Astra did not use this shortcut on this task.
+
+  - id: EV-epoch-2026-09-osworld-review-07
+    claim: >-
+      Epoch read GPT-6 Astra's traces for reward hacking the grader might have missed and found
+      no obvious exploits.
+    quote: >-
+      We also read GPT-6 Astra’s traces to look for reward-hacking or other dubious behavior that
+      the grader might have missed, but found no obvious exploits.
+    locator: Methodology
+    kind: oversight
+    strength: reported
+    grade: C
+    tasks: [T-eval-transcripts]
+    note: The fault here is in the instrument, not in model gaming.
+
+  - id: EV-epoch-2026-09-osworld-review-08
+    claim: >-
+      OSWorld v2.0 was released on June 26, 2026. Two updates for task and setup issues followed on
+      August 8 and September 16; the second is v2.1, the version Epoch reviewed.
+    quote: >-
+      The original version of the benchmark, OSWorld v2.0, was released on June 26, 2026. Two
+      updates addressing task issues and setup issues have been released, on August 8 and
+      September 16, respectively.
+    locator: Notes, footnote 4
+    kind: incident
+    strength: reported
+    grade: C
+    describes: 2026-06
+    tasks: [T-eval-tasks]
+    note: >-
+      The errors Epoch reports remain after both updates. The review is dated September 28, 2026,
+      about three months after first release (our arithmetic).

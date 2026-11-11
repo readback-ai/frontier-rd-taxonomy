@@ -1,0 +1,104 @@
+id: S-readback-2026-11-pacing-takeoff-briefing
+title: How pacing mechanisms change the takeoff of automated AI R&D
+publisher: Readback Labs
+published: 2026-11-10
+url: https://github.com/readback-ai/readback-ops/blob/claude/zen-turing-8b5fej/research/pacing-takeoff-model/README.md
+type: readback_internal
+vantage: secondary
+labs: [Anthropic, OpenAI]
+summary: >-
+  Readback's top-down pacing briefing: two published models of AI R&D acceleration with a gate on
+  deployed changes, comparing comprehension audits, sign-off, an internal-use lag and compute cuts.
+  This repository supplies that gate's inputs bottom-up.
+limits: >-
+  A draft on a working branch of a private repository; snapshot taken from the file. Its figures
+  from OpenAI's September 2026 report are second-hand here: text figures were read from a saved copy
+  of the page and chart values were read off charts, two of them by eye. Every gate input is an
+  assumption, as the briefing says. The draft says results from its earlier gate are withdrawn and
+  that the gate result is no longer robust.
+evidence:
+  - id: EV-readback-2026-11-pacing-takeoff-briefing-01
+    claim: >-
+      In the pacing model, every gate input (counts of deployed changes by type, hours to
+      understand one, elasticities, progress weights, value tail) is an assumption that has not
+      been measured anywhere.
+    quote: >-
+      Counts of deployed changes, hours to understand one, elasticities, progress weights and the
+      value tail have not been measured anywhere.
+    locator: Where the inputs are weak or disputed
+    kind: method
+    strength: reported
+    grade: C
+
+  - id: EV-readback-2026-11-pacing-takeoff-briefing-02
+    claim: >-
+      The pacing model assumes understanding everything deployed today takes 298 hours, 15% of a
+      researcher-year, across four change types.
+    quote: >-
+      Today's load: understanding everything deployed takes 6 x 10 + 8 x 8 + 30 x 5 + 2 x 12 = 298
+      hours, 15% of a researcher-year.
+    locator: Modification 2, What is counted
+    kind: method
+    strength: reported
+    grade: C
+    note: The baseline the bottom-up gate inputs are compared with.
+
+  - id: EV-readback-2026-11-pacing-takeoff-briefing-03
+    claim: >-
+      The pacing model's sensitivity analysis names the elasticity of deployed changes to AI labor
+      as the parameter to measure first.
+    quote: >-
+      The elasticity of deployed changes is the parameter to measure first.
+    locator: Sensitivity, Model A
+    kind: method
+    strength: reported
+    grade: C
+
+  - id: EV-readback-2026-11-pacing-takeoff-briefing-04
+    claim: >-
+      As read from OpenAI's September 2026 report, agent workdays per human workday at OpenAI rose
+      from 0.5 in early May 2026 to 3.15 in mid-August.
+    quote: >-
+      Agent workdays per human workday rose from 0.5 in early May 2026 to 3.15 in mid-August, a
+      doubling every 39 days.
+    locator: Modification 1, Fits to OpenAI's data
+    kind: automation
+    strength: reported
+    grade: C
+    describes: 2026-08
+    note: >-
+      Second-hand. The primary page refuses automated fetches. The chart's date axis was not
+      recoverable; dates are the briefing's assumption.
+
+  - id: EV-readback-2026-11-pacing-takeoff-briefing-05
+    claim: >-
+      As read from OpenAI's report, about half of successful 4-to-8-hour agent tasks and about 72%
+      of successful 16-to-32-hour tasks needed at least one human intervention, January to July
+      2026.
+    quote: >-
+      Across January to July, 51% of successful 4-to-8-hour tasks and 72% of successful
+      16-to-32-hour tasks needed at least one intervention
+    locator: Modification 1, Fits to OpenAI's data
+    kind: oversight
+    strength: reported
+    grade: C
+    describes: 2026-07
+    note: >-
+      Second-hand. An intervention is not a review: the audit paper notes it does not distinguish
+      comprehension from iterating on failures.
+
+  - id: EV-readback-2026-11-pacing-takeoff-briefing-06
+    claim: >-
+      The briefing says OpenAI reports that people still set research priorities, and gives deciding
+      what to work on as 0.6% of the growth in its researchers' agent output.
+    quote: >-
+      OpenAI says people still set research priorities and judge which ideas and results to pursue,
+      and deciding what to work on is 0.6% of the growth in its researchers' agent output.
+    locator: Three disputed inputs, How good the evidence is
+    kind: share
+    strength: reported
+    grade: C
+    describes: 2026-08
+    note: >-
+      Second-hand. The 0.6% appears to be the briefing's own sum of three chart-read categories of
+      token growth, January to August 2026 (about 4,000 of 654,000).

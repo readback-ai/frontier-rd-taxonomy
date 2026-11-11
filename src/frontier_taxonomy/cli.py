@@ -42,9 +42,17 @@ def _cmd_snapshot(args: argparse.Namespace) -> int:
     except SnapshotError as error:
         print(f"snapshot failed: {error}", file=sys.stderr)
         return 1
-    record_snapshot(paths, meta)
+    # A lock belongs to a source record. A snapshot taken to decide whether a source is worth
+    # adding leaves none; `taxo verify-quotes` writes the lock once the record exists.
+    if (paths.records / "sources" / f"{args.source_id}.yml").is_file():
+        record_snapshot(paths, meta)
     print(f"{args.source_id}: {meta.text_chars} characters, sha256 {meta.text_sha256[:12]}")
     print(f"text: {folder / 'text.txt'}")
+    if meta.paywalled:
+        print(
+            "WARNING: the page marks itself paywalled. The snapshot may hold text a non-subscriber "
+            "is not shown. Quote only what the page shows without a subscription."
+        )
     return 0
 
 
@@ -86,6 +94,19 @@ def _cmd_verify_quotes(args: argparse.Namespace) -> int:
         f"{len(missing)} without a snapshot, {len(invalid)} invalid record(s)"
     )
     return 1 if failed or invalid else 0
+
+
+def _cmd_prune_locks(args: argparse.Namespace) -> int:
+    paths = Paths.discover()
+    sources = {path.stem for path in (paths.records / "sources").glob("*.yml")}
+    removed = 0
+    for lock_file in sorted(paths.locks.glob("*.json")):
+        if lock_file.stem not in sources:
+            lock_file.unlink()
+            print(f"removed {lock_file.relative_to(paths.root)}")
+            removed += 1
+    print(f"{removed} lock file(s) with no source record removed")
+    return 0
 
 
 def _cmd_validate(args: argparse.Namespace) -> int:
@@ -155,6 +176,9 @@ def build_parser() -> argparse.ArgumentParser:
     verify = sub.add_parser("verify-quotes", help="verify every quote and write lock files")
     verify.add_argument("source_ids", nargs="*")
     verify.set_defaults(func=_cmd_verify_quotes)
+
+    prune = sub.add_parser("prune-locks", help="delete lock files that have no source record")
+    prune.set_defaults(func=_cmd_prune_locks)
 
     val = sub.add_parser("validate", help="check records, references and rules")
     val.add_argument("--strict", action="store_true", help="warnings fail too")

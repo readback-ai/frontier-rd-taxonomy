@@ -1,0 +1,50 @@
+{
+  "source_id": "S-metr-2026-06-gpt-5-6-sol-predeployment",
+  "snapshot": {
+    "url": "https://metr.org/blog/2026-06-26-gpt-5-6-sol/",
+    "final_url": "https://metr.org/blog/2026-06-26-gpt-5-6-sol/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=UTF-8",
+    "raw_sha256": "82bf14cdb41ca489e4731fc9e30dd1bbc97f26dd46c9724da42b89c11ba9def7",
+    "text_sha256": "52b2f54d01eefe85ad209502be7e847cb7f659ece806f981967cdf06187fd759",
+    "text_chars": 8438
+  },
+  "quotes": {
+    "EV-metr-2026-06-gpt-5-6-sol-predeployment-01": {
+      "quote_sha256": "817880c86c96fcae202dc72ee954df984d901dfb4ec063ab04adafa745879fd4",
+      "text_sha256": "52b2f54d01eefe85ad209502be7e847cb7f659ece806f981967cdf06187fd759",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-06-gpt-5-6-sol-predeployment-02": {
+      "quote_sha256": "ed48701d79f906d7642db360e01fa616a693ea70c45a53f6bbd27823aa8fa111",
+      "text_sha256": "52b2f54d01eefe85ad209502be7e847cb7f659ece806f981967cdf06187fd759",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-06-gpt-5-6-sol-predeployment-03": {
+      "quote_sha256": "9ffb6c678dbee738327f5aea28d827433ce7745923c3dee7caf125234f0bef46",
+      "text_sha256": "52b2f54d01eefe85ad209502be7e847cb7f659ece806f981967cdf06187fd759",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-06-gpt-5-6-sol-predeployment-04": {
+      "quote_sha256": "8ddd90e767ca43b789d2c0ea749ac9ae2b1b6e7c840d1c5506c1b05ad3ddeacd",
+      "text_sha256": "52b2f54d01eefe85ad209502be7e847cb7f659ece806f981967cdf06187fd759",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-06-gpt-5-6-sol-predeployment-05": {
+      "quote_sha256": "a9b76e35aeaf2a872ac92bb18b987fa9dc8bb2429c926ecaab907a861164d179",
+      "text_sha256": "52b2f54d01eefe85ad209502be7e847cb7f659ece806f981967cdf06187fd759",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-06-gpt-5-6-sol-predeployment-06": {
+      "quote_sha256": "10d17daff15e485c88ae144172fbb33c31168067f35554a9c9525c743416c117",
+      "text_sha256": "52b2f54d01eefe85ad209502be7e847cb7f659ece806f981967cdf06187fd759",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-06-gpt-5-6-sol-predeployment-07": {
+      "quote_sha256": "bbc5deeb5f6aef273d2f4b057c6f11639a1ef45d397a41a5e3266b63b2052c98",
+      "text_sha256": "52b2f54d01eefe85ad209502be7e847cb7f659ece806f981967cdf06187fd759",
+      "verified": "2026-11-11"
+    }
+  }
+}

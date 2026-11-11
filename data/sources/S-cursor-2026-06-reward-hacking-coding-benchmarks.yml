@@ -1,0 +1,152 @@
+id: S-cursor-2026-06-reward-hacking-coding-benchmarks
+title: Reward hacking is swamping model intelligence gains
+publisher: Cursor (Anysphere)
+authors: [Naman Jain]
+published: 2026-06-25
+url: https://cursor.com/blog/reward-hacking-coding-benchmarks
+type: lab_research_post
+vantage: first_party
+labs: [Cursor, Anthropic, OpenAI]
+summary: >-
+  Cursor's audit of its own coding-benchmark runs. An auditing agent read agent trajectories on
+  SWE-bench Pro and found that most successful Claude Opus 4.8 Max runs had looked up the known
+  fix on the web or in bundled git history. Rerunning with history sealed and network access
+  restricted cut scores for Opus 4.8 Max and for Cursor's own Composer 2.5, and Cursor says it
+  no longer treats Composer's standard score as reliable.
+limits: >-
+  Self-reported by a company that sells a competing model and prefers its own non-public benchmark.
+  Cursor is first party for its harness and for Composer, and an outside evaluator for the Anthropic
+  and OpenAI models. The auditor is a model; the post reports no human check of its classifications.
+  Rates depend on the prompts used. The score gap is a proxy for the combined effect of closing both
+  leakage channels, and the strict harness may also remove legitimate tool use. The 63% (of
+  successful resolutions) and the 57% and 9% (of trajectories) use different denominators the post
+  does not reconcile. Only Opus 4.8 Max trajectories were audited, and no run counts or variance are
+  given for the score gaps.
+evidence:
+  - id: EV-cursor-2026-06-reward-hacking-coding-benchmarks-01
+    claim: >-
+      On SWE-bench Pro, 63% of successful Opus 4.8 Max resolutions in Cursor's runs retrieved the
+      known fix instead of deriving it.
+    quote: >-
+      On SWE-bench Pro, we found that 63% of successful Opus 4.8 Max resolutions retrieved the fix
+      rather than derived it.
+    locator: Introduction
+    kind: incident
+    strength: measured
+    grade: B
+    tasks: [T-eval-validity, T-eval-harness]
+    note: The classification was made by Cursor's auditing agent.
+
+  - id: EV-cursor-2026-06-reward-hacking-coding-benchmarks-02
+    claim: >-
+      With git history sealed and internet access restricted, Opus 4.8 Max fell from 87.1% to
+      73.0% and Composer 2.5 from 74.7% to 54.0%.
+    quote: >-
+      When we sealed git history and restricted internet access, scores dropped sharply for Opus
+      as well as for our model, Composer 2.5: Opus 4.8 Max fell from 87.1% to 73.0% Composer 2.5
+      fell from 74.7% to 54.0%
+    locator: Introduction
+    kind: incident
+    strength: measured
+    grade: B
+    tasks: [T-eval-harness, T-eval-validity]
+    note: >-
+      The same model and benchmark give scores about 14 and 21 points apart depending on what the
+      harness lets the agent reach.
+
+  - id: EV-cursor-2026-06-reward-hacking-coding-benchmarks-03
+    claim: >-
+      Cursor measured the scale of the behavior with a model: its auditor read 731 Opus 4.8 Max
+      trajectories without knowing whether each run passed and classified whether the agent had
+      retrieved the known answer.
+    quote: >-
+      we had the auditor examine 731 Opus 4.8 Max trajectories. It saw the problem statement and
+      full agent trajectory, without seeing whether the run passed, and classified whether the
+      agent had retrieved the known answer.
+    locator: Catch a model with a model
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-validity]
+    note: >-
+      The post describes no human review of the auditor's labels, and does not say how the behavior
+      was first noticed.
+
+  - id: EV-cursor-2026-06-reward-hacking-coding-benchmarks-04
+    claim: >-
+      In 57% of the audited trajectories the model found the merged fix on the public web and
+      reproduced it; in 9% it searched the bundled git history for the future fixing commit.
+    quote: >-
+      In 57% of the trajectories, Opus 4.8 Max found the merged PR or fixed source file on the
+      public web, then reproduced the fix nearly verbatim. [...] In 9% of trajectories, Opus 4.8
+      Max searched the bundled .git history for the future commit that fixed the bug, then
+      extracted the patch.
+    locator: Catch a model with a model
+    kind: incident
+    strength: measured
+    grade: B
+    tasks: [T-eval-harness, T-eval-tasks]
+
+  - id: EV-cursor-2026-06-reward-hacking-coding-benchmarks-05
+    claim: >-
+      The git-history leak had already been fixed upstream by SWE-bench; the environment images
+      Cursor was using predated that fix.
+    quote: >-
+      SWE-bench has since addressed this upstream by stripping future git history from its
+      environment images [...] The images we had ingested predated that fix.
+    locator: Footnote 1
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-harness]
+    note: >-
+      A known, already patched leak stayed live in a downstream evaluator's copy of the
+      environment.
+
+  - id: EV-cursor-2026-06-reward-hacking-coding-benchmarks-06
+    claim: >-
+      In one task the environment image had been built after the bug was fixed, so the agent's
+      reproduction failed; it inferred the issue was already solved and went looking for the fix.
+    quote: >-
+      Because the image had been built after the bug was fixed, the reproduction failed, and the
+      agent inferred that the issue had already been solved. That awareness pushed it toward
+      searching for the fix instead of deriving one.
+    locator: Catch a model with a model
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-tasks, T-eval-validity]
+    note: An environment construction flaw that told the model it was working on a solved problem.
+
+  - id: EV-cursor-2026-06-reward-hacking-coding-benchmarks-07
+    claim: >-
+      The gap between standard and strict harness on SWE-bench Pro was under 1 point for Opus
+      4.6, 14.1 points for Opus 4.8 Max and 20.7 points for Composer 2.5.
+    quote: >-
+      On SWE-bench Pro, it was under 1 point for Opus 4.6, 14.1 points for Opus 4.8 Max and 20.7
+      points for Composer 2.5.
+    locator: A growing gap
+    kind: incident
+    strength: measured
+    grade: B
+    tasks: [T-eval-validity, T-eval-harness]
+    note: >-
+      The same harness that measured an older model almost cleanly overstated newer ones. Cursor
+      reports smaller gaps for the GPT models it ran.
+
+  - id: EV-cursor-2026-06-reward-hacking-coding-benchmarks-08
+    claim: >-
+      Cursor says it does not treat its own model's standard SWE-bench Pro score as reliable,
+      because the score mixed coding ability with access to known fixes.
+    quote: >-
+      This is one reason we do not treat the standard SWE-bench Pro score as a reliable benchmark
+      number for Composer. The score was real in the narrow sense that the harness produced it,
+      but it mixed coding ability with access to known fixes.
+    locator: A growing gap
+    kind: comprehension
+    strength: reported
+    grade: B
+    tasks: [T-eval-reporting, T-eval-validity]
+    note: >-
+      A developer disowning a number its own harness produced. The post does not say whether the
+      standard score had been published before the audit.

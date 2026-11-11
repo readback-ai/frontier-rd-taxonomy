@@ -1,0 +1,111 @@
+id: S-bodkin-2026-10-comprehension-audits
+title: Comprehension Audits to Mitigate Risks from Automated AI Research
+publisher: arXiv
+authors: [Ronald J. Bodkin, Bahrad A. Sokhansanj, Gillian Hadfield]
+published: 2026-10-07
+url: https://arxiv.org/pdf/2610.10064
+type: academic_paper
+vantage: first_party
+summary: >-
+  Proposes comprehension audits: an independent party selects a contribution and the responsible
+  people explain it, unaided, to a graded standard, with development gated on the result. The
+  question sets in this repository are agenda templates for such an audit.
+limits: >-
+  Readback's own paper (readback-ops lists it as the organization's preprint), an arXiv v1 preprint.
+  Used here for definitions and method, as the authors' account of their own proposal, not as
+  evidence about any developer. The audits are a proposal not yet piloted. Its empirical section is
+  about public repositories.
+evidence:
+  - id: EV-bodkin-2026-10-comprehension-audits-01
+    claim: >-
+      A contribution is a meaningful unit of R&D work for which a person or team is accountable and
+      which changes the organization's products or beliefs. It is defined by purpose and effect,
+      not by size or how it was produced.
+    quote: >-
+      A contribution is a meaningful unit of R&D work for which a person or team is accountable and
+      which changes the organization's products or beliefs.
+    locator: Section 4
+    kind: method
+    strength: reported
+    grade: B
+
+  - id: EV-bodkin-2026-10-comprehension-audits-02
+    claim: >-
+      In an audit meeting contributors explain what the contribution does, its design rationale,
+      dependencies, algorithms and results, how it fails and how it changed.
+    quote: >-
+      Contributors are asked to explain aspects such as what the contribution does, its design
+      rationale, dependencies, the algorithms and results produced, how it fails and how it changed.
+    locator: Section 5.4, Audit Meeting
+    kind: method
+    strength: reported
+    grade: B
+
+  - id: EV-bodkin-2026-10-comprehension-audits-03
+    claim: >-
+      Contributors are expected to show understanding of the contribution without using AI
+      assistance during the review.
+    quote: >-
+      The contributors are expected to show understanding of the contribution without using AI
+      assistance during the review.
+    locator: Section 4
+    kind: method
+    strength: reported
+    grade: B
+    note: >-
+      Section 5.4 allows tools, including AI assistants, to navigate and display work, but not to do
+      analysis or generate responses.
+
+  - id: EV-bodkin-2026-10-comprehension-audits-04
+    claim: >-
+      The audit weighs evidence that understanding existed when the work was approved, not
+      understanding acquired in preparation for the audit.
+    quote: >-
+      The audit should weigh evidence that understanding existed when the work was approved, not
+      understanding that was remediated in preparation for or during an audit.
+    locator: Section 5.4, Grading
+    kind: method
+    strength: reported
+    grade: B
+
+  - id: EV-bodkin-2026-10-comprehension-audits-05
+    claim: >-
+      Assuming audits are selected at random and failures are independent, at a 25% failure rate a
+      quarterly budget of 17 audits gives a 99% chance of detecting at least one failure.
+    quote: >-
+      With a failure rate of 25%, a modest quarterly budget of 17 audits provides a 99% detection
+      rate
+    locator: Section 5.3
+    kind: method
+    strength: reported
+    grade: B
+    note: >-
+      The same paragraph states the primary threat model: a systematic loss of understanding of
+      research outputs. A sampling audit detects systematic gaps. It is not built to catch one
+      faulty contribution.
+
+  - id: EV-bodkin-2026-10-comprehension-audits-06
+    claim: >-
+      One critical knowledge gap in an important subdomain or a central aspect of a contribution is
+      enough to fail an audit.
+    quote: >-
+      A single critical knowledge gap or a pattern of inadequate understanding in any important
+      subdomain or a central aspect of a contribution is sufficient to warrant a failure.
+    locator: Section 5.4, Grading
+    kind: method
+    strength: reported
+    grade: B
+
+  - id: EV-bodkin-2026-10-comprehension-audits-07
+    claim: >-
+      The paper estimates that a pilot of comprehension audits would take about 1,000 person-hours
+      by auditors and 150 by lab staff, excluding onboarding and system access.
+    quote: >-
+      In aggregate, the pilot would require approximately 1000 person hours by auditors and 150
+      person hours by lab staff excluding onboarding and providing system access.
+    locator: Section 8.4
+    kind: method
+    strength: reported
+    grade: B
+    note: >-
+      An estimate for a proposed pilot. No audit has been run.

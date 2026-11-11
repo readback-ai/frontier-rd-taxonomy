@@ -1,0 +1,155 @@
+id: S-metr-2026-11-anthropic-risk-report-rd-review
+title: Review of the "Risks from automated R&D" section in Anthropic's Risk Report (August 2026)
+publisher: METR
+authors: [Tom Cunningham, Nate Rush, Parker Whitfill, Hjalmar Wijk]
+published: 2026-11-05
+url: https://metr.org/blog/2026-11-05-rd-section-anthropic-risk-report-august-2026-review/
+type: third_party_investigation
+vantage: embedded_third_party
+labs: [Anthropic]
+summary: >-
+  METR's review of the automated-R&D section of Anthropic's August 2026 Risk Report, written by
+  the same team and during the same engagement as METR's acceleration assessment. METR had the
+  private, unredacted report and compares its wording with the public one claim by claim. It
+  agrees that risk was low as of July 15, 2026, but finds the public report understated the
+  acceleration and the uncertainty that the private report recorded.
+limits: >-
+  Anthropic had the right to redact non-public information; several figures in the quoted private
+  text appear as "[redacted]", and METR's own analysis of the leading indicators was redacted. The
+  scope of the review was never formalized. The review went through several drafts after Anthropic
+  feedback. Shares the access limits and the conflict-of-interest disclosure of
+  S-metr-2026-11-anthropic-rd-acceleration. Readers cannot check the private-report quotes or the
+  1.97. The companion assessment says some Anthropic feedback to METR staff was overly forceful and
+  that METR made significant clarity edits.
+evidence:
+  - id: EV-metr-2026-11-anthropic-risk-report-rd-review-01
+    claim: >-
+      METR's researchers and Anthropic's relevant staff lean toward the early-warning threshold for
+      AI R&D acceleration not having been crossed by July 15, 2026, but METR thinks it plausible
+      that it had been, and believes the public risk report understates the acceleration that was
+      occurring.
+    quote: >-
+      While both METR’s researchers on this project and Anthropic’s relevant staff lean toward
+      it not having been crossed, we think it is plausible that it had been, and we believe the
+      public report overall understates the level of acceleration that was occurring.
+    locator: Executive summary
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-07
+    tasks: [T-eval-determination, T-eval-reporting, T-eval-external]
+
+  - id: EV-metr-2026-11-anthropic-risk-report-rd-review-02
+    claim: >-
+      The public risk report said leading indicators had accelerated by "less than a factor of
+      2". METR calculates that the figures in the private report imply 1.97.
+    quote: >-
+      We believe a reader of the public report would interpret the phrase “less than a factor of
+      2” to imply an estimate meaningfully below 2; thus it is surprising that the private risk
+      report’s figures imply 1.97.
+    locator: METR's assessment, Claim 1
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-07
+    tasks: [T-eval-reporting]
+    note: >-
+      1.97 is METR's calculation from two figures in the private report; the figure itself does
+      not appear there. The underlying rates are redacted.
+
+  - id: EV-metr-2026-11-anthropic-risk-report-rd-review-03
+    claim: >-
+      The private risk report called it plausible that the overall acceleration attributable to AI
+      exceeded a factor of 2 by July 15.
+    quote: >-
+      Meanwhile, the private risk report describes it as “plausible” that the overall
+      counterfactual acceleration attributable to AI exceeds a factor of 2 by July 15th.
+    locator: METR's assessment, Claim 2
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-07
+    tasks: [T-eval-reporting, T-eval-determination]
+
+  - id: EV-metr-2026-11-anthropic-risk-report-rd-review-04
+    claim: >-
+      The public report gave an internal model's benchmark score without the private report's
+      qualification that later snapshots were expected to score higher.
+    quote: >-
+      The public risk report states that Model 2’s score has large error bars, but does not
+      state the qualification in the private risk report that Anthropic expects higher scores
+      from later snapshots of the same base model.
+    locator: METR's assessment, Claim 3
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-07
+    tasks: [T-eval-reporting]
+    note: METR adds that later snapshots of Model 2 did improve.
+
+  - id: EV-metr-2026-11-anthropic-risk-report-rd-review-05
+    claim: >-
+      On the data used in the risk report, METR estimates the benchmark-index acceleration at
+      about 1.5x. After Anthropic added more benchmarks the same models give 1.9x.
+    quote: >-
+      If we reuse the data that was used in the Risk Report, the estimated acceleration is
+      around 1.5x. After the publication of the Risk Report, Anthropic added data from more
+      benchmarks, which estimates an acceleration of 1.9x using the same set of models.
+    locator: METR's assessment, Claim 3
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-inloop, T-eval-reporting]
+    note: >-
+      The two estimates use the same models; the second adds benchmark data. No method or interval
+      is given for either figure in this document.
+
+  - id: EV-metr-2026-11-anthropic-risk-report-rd-review-06
+    claim: >-
+      METR's confidence that models cannot fully substitute for research staff is much lower
+      than before, because no high-confidence unsaturated benchmark shows the missing
+      capabilities.
+    quote: >-
+      Similar to Anthropic, our confidence in this claim is much lower than it was in the past
+      due to the lack of high-confidence unsaturated benchmarks demonstrating capability
+      limitations that seem critical for automating AI R&D.
+    locator: METR's assessment, Full Substitution Threshold
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-dangerous, T-eval-tasks, T-eval-determination]
+    note: >-
+      METR says its confidence is lower "similar to Anthropic", and that it still finds the argument
+      against full substitution broadly compelling.
+
+  - id: EV-metr-2026-11-anthropic-risk-report-rd-review-07
+    claim: >-
+      As METR reads it, Anthropic's main argument that models cannot replace its research staff
+      is an observation: it tries hard to substitute models for researchers and researchers are
+      still needed.
+    quote: >-
+      Simply put, Anthropic tries hard to substitute researchers out for models, but researchers
+      are still required. They also present benchmark evidence, but we interpret it as less
+      important and more uncertain than this direct observation.
+    locator: Summary of Anthropic's Risk Report, Full Substitution Threshold
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-07
+    tasks: [T-eval-determination]
+    note: >-
+      METR's reading of the report: the determination rests more on this observation than on
+      benchmark evidence.
+
+  - id: EV-metr-2026-11-anthropic-risk-report-rd-review-08
+    claim: >-
+      The exact scope of METR's review was never formalized. METR and Anthropic negotiated it during
+      the engagement.
+    quote: >-
+      The exact scope of the review was never formalized, but mutually negotiated over the
+      course of the engagement.
+    locator: Process details, Key terms
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-external]

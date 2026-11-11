@@ -1,0 +1,65 @@
+{
+  "source_id": "S-anthropic-2026-01-auditing-overt-saboteur",
+  "snapshot": {
+    "url": "https://alignment.anthropic.com/2026/auditing-overt-saboteur/",
+    "final_url": "https://alignment.anthropic.com/2026/auditing-overt-saboteur/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "2a3df30270a13bbacf4f42e94770fb71c65bea666816e8835c3a66bf0f81a521",
+    "text_sha256": "dff9c647763aa0e2e5750e15a5a5367e93bdab707019b5922f861d2a1078a042",
+    "text_chars": 38501
+  },
+  "quotes": {
+    "EV-anthropic-2026-01-auditing-overt-saboteur-01": {
+      "quote_sha256": "75b42fc17394c99cd642da355490dfdbd790e970e1bb4ae9b1558dfb8149d745",
+      "text_sha256": "dff9c647763aa0e2e5750e15a5a5367e93bdab707019b5922f861d2a1078a042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-01-auditing-overt-saboteur-02": {
+      "quote_sha256": "9c9dd3ce5252d939de511067611ee98d15856edc7b9b14fccad98ff2efc10055",
+      "text_sha256": "dff9c647763aa0e2e5750e15a5a5367e93bdab707019b5922f861d2a1078a042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-01-auditing-overt-saboteur-03": {
+      "quote_sha256": "d0a2db8ffa6569512e221390ae4103a38a27e22a5612695358ddc10a2d5572dc",
+      "text_sha256": "dff9c647763aa0e2e5750e15a5a5367e93bdab707019b5922f861d2a1078a042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-01-auditing-overt-saboteur-04": {
+      "quote_sha256": "bc8ae3fced380f70797e609d70c111c2eda4c0cc03e5e095e2bf313cf84dafb8",
+      "text_sha256": "dff9c647763aa0e2e5750e15a5a5367e93bdab707019b5922f861d2a1078a042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-01-auditing-overt-saboteur-05": {
+      "quote_sha256": "7057e067abf1ec1ce7e381fd8041aa8b09f8a9905c38c0b640df95400e9e62a5",
+      "text_sha256": "dff9c647763aa0e2e5750e15a5a5367e93bdab707019b5922f861d2a1078a042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-01-auditing-overt-saboteur-06": {
+      "quote_sha256": "a931a4493b1e6f50b54f91e08c50250b4bbfa408835354da649d2f56c7d4bc2e",
+      "text_sha256": "dff9c647763aa0e2e5750e15a5a5367e93bdab707019b5922f861d2a1078a042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-01-auditing-overt-saboteur-07": {
+      "quote_sha256": "3a02cc5da621e79e77243350c45e1c8aa5ab5abca80061c5c5adb878b24711ba",
+      "text_sha256": "dff9c647763aa0e2e5750e15a5a5367e93bdab707019b5922f861d2a1078a042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-01-auditing-overt-saboteur-08": {
+      "quote_sha256": "ccb4e95de5b5193f93deb6e055fb03303deaeaddf7a95d545bdfa323af3635ea",
+      "text_sha256": "dff9c647763aa0e2e5750e15a5a5367e93bdab707019b5922f861d2a1078a042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-01-auditing-overt-saboteur-09": {
+      "quote_sha256": "d6c03b0c5ec2c675de3508dac2170c2a6764e9e7d1723d2a83c57614715e5f88",
+      "text_sha256": "dff9c647763aa0e2e5750e15a5a5367e93bdab707019b5922f861d2a1078a042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-01-auditing-overt-saboteur-10": {
+      "quote_sha256": "43468f648131898dd617d1d61c438a76bfef4f7ace3c23c67969144e8a050909",
+      "text_sha256": "dff9c647763aa0e2e5750e15a5a5367e93bdab707019b5922f861d2a1078a042",
+      "verified": "2026-11-11"
+    }
+  }
+}

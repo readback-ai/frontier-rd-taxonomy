@@ -1,0 +1,55 @@
+{
+  "source_id": "S-anthropic-2026-04-claude-code-quality-postmortem",
+  "snapshot": {
+    "url": "https://www.anthropic.com/engineering/april-23-postmortem",
+    "final_url": "https://www.anthropic.com/research/april-23-postmortem",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "95c4f21d408d18a2c2c6fcfbb10495125afafb061030535b3c45052dde890b63",
+    "text_sha256": "aa8fd3c24764ade85c664b06f6dcf0ba3638f717b7a7c7ffe13713f51c29803f",
+    "text_chars": 11092
+  },
+  "quotes": {
+    "EV-anthropic-2026-04-claude-code-quality-postmortem-01": {
+      "quote_sha256": "ad955381cbe1190d13c68255da2d5ee9ca2a488e5f47a29efac0e78a33e3f8e6",
+      "text_sha256": "aa8fd3c24764ade85c664b06f6dcf0ba3638f717b7a7c7ffe13713f51c29803f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-claude-code-quality-postmortem-02": {
+      "quote_sha256": "447bd363ea96208faad791dfbd84b91598b1b6c627e7e8a9bfff0b9f294a4b02",
+      "text_sha256": "aa8fd3c24764ade85c664b06f6dcf0ba3638f717b7a7c7ffe13713f51c29803f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-claude-code-quality-postmortem-03": {
+      "quote_sha256": "c5dcd5d56de0579fb1e1d617bb8c4e118f184676c312116e35e7a3bcb765adba",
+      "text_sha256": "aa8fd3c24764ade85c664b06f6dcf0ba3638f717b7a7c7ffe13713f51c29803f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-claude-code-quality-postmortem-04": {
+      "quote_sha256": "8cee4e9877c84f45d8924c0de5fe2dd767e3867b3e1eabcbaf9a26451338a7c2",
+      "text_sha256": "aa8fd3c24764ade85c664b06f6dcf0ba3638f717b7a7c7ffe13713f51c29803f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-claude-code-quality-postmortem-05": {
+      "quote_sha256": "1b4b71340f210a5848b43c4490c38e62163a441201f826426d235da09f5d10e7",
+      "text_sha256": "aa8fd3c24764ade85c664b06f6dcf0ba3638f717b7a7c7ffe13713f51c29803f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-claude-code-quality-postmortem-06": {
+      "quote_sha256": "62ce40886d47f40c10539f19f7b83396e42b27907b600ed066cefb5097eed075",
+      "text_sha256": "aa8fd3c24764ade85c664b06f6dcf0ba3638f717b7a7c7ffe13713f51c29803f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-claude-code-quality-postmortem-07": {
+      "quote_sha256": "f0e0141a55524839c0599195c072f86c50206f070c7bc91007b76050ea6cbccb",
+      "text_sha256": "aa8fd3c24764ade85c664b06f6dcf0ba3638f717b7a7c7ffe13713f51c29803f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-claude-code-quality-postmortem-08": {
+      "quote_sha256": "e83cbbac793afe5ed41c6b001d8725ea865e529601f72a5af4aa2188d7a0938b",
+      "text_sha256": "aa8fd3c24764ade85c664b06f6dcf0ba3638f717b7a7c7ffe13713f51c29803f",
+      "verified": "2026-11-11"
+    }
+  }
+}

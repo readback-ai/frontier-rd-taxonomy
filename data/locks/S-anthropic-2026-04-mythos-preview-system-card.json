@@ -1,0 +1,65 @@
+{
+  "source_id": "S-anthropic-2026-04-mythos-preview-system-card",
+  "snapshot": {
+    "url": "https://assets.claude.com/7624816413e9b4d2e3ba620c5a5e091b98b190a5.pdf",
+    "final_url": "https://assets.claude.com/7624816413e9b4d2e3ba620c5a5e091b98b190a5.pdf",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "55f6ed1c0735ec1b5b14d99c91794fb759ac4647edc64381123b68be89fd3225",
+    "text_sha256": "ed14f8c624efe36c6572397a6af1f10e2a1460a7c8d3f8d260e574269f0be6af",
+    "text_chars": 597545
+  },
+  "quotes": {
+    "EV-anthropic-2026-04-mythos-preview-system-card-01": {
+      "quote_sha256": "d8056a950ed2b8f0544c569dc2ecb81602aad5d92480e66839c8b9445dcad8d1",
+      "text_sha256": "ed14f8c624efe36c6572397a6af1f10e2a1460a7c8d3f8d260e574269f0be6af",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-mythos-preview-system-card-02": {
+      "quote_sha256": "82f2eabbd312d61050186ffbef43e8579305e15c0c4d87e41ceb9f4d2fb03bdc",
+      "text_sha256": "ed14f8c624efe36c6572397a6af1f10e2a1460a7c8d3f8d260e574269f0be6af",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-mythos-preview-system-card-03": {
+      "quote_sha256": "78db21f447fe7e0a9a00bf4498ad63d8baa4001bd29ade6bb43d9b1c96440a10",
+      "text_sha256": "ed14f8c624efe36c6572397a6af1f10e2a1460a7c8d3f8d260e574269f0be6af",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-mythos-preview-system-card-04": {
+      "quote_sha256": "5067d463c5a723c58a7e59d737d3771a6c98aeb6354702cf110bf90052201e58",
+      "text_sha256": "ed14f8c624efe36c6572397a6af1f10e2a1460a7c8d3f8d260e574269f0be6af",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-mythos-preview-system-card-05": {
+      "quote_sha256": "ef64e6454aa4c334ae2f927f48431b2dcc39a0a5ceb6179d00bc0e9a608a322a",
+      "text_sha256": "ed14f8c624efe36c6572397a6af1f10e2a1460a7c8d3f8d260e574269f0be6af",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-mythos-preview-system-card-06": {
+      "quote_sha256": "9083c6c223806185ab0a08997b8ad228f393905684e1f1a99dd3377bede6b227",
+      "text_sha256": "ed14f8c624efe36c6572397a6af1f10e2a1460a7c8d3f8d260e574269f0be6af",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-mythos-preview-system-card-07": {
+      "quote_sha256": "1265c144065dc50b20a84c60e4bf84e5a200b485da85879f0aa6f42c4a27af6e",
+      "text_sha256": "ed14f8c624efe36c6572397a6af1f10e2a1460a7c8d3f8d260e574269f0be6af",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-mythos-preview-system-card-08": {
+      "quote_sha256": "b1b56d4b729b12dd505a6f1105a0de22f37ffd7058c97494d715b97909bbced0",
+      "text_sha256": "ed14f8c624efe36c6572397a6af1f10e2a1460a7c8d3f8d260e574269f0be6af",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-mythos-preview-system-card-09": {
+      "quote_sha256": "462204640941e82e80d60eb0dea20484c561553bc06ad23a0832170f361f8a4d",
+      "text_sha256": "ed14f8c624efe36c6572397a6af1f10e2a1460a7c8d3f8d260e574269f0be6af",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-04-mythos-preview-system-card-10": {
+      "quote_sha256": "cc0badd2e3145ac944e4acc45e2f5ff2a9fb648e077cb6fa6614387e3bb2afb1",
+      "text_sha256": "ed14f8c624efe36c6572397a6af1f10e2a1460a7c8d3f8d260e574269f0be6af",
+      "verified": "2026-11-11"
+    }
+  }
+}

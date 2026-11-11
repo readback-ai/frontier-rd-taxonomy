@@ -1,0 +1,65 @@
+{
+  "source_id": "S-meta-2026-05-muse-spark-safety-preparedness-report",
+  "snapshot": {
+    "url": "https://ai.meta.com/static-resource/muse-spark-safety-and-preparedness-report/",
+    "final_url": "https://ai.meta.com/static-resource/muse-spark-safety-and-preparedness-report/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "1b760ea7770828e223daaa966a547529b4b1398a7ac44b97992488fab740133a",
+    "text_sha256": "540af0fc93e65ca1e6b972e7c6d04b5c152905efb779a6c586f23435c6fceff0",
+    "text_chars": 418554
+  },
+  "quotes": {
+    "EV-meta-2026-05-muse-spark-safety-preparedness-report-01": {
+      "quote_sha256": "4660f1c5c55ec28169efe174e2f70725f0f670aabc7248e163069bed476c6f6a",
+      "text_sha256": "540af0fc93e65ca1e6b972e7c6d04b5c152905efb779a6c586f23435c6fceff0",
+      "verified": "2026-11-11"
+    },
+    "EV-meta-2026-05-muse-spark-safety-preparedness-report-02": {
+      "quote_sha256": "cd8aed7ac99f5439c42dab95b164bccfe201afbea5968170422e392fb50c17a7",
+      "text_sha256": "540af0fc93e65ca1e6b972e7c6d04b5c152905efb779a6c586f23435c6fceff0",
+      "verified": "2026-11-11"
+    },
+    "EV-meta-2026-05-muse-spark-safety-preparedness-report-03": {
+      "quote_sha256": "f7049435a40fd9a3cab000034079330576fb1e9b90c5c7c4119d599224de570b",
+      "text_sha256": "540af0fc93e65ca1e6b972e7c6d04b5c152905efb779a6c586f23435c6fceff0",
+      "verified": "2026-11-11"
+    },
+    "EV-meta-2026-05-muse-spark-safety-preparedness-report-04": {
+      "quote_sha256": "dbad9d6ff6676d0ac00bc2a8485498ca5f1bb5c64e04d1c5797141f6f9b91ab7",
+      "text_sha256": "540af0fc93e65ca1e6b972e7c6d04b5c152905efb779a6c586f23435c6fceff0",
+      "verified": "2026-11-11"
+    },
+    "EV-meta-2026-05-muse-spark-safety-preparedness-report-05": {
+      "quote_sha256": "24c41ed5177c4c8f0e0f1369feaf67bcce4cb9ff5850fcd15baa899b705654a7",
+      "text_sha256": "540af0fc93e65ca1e6b972e7c6d04b5c152905efb779a6c586f23435c6fceff0",
+      "verified": "2026-11-11"
+    },
+    "EV-meta-2026-05-muse-spark-safety-preparedness-report-06": {
+      "quote_sha256": "e0ccfb6b9d29fa94f2a9f2a3e8fcd9a11ba4d6d96928ecd7ba1102f5a1db311e",
+      "text_sha256": "540af0fc93e65ca1e6b972e7c6d04b5c152905efb779a6c586f23435c6fceff0",
+      "verified": "2026-11-11"
+    },
+    "EV-meta-2026-05-muse-spark-safety-preparedness-report-07": {
+      "quote_sha256": "fa36e75ad424baa5160613044fd139c7f06e7f3204c273450bb4ff859394c7a5",
+      "text_sha256": "540af0fc93e65ca1e6b972e7c6d04b5c152905efb779a6c586f23435c6fceff0",
+      "verified": "2026-11-11"
+    },
+    "EV-meta-2026-05-muse-spark-safety-preparedness-report-08": {
+      "quote_sha256": "453bf98a7c4ae42278e9b783b4744a3386448aa0a267834b7a44ca685b6ab093",
+      "text_sha256": "540af0fc93e65ca1e6b972e7c6d04b5c152905efb779a6c586f23435c6fceff0",
+      "verified": "2026-11-11"
+    },
+    "EV-meta-2026-05-muse-spark-safety-preparedness-report-09": {
+      "quote_sha256": "e79dae290bbd02e48661619d7c8dadfce7f18ad69e7e6a5bc600e6673f317c9f",
+      "text_sha256": "540af0fc93e65ca1e6b972e7c6d04b5c152905efb779a6c586f23435c6fceff0",
+      "verified": "2026-11-11"
+    },
+    "EV-meta-2026-05-muse-spark-safety-preparedness-report-10": {
+      "quote_sha256": "bd2619c45295a35e81a4ed49a7d385c97368375a31b1adf1d66353df0022d9a6",
+      "text_sha256": "540af0fc93e65ca1e6b972e7c6d04b5c152905efb779a6c586f23435c6fceff0",
+      "verified": "2026-11-11"
+    }
+  }
+}

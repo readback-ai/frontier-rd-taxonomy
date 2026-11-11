@@ -1,0 +1,65 @@
+{
+  "source_id": "S-openai-2026-04-gpt-5-5-system-card",
+  "snapshot": {
+    "url": "https://deploymentsafety.openai.com/gpt-5-5/gpt-5-5.pdf",
+    "final_url": "https://deploymentsafety.openai.com/gpt-5-5/gpt-5-5.pdf",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "31133a3f53b520713b87ff9b92ddf90d3e699ac8b47f87c3e739b4365e8bfecf",
+    "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+    "text_chars": 95344
+  },
+  "quotes": {
+    "EV-openai-2026-04-gpt-5-5-system-card-01": {
+      "quote_sha256": "17ad87ae6b61d056ef0170939d64146a572bcca6605025e1f6e49c11276fcbe2",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-02": {
+      "quote_sha256": "b9ff7ce33332c6920532beb350a064abb90b6da609f79a42b3875bf2e93f6c0b",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-03": {
+      "quote_sha256": "a2623d08ea6960f4724d0d4072c69a54d302b2954bb8bd4d10f48089ca45bb3f",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-04": {
+      "quote_sha256": "e78f4ed6115d5a0d70965f265785437b322a053b7dd482cf29810038d7f7a6ce",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-05": {
+      "quote_sha256": "6161c02bc118b31d6a1ec4516cfc0615e0a5701bbf9efb7567c77654b987e147",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-06": {
+      "quote_sha256": "faab0eed8691980d99660a64d733e6ceedffbcb0912d8701d374668064d91b13",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-07": {
+      "quote_sha256": "1acff1c362a626243eb0f021092789f334fda77f4da39c3de55e9e4b7ac22675",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-08": {
+      "quote_sha256": "5322ffba1389190033980b839fb289292bd927f9face4d672002bdc8939a7bc5",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-09": {
+      "quote_sha256": "1da070c2bafcc2356ff3312be73546af6c5138fed57964e87f3a6be76df9ac85",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-04-gpt-5-5-system-card-10": {
+      "quote_sha256": "31441e987f237eb15ae49fd5c0f8c81acea0bc803e8108f8ad63527caf183c9a",
+      "text_sha256": "eb3fb0ac9c0b873bdb04fabd377fcdca62c27516979e338d7b668736bab5fde2",
+      "verified": "2026-11-11"
+    }
+  }
+}

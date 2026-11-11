@@ -1,0 +1,174 @@
+id: S-anthropic-2025-10-petri
+title: "Petri: An open-source auditing tool to accelerate AI safety research"
+publisher: Anthropic (Alignment Science Blog)
+published: 2025-10-06
+url: https://alignment.anthropic.com/2025/petri/
+type: lab_research_post
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic's release post for Petri, a tool in which an auditor model builds and runs
+  multi-turn test scenarios against a target model from human-written seed instructions and a
+  judge model scores the transcripts. It reports pilot results on 14 models, a comparison of
+  five judge models, and the tool's limits.
+limits: >-
+  Self-reported, from the tool's makers; the work was done under MATS and the Anthropic Fellows
+  program. The page text carries no author byline. The judge comparison is descriptive: no judge was
+  scored against human labels, and the same-family bias finding is called "slight evidence" from one
+  pilot of 111 seeds. Describes the open-source release, which the post says does not yet have the
+  realism filter described in the Claude Sonnet 4.5 system card. The post says many transcripts
+  contain clues that the scenario is not real and that scores are meaningful only in relative terms.
+evidence:
+  - id: EV-anthropic-2025-10-petri-01
+    claim: >-
+      Anthropic says Petri automates a large part of safety evaluation, from simulating the
+      environment through to the first analysis of transcripts.
+    quote: >-
+      Petri automates a large part of the safety evaluation process—from environment simulation
+      through to initial transcript analysis—making comprehensive audits possible with minimal
+      researcher effort.
+    locator: Introduction
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-tasks, T-eval-transcripts]
+
+  - id: EV-anthropic-2025-10-petri-02
+    claim: >-
+      Petri depends on humans for hypotheses and seed instructions. Anthropic says current
+      models are poor at inventing realistic scenarios or research directions from scratch.
+    quote: >-
+      Petri currently relies on humans to originate high-quality hypotheses and seed
+      instructions. Current models are poor at inventing realistic scenarios or research
+      directions from scratch; they are most useful for refining ideas and generating variations
+      once a human frames the task.
+    locator: Section "Limitations", Human creativity
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-design, T-eval-tasks]
+    note: >-
+      The same paragraph says a human should stay in the loop to set goals and realism
+      constraints, curate seeds and filter model-proposed variations.
+
+  - id: EV-anthropic-2025-10-petri-03
+    claim: >-
+      Anthropic says that without an automated judge, people would have to review hundreds or
+      thousands of transcripts, often of tens of thousands of tokens each, which would be a new
+      bottleneck.
+    quote: >-
+      without it, we would need to manually review hundreds or thousands of transcripts, often
+      spanning tens of thousands of tokens each, creating a new bottleneck that would undermine
+      the tool's core value.
+    locator: Section "Judge"
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-graders]
+
+  - id: EV-anthropic-2025-10-petri-04
+    claim: >-
+      Anthropic says its default judge will sometimes be inconsistent in edge cases and may miss
+      subtle misalignment while flagging benign behavior.
+    quote: >-
+      Our provided judge, while useful for initial screening, will sometimes exhibit
+      inconsistencies in edge cases and may miss subtle forms of misalignment while flagging
+      benign behaviors.
+    locator: Section "Limitations", Judge reliability and consistency
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders]
+    note: >-
+      No miss rate or false-flag rate is given. The post recommends manually reviewing a
+      representative sample of transcripts to calibrate.
+
+  - id: EV-anthropic-2025-10-petri-05
+    claim: >-
+      In the judge comparison, GPT-5 as judge rated targets from its own family (GPT-5, GPT-5
+      mini, o4-mini) as less misaligned than the other judges did, while agreeing more closely
+      with them on other targets.
+    quote: >-
+      GPT-5 as a judge showed potential bias, systematically rating GPT-5, GPT-5 mini, and
+      o4-mini targets as less misaligned than other judges did, while aligning more closely with
+      other judges when evaluating other targets.
+    locator: Appendix, Judge Comparison
+    kind: risk
+    strength: measured
+    grade: B
+    tasks: [T-eval-graders]
+    note: >-
+      Five models each served as auditor and judge over 111 seed instructions. The main text
+      calls this "slight evidence that some judges are biased towards their own model family".
+      No such bias is reported for the Claude judges.
+
+  - id: EV-anthropic-2025-10-petri-06
+    claim: >-
+      The same judge scoring the same transcript twice correlated at about 0.75 to 0.85 in
+      Anthropic's preliminary experiments.
+    quote: >-
+      in preliminary experiments we found that intra-judge correlation (e.g. sample the judge
+      twice for each transcript and compare the two scores) was typically between 0.75 and 0.85.
+    locator: Appendix, Judge Comparison
+    kind: method
+    strength: measured
+    grade: B
+    tasks: [T-eval-graders]
+
+  - id: EV-anthropic-2025-10-petri-07
+    claim: >-
+      Anthropic reports that the judge tends to hallucinate transcript details in its summaries,
+      and that making it quote passages first reduces this substantially.
+    quote: >-
+      The judge's tendency to hallucinate transcript details decreases substantially when it
+      must first explicitly identify and quote relevant passages.
+    locator: Section "Summaries and Justification"
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-graders]
+    note: A qualitative finding. No hallucination rate is given before or after.
+
+  - id: EV-anthropic-2025-10-petri-08
+    claim: >-
+      The pilot produced 555 transcripts and 2,775 judge scores for each target model from 111
+      seed instructions.
+    quote: >-
+      Each target model was run on all 111 seed instructions once per auditor model, totaling
+      555 transcripts per target. These were then scored once by each judge, for a total of
+      2,775 scores for each target model.
+    locator: Section "Broad-Coverage Pilot Alignment Evaluations", figure caption
+    kind: method
+    strength: measured
+    grade: B
+    tasks: [T-eval-alignment]
+    note: >-
+      Five models served as auditors and the same five as judges. Every one of these scores was
+      assigned by a model.
+
+  - id: EV-anthropic-2025-10-petri-09
+    claim: >-
+      As an auditor, Gemini 2.5 Pro mistook itself for the target in about 10% of transcripts
+      and made at least one malformed tool call in about 30%.
+    quote: >-
+      Gemini 2.5 Pro would often think it was the target (~10% of the time) or make at least one
+      malformed tool call (~30% of the time) per transcript.
+    locator: Appendix, Judge Comparison
+    kind: automation
+    strength: measured
+    grade: B
+    tasks: [T-eval-harness, T-eval-alignment]
+    note: Failure rates of one auditor model. Comparable rates for the other auditors are not given.
+
+  - id: EV-anthropic-2025-10-petri-10
+    claim: >-
+      Anthropic says Petri is not a substitute for careful human review and is not built
+      primarily as a benchmark.
+    quote: >-
+      Petri is not primarily built to be a benchmark and is not a substitute for careful human
+      review.
+    locator: Section "Closing Thoughts"
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-transcripts]

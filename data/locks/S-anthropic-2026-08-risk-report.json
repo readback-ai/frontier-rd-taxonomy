@@ -1,0 +1,70 @@
+{
+  "source_id": "S-anthropic-2026-08-risk-report",
+  "snapshot": {
+    "url": "https://www-cdn.anthropic.com/f61d49fa5596956a5dec75fea0e973bf6a6a8378/Redacted%20Risk%20Report%20August%202026%20.pdf",
+    "final_url": "https://www-cdn.anthropic.com/f61d49fa5596956a5dec75fea0e973bf6a6a8378/Redacted%20Risk%20Report%20August%202026%20.pdf",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "d76815f8c0bd284a33c7017d642d0734ba903ae63f7c1e6ca7778b35b2c40fa4",
+    "text_sha256": "ba7d6f105afccaa16d0073134065162e8eb6d99a765f912c1fbc1fd27b26e6aa",
+    "text_chars": 559339
+  },
+  "quotes": {
+    "EV-anthropic-2026-08-risk-report-01": {
+      "quote_sha256": "8e9a821cf6016834b87f129692dbd718fcf09103e4fd4724d956cb3036633a44",
+      "text_sha256": "ba7d6f105afccaa16d0073134065162e8eb6d99a765f912c1fbc1fd27b26e6aa",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-risk-report-02": {
+      "quote_sha256": "54df0d5bdc9ba7e9b08c32a2ebb966d807fb64cc1564c95e77a94bce9ee8a873",
+      "text_sha256": "ba7d6f105afccaa16d0073134065162e8eb6d99a765f912c1fbc1fd27b26e6aa",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-risk-report-03": {
+      "quote_sha256": "a0325540dde1b03c2ab8dbf567638c34a06a1b805d1533379679aa7c06cac5f2",
+      "text_sha256": "ba7d6f105afccaa16d0073134065162e8eb6d99a765f912c1fbc1fd27b26e6aa",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-risk-report-04": {
+      "quote_sha256": "01d4ea6bc7ec40b050014cea00c62f7661d44b8e51f967b3fc9553107edfd04e",
+      "text_sha256": "ba7d6f105afccaa16d0073134065162e8eb6d99a765f912c1fbc1fd27b26e6aa",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-risk-report-05": {
+      "quote_sha256": "a969811442cd0dbe32f0c9413cf91b7f12bc66353b9963f5cae2e7d206e59c23",
+      "text_sha256": "ba7d6f105afccaa16d0073134065162e8eb6d99a765f912c1fbc1fd27b26e6aa",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-risk-report-06": {
+      "quote_sha256": "157e964826e55f2df45ded8fa0e25a8e2830a6a1eeaaf550a7096fa4f1d3bc03",
+      "text_sha256": "ba7d6f105afccaa16d0073134065162e8eb6d99a765f912c1fbc1fd27b26e6aa",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-risk-report-07": {
+      "quote_sha256": "a9740933b0d3799a32e7d2329e38cdf9785b48483f9466ee80c00670313c976d",
+      "text_sha256": "ba7d6f105afccaa16d0073134065162e8eb6d99a765f912c1fbc1fd27b26e6aa",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-risk-report-08": {
+      "quote_sha256": "c98c4db5726ca8f1a8f720697982a037bca4df5a2a42706dc8af4057b7c51417",
+      "text_sha256": "ba7d6f105afccaa16d0073134065162e8eb6d99a765f912c1fbc1fd27b26e6aa",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-risk-report-09": {
+      "quote_sha256": "238ea01969fcce427e9e38fc367e280cdea0bf2c959b9c7fa87114153cf77104",
+      "text_sha256": "ba7d6f105afccaa16d0073134065162e8eb6d99a765f912c1fbc1fd27b26e6aa",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-risk-report-10": {
+      "quote_sha256": "5efdf8f8d71972cc13eed4633b5c79a341b2d6df17730e7be9c54ddee83d19dc",
+      "text_sha256": "ba7d6f105afccaa16d0073134065162e8eb6d99a765f912c1fbc1fd27b26e6aa",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-risk-report-11": {
+      "quote_sha256": "b6667580fcc39527357355932019c86ad47e24728ac5d9b3054310b895761c5a",
+      "text_sha256": "ba7d6f105afccaa16d0073134065162e8eb6d99a765f912c1fbc1fd27b26e6aa",
+      "verified": "2026-11-11"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+task: T-eval-inloop
+estimates:
+  - id: EST-eval-inloop-automation-anthropic-2026-10
+    task: T-eval-inloop
+    quantity: automation_level
+    scope: Anthropic
+    as_of: 2026-10
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-metr-2026-11-anthropic-rd-acceleration-04
+      - EV-metr-2026-11-anthropic-rd-acceleration-05
+      - EV-metr-2026-11-anthropic-rd-acceleration-06
+      - EV-anthropic-2026-09-measuring-pace-10
+    reasoning: >-
+      METR was told that AI speeds up Anthropic's R&D mainly by assisting people, not by fully
+      autonomous contributions: AL3. Two researchers' accounts describe something closer to AL4,
+      sending ten ideas to an agent scaffold and presenting results by pointing to the agent's
+      thread. At about ten thousand research training and evaluation runs a week, most results
+      cannot be read by a person; that inference is ours. AL3 with a growing AL4 share, on anecdote.
+    confidence: low
+    stale_after: 2027-04-01

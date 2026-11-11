@@ -1,0 +1,42 @@
+task: T-eval-graders
+estimates:
+  - id: EST-eval-graders-automation-anthropic-2026-09
+    task: T-eval-graders
+    quantity: automation_level
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-06
+      - EV-anthropic-2026-08-risk-report-09
+      - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-02
+      - EV-anthropic-2025-12-bloom-02
+    reasoning: >-
+      Two things are separate here. Assigning verdicts is fully automated: a model judge scores
+      every transcript and a second model writes the suite report. Building the grader, the task
+      this estimate covers, is described as staff designing model-based graders and reading
+      flagged outputs. People direct, a model does the grading at scale: AL3 for the design work.
+      No source says how much of a grader's prompt or rubric a model writes.
+    confidence: low
+    stale_after: 2027-03-01
+
+  - id: EST-eval-graders-oversight-anthropic-2026-09
+    task: T-eval-graders
+    quantity: oversight_mode
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: category, value: human_sampled}
+    basis: evidence
+    evidence:
+      - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-06
+      - EV-anthropic-2025-07-alignment-auditing-agents-08
+      - EV-anthropic-2025-12-bloom-05
+      - EV-anthropic-2026-06-recursive-self-improvement-05
+    reasoning: >-
+      Staff read flagged outputs and could not manually verify all grader outputs. Where graders
+      were checked by hand it was on a subset: the lowest-rate cases, or 40 labeled transcripts.
+      The judge behind a headline internal metric is reported with no agreement rate against
+      people.
+    confidence: medium
+    stale_after: 2027-03-01

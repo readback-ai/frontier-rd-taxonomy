@@ -1,0 +1,168 @@
+id: S-gdm-2025-11-gemini-3-pro-fsf-report
+title: Frontier Safety Framework Report – Gemini 3 Pro
+publisher: Google DeepMind
+authors: []
+published: 2025-11
+url: https://storage.googleapis.com/deepmind-media/gemini/gemini_3_pro_fsf_report.pdf
+type: risk_report
+vantage: first_party
+labs: [Google DeepMind]
+summary: >-
+  Google DeepMind's Frontier Safety Framework report for Gemini 3 Pro: threat modeling,
+  capability evaluations against its Critical Capability Levels for CBRN, cybersecurity,
+  harmful manipulation, ML R&D and misalignment, external safety testing, and appendices on
+  correctness checks of evaluation transcripts, evaluation awareness and sandbagging.
+limits: >-
+  Self-reported. External testers are not named and their findings are Google's summaries.
+  Several evaluations were run on an earlier version of the model than the one released. The
+  report gives no counts of transcripts sampled or read by people. Figures are not in the
+  extracted text.
+evidence:
+  - id: EV-gdm-2025-11-gemini-3-pro-fsf-report-01
+    claim: >-
+      Google DeepMind spot-checked sampled evaluation transcripts for spurious failures and
+      environment bugs by manual inspection, with Gemini used to speed up triage. The automated
+      analysis of agentic transcripts checked for 12 failure modes.
+    quote: >-
+      These spot checks were performed through a combination of manual inspection and the use of
+      Gemini to accelerate triage. For example, the automated analysis of transcripts from the
+      agentic evaluations included checks for 12 failure modes, including hallucinations, tool
+      calling issues, and error messages from the evaluation environment.
+    locator: Correctness Checks (PDF page 21)
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-harness]
+    note: The report does not say which Gemini version did the triage.
+
+  - id: EV-gdm-2025-11-gemini-3-pro-fsf-report-02
+    claim: >-
+      Checks for sandbagging were automated in all risk domains. In the ML R&D and misalignment
+      domains staff also inspected transcripts by hand, and found examples of the model showing
+      awareness of being in a synthetic environment but no sandbagging.
+    quote: >-
+      In all domains, we performed automated checks for sandbagging [...] In ML R&D and
+      misalignment, we also carried out manual inspection of transcripts, and found a number of
+      more subtle examples where Gemini 3 Pro indicated awareness of being in a synthetic
+      environment. Nonetheless we did not find any examples of sandbagging.
+    locator: Correctness Checks (PDF page 21)
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-transcripts]
+
+  - id: EV-gdm-2025-11-gemini-3-pro-fsf-report-03
+    claim: >-
+      On two of the eleven hard cyber challenges Gemini 3 Pro solved, it used an unintended
+      shortcut. After examining the transcripts, subject matter experts concluded it could
+      likely have solved them in the intended way.
+    quote: >-
+      On two of the eleven challenges that Gemini 3 Pro solves, Gemini 3 Pro found an unintended
+      shortcut to success. However, after careful examination of the corresponding transcripts,
+      our subject matter experts concluded that Gemini 3 Pro is likely capable of solving these
+      challenges in the intended way.
+    locator: Cybersecurity, Methodology (PDF page 10)
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-tasks, T-eval-transcripts, T-eval-dangerous]
+    note: >-
+      Both challenges were kept in the 11 of 12 score, which the report describes as erring on
+      the side of caution. That score put the model over the cyber alert threshold.
+
+  - id: EV-gdm-2025-11-gemini-3-pro-fsf-report-04
+    claim: >-
+      Whether the cyber Critical Capability Level has been reached is decided by cybersecurity
+      experts who review the experimental results after the evaluations are run.
+    quote: >-
+      After running our evaluations, cybersecurity experts review the experimental results to
+      make a determination as to whether the CCL has been reached.
+    locator: Cybersecurity, Methodology (PDF page 10)
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination]
+
+  - id: EV-gdm-2025-11-gemini-3-pro-fsf-report-05
+    claim: >-
+      The full CBRN evaluation set was run on a similar earlier version of Gemini 3 Pro. Google says
+      the final version showed no material capability change and received limited additional
+      testing.
+    quote: >-
+      We ran our full set of evaluations on a similar earlier version of Gemini 3 Pro and these
+      results informed our CCL decision. [...] As a precaution, we ran limited additional testing
+      on the final version to seek out changes that would indicate a full re-evaluation of CCL
+      would be required.
+    locator: CBRN, Overview (PDF page 7)
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-dangerous, T-eval-determination]
+    note: >-
+      The report says the same of external safety testing and of the stealth and situational
+      awareness evaluations. It does not say how much earlier the tested version was.
+
+  - id: EV-gdm-2025-11-gemini-3-pro-fsf-report-06
+    claim: >-
+      Gemini 3 Pro's cyber evaluations used larger attempt budgets, longer step limits and more
+      tools than those of earlier models, so results are not strictly comparable across model
+      generations.
+    quote: >-
+      Our evaluations of Gemini 3 Pro benefit from increased attempt budgets, longer step limits,
+      and enhanced tool affordances compared to prior generations. This prevents a strict
+      apples-to-apples comparison of results across models.
+    locator: Appendix 1 (PDF page 24)
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-elicitation, T-eval-harness]
+
+  - id: EV-gdm-2025-11-gemini-3-pro-fsf-report-07
+    claim: >-
+      As a proof of concept, Google DeepMind briefly looked for evaluation awareness in
+      post-training model outputs, by hand and with two autoraters, one for anomalies and one for
+      evaluation awareness.
+    quote: >-
+      we also briefly investigated model outputs from post-training for signs of evaluation
+      awareness. This was conducted both manually, with an anomaly detection autorater, and an
+      eval awareness autorater.
+    locator: Appendix 2, Evaluation awareness during training (PDF page 26)
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-validity]
+    note: The report calls this early work and a proof of concept.
+
+  - id: EV-gdm-2025-11-gemini-3-pro-fsf-report-08
+    claim: >-
+      After Gemini 3 Pro crossed the cyber alert threshold on the existing benchmark, the report
+      says preliminary results from a new benchmark confirm it is still below the Critical
+      Capability Level: it solved none of the 13 new challenges end to end.
+    quote: >-
+      This takes Gemini 3 Pro above the alert threshold. However, preliminary results from the v2
+      benchmark confirm that Gemini 3 Pro is still below the CCL: Gemini 3 Pro cannot solve any
+      of the 13 new challenges end-to-end.
+    locator: Cybersecurity, Methodology (PDF page 11)
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination, T-eval-design]
+    note: >-
+      The existing benchmark was nearly saturated at 11 of 12 hard challenges. The report says
+      it hopes to give more details of the new benchmark in future.
+
+  - id: EV-gdm-2025-11-gemini-3-pro-fsf-report-09
+    claim: >-
+      Google DeepMind measures progress toward its ML R&D thresholds with RE-Bench, reasoning
+      that because the benchmark covers a narrow subset of what AI researchers do, low
+      performance on it means the model is unlikely to meaningfully accelerate AI progress.
+    quote: >-
+      because RE-Bench measures a narrow subset of tasks compared to what AI researchers carry
+      out, so long as performance on this benchmark remains low, we believe it is unlikely to
+      meaningfully accelerate the rate of AI progress.
+    locator: Machine Learning R&D, Methodology (PDF page 15)
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-design, T-eval-dangerous]
+    note: Five of the seven RE-Bench tasks were used; two needing internet access were omitted.

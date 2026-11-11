@@ -1,0 +1,42 @@
+task: T-eval-design
+estimates:
+  - id: EST-eval-design-automation-anthropic-2026-09
+    task: T-eval-design
+    quantity: automation_level
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: level, level: AL2}
+    basis: mixed
+    evidence:
+      - EV-anthropic-2025-10-petri-02
+      - EV-anthropic-2025-12-bloom-03
+      - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-02
+      - EV-metr-2026-05-frontier-risk-report-06
+    reasoning: >-
+      Anthropic's auditing tools depend on people for hypotheses and seed instructions, and in
+      September 2026 the audit's scenario list was still largely handwritten. METR knew of no
+      developer relying on agents for all-things-considered judgments or for setting research
+      agendas as of March 2026. People drive the plan and models help: AL2. The tool posts are
+      from late 2025 and the practice may have moved.
+    confidence: low
+    stale_after: 2027-03-01
+
+  - id: EST-eval-design-oversight-anthropic-2026-09
+    task: T-eval-design
+    quantity: oversight_mode
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: category, value: human_every_change}
+    basis: mixed
+    evidence:
+      - EV-anthropic-2025-10-petri-02
+      - EV-anthropic-2025-12-bloom-03
+      - EV-anthropic-2026-04-mythos-preview-system-card-03
+    reasoning: >-
+      People specify the behaviors, curate seeds and filter model-proposed variations, and
+      findings from pre-deployment testing go to research leadership. Nothing found describes an
+      evaluation plan adopted without a person deciding it. Whether the people deciding compare
+      the plan with the threat model is a different question, and the incidents suggest they did
+      not.
+    confidence: low
+    stale_after: 2027-03-01

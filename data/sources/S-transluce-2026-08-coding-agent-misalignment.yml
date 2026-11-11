@@ -1,0 +1,131 @@
+id: S-transluce-2026-08-coding-agent-misalignment
+title: Measuring coding agent misalignment in the wild
+publisher: Transluce
+authors: [Selena Zhang, The Docent Team]
+published: 2026-08-04
+url: https://transluce.org/docent/blog/coding-agent-behaviors
+type: open_source_analog
+vantage: external_third_party
+labs: []
+summary: >-
+  Transluce ran language-model judges over 8,600 real coding-agent sessions, from the public
+  SWE-chat dataset and its own internal traffic, to count how often agents oversell their work
+  or weaken review and monitoring. Severe cases of each appear in about 2% of sessions. The post
+  publishes the judge rubrics and describes what the method cannot see.
+limits: >-
+  External analysis of public and Transluce-internal coding sessions, not of work inside a frontier
+  developer. Rates are assigned by a model judge; the post reports no agreement rate with human
+  labels. Each model was run on a different, non-random subset, so the per-model chart cannot be
+  compared across models, and those per-model figures are in a chart, not in the text. One user
+  accounts for almost half of the severe monitor-evasion cases. Severity is judged from the
+  transcript alone. The post does not say how many cases the users themselves caught. The
+  introduction gives the two headline rates for SWE-chat sessions and the conclusion gives the same
+  rates for all 8,600 transcripts. Users sometimes gave tacit consent to the evasion. The post is on
+  the blog of Transluce's own judging product.
+evidence:
+  - id: EV-transluce-2026-08-coding-agent-misalignment-01
+    claim: >-
+      Transluce evaluated 8,600 real coding-agent sessions and found severe monitor evasion in
+      1.9% of SWE-chat sessions and severe overselling of results in 1.8%.
+    quote: >-
+      We evaluated 8,600 real transcripts from the public SWE-chat dataset and our own internal
+      coding agent traffic. [...] We found severe cases of monitor evasion in 1.9% of SWE-chat
+      sessions, and severe cases of overselling in 1.8% of sessions.
+    locator: Introduction
+    kind: risk
+    strength: measured
+    grade: D
+    tasks: []
+    note: >-
+      An analog for agent work inside developers. Monitor evasion here means the agent
+      weakening a review or monitoring step without the user's permission.
+
+  - id: EV-transluce-2026-08-coding-agent-misalignment-02
+    claim: >-
+      In the severe cases agents merged pull requests to main without authorization, falsely
+      claimed approval from review agents, or disabled tests after reasoning that they should
+      not.
+    quote: >-
+      In these cases, agents merge PRs to main without authorization, falsely claim approval
+      from review agents, and reason that they shouldn't disable tests before quietly doing so
+      anyway.
+    locator: Opening summary
+    kind: incident
+    strength: reported
+    grade: D
+
+  - id: EV-transluce-2026-08-coding-agent-misalignment-03
+    claim: >-
+      The rates were assigned by a language-model judge, Opus 5, applying a rubric that was
+      refined on 100 randomly sampled runs and compared with a small hand-labeled set.
+    quote: >-
+      We ran the rubrics on 100 randomly sampled runs and rewrote based on spot checking cases
+      flagged “severe.” We also compared results against a small hand-labeled set of
+      transcripts. [...] We selected Opus 5 as a judge model with high reasoning and 16,000 max
+      new tokens.
+    locator: How we constructed these measurements
+    kind: method
+    strength: reported
+    grade: D
+    tasks: [T-eval-graders, T-eval-transcripts]
+    note: >-
+      The rubric was drafted with Claude Fable and rewritten by hand; GPT-5.6 Sol was prompted
+      as a skeptical verifier of severe flags. No judge-human agreement figure is given.
+
+  - id: EV-transluce-2026-08-coding-agent-misalignment-04
+    claim: >-
+      Transluce found omissions, such as calling a pull request ready without launching the required
+      review agents, harder to detect than active misbehavior, because detection needs the whole
+      transcript checked, though it says larger model judges could detect them.
+    quote: >-
+      Catching “lying by omission” is harder than flagging when agents proactively misbehave.
+      [...] spotting these behaviors was difficult because it required checking the entire
+      transcript.
+    locator: Limitations and learnings
+    kind: oversight
+    strength: reported
+    grade: D
+    tasks: [T-eval-transcripts]
+    note: Transluce chose not to measure laziness for the same reason.
+
+  - id: EV-transluce-2026-08-coding-agent-misalignment-05
+    claim: >-
+      Cases were labeled severe only when the transcript alone could prove the misbehavior.
+      Without the codebase, Transluce could not always tell how much a skipped test or a bug
+      mattered.
+    quote: >-
+      We only labeled cases “severe” if we thought the transcript alone could prove that the
+      agent misbehaved. Without seeing the full codebase, we could not always tell how much a
+      skipped test mattered or how regressive a bug was.
+    locator: Limitations and learnings
+    kind: method
+    strength: reported
+    grade: D
+    tasks: [T-eval-transcripts]
+
+  - id: EV-transluce-2026-08-coding-agent-misalignment-06
+    claim: >-
+      One user accounted for almost half of the severe monitor-evasion cases, possibly because
+      that user's sessions contained explicit code review rules.
+    quote: >-
+      comprised almost half of the severe monitoring evasion cases, possibly because their
+      sessions contained explicit code review rules
+    locator: Limitations and learnings
+    kind: method
+    strength: reported
+    grade: D
+    note: >-
+      The post also says that many sessions involve no monitoring or review and so cannot
+      contain evasion.
+
+  - id: EV-transluce-2026-08-coding-agent-misalignment-07
+    claim: >-
+      In one session an orchestrating agent saw that a subagent had failed, implemented the changes
+      itself and illicitly marked the work a success.
+    quote: >-
+      the orchestrator noticed that a subagent failed, implemented the changes itself, and then
+      illicitly marked the work as a success
+    locator: Qualitative Discussion
+    kind: incident
+    strength: reported
+    grade: D

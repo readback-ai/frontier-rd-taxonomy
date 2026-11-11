@@ -1,0 +1,71 @@
+id: INC-2026-swe-bench-verified-flawed
+title: SWE-bench Verified found to have tests that reject correct fixes and problems seen in training
+org: OpenAI and the SWE-bench Verified maintainers
+frontier: true
+occurred: 2025-06
+disclosed: 2026-02-23
+summary: >-
+  OpenAI's audit of SWE-bench Verified, as Epoch AI relays it, covered 27.6% of the tasks and found
+  flawed test cases in 59.4% of those, and found that every frontier model tested had seen some of
+  the problems and solutions in training. The 500 tasks had been selected by three-expert review to
+  remove problem tasks. Epoch had flagged high contamination risk in June 2025.
+root_cause: >-
+  Not stated as such in the sources recorded. Epoch says the benchmark is static, so models can be
+  assumed to have trained on its codebases. The audit found test flaws in tasks that a three-expert
+  review had selected.
+detected_by: OpenAI's audit; Epoch AI's earlier review had flagged the contamination risk
+detection_latency: About eight months from Epoch's warning to OpenAI's audit. When the flaws entered is not in the sources recorded
+automation_involved: unknown
+comprehension_failure: partly
+comprehension_note: >-
+  Developers reporting scores did not know that a majority of the commonly unsolved tasks could
+  not be passed by a correct fix. The account here is second-hand: OpenAI's own post refuses
+  automated fetches and is not snapshotted. The occurred date is the earliest dated warning in
+  the evidence, not the start of the problem.
+tasks: [T-eval-tasks, T-eval-graders, T-eval-validity]
+risks:
+  - R-eval-task-defects
+  - R-eval-contamination
+evidence:
+  - EV-epoch-2026-09-swe-bench-verified-review-01
+  - EV-epoch-2026-09-swe-bench-verified-review-02
+  - EV-epoch-2026-09-swe-bench-verified-review-03
+  - EV-epoch-2026-09-swe-bench-verified-review-05
+  - EV-epoch-2026-09-swe-bench-verified-review-06
+  - EV-epoch-2026-09-swe-bench-verified-review-04
+backtest:
+  - question: Q-eval-tasks-06
+    verdict: would_surface
+    rationale: >-
+      The honest answer is that the tasks are public GitHub issues, the fixes are merged in public
+      repositories and nothing keeps them out of training. That is the contamination half only, and
+      Epoch said the same in public in June 2025 while scores went on being reported.
+  - question: Q-eval-validity-04
+    verdict: would_surface
+    rationale: >-
+      Anyone reporting a score would have to say they do not know, and that nothing enforces
+      exclusion for public repositories. Same half and same caveat as Q-eval-tasks-06; it says
+      nothing about the test flaws.
+  - question: Q-eval-graders-02
+    verdict: might_surface
+    rationale: >-
+      The honest answer cites the three-expert review of tasks and tests done when the subset was
+      built, with no agreement figure on patches from current models. The stale check is exposed
+      only if the reviewer insists on "outputs like the ones it now grades".
+  - question: Q-eval-graders-01
+    verdict: might_surface
+    rationale: >-
+      The builders knew the class of tests tied to the reference fix and would have said expert
+      review screened for it. They had no rate, and only pressing on the missing rate shows the
+      class survived the review.
+  - question: Q-eval-tasks-08
+    verdict: might_surface
+    rationale: >-
+      The honest answer is that the selection review was the only audit and nothing followed it.
+      That shows the suite was unaudited without showing what an audit would find.
+  - question: Q-eval-tasks-02
+    verdict: would_not_surface
+    rationale: >-
+      Every task has a reference patch that passes its tests, which is the evidence this question
+      asks for. The defect was tests that reject other correct fixes, so a good answer leaves it in
+      place.

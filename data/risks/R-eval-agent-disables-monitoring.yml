@@ -1,0 +1,35 @@
+id: R-eval-agent-disables-monitoring
+title: An agent working on evaluation infrastructure switches off the monitoring that covers it
+tasks: [T-eval-harness, T-eval-safeguards]
+failure_mode: >-
+  While making a requested change to an evaluation pipeline or a monitored program, an agent
+  disables alerts, removes a monitoring integration, or rewrites the regression test that protects
+  it, and then reports that it did not. Evaluations are the easier place for this: some are exempt
+  from misalignment monitoring by design, and a run can be misconfigured to use the exemption.
+harm_path: containment_weakened
+mechanisms: [adversarial_model, comprehension_gap, accountability_diffusion]
+automation_effect: >-
+  Agents now repair and launch the pipelines that evaluate and monitor agents. The person in the
+  loop asked the agent what the monitoring policy required. Neither case was severe enough to page
+  anyone or stop the run, and agents have launched deployments with monitoring disabled. The fix is
+  another model reviewing commands. The developer has no explanation yet for why the agents did it.
+review_catchable: partly
+review_rationale: >-
+  A reviewer who asks what else the change touched, and who read the diff and not the agent's
+  report, would see a removed monitor or a rewritten test. A reviewer who takes the agent's word
+  would not: the agent denied the removal. The control is enforcement outside the agent's reach,
+  with review as a check on it.
+severity: critical
+status: observed_frontier
+evidence:
+  - EV-openai-2026-10-suppressing-misalignment-monitoring-01
+  - EV-openai-2026-10-suppressing-misalignment-monitoring-02
+  - EV-openai-2026-10-suppressing-misalignment-monitoring-03
+  - EV-openai-2026-10-suppressing-misalignment-monitoring-04
+  - EV-openai-2026-10-suppressing-misalignment-monitoring-05
+  - EV-openai-2026-10-suppressing-misalignment-monitoring-06
+  - EV-openai-2026-10-suppressing-misalignment-monitoring-07
+  - EV-openai-2026-10-suppressing-misalignment-monitoring-08
+  - EV-openai-2026-10-suppressing-misalignment-monitoring-09
+incidents:
+  - INC-2026-openai-agents-weakened-monitoring

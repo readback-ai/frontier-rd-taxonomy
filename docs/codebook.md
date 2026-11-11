@@ -55,18 +55,20 @@ Rate the task as it is done at a frontier developer today. Write the reason in `
 
 ### 2.1 Automation level (AL0 to AL5)
 
-Epoch AI's scale, as Anthropic uses it for its R&D Automation Index.
+The 0 to 5 rubric proposed by Epoch AI's authors (`EV-epoch-2026-06-onet-ai-rnd-02` to `-07`), which Anthropic labels AL0 to AL5 in its R&D Automation Index. The definitions are Epoch's.
 
-| Level | Name | Human role |
+| Level | Name | Epoch's definition, in short |
 |---|---|---|
-| AL0 | No AI involvement | Does all of it |
-| AL1 | Minimal AI involvement | Does nearly all of it |
-| AL2 | AI assists | Does the work with AI help |
-| AL3 | AI collaborates | Directs closely; AI does large chunks; human may review line by line |
-| AL4 | AI leads | Gives a high-level ask, supervises, course-corrects, approves |
-| AL5 | AI is autonomous | None required |
+| AL0 | Not used | AI adds nothing |
+| AL1 | Marginal | Occasionally convenient; does not change how the work is done or who does it |
+| AL2 | Assists | AI speeds up or improves parts; the human mostly drives and reviews everything |
+| AL3 | Collaborates | AI does large chunks under close human direction; the human makes the calls and joins the pieces |
+| AL4 | Leads | AI completes most of the task end to end from a high-level ask; the human supervises, course-corrects and approves outputs |
+| AL5 | Autonomous | Done end to end with little or no human involvement |
 
-Anthropic's worked example (`EV-anthropic-2026-09-measuring-pace-06`) fixes the line between AL3 and AL4: at AL3 the engineer stays in the loop and may review the change line by line; at AL4 the engineer reads the write-up, skims the change and decides whether it ships.
+Two things to keep straight. Epoch wrote the rubric to rate what current AI can automate in general; Anthropic applies it to its own practice, and this repository follows Anthropic's use. And the two differ at the top: Epoch's level 5 allows a little human involvement, Anthropic's restatement says no human in the loop.
+
+Anthropic's illustrative example (`EV-anthropic-2026-09-measuring-pace-06`) shows the difference between AL3 and AL4 on one routine task: at AL3 the engineer stays in the loop and might review the change line by line; at AL4 the engineer reads the write-up, skims the change and decides whether it ships. It is an illustration, not a measurement of practice.
 
 An automation estimate is either one level, or `levels` with the share of the task's work at each level. Use `levels` when a source gives shares or when practice clearly splits.
 
@@ -110,7 +112,7 @@ A `range` is an 80% interval: `low` is the 10th percentile, `high` the 90th, `ce
 
 | Type | What it is | Best grade |
 |---|---|---|
-| `incident_report` | A developer's postmortem or incident disclosure | A |
+| `incident_report` | A postmortem or incident disclosure by the organization whose work failed: a developer, an evaluator or a benchmark builder | A |
 | `risk_report` | A report under a developer's safety framework | A |
 | `system_card` | A system card or model card | A |
 | `third_party_investigation` | An independent party's assessment of a developer | A |
@@ -122,7 +124,7 @@ A `range` is an 80% interval: `low` is the 10th percentile, `high` the 90th, `ce
 | `press_report` | Journalism | C |
 | `forecast_or_model` | A forecast or model of AI progress | C |
 | `readback_internal` | Readback's own analyses and data files | C |
-| `open_source_analog` | Evidence from public repositories | D |
+| `open_source_analog` | Evidence from public repositories, public agent sessions and other work outside the frontier developers | D |
 
 Public repositories lag frontier practice. They supply examples and a floor on trends. They do not show what frontier developers do in private.
 
@@ -148,6 +150,14 @@ Public repositories lag frontier practice. They supply examples and a floor on t
 | C | A staff anecdote, press report, forecast, or an external party's analysis |
 | D | An analog, or an inference more than one step from the quote |
 
+The grade follows who is speaking about whose work in that item, not only the source's `vantage`:
+
+- An organization describing its own work is first party for that item. An evaluator reporting on its own evaluation, or a benchmark builder on its own benchmark, can earn A or B for it even where the source is an outside view of a developer.
+- The same organization's statements about a developer's practice, made without internal access, are C.
+- A forecast, an expectation or a general remark that is not about the speaker's own work is C, whoever makes it.
+- A company's unverified answer relayed by a third party is that company's statement: B at best.
+- Analog evidence is D.
+
 A self-reported measurement is still A: the grade says how direct the evidence is. Self-interest, redaction and small samples go in the source's `limits` and should lower the confidence of any estimate that leans on it.
 
 ### 3.5 Writing an item
@@ -158,6 +168,8 @@ A self-reported measurement is still A: the grade says how direct the evidence i
 - `kind` is what the item is evidence of: `automation`, `oversight`, `comprehension`, `incident`, `share`, `practice`, `risk`, `method`, `pace`.
 - `describes` is the period the claim is about when that differs from publication.
 - A quote from a page that refuses automated fetches carries `unverified_reason` until a person saves the page and the quote is verified.
+- A paywalled page sometimes returns its full text to a plain fetch. `taxo snapshot` warns when a page marks itself as not free to read. Quote only what a non-subscriber is shown.
+- `tasks` lists a task only when the quote bears on it directly. If the link is your reading, say so in `note`, or leave the task off.
 
 ## 4. Estimates
 
@@ -201,7 +213,7 @@ A question set is an agenda template for a design review or a comprehension audi
 
 ## 7. Incidents
 
-- `frontier` is true when the incident is in a frontier developer's own work.
+- `frontier` is true when the incident is in the work of a frontier developer, or of an outside party evaluating a frontier developer's models with access the developer granted (a government institute, an independent evaluator, a benchmark the developer commissioned or co-built). It is false for analogs: public benchmarks built by others and work at companies that are not frontier developers, even when frontier models are the ones scored.
 - `automation_involved`: did a model produce or check the faulty part? `unknown` when the source does not say. Do not infer.
 - `comprehension_failure`: `yes` when the source shows the responsible people did not understand the faulty part when it took effect; `partly` when some did or the gap was narrow; `no` when they understood and erred anyway, or the failure was the model's concealment; `unknown` otherwise. Give the reason in `comprehension_note`.
-- `backtest`: one entry per question tested. `would_surface` means an honest answer before the incident would have exposed the root cause. `might_surface` means it depends on follow-up. `would_not_surface` means the contributors could have answered well and the incident would still have happened. Record `would_not_surface` verdicts: they mark where review is the wrong control.
+- `backtest`: one entry per question tested, judged by someone who did not write the questions. A question written after its author read the incident is in-sample for that incident; say so when reporting the result. `would_surface` means an honest answer before the incident would have exposed the root cause. `might_surface` means it depends on follow-up. `would_not_surface` means the contributors could have answered well and the incident would still have happened. Record `would_not_surface` verdicts: they mark where review is the wrong control.

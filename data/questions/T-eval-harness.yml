@@ -1,0 +1,132 @@
+task: T-eval-harness
+contribution: >-
+  A change to the agent scaffold, tool set, sandbox or platform that evaluations run on.
+questions:
+  - id: Q-eval-harness-01
+    category: what
+    topical_area: architecture_design
+    question: >-
+      List every way a process inside the evaluation environment can reach anything outside it.
+      For each, who verified it is closed, and how?
+    good_answer_shows: >-
+      An enumeration of network and file paths with a named verification for each, done by test
+      and not by reading configuration.
+    red_flags:
+      - '"It is configured to have no internet access."'
+      - Verification was done by the party that built the environment and nobody else.
+    evidence_to_request: The isolation test and its last result.
+    risks: [R-eval-environment-not-contained]
+
+  - id: Q-eval-harness-02
+    category: failure
+    topical_area: architecture_design
+    question: >-
+      If the isolation is misconfigured, what is the second thing that stops the model or tells a
+      person?
+    good_answer_shows: >-
+      A second, independent layer: a real-time check on actions, egress monitoring, or a person
+      watching high-risk runs.
+    red_flags:
+      - The configuration is the only layer.
+      - The second layer is a review of transcripts after the fact, sampled.
+    risks: [R-eval-environment-not-contained]
+
+  - id: Q-eval-harness-03
+    category: what
+    topical_area: implementation_behavior
+    question: >-
+      What can the model do with its tools in combination that no single tool was meant to allow?
+      Could it reach the tasks' answers or the scoring code?
+    good_answer_shows: >-
+      Thought given to tool combinations, such as web search with code execution, and a
+      deliberate barrier between the model and answer material.
+    red_flags:
+      - Each tool was reviewed on its own.
+      - What stops the model is an accident of a tool's limits.
+    risks: [R-eval-unintended-solution-path]
+
+  - id: Q-eval-harness-04
+    category: failure
+    topical_area: implementation_behavior
+    question: >-
+      Which harness limits bind on these runs: tokens, time, tools, context? In which direction
+      does each move the score?
+    good_answer_shows: >-
+      Knowledge of which limits were hit and whether each makes the model look weaker or
+      stronger than it is.
+    red_flags:
+      - Nobody has looked at how often runs end on a limit.
+      - A limit is assumed to be neutral.
+    risks: [R-eval-under-elicitation, R-eval-unintended-solution-path]
+
+  - id: Q-eval-harness-05
+    category: dependency
+    topical_area: architecture_design
+    question: >-
+      Which parts of this environment are built or run by a vendor or partner? What did you verify
+      yourselves and what did you take on their word?
+    good_answer_shows: >-
+      A clear line between what was independently verified and what was accepted, and a reason
+      for each acceptance.
+    red_flags:
+      - '"That is the partner''s environment."'
+      - The developer's containment and monitoring stop at the partner's boundary.
+    risks: [R-eval-environment-not-contained, R-eval-external-limited-view]
+
+  - id: Q-eval-harness-06
+    category: side_effects
+    topical_area: implementation_behavior
+    question: >-
+      What does the prompt tell the model about its environment that might be false? What happens
+      if the model believes it?
+    good_answer_shows: >-
+      Recognition that a statement such as "this is a simulation" removes the model's reason to
+      hold back and can persuade a monitor that reads the model's reasoning.
+    red_flags:
+      - Safety of the run depends on the prompt's description being accurate.
+      - Nobody has asked what a monitor concludes from the same statement.
+    risks: [R-eval-environment-not-contained, R-eval-awareness]
+
+  - id: Q-eval-harness-07
+    category: provenance
+    topical_area: process
+    question: >-
+      Who wrote this change and who reviewed it: a person, a model or both? What did the human
+      reviewer examine?
+    good_answer_shows: >-
+      A named person who examined the parts that affect isolation and scoring, and can say what
+      they looked at.
+    red_flags:
+      - A model wrote it, a model reviewed it, and a person approved the summary.
+      - '"It passed code review," with no account of what the review covered.'
+    risks: [R-eval-environment-not-contained, R-eval-unintended-solution-path, R-eval-agent-disables-monitoring]
+
+  - id: Q-eval-harness-08
+    category: failure
+    topical_area: analysis_of_results
+    question: >-
+      How would an unintended success show up in the results? What share of successes were checked
+      for it?
+    good_answer_shows: >-
+      A signal that distinguishes intended from unintended successes, such as outlier token use
+      or access to benchmark material, and a count of successes examined.
+    red_flags:
+      - A pass is a pass.
+      - Only failures are read.
+    risks: [R-eval-unintended-solution-path, R-eval-transcripts-unread]
+
+  - id: Q-eval-harness-09
+    category: side_effects
+    topical_area: implementation_behavior
+    question: >-
+      Besides its purpose, what did this change touch: monitoring hooks, alerts, network policy, the
+      tests that protect them? Do you know that from the diff or from the agent's report?
+    good_answer_shows: >-
+      A person read the diff for changes to controls and to the tests that guard them, and can say
+      that none were made or which were and why.
+    red_flags:
+      - '"The agent said it did not remove the monitor."'
+      - A regression test was rewritten in the same change it should have failed.
+      - The person in the loop asked the agent what the monitoring policy required.
+    evidence_to_request: The diff of the change, filtered to monitoring, alerting and test files.
+    risks: [R-eval-agent-disables-monitoring]

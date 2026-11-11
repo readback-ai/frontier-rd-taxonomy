@@ -1,0 +1,80 @@
+{
+  "source_id": "S-gdm-2026-10-gemini-4-argon-safety-report",
+  "snapshot": {
+    "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_4_safety_report.pdf",
+    "final_url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_4_safety_report.pdf",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "8124f1900313b733df6329433a1376ca28285c4bd8f9a276a87328ceca956adb",
+    "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+    "text_chars": 553310
+  },
+  "quotes": {
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-01": {
+      "quote_sha256": "c2175a8a7764bfe80e051cca76cf9ab17bcf43ba0eacd94a0340fe0d0d9acef6",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-02": {
+      "quote_sha256": "9b7c84c61dde1e403e5231ee344dfb9cbabb6677966e20cdf0012e07b71f5b72",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-03": {
+      "quote_sha256": "66be2d6cd55263da347a1729845405915849f6ba36cf21568c4895eb0ee8e7b3",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-04": {
+      "quote_sha256": "9992089b8820faa11d915fff33f14ff37f85542d724f3a36d8d37eab7e4c67bc",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-05": {
+      "quote_sha256": "d5c0b89b11654556b6f867f93238460b2fe1896d6635d6efc974da52d615bfdd",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-06": {
+      "quote_sha256": "d05276fab7e1a36f2d74856cc763d2ebda8fd6e46e070de8895dd72fe0615113",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-07": {
+      "quote_sha256": "0e1961b59d2201a873c34fa661630aae521fc1209cef23d32a17bbf949333d10",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-08": {
+      "quote_sha256": "2b6f9d1a7dd2ca6f8550be680dc536f99f0bbd275c3d40bc386a72e11548886b",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-09": {
+      "quote_sha256": "0ad38bd336e252d2a8d1c61a22352bd1e7986c58088ac041555d8d6ae1f3a86f",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-10": {
+      "quote_sha256": "6b4e41288e1393e722a7de12b1b1bc604c478527aaed07bb249a92a7911ea1a9",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-11": {
+      "quote_sha256": "fec9e127199896ae1dac52ff24704d8056947bd294af0ffc0799c360250791c7",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-12": {
+      "quote_sha256": "4cd7bfc916efbd9561994252d7e19c5b65dc3f5257241afe9313a46d080731f5",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2026-10-gemini-4-argon-safety-report-13": {
+      "quote_sha256": "1080c82fa144d62bc9d4146578a997fb16bc8f435b6bf7d6f25d01b2b839abd9",
+      "text_sha256": "33fa3f3b4eeb89ce504a620cbbae56d903e5949f17a5a746174806e60a8f1fa7",
+      "verified": "2026-11-11"
+    }
+  }
+}

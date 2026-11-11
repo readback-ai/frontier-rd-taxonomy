@@ -1,0 +1,35 @@
+id: R-eval-saturated-instruments
+title: Saturated or outgrown evaluations keep running, and a bad result is read as the evaluation's fault
+tasks: [T-eval-design, T-eval-dangerous, T-eval-graders, T-eval-determination]
+failure_mode: >-
+  Evaluations that no longer discriminate stay in the release suite. Their scores carry no
+  information, a worse score would be doubted before the model is, and a score in the threshold
+  range is set aside as inconclusive. The determination then rests on judgment while the report
+  still shows a table of evaluations.
+harm_path: false_assurance
+mechanisms: [accountability_diffusion, time_pressure, comprehension_gap]
+automation_effect: >-
+  Automated suites rerun at each release at no cost, so nothing forces anyone to retire them.
+  Capability moves faster than people rebuild instruments: a model asked to build a hard new
+  benchmark task produced one that was much too easy. With no unsaturated benchmark, the claim
+  that models cannot yet substitute for research staff rests on the observation that staff are
+  still needed.
+review_catchable: 'yes'
+review_rationale: >-
+  Asking which evaluations could still change the decision, and what result would do so, exposes
+  a suite that cannot. Asking who set an inconvenient result aside, and on what independent
+  evidence, exposes a validity judgment made after the score.
+severity: critical
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-08-risk-report-08
+  - EV-anthropic-2026-08-risk-report-09
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-10
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-06
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-07
+  - EV-metr-2026-11-anthropic-rd-acceleration-09
+  - EV-metr-2026-05-frontier-risk-report-11
+  - EV-metr-2026-06-gpt-5-6-sol-predeployment-04
+  - EV-openai-2026-09-gpt-6-astra-system-card-10
+  - EV-gdm-2025-11-gemini-3-pro-fsf-report-08
+  - EV-gdm-2025-11-gemini-3-pro-fsf-report-09

@@ -1,0 +1,60 @@
+{
+  "source_id": "S-anthropic-2026-08-improving-alignment-security-efforts",
+  "snapshot": {
+    "url": "https://www.anthropic.com/news/improving-alignment-security-efforts",
+    "final_url": "https://www.anthropic.com/news/improving-alignment-security-efforts",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "14333d64edd2c9dae15e09fd0f3db5d757eed234847ee41f602c9f232cad2ced",
+    "text_sha256": "c38a6be0368b950ff9dcbb1bcc5a19e0cfb6ab4eadbbefc7f6f50c3a45d7a020",
+    "text_chars": 25332
+  },
+  "quotes": {
+    "EV-anthropic-2026-08-improving-alignment-security-efforts-01": {
+      "quote_sha256": "f4c1f2bdd85b5cc6fd138c2a2bf44baf3a2c36dd9abfd6723c55ec47bf550caa",
+      "text_sha256": "c38a6be0368b950ff9dcbb1bcc5a19e0cfb6ab4eadbbefc7f6f50c3a45d7a020",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-improving-alignment-security-efforts-02": {
+      "quote_sha256": "7731c1a5a9d7d0807385b6a9a6217347063351689ef9668ce1be392b211b51d4",
+      "text_sha256": "c38a6be0368b950ff9dcbb1bcc5a19e0cfb6ab4eadbbefc7f6f50c3a45d7a020",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-improving-alignment-security-efforts-03": {
+      "quote_sha256": "6d7e5979b3eed67599c2fec2716d6e0d354b199e628115d111ad269d67459da3",
+      "text_sha256": "c38a6be0368b950ff9dcbb1bcc5a19e0cfb6ab4eadbbefc7f6f50c3a45d7a020",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-improving-alignment-security-efforts-04": {
+      "quote_sha256": "e04ab315998f8a1cfb3640e11e50e05effa7437bba246779f3e4c408870ba329",
+      "text_sha256": "c38a6be0368b950ff9dcbb1bcc5a19e0cfb6ab4eadbbefc7f6f50c3a45d7a020",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-improving-alignment-security-efforts-05": {
+      "quote_sha256": "6e21f92050bc62208ab104aeaeecdc67f6a36b427868fd8db5cbcf186de35cc1",
+      "text_sha256": "c38a6be0368b950ff9dcbb1bcc5a19e0cfb6ab4eadbbefc7f6f50c3a45d7a020",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-improving-alignment-security-efforts-06": {
+      "quote_sha256": "b71501ddfd417915cffcb7d940384a026dd617b5130953f58717a3f4291a4628",
+      "text_sha256": "c38a6be0368b950ff9dcbb1bcc5a19e0cfb6ab4eadbbefc7f6f50c3a45d7a020",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-improving-alignment-security-efforts-07": {
+      "quote_sha256": "d90df46dcb5c083079c21c3aabf9de10d38bcccb43d480db9960945c08846121",
+      "text_sha256": "c38a6be0368b950ff9dcbb1bcc5a19e0cfb6ab4eadbbefc7f6f50c3a45d7a020",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-improving-alignment-security-efforts-08": {
+      "quote_sha256": "5c993733714468156558458e793d08289d06eb3ecf90180bede81937261ef7c2",
+      "text_sha256": "c38a6be0368b950ff9dcbb1bcc5a19e0cfb6ab4eadbbefc7f6f50c3a45d7a020",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-08-improving-alignment-security-efforts-09": {
+      "quote_sha256": "ee538332a533211ec32d724eb5a7e63c660a00c3125a8145b33900c67a5d25b4",
+      "text_sha256": "c38a6be0368b950ff9dcbb1bcc5a19e0cfb6ab4eadbbefc7f6f50c3a45d7a020",
+      "verified": "2026-11-11"
+    }
+  }
+}

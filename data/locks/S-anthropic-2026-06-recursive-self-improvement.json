@@ -1,0 +1,55 @@
+{
+  "source_id": "S-anthropic-2026-06-recursive-self-improvement",
+  "snapshot": {
+    "url": "https://www.anthropic.com/institute/recursive-self-improvement",
+    "final_url": "https://www.anthropic.com/institute/recursive-self-improvement",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "0fbfb872a7ca838199b49b117267de177535f49e5b0faed12d11b528aee27e86",
+    "text_sha256": "a5b6b675f05b0201c6db0268b5d1092b62380e35edc66aeb04876ff449622102",
+    "text_chars": 34051
+  },
+  "quotes": {
+    "EV-anthropic-2026-06-recursive-self-improvement-01": {
+      "quote_sha256": "c42574268b3018feeba7283d7da3127aa33efaccabeb7485901b9f096b897247",
+      "text_sha256": "a5b6b675f05b0201c6db0268b5d1092b62380e35edc66aeb04876ff449622102",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-06-recursive-self-improvement-02": {
+      "quote_sha256": "b8a3d75d8de5516d5b8dce16662bf3cff3bcfec66f0bd15e21fe20e207532003",
+      "text_sha256": "a5b6b675f05b0201c6db0268b5d1092b62380e35edc66aeb04876ff449622102",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-06-recursive-self-improvement-03": {
+      "quote_sha256": "e761dba971e8d77f5abb365b8daa1fa5dcde3886ec9f84333aaada1c84c58c46",
+      "text_sha256": "a5b6b675f05b0201c6db0268b5d1092b62380e35edc66aeb04876ff449622102",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-06-recursive-self-improvement-04": {
+      "quote_sha256": "3ec4bf0b248c4e37e5bbe5de31d5ec6ecac4658f597a59956626e67cf98fe9fa",
+      "text_sha256": "a5b6b675f05b0201c6db0268b5d1092b62380e35edc66aeb04876ff449622102",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-06-recursive-self-improvement-05": {
+      "quote_sha256": "bad0e0d5afe004799e3fa0d7adb7fb5eb3f7a900efd59ac7b006f6d6ed24d109",
+      "text_sha256": "a5b6b675f05b0201c6db0268b5d1092b62380e35edc66aeb04876ff449622102",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-06-recursive-self-improvement-06": {
+      "quote_sha256": "7ce7314ac64b024b14398f6caf6b917cc1bd9459e4f320fd32f61990b140c02e",
+      "text_sha256": "a5b6b675f05b0201c6db0268b5d1092b62380e35edc66aeb04876ff449622102",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-06-recursive-self-improvement-07": {
+      "quote_sha256": "bde344141055f687170d148c1337908d8e557aabd073e87bab1138ebf25dcc6f",
+      "text_sha256": "a5b6b675f05b0201c6db0268b5d1092b62380e35edc66aeb04876ff449622102",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-06-recursive-self-improvement-08": {
+      "quote_sha256": "667a44ec1b04e8596ca96aef1f15f687de96b2e2c74b19a2a83e9e264ab8ce33",
+      "text_sha256": "a5b6b675f05b0201c6db0268b5d1092b62380e35edc66aeb04876ff449622102",
+      "verified": "2026-11-11"
+    }
+  }
+}

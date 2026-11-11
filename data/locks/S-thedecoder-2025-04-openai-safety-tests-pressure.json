@@ -1,0 +1,21 @@
+{
+  "source_id": "S-thedecoder-2025-04-openai-safety-tests-pressure",
+  "snapshot": {
+    "url": "https://the-decoder.com/openai-accelerates-ai-development-security-tests-come-under-pressure/",
+    "final_url": "https://the-decoder.com/openai-accelerates-ai-development-security-tests-come-under-pressure/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=UTF-8",
+    "raw_sha256": "c59500df85717ced060cbab2d0cbc3b81043bb4359d4728d1d4c8dd78a2b0c9d",
+    "text_sha256": "494d356028c12764fe8bb8e834d70bcd3528d9300a9c0905e20e1bbdc4aaf934",
+    "text_chars": 5126,
+    "paywalled": true
+  },
+  "quotes": {
+    "EV-thedecoder-2025-04-openai-safety-tests-pressure-01": {
+      "quote_sha256": "35cb5141285da9686e3c3a7d47507324ba7eca9b5b36c540e3cbf468bd59b36f",
+      "text_sha256": "494d356028c12764fe8bb8e834d70bcd3528d9300a9c0905e20e1bbdc4aaf934",
+      "verified": "2026-11-11"
+    }
+  }
+}

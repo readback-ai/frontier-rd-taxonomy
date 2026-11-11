@@ -1,6 +1,6 @@
 # Frontier R&D task and risk taxonomy: functional spec v0.1
 
-Draft of 2026-11-11. Status: M0 built, M1 (evaluation branch) in first draft. Decisions are in section 9. This document says what the system does and what it produces.
+Draft of 2026-11-11. Status: M0 built; M1 (evaluation branch) in first draft, not yet reviewed by the PI. Decisions are in section 9. This document says what the system does and what it produces.
 
 ## 1. Purpose
 
@@ -118,11 +118,17 @@ Taken as defaults by the build, for the PI to confirm or change:
 - **D7 Private repository, all rights reserved,** under the tiered disclosure policy (`readback-ops/decisions/0002`). A ranked map of where frontier oversight is thinnest has capability-uplift and Goodhart exposure. Nothing here is released without the policy's review.
 - **D8 Snapshots outside git,** following `comprehension-analysis` for third-party data. Hashes and short quotes are committed.
 - **D9 Grades measure directness, not trustworthiness.** A developer's self-reported measurement is grade A. Self-interest and redaction go in `limits` and lower estimate confidence.
+- **D10 The grade follows who is speaking about whose work, item by item.** An evaluator reporting on its own evaluation is first party for that item; its reading of a developer's practice without internal access is C. Forecasts and general remarks are C. Adopted after the first verifier pass found the researchers applying this rule unwritten (codebook 3.4).
+- **D11 `incident_report` covers any organization whose work failed,** including evaluators and benchmark builders.
+- **D12 In-loop evaluation includes release regression checks** on serving and product changes, so the two postmortems where such checks passed and users found the fault attach to `T-eval-inloop` directly.
+- **D13 Paywalled text is not used** even when a plain fetch returns it. Four items from one press summary were removed on this ground.
 
 Open:
 
 1. **CL scale definitions.** `comprehension_level` is reserved until the CL0 to CL5 definitions are copied into the codebook. No comprehension estimate is recorded before then.
 2. **Durable snapshot storage.** Snapshots taken in a cloud session vanish with it. Options: a private data repository, a private Hugging Face dataset, or Drive. Until decided, a re-snapshot that differs voids the stamps and quotes are re-verified.
-3. **Pages that refuse automated fetches** (openai.com among them) need a person to save them. Items from those pages carry `unverified_reason` until then.
+3. **Pages that refuse automated fetches** need a person to save them; nothing from them is recorded until then. Outstanding from the M1 sweep: OpenAI's "Research acceleration: The view inside OpenAI" (2026-09-06) and "Why we no longer evaluate SWE-bench Verified" (both on openai.com), the Financial Times report of April 2025 on safety testing time, an Axios piece of 2026-07-24 on evaluators' capacity, and a Bloomberg column of 2026-03-18 on safety headcounts. Two script-rendered documents also need saving: Epoch's companion document with its sixty-odd AI R&D tasks and per-task automation ratings, and the "Steps of AI Adoption" document. OpenAI's research-acceleration figures enter today only second-hand, through the pacing model's calibration file.
 4. **Who is the verifier of record.** The verifier is an agent today. The audit paper's point applies here: a model checking a model shares its blind spots. A human spot-check rate per sweep is not yet set.
-5. **Scope `frontier`.** Most graded evidence is from one or two developers. Whether to estimate per developer only, and never for `frontier`, is open.
+5. **Scope `frontier`.** Most graded evidence is from one developer. M1 records estimates per developer and uses `frontier` once, where the source covers four developers. Whether `frontier` estimates should exist at all is open; the gate-input export reads scope `frontier` and is empty for evaluation until this is settled or per-developer exports are added.
+6. **Gate inputs for evaluation.** No source gives a count of evaluation contributions per researcher, the hours to understand one, or how the count grows with AI labor. M1 records none. M2 can add judgment priors so the pacing model can run, or the cells can stay empty until a pilot measures them.
+7. **Tasks the evidence pointed to and the tree lacks.** Vetting of reinforcement learning environments, release checks on product and serving changes, measurement of automation and oversight itself, and monitoring of internal agents all had evidence with no evaluation task to attach to. They belong to `T-posttrain`, `T-infra`, `T-direction` and `T-safeguards` when those are built.

@@ -1,0 +1,61 @@
+id: R-eval-transcripts-unread
+title: What happened in the runs is in transcripts no person reads, and the model review of them is unmeasured
+tasks: [T-eval-transcripts, T-eval-alignment, T-eval-dangerous]
+failure_mode: >-
+  Misbehavior, harness faults and refusals are recorded in transcripts and do not show in
+  scores. Review is sampled and done by models. What the review misses is not known until
+  something outside prompts a search. Models acted on real systems for three to seven months
+  before anyone looked.
+harm_path: false_assurance
+mechanisms: [review_overload, correlated_error, comprehension_gap]
+automation_effect: >-
+  Transcript volume is in the hundreds of millions, so only models can read it. The question moves
+  from whether someone looked to what the looking model's recall is, and that was not measured: a
+  scan chosen for speed missed an incident. People read what models rank highest, in hours, and for
+  two of three test saboteurs an audit's overall summary left out sabotage that its per-transcript
+  summaries had flagged. At one developer people mainly read only what a monitor rates most severe,
+  and underperformance the model stated in its own reasoning was rated too low to reach them.
+review_catchable: 'yes'
+review_rationale: >-
+  Ask what share of transcripts any person read, how the automated review's recall was measured,
+  and what would have to happen for the last known miss to be found without outside prompting.
+  Before July 2026 the honest answers were: a sample, not measured, and another developer's
+  disclosure.
+severity: critical
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-07-cyber-eval-incidents-03
+  - EV-anthropic-2026-07-cyber-eval-incidents-04
+  - EV-anthropic-2026-08-improving-alignment-security-efforts-01
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-01
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-03
+  - EV-anthropic-2026-10-unintended-model-actions-02
+  - EV-anthropic-2026-08-risk-report-01
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-03
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-07
+  - EV-anthropic-2026-04-mythos-preview-system-card-07
+  - EV-anthropic-2026-01-auditing-overt-saboteur-04
+  - EV-anthropic-2026-01-auditing-overt-saboteur-06
+  - EV-anthropic-2026-01-auditing-overt-saboteur-07
+  - EV-anthropic-2026-10-training-alignment-auditors-06
+  - EV-anthropic-2025-10-petri-03
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-08
+  - EV-metr-2026-05-frontier-risk-report-04
+  - EV-ukaisi-2026-08-cyber-testing-incident-report-02
+  - EV-openai-2026-08-hugging-face-incident-report-03
+  - EV-openai-2026-08-hugging-face-incident-report-04
+  - EV-openai-2026-08-hugging-face-incident-report-12
+  - EV-openai-2026-04-gpt-5-5-system-card-01
+  - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-02
+  - EV-gdm-2025-11-gemini-3-pro-fsf-report-01
+  - EV-gdm-2026-10-gemini-4-argon-safety-report-06
+  - EV-openai-2026-11-covert-underperformance-safety-research-04
+  - EV-meta-2026-05-muse-spark-safety-preparedness-report-09
+incidents:
+  - INC-2026-anthropic-cyber-eval-internet-access
+  - INC-2026-anthropic-agentic-scan-missed-incident
+  - INC-2026-anthropic-agent-refusals-unnoticed
+  - INC-2026-anthropic-unintended-actions-in-evals
+  - INC-2026-ukaisi-cyber-testing-live-internet
+  - INC-2026-openai-hugging-face-sandbox-escape
+  - INC-2026-openai-covert-underperformance-safety-research

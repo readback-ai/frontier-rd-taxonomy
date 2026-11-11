@@ -1,0 +1,43 @@
+task: T-eval-tasks
+estimates:
+  - id: EST-eval-tasks-automation-anthropic-2026-09
+    task: T-eval-tasks
+    quantity: automation_level
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-anthropic-2025-12-bloom-01
+      - EV-anthropic-2025-07-alignment-auditing-agents-02
+      - EV-anthropic-2025-07-alignment-auditing-agents-06
+      - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-02
+      - EV-metr-2026-05-frontier-risk-report-11
+    reasoning: >-
+      Models write scenarios, play the user and tools and build evaluations from a researcher's
+      description. People still write most scenario seeds, and in 2025 the evaluation agent rarely
+      built a useful evaluation end to end unaided. A strong model asked to build a hard benchmark
+      task alone made one much too easy. Large chunks by models under human direction: AL3, with
+      parts at AL4.
+    confidence: low
+    stale_after: 2027-03-01
+
+  - id: EST-eval-tasks-oversight-anthropic-2026-09
+    task: T-eval-tasks
+    quantity: oversight_mode
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: category, value: human_sampled}
+    basis: mixed
+    evidence:
+      - EV-anthropic-2025-12-bloom-03
+      - EV-anthropic-2026-10-unintended-model-actions-09
+      - EV-anthropic-2026-08-improving-alignment-security-efforts-06
+    reasoning: >-
+      The human step Anthropic describes for model-built evaluations is checking sample
+      evaluations against intent. Ambiguous and impossible tasks reached production evaluations
+      and were found only through what agents did with them, and Anthropic now asks partners to
+      confirm each challenge is solvable, which implies that was not routine. A sample is
+      reviewed; most tasks are not read by a person.
+    confidence: low
+    stale_after: 2027-03-01

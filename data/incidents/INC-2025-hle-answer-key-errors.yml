@@ -1,0 +1,58 @@
+id: INC-2025-hle-answer-key-errors
+title: About 29% of audited Humanity's Last Exam chemistry and biology answers conflict with the literature
+org: Humanity's Last Exam maintainers (benchmark), FutureHouse (audit)
+frontier: false
+occurred: 2025
+disclosed: 2025-07-23
+summary: >-
+  FutureHouse audited the 321 text-only chemistry and biology questions of Humanity's Last Exam with
+  a literature-search agent and expert review of 150 of its outputs. It estimates that 29% of the
+  answers have directly conflicting evidence in peer-reviewed literature. The benchmark's own team
+  later found about 18% of a subset problematic.
+root_cause: >-
+  As the auditor sees it: questions were kept only if frontier models failed them, which it believes
+  produced adversarial questions that confused writers and reviewers, and first-round reviewers did
+  not have to verify a rationale that would take more than five minutes.
+detected_by: An outside user of the benchmark, running the subset on its own agents
+automation_involved: 'no'
+comprehension_failure: partly
+comprehension_note: >-
+  The answers were written and reviewed by people, and the first review round let reviewers approve
+  rationales they had not verified; a second round and a bug bounty followed. A model filter decided
+  which questions were kept. An analog: the benchmark is not built by a frontier developer, but
+  frontier developers report scores on it. The start date is not in the source.
+tasks: [T-eval-tasks, T-eval-validity]
+risks:
+  - R-eval-task-defects
+evidence:
+  - EV-futurehouse-2025-07-hle-audit-01
+  - EV-futurehouse-2025-07-hle-audit-02
+  - EV-futurehouse-2025-07-hle-audit-03
+  - EV-futurehouse-2025-07-hle-audit-06
+  - EV-futurehouse-2025-07-hle-audit-07
+  - EV-futurehouse-2025-07-hle-audit-04
+  - EV-futurehouse-2025-07-hle-audit-05
+backtest:
+  - question: Q-eval-tasks-02
+    verdict: would_surface
+    rationale: >-
+      The honest answer is that each question has its author's answer and rationale, no second
+      person worked it, and reviewers did not have to verify a rationale that would take more than
+      five minutes. The maintainers knew that rule and it is the review half of the cause.
+  - question: Q-eval-validity-05
+    verdict: might_surface
+    rationale: >-
+      The honest answer names the model check, which is that questions were kept only if frontier
+      models failed them. That this filter keeps wrong keys along with hard questions comes out only
+      if the answerer or the reviewer draws the inference.
+  - question: Q-eval-tasks-08
+    verdict: might_surface
+    rationale: >-
+      Before the outside audit the honest answer is that the answer key had not been audited since
+      release. That shows an unaudited key without showing why it is wrong.
+  - question: Q-eval-tasks-05
+    verdict: would_not_surface
+    rationale: >-
+      The honest answer is that no question was written by a model and experts wrote and reviewed
+      all of them. That is a good answer, and about 29% of the audited answers still conflict with
+      the literature.

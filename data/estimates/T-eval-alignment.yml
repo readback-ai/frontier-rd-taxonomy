@@ -1,0 +1,64 @@
+task: T-eval-alignment
+estimates:
+  - id: EST-eval-alignment-automation-anthropic-2026-09
+    task: T-eval-alignment
+    quantity: automation_level
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: level, level: AL4}
+    basis: evidence
+    evidence:
+      - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-02
+      - EV-anthropic-2026-01-auditing-overt-saboteur-02
+      - EV-anthropic-2026-01-auditing-overt-saboteur-08
+      - EV-anthropic-2026-10-training-alignment-auditors-01
+      - EV-anthropic-2025-07-alignment-auditing-agents-05
+    reasoning: >-
+      The automated behavioral audit is about 4,100 sessions per model, conducted by an
+      investigator model and scored by a judge model from a seed list. A person works from the
+      agent's reports, scores and transcripts and approves the conclusion, and Anthropic says the
+      audit still requires that person. A model does most of the task from a high-level ask and a
+      human supervises and approves: AL4. In 2025 the same agents were used with a human in the
+      loop on real audits, so this moved from AL3 within about a year.
+    confidence: medium
+    stale_after: 2027-03-01
+
+  - id: EST-eval-alignment-oversight-anthropic-2026-09
+    task: T-eval-alignment
+    quantity: oversight_mode
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: category, value: ai_review_human_by_exception}
+    basis: evidence
+    evidence:
+      - EV-anthropic-2026-01-auditing-overt-saboteur-06
+      - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-03
+      - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-07
+      - EV-anthropic-2025-07-alignment-auditing-agents-04
+    reasoning: >-
+      A judge model scores every transcript. People read the ones it ranks highest, summaries of
+      the most concerning, or clusters a model formed. Which transcripts a person sees is decided
+      by a model. In the one published test, that human reading caught two saboteurs the agent's
+      own report missed, so the human step matters and depends on the model's ranking.
+    confidence: medium
+    stale_after: 2027-03-01
+
+  - id: EST-eval-alignment-human-coverage-anthropic-2026-09
+    task: T-eval-alignment
+    quantity: human_review_coverage
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: range, low: 0.003, central: 0.01, high: 0.04}
+    denominator: evaluation transcripts generated in the alignment assessment of one model
+    basis: mixed
+    evidence:
+      - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-03
+    reasoning: >-
+      The system card gives orders of magnitude only: manual expert review of hundreds of
+      transcripts, and tens of thousands of targeted evaluation transcripts generated. Reading the
+      first over the second gives roughly 0.3% to 4%. That ratio is ours: the card does not say the
+      hundreds were drawn from the tens of thousands, and gives no count for model-assisted review.
+      The unit is transcripts, not contributions; it is recorded because nothing closer to a
+      coverage figure is published.
+    confidence: low
+    stale_after: 2027-09-01

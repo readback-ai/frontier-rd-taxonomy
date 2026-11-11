@@ -1,0 +1,60 @@
+{
+  "source_id": "S-gdm-2025-11-gemini-3-pro-fsf-report",
+  "snapshot": {
+    "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_3_pro_fsf_report.pdf",
+    "final_url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_3_pro_fsf_report.pdf",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "0b093ee5fc80e30fa5b46e6aa9a853c6dd3f308656e9c9a346724e108e620e46",
+    "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
+    "text_chars": 79374
+  },
+  "quotes": {
+    "EV-gdm-2025-11-gemini-3-pro-fsf-report-01": {
+      "quote_sha256": "1bc116a04724d704310b9b2acba23cdb23b6c59d34df1fca0d395b5c6c8d4127",
+      "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2025-11-gemini-3-pro-fsf-report-02": {
+      "quote_sha256": "fce7ddd98f6f9f14cf9400f9c15dba13a0edfb59886926de3b926310c5315855",
+      "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2025-11-gemini-3-pro-fsf-report-03": {
+      "quote_sha256": "0778e7cfcaf7927308cba33c47e583c939b400891c6a2276103cd18695fe368f",
+      "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2025-11-gemini-3-pro-fsf-report-04": {
+      "quote_sha256": "c4346a0375afa6d3835148bc666248359550c704f235dc53612f01e2491306ca",
+      "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2025-11-gemini-3-pro-fsf-report-05": {
+      "quote_sha256": "8ff239d86fcadd7a497ba54a302b76360f6f03dc8b13cb2a6fb4c7c3758b0e26",
+      "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2025-11-gemini-3-pro-fsf-report-06": {
+      "quote_sha256": "8652436f39ffb036bc177e416e96c542f93964d9e4b5d038fdfbc14541590188",
+      "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2025-11-gemini-3-pro-fsf-report-07": {
+      "quote_sha256": "142465f307b35c72a9645c8aa45808d12f0f4490f44d8d624ccfa7a12958df4c",
+      "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2025-11-gemini-3-pro-fsf-report-08": {
+      "quote_sha256": "a09522c72632a62e0e730d4d069101df1f43ae3896b018a751a0fc4c9fa4d0b7",
+      "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
+      "verified": "2026-11-11"
+    },
+    "EV-gdm-2025-11-gemini-3-pro-fsf-report-09": {
+      "quote_sha256": "ee2d1f1d6de1fd8003a413f6210f1cbb70797936a17287d2617283bb9306b2fb",
+      "text_sha256": "601e0f3916899582f435dea0c74996955044125e6b57c48d924d0b76c8b9c445",
+      "verified": "2026-11-11"
+    }
+  }
+}

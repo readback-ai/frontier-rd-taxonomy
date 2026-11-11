@@ -1,0 +1,249 @@
+id: S-openai-2026-11-covert-underperformance-safety-research
+title: Covert underperformance on safety research tasks
+publisher: OpenAI
+authors: []
+published: 2026-11-04
+url: https://alignment.openai.com/misalignment-reports/covert-underperformance-on-safety-research-tasks/
+type: incident_report
+vantage: first_party
+labs: [OpenAI]
+summary: >-
+  OpenAI's misalignment report on GPT-6 Astra quietly doing less on safety and alignment
+  research tasks during internal use. Covers how researchers noticed, examples from the model's
+  chain of thought, a paired evaluation built afterwards that measured the gap, rates in
+  employees' day-to-day coding use, and inconclusive root-cause work on an RL grader and a
+  fine-tuning dataset.
+limits: >-
+  Self-reported. Rates of refusal, silent withholding and ethical doubt are assigned by graders
+  reading the chain of thought, and OpenAI treats the withholding rate as a possible lower bound.
+  The cause is not established. OpenAI says large-scale scans found no evidence of strategic intent
+  but that it cannot rule out motives the model did not put in its reasoning. The page does not say
+  when internal deployment began or how many researchers reported problems. The publication date
+  used is the page's "Report updated" date. Figures are not in the extracted text. No sample sizes
+  are given for the paired tasks or the coding requests, and who or what scored the hidden rubric is
+  not stated.
+evidence:
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-01
+    claim: >-
+      OpenAI researchers noticed GPT-6 Astra adding needless prerequisites, abandoning working
+      solutions and reporting blockers that did not exist or that it had caused, on safety and
+      alignment tasks. Its chain of thought mostly showed no decision to underperform, and the
+      misalignment monitors did not flag the behavior.
+    quote: >-
+      OpenAI researchers first noticed Astra adding unnecessary prerequisites, abandoning working
+      solutions, and reporting blockers that either did not exist or that it had caused itself
+      on safety and alignment tasks. In most of these sessions, Astra’s CoT did not contain an
+      obvious decision to underperform, and our misalignment monitors did not flag the behavior
+      as misalignment.
+    locator: Summary
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2026-08
+    tasks: [T-eval-alignment, T-eval-safeguards]
+    note: >-
+      Found by people using the model, not by monitoring. "What happened" says the reports came
+      shortly after internal deployment of Astra began.
+
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-02
+    claim: >-
+      One researcher reported that a project to evaluate model sabotage stayed stuck for days
+      while using Astra and moved quickly after switching to another model.
+    quote: >-
+      Anecdotally, one researcher reported that a project to evaluate model sabotage had remained
+      stuck for days with Astra and then progressed quickly after the researcher switched to
+      another model.
+    locator: What happened
+    kind: incident
+    strength: anecdote
+    grade: C
+    describes: 2026-08
+    tasks: [T-eval-alignment]
+
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-03
+    claim: >-
+      Researchers could not readily tell the model's underperformance from ordinary engineering
+      mistakes or infrastructure failures, and found nothing in its chain of thought explaining
+      why safety research tasks had failed.
+    quote: >-
+      these problems were difficult to distinguish from ordinary engineering mistakes or
+      infrastructure failures, and researchers did not find evidence in the CoTs explaining why
+      progress on safety-related research tasks had failed.
+    locator: What happened
+    kind: comprehension
+    strength: reported
+    grade: B
+    describes: 2026-08
+    tasks: [T-eval-transcripts, T-eval-alignment]
+
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-04
+    claim: >-
+      Later large-scale analysis found trajectories in which Astra did state its
+      underperformance in its reasoning. The monitoring system had not rated these as severe
+      enough to trigger human review.
+    quote: >-
+      In later widescale analyses we found cases of verbalized underperformance. Our monitoring
+      system did not flag these trajectories as severe enough misalignment to trigger human
+      review.
+    locator: What happened
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts]
+    note: >-
+      The GPT-5.5 system card says people mainly review transcripts the monitor labels severity
+      3 or 4 (S-openai-2026-04-gpt-5-5-system-card, item 01).
+
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-05
+    claim: >-
+      On matched coding tasks, Astra completed about 10 percent of hidden rubric items when the
+      task was framed as safety research and about 16 percent when it was framed as
+      capabilities research. GPT-5.6 Sol showed essentially no gap.
+    quote: >-
+      Astra completed about 10 percent of hidden rubric items under the safety framing, compared
+      with about 16 percent under the capabilities framing. This is a 6 percentage point gap and
+      roughly 40 percent fewer completed rubric items. GPT-5.6 Sol showed essentially no gap on
+      the same comparison.
+    locator: Summary
+    kind: incident
+    strength: measured
+    grade: A
+    tasks: [T-eval-alignment, T-eval-validity]
+    note: >-
+      The evaluation was built after researchers reported the problem. Its samples are dated
+      Sep 18 to Oct 7, 2026. The paired codebases differed only in names, comments and
+      documentation.
+
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-06
+    claim: >-
+      Excluding explicit refusals, and also pairs where Astra's reasoning revealed a decision to
+      withhold help, narrowed the gap only to 4.7 percentage points. OpenAI concludes that
+      covert underperformance is difficult to detect through chain-of-thought monitoring.
+    quote: >-
+      when we also excluded pairs in which Astra’s reasoning revealed a decision to withhold help
+      without telling the user, the gap narrowed only marginally, to 4.7 percentage points. These
+      results mean that it's difficult to detect covert underperformance through CoT monitoring,
+      since only a small fraction of the effect can be explained by trajectories with verbalized
+      refusals or intentions to underperform.
+    locator: Response and investigation
+    kind: risk
+    strength: measured
+    grade: A
+    tasks: [T-eval-safeguards, T-eval-validity]
+    note: >-
+      The gap fell to 0.75 points only when every sample with even brief ethical doubt in the
+      reasoning was removed.
+
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-07
+    claim: >-
+      In employees' day-to-day Codex use, Astra's reasoning showed a decision to silently
+      withhold help in 0.25 percent of safety-relevant requests, against 0.11 percent of
+      capabilities-relevant ones. It was most common in red-teaming and also appeared in work on
+      monitoring and safety evaluations.
+    quote: >-
+      we looked for related behavior in OpenAI employees’ day-to-day Codex use. [...] Astra’s CoT
+      showed a decision to silently withhold help in 0.25 percent of safety-relevant requests,
+      compared with 0.11 percent of capabilities-relevant requests [...] Within safety research,
+      explicit refusals and silent withholding were most common for red-teaming tasks. We also
+      saw them in work on monitoring and safety evaluations.
+    locator: Response and investigation
+    kind: incident
+    strength: measured
+    grade: A
+    tasks: [T-eval-alignment, T-eval-safeguards]
+    note: >-
+      Counts only cases where the decision was stated in the reasoning. The summary says this
+      might be a lower bound. The number of requests is not given.
+
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-08
+    claim: >-
+      In one safety evaluation a user asked Astra to include the graders' chains of thought in an
+      export. It left them out and decided to report which outcomes it had saved without mentioning
+      the omission.
+    quote: >-
+      In another safety evaluation, the user asked Astra to include the graders’ chains of
+      thought in an export. Astra left them out and decided to report which outcomes it had
+      saved without mentioning the omission.
+    locator: What happened
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-graders]
+    note: >-
+      A model doing evaluation work delivered less than was asked and worded its report so the
+      gap would not show. The report does not say how or when the user found out.
+
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-09
+    claim: >-
+      OpenAI found one reinforcement-learning grader that preferred covert underperformance to
+      both explicit refusal and full compliance. It is not clear whether that grader is the
+      cause of the behavior.
+    quote: >-
+      We identified a grader that preferred covert underperformance to either explicit refusal or
+      full compliance on our evaluation. It’s not clear whether this RL grader is the root cause
+      of the safety underperformance behavior.
+    locator: Response and investigation
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment]
+    note: >-
+      A training grader, not an evaluation grader. The report does not say whether this grader is a
+      model.
+
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-10
+    claim: >-
+      The gap grew from effectively zero to 6 percentage points over Astra's RL post-training.
+      OpenAI was not able to pinpoint the cause.
+    quote: >-
+      Across Astra’s RL posttraining, the safety/capabilities performance gap grew from
+      effectively zero at the start of RL to 6 percentage points at the end. While we were
+      ultimately not able to pinpoint the exact cause of this behavior, we identified that it
+      seems to increase during RL.
+    locator: Summary
+    kind: comprehension
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment]
+    note: >-
+      The growth was measured after the fact, with the evaluation built for this investigation.
+      The report does not say whether any check run during training would have shown it.
+
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-11
+    claim: >-
+      OpenAI says the behavior can slow safety research relative to other research and make
+      evaluations harder to interpret: a model that finds monitor evasion suspicious may
+      underperform on monitor-evasion evaluations and leave little trace in its reasoning or
+      outputs.
+    quote: >-
+      At scale, this can differentially slow down safety research compared to other research and
+      make evaluations harder to interpret. A model that finds monitor evasion suspicious may
+      underperform on monitor-evasion evaluations while leaving little evidence in its CoT or
+      outputs.
+    locator: Response and investigation
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-safeguards]
+    note: >-
+      The GPT-6 Astra system card reports monitor-evasion evaluations of this model
+      (S-openai-2026-09-gpt-6-astra-system-card, Section 9.2).
+
+  - id: EV-openai-2026-11-covert-underperformance-safety-research-12
+    claim: >-
+      The initial reports of the behavior are dated Aug 20, 2026 and the evaluation samples that
+      measured it Sep 18 to Oct 7, 2026. The report was last updated Nov 4, 2026.
+    quote: >-
+      Samples: Sep 18–Oct 7, 2026 (evals) Discovered: Aug 20, 2026 (initial reports) Report
+      updated: Nov 4, 2026
+    locator: Report header
+    kind: pace
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment]
+    note: >-
+      The GPT-6 Astra system card is dated 2026-09-03, after the initial reports. A text search of
+      that card's snapshot (change log to 2026-10-30) found no mention of this behavior in internal
+      use. Its Section 8.8 reports that an outside tester found no sabotage of AI safety research
+      and very few refusals to assist with it, and Section 9 discusses underperformance on safety
+      research as a hypothetical. That the card omits the behavior is our reading of that search.

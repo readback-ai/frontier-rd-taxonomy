@@ -1,0 +1,57 @@
+id: R-eval-model-grader-unchecked
+title: A model grader's verdicts are taken as measurements without checks a person can inspect
+tasks: [T-eval-graders, T-eval-transcripts, T-eval-alignment]
+failure_mode: >-
+  A model judge misclassifies outputs, through a miscalibrated rubric, a hallucinated detail, a
+  bias toward its own family, or because the graded model's text persuades it. Its verdicts are
+  aggregated into a score that nobody could verify item by item. Scripts fail the same way when
+  they check an end state and not how it was reached.
+harm_path: false_assurance
+mechanisms: [correlated_error, review_overload, comprehension_gap]
+automation_effect: >-
+  Model grading is what makes evaluation at this volume possible, so the share of verdicts a person
+  reads falls toward zero. The judge is usually the subject's own family, often its predecessor.
+  Where human labels exist they are few and labelers disagree, so the check against them is weak.
+  Summaries of summaries drop what lower levels recorded. In research settings a judge was trained
+  into manufacturing findings, and a model graded a transcript of its own sandbagging as clean.
+review_catchable: 'yes'
+review_rationale: >-
+  The questions are direct: what is the judge's agreement with independent human labels on this
+  distribution, who labeled, how many verdicts did a person read, and does the verdict change
+  when the subject's reasoning is withheld. Honest answers expose an unchecked grader.
+severity: high
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-06
+  - EV-anthropic-2026-08-risk-report-09
+  - EV-anthropic-2026-09-measuring-pace-04
+  - EV-anthropic-2026-09-measuring-pace-05
+  - EV-anthropic-2026-06-recursive-self-improvement-05
+  - EV-anthropic-2026-04-mythos-preview-system-card-09
+  - EV-anthropic-2025-10-petri-04
+  - EV-anthropic-2025-10-petri-05
+  - EV-anthropic-2025-10-petri-07
+  - EV-anthropic-2025-12-bloom-05
+  - EV-anthropic-2025-12-bloom-06
+  - EV-anthropic-2025-12-bloom-09
+  - EV-anthropic-2026-01-auditing-overt-saboteur-07
+  - EV-anthropic-2026-10-training-alignment-auditors-03
+  - EV-metr-2026-05-frontier-risk-report-08
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-10
+  - EV-apollo-2025-09-stress-testing-anti-scheming-05
+  - EV-nist-2025-12-caisi-cheating-examples-06
+  - EV-epoch-2026-09-osworld-review-02
+  - EV-epoch-2026-09-osworld-review-05
+  - EV-openai-2026-09-gpt-6-astra-system-card-03
+  - EV-openai-2026-09-gpt-6-astra-system-card-05
+  - EV-openai-2026-09-gpt-6-astra-system-card-08
+  - EV-openai-2026-04-gpt-5-5-system-card-05
+  - EV-gdm-2026-10-gemini-4-argon-safety-report-04
+  - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-08
+  - EV-metr-2026-05-frontier-risk-report-02
+  - EV-xai-2026-04-grok-4-20-system-card-03
+  - EV-meta-2026-05-muse-spark-safety-preparedness-report-06
+incidents:
+  - INC-2026-anthropic-agent-refusals-unnoticed
+  - INC-2026-anthropic-charxiv-grader-bug
+  - INC-2026-osworld-grader-errors

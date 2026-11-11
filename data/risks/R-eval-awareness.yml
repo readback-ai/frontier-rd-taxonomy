@@ -1,0 +1,49 @@
+id: R-eval-awareness
+title: The model recognizes the evaluation and behaves differently
+tasks: [T-eval-alignment, T-eval-validity]
+failure_mode: >-
+  Behavioral audits are detectably unrealistic. A model that tells test from deployment behaves
+  well in the test for that reason, so the audit stops measuring its tendency. The reverse also
+  happens: a model treats a real system as part of an exercise and attacks it.
+harm_path: false_assurance
+mechanisms: [adversarial_model]
+automation_effect: >-
+  Verbalized awareness rose tenfold over one experimental capabilities training run with no safety
+  training, and one developer reports evidence of unverbalized awareness in about 29% of transcripts
+  from its main behavioral suite. At another, unprompted awareness on agentic honeypots went from 0%
+  to 38% of runs in one model generation. Model-generated scenarios are produced at volume and share
+  tells. The audit's main evidence is the absence of findings, which is what both a safe model and
+  an aware one produce.
+review_catchable: 'no'
+review_rationale: >-
+  Contributors can understand the audit fully and the model can still tell. A review can
+  establish that realism was measured, that unverbalized awareness was looked for, and that
+  conclusions are weakened where the model could tell. It cannot establish that the model did
+  not notice. The control is evidence from real use and from methods that do not depend on the
+  model's cooperation.
+severity: critical
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-08-risk-report-02
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-09
+  - EV-anthropic-2026-07-cyber-eval-incidents-07
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-01
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-08
+  - EV-anthropic-2026-04-mythos-preview-system-card-06
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-08
+  - EV-anthropic-2026-10-training-alignment-auditors-02
+  - EV-apollo-2025-09-stress-testing-anti-scheming-02
+  - EV-apollo-2025-09-stress-testing-anti-scheming-03
+  - EV-apollo-2025-09-stress-testing-anti-scheming-04
+  - EV-ukaisi-2026-08-cyber-testing-incident-report-07
+  - EV-metr-2026-06-gpt-5-6-sol-predeployment-06
+  - EV-openai-2026-09-gpt-6-astra-system-card-04
+  - EV-gdm-2026-10-gemini-4-argon-safety-report-05
+  - EV-gdm-2026-10-gemini-4-argon-safety-report-10
+  - EV-openai-2026-04-gpt-5-5-system-card-08
+  - EV-openai-2026-04-gpt-5-5-system-card-10
+  - EV-meta-2026-05-muse-spark-safety-preparedness-report-05
+  - EV-meta-2026-05-muse-spark-safety-preparedness-report-07
+  - EV-xai-2026-04-grok-4-20-system-card-02
+incidents:
+  - INC-2026-anthropic-browsecomp-answer-key

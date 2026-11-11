@@ -1,0 +1,65 @@
+{
+  "source_id": "S-anthropic-2026-07-cyber-eval-incidents",
+  "snapshot": {
+    "url": "https://www.anthropic.com/research/investigating-incidents-cybersecurity-evals",
+    "final_url": "https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "b35ebde35475606076273d5a3bc7a1e112ef218dc5b0a3739ddebbff40331eb6",
+    "text_sha256": "e5414b13dcb563a45afb2fc063305ce3fae0df5808ad9cbc2546e68b88fc0314",
+    "text_chars": 21963
+  },
+  "quotes": {
+    "EV-anthropic-2026-07-cyber-eval-incidents-01": {
+      "quote_sha256": "d7c8c4b3e03e4485fef172ae14a6be80035cfcb84494ea7ab10b98ce3dcde4e4",
+      "text_sha256": "e5414b13dcb563a45afb2fc063305ce3fae0df5808ad9cbc2546e68b88fc0314",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-07-cyber-eval-incidents-02": {
+      "quote_sha256": "f8a96534b3d873bb75e1384fd9b7ccfaef8a661a9139c1e8f707f3c38d1bccc9",
+      "text_sha256": "e5414b13dcb563a45afb2fc063305ce3fae0df5808ad9cbc2546e68b88fc0314",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-07-cyber-eval-incidents-03": {
+      "quote_sha256": "5b25f0039ced99210019016e710a11610f9a08bda099001039f6bc24878ed86c",
+      "text_sha256": "e5414b13dcb563a45afb2fc063305ce3fae0df5808ad9cbc2546e68b88fc0314",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-07-cyber-eval-incidents-04": {
+      "quote_sha256": "dbdc182e5b5dd110a80954f07afe1ca61f7faf93ff47cc39b59d6010b1c04ff0",
+      "text_sha256": "e5414b13dcb563a45afb2fc063305ce3fae0df5808ad9cbc2546e68b88fc0314",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-07-cyber-eval-incidents-05": {
+      "quote_sha256": "73a30d101a33ec95cfc200e16015ddc1b858504dcb05f9eccdc214fe43281419",
+      "text_sha256": "e5414b13dcb563a45afb2fc063305ce3fae0df5808ad9cbc2546e68b88fc0314",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-07-cyber-eval-incidents-06": {
+      "quote_sha256": "792ac773f936bd8d760618f4b6398eb3d650874d70a8ee59b52dd2139bb75ca4",
+      "text_sha256": "e5414b13dcb563a45afb2fc063305ce3fae0df5808ad9cbc2546e68b88fc0314",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-07-cyber-eval-incidents-07": {
+      "quote_sha256": "887bb03183939a4413a4839dc07e90fdfca481e21ccd2c0cfa8479a9b5a8ee7c",
+      "text_sha256": "e5414b13dcb563a45afb2fc063305ce3fae0df5808ad9cbc2546e68b88fc0314",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-07-cyber-eval-incidents-08": {
+      "quote_sha256": "bb0c67eb4da99e74d4db89e7b6c6e73e902a0f8af915010324f76c8c673de93b",
+      "text_sha256": "e5414b13dcb563a45afb2fc063305ce3fae0df5808ad9cbc2546e68b88fc0314",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-07-cyber-eval-incidents-09": {
+      "quote_sha256": "671f44db37e76a7470d1455f1d3749f33adec93e12f8f3bdbf5609f7bc5c1d8a",
+      "text_sha256": "e5414b13dcb563a45afb2fc063305ce3fae0df5808ad9cbc2546e68b88fc0314",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-07-cyber-eval-incidents-10": {
+      "quote_sha256": "9d7a962a76d6ae43df6dc85321d2c46b1c2d222166ce5313822a8fe4fbf31d4b",
+      "text_sha256": "e5414b13dcb563a45afb2fc063305ce3fae0df5808ad9cbc2546e68b88fc0314",
+      "verified": "2026-11-11"
+    }
+  }
+}

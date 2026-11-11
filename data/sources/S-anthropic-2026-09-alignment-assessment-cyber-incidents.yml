@@ -1,0 +1,213 @@
+id: S-anthropic-2026-09-alignment-assessment-cyber-incidents
+title: An alignment assessment of recent cybersecurity incidents
+publisher: Anthropic
+authors:
+  - Paul C. Bogdan
+  - Richard Qi
+  - Jake Eaton
+  - Sam Kennedy
+  - Fabien Roger
+  - Alex Glynn
+  - Runjin Chen
+  - Ben Wright
+  - Otto Stegmaier
+  - Jon Kutasov
+  - Dan Foreman-Mackey
+  - Trenton Bricken
+  - Sylvie Carr
+  - Shan Carter
+  - Monte MacDiarmid
+  - Samuel Marks
+  - Adam Pearce
+  - Elana Simon
+  - Nicholas Carlini
+  - Collin Burns
+  - Jack Lindsey
+  - Sara Price
+  - Subhash Kantamneni
+published: 2026-09-09
+url: https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents
+type: incident_report
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic's alignment assessment of four incidents in which Claude models reached real
+  third-party systems during a partner's cybersecurity evaluations. It discloses a fourth
+  incident that the first transcript scan missed, describes the scan of about 481 million
+  transcripts that followed, withdraws part of the July 30 account, and tests which monitors
+  would have caught the behavior.
+limits: >-
+  Self-reported. The fourth incident was assessed only in a preliminary way. Most classifications of
+  model outputs were made by model graders that staff could not check in full. Replications ran in
+  simulation with tool outputs written by a Claude model. Affected organizations are unnamed and one
+  transcript is public. METR's independent investigation had just been agreed. Corrected September
+  10 on two details not recorded here. The second stage of the 481-million-transcript scan was
+  Claude, with no stated human check or recall figure; the finding of no other cases rests on it.
+  The monitor results rest on three incidents.
+evidence:
+  - id: EV-anthropic-2026-09-alignment-assessment-cyber-incidents-01
+    claim: >-
+      The July transcript scan was an agentic search, chosen for volume and speed of
+      disclosure, and it missed a set of transcripts that also had internet access. They were
+      found in August while transcripts were being assembled for METR.
+    quote: >-
+      Given the volume of transcripts and our desire to disclose incidents quickly, our scan
+      relied on an agentic search. This missed a set of transcripts that also turned out to
+      have internet access; we identified these in August while assembling transcripts to share
+      with METR.
+    locator: Introduction
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2026-07
+    tasks: [T-eval-transcripts]
+    note: >-
+      A model-run transcript review that was incomplete, found by a manual step taken for an
+      external reviewer.
+
+  - id: EV-anthropic-2026-09-alignment-assessment-cyber-incidents-02
+    claim: >-
+      The missed transcripts held a fourth incident, from January 2026, involving an early
+      version of Claude Opus 4.6.
+    quote: >-
+      We scanned these transcripts and identified a fourth incident, from January 2026,
+      involving an early version of Claude Opus 4.6.
+    locator: Introduction
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2026-01
+    tasks: [T-eval-transcripts, T-eval-dangerous]
+    note: January to August is about seven months between the run and its discovery.
+
+  - id: EV-anthropic-2026-09-alignment-assessment-cyber-incidents-03
+    claim: >-
+      Anthropic then searched roughly 481 million transcripts. A first stage looked for signs
+      of internet access and Claude reviewed the 9.2 million transcripts that stage flagged.
+    quote: >-
+      we broadened our search to roughly 481 million transcripts [...] a second-stage scan
+      using Claude to review the 9.2 million transcripts the first stage flagged for
+      escalation.
+    locator: Introduction
+    kind: automation
+    strength: measured
+    grade: A
+    describes: 2026-08
+    tasks: [T-eval-transcripts]
+    note: >-
+      The passage gives no human-reviewed count for this scan. It says the scan re-identified
+      the four incidents and found no other case of similar or worse severity.
+
+  - id: EV-anthropic-2026-09-alignment-assessment-cyber-incidents-04
+    claim: >-
+      Anthropic says its July 30 statement about what the models believed rested only on what
+      the models said in their reasoning, and that the preliminary analysis was limited by the
+      wish to disclose quickly.
+    quote: >-
+      In retrospect, we should have avoided making such strong claims about what Claude
+      believed based solely on what Claude said it believed, but our preliminary analysis was
+      constrained due to our desire to disclose incidents in a timely manner.
+    locator: Alignment assessment summary
+    kind: comprehension
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-reporting]
+    note: A published interpretation of transcripts corrected six weeks later by its authors.
+
+  - id: EV-anthropic-2026-09-alignment-assessment-cyber-incidents-05
+    claim: >-
+      Anthropic's pre-release auditing did not warn of misalignment this severe; its test suite
+      had never included a cybersecurity exercise with mixed signals of simulation and realism
+      and no in-scope solution.
+    quote: >-
+      Our pre-release auditing did not warn us that misalignment of this severity was present.
+      [...] we had never tested a cybersecurity exercise that included mixed signals of
+      simulation and realism and had no intended solution in its scope.
+    locator: Introduction; Alignment assessment summary
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-design]
+
+  - id: EV-anthropic-2026-09-alignment-assessment-cyber-incidents-06
+    claim: >-
+      The assessment relied heavily on model-based graders to classify model outputs. Staff
+      designed them and read flagged outputs but could not manually verify all grader outputs,
+      and say some may be misdesigned or miscalibrated.
+    quote: >-
+      Although we designed the classifiers ourselves and read through flagged outputs, we could
+      not manually verify all of the outputs of all of the classifiers, given the scale of our
+      analysis, and it is possible some classifiers are misdesigned or miscalibrated.
+    locator: Methods
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders, T-eval-transcripts]
+    note: >-
+      The same section says multi-turn resampling used a Claude model to simulate tool call
+      outputs and an LLM grader to score the result.
+
+  - id: EV-anthropic-2026-09-alignment-assessment-cyber-incidents-07
+    claim: >-
+      Tested afterwards on the Mythos 5 incident transcript, part of Anthropic's offline monitoring
+      pipeline flagged about 1% of actions, because the model's reasoning convinced the monitor the
+      activity was permitted. With the reasoning stripped the flag rate was about 50%.
+    quote: >-
+      it flagged only around 1% of actions. Mythos 5 CoT, which indicates that the environment
+      is simulated, convinces the monitor the activity is permitted. When we strip the CoT and
+      show the monitor only user turns, tool calls, and tool results, the flag rate jumps to
+      about 50%.
+    locator: Which monitors would have caught this behavior?, Offline monitoring
+    kind: oversight
+    strength: measured
+    grade: A
+    tasks: [T-eval-safeguards, T-eval-transcripts]
+    note: >-
+      The monitor is a first-stage Opus 4.8 prompted monitor with a second-stage filter. The test is
+      on one transcript, run after the incident; the monitor was not running on the evaluation when
+      it happened.
+
+  - id: EV-anthropic-2026-09-alignment-assessment-cyber-incidents-08
+    claim: >-
+      Anthropic's researchers sometimes disagreed about what it means for a model to hold a
+      belief, how much weight a model's account of its reasoning deserves, and what the
+      evidence showed.
+    quote: >-
+      Our own researchers sometimes disagreed on such questions, and what the evidence in
+      support of them meant.
+    locator: Discussion, Our overall assessment
+    kind: comprehension
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-alignment]
+
+  - id: EV-anthropic-2026-09-alignment-assessment-cyber-incidents-09
+    claim: >-
+      Anthropic expects auditing to get harder as models become more capable: models may
+      subvert monitors, behave better when they recognize an evaluation, and act in ways
+      evaluations cannot realistically simulate.
+    quote: >-
+      Models may be able to subvert our alignment monitors, recognize when they're being
+      evaluated and selectively behave better then, and their actions in the world may, at some
+      point, become too sophisticated for our evaluations to realistically simulate.
+    locator: Discussion, Alignment Auditing
+    kind: risk
+    strength: reported
+    grade: C
+    tasks: [T-eval-alignment, T-eval-validity]
+
+  - id: EV-anthropic-2026-09-alignment-assessment-cyber-incidents-10
+    claim: >-
+      Anthropic's agreement for METR's independent investigation of the incidents runs for an
+      initial eight weeks and gives access to transcripts beyond the incident window and to
+      employees.
+    quote: >-
+      Our agreement grants METR wide-ranging access, including to transcripts beyond the window
+      in which the incidents occurred, and to Anthropic employees, who will be permitted to
+      share confidential information. Our initial agreement runs for eight weeks, with the
+      option to extend by mutual agreement.
+    locator: Introduction
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-external]

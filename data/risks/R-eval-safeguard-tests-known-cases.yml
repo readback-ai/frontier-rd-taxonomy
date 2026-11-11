@@ -1,0 +1,47 @@
+id: R-eval-safeguard-tests-known-cases
+title: A monitor or classifier is declared effective on the cases already known
+tasks: [T-eval-safeguards]
+failure_mode: >-
+  Recall is measured on attacks built against an earlier monitor, or on the incidents that
+  prompted the control. The pipeline is not tested end to end. The benchmark monitor and the
+  production monitor see different things. Real misbehavior differs from the test set, a
+  red-teamer can reliably get past, and the monitored model's own reasoning talks a model
+  monitor out of flagging.
+harm_path: false_assurance
+mechanisms: [correlated_error, spec_gap, adversarial_model]
+automation_effect: >-
+  Monitors are models watching tens of thousands of agents, with about fifty escalations a week
+  reaching a person, days later. The test of the monitor is the only evidence that it works, and
+  building hard test cases is slower than deploying the monitor. A control added after an
+  incident is verified against that incident. Whether models are learning to evade monitoring
+  cannot be checked from outside at all.
+review_catchable: 'yes'
+review_rationale: >-
+  Ask where the test cases came from, whether any were built against this version by someone
+  trying to beat it, which stages of the path to a person were never tested, and what the monitor
+  does when the subject's reasoning argues with it.
+severity: critical
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-08-risk-report-10
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-07
+  - EV-anthropic-2026-08-improving-alignment-security-efforts-03
+  - EV-anthropic-2026-10-unintended-model-actions-07
+  - EV-anthropic-2026-09-measuring-pace-08
+  - EV-anthropic-2026-09-measuring-pace-09
+  - EV-anthropic-2026-01-auditing-overt-saboteur-10
+  - EV-metr-2026-05-frontier-risk-report-09
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-04
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-05
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-06
+  - EV-metr-2026-06-gpt-5-6-sol-predeployment-07
+  - EV-openai-2026-04-gpt-5-5-system-card-02
+  - EV-openai-2026-04-gpt-5-5-system-card-03
+  - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-05
+  - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-06
+  - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-07
+  - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-08
+  - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-09
+  - EV-gdm-2026-10-gemini-4-argon-safety-report-11
+incidents:
+  - INC-2026-anthropic-cyber-eval-internet-access

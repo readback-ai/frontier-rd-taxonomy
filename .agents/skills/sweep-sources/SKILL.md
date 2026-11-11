@@ -35,9 +35,10 @@ Prefer the primary document to coverage of it. If you learn of a primary documen
    uv run taxo snapshot S-<publisher>-<yyyy>-<mm>-<slug> --url "<url>"
    ```
 
-   The id is lowercase, `S-<publisher>-<yyyy>-<mm>-<slug>`; leave out the month if it is not known. For a PDF, give the PDF's own URL. If the site refuses the fetch (HTTP 403, a bot check, a login) or the text is too short, do not try to get around it: no headless browser, no changed headers, no proxy, no cache or mirror of the page. Record the URL in your report as unfetched and move on. A person can save the page by hand later and run `uv run taxo snapshot <id> --from-file <saved file>`. Never write evidence from a page you could not snapshot.
+   The id is lowercase, `S-<publisher>-<yyyy>-<mm>-<slug>`; leave out the month if it is not known. For a PDF, give the PDF's own URL. If the site refuses the fetch (HTTP 403, a bot check, a login) or the text is too short, do not try to get around it: no headless browser, no changed headers, no proxy, no cache or mirror of the page. Record the URL in your report as unfetched and move on. A person can save the page by hand later and run `uv run taxo snapshot <id> --from-file <saved file>`. Never write evidence from a page you could not snapshot. If the snapshot command warns that the page marks itself paywalled, quote only the part shown without a subscription.
+   You may snapshot a source to decide whether it is worth adding. That leaves no lock file: the lock is written by `taxo verify-quotes` once the source has a record. Never create, edit or delete anything in `data/locks/` by hand.
 4. **Read the snapshot text**, not a summary of it. The command prints the path to `text.txt`. Use Grep and Read on that file. Long documents: grep for the terms in your scope, then read around each hit.
-5. **Write the source record** at `data/sources/<id>.yml`. Copy the shape of `data/sources/S-anthropic-2026-09-measuring-pace.yml`. Field values are defined in `docs/codebook.md` section 3; the rules that matter most are below.
+5. **Write the source record** at `data/sources/<id>.yml`. Copy the shape of `data/sources/S-anthropic-2026-09-measuring-pace.yml`. Field values are defined in `docs/codebook.md` section 3; the rules that matter most are below. Set `vantage` by who is speaking about whose work: an evaluator describing its own evaluation is `first_party` for that evaluation, and `embedded_third_party` needs the document itself to say the outside party had internal access.
 6. **Verify.**
 
    ```bash
@@ -54,9 +55,9 @@ Prefer the primary document to coverage of it. If you learn of a primary documen
 - **Numbers need their quote.** Any figure in `claim` must be in `quote`.
 - **`locator`** says where in the document: section name, table, footnote or page.
 - **`kind`** is one of `automation`, `oversight`, `comprehension`, `incident`, `share`, `practice`, `risk`, `method`, `pace`.
-- **`strength`**: `measured` (a quantity the source measured and reports with its method), `reported` (the source states it as fact about its own or the examined organization's work), `anecdote` (one person's account), `inferred` (your reading of what the quote implies).
-- **`grade`**: A (measured, by the developer or an embedded third party, in a report type that allows A), B (a specific documented statement by a first party or embedded third party), C (staff anecdote, press, external analysis), D (analog or inference). The source type caps the grade; the validator enforces the cap.
-- **`tasks`**: the task ids the item bears on. Leave empty if none fits; say in your report which task you expected to exist.
+- **`strength`**: `measured` (a quantity the source measured and reports with enough method to know what was counted; a figure with no stated method is `reported`), `reported` (the source states it as fact about its own or the examined organization's work), `anecdote` (one person's account), `inferred` (your reading of what the quote implies).
+- **`grade`**: A (measured, by the developer or an embedded third party, in a report type that allows A), B (a specific documented statement by a first party or embedded third party), C (staff anecdote, press, external analysis, any forecast or general remark), D (analog or inference). The grade follows who is speaking about whose work in that item: an evaluator on its own evaluation is first party for it. The source type caps the grade; the validator enforces the cap.
+- **`tasks`**: the task ids the quote bears on directly. Leave empty if none fits, and say in your report which task you expected to exist. Do not tag by analogy.
 - **`describes`**: the period the claim is about (`2026-08`), when it differs from the publication date.
 - **Record limits.** Put redactions, self-report, small samples and conflicts of interest in the source's `limits`.
 

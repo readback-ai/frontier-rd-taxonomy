@@ -1,0 +1,55 @@
+{
+  "source_id": "S-anthropic-2025-09-postmortem-three-issues",
+  "snapshot": {
+    "url": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+    "final_url": "https://www.anthropic.com/research/a-postmortem-of-three-recent-issues",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "312cb807941c6cb2259d444c6f058762a1728c328199c353555ccd3992f92382",
+    "text_sha256": "32e33010aef8f525f00398a8c0b74b9c5182b38f50607d4920deeb952e79a30f",
+    "text_chars": 14512
+  },
+  "quotes": {
+    "EV-anthropic-2025-09-postmortem-three-issues-01": {
+      "quote_sha256": "4d44585933e493c6cb78fc62064415eda54ea24cdfb119d171e0de0546d6f540",
+      "text_sha256": "32e33010aef8f525f00398a8c0b74b9c5182b38f50607d4920deeb952e79a30f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-09-postmortem-three-issues-02": {
+      "quote_sha256": "639566497b3e9b1a5126baa1dc588a9b1abd6aa0c392dfc8fb356d219325cb71",
+      "text_sha256": "32e33010aef8f525f00398a8c0b74b9c5182b38f50607d4920deeb952e79a30f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-09-postmortem-three-issues-03": {
+      "quote_sha256": "603075dd4c66a6360895ed31ac149c25cd71003b648ec2b0bf7f9e5516c3bd83",
+      "text_sha256": "32e33010aef8f525f00398a8c0b74b9c5182b38f50607d4920deeb952e79a30f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-09-postmortem-three-issues-04": {
+      "quote_sha256": "72618d23bc602c7db3262e5e316a105b7343cdd4775995561d7a97143c57af4c",
+      "text_sha256": "32e33010aef8f525f00398a8c0b74b9c5182b38f50607d4920deeb952e79a30f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-09-postmortem-three-issues-05": {
+      "quote_sha256": "6cda7359fba8dcd5e5c617136d6cad213c21826c210e4c941de2952b28621dc4",
+      "text_sha256": "32e33010aef8f525f00398a8c0b74b9c5182b38f50607d4920deeb952e79a30f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-09-postmortem-three-issues-06": {
+      "quote_sha256": "13c0d8d3aaac32ef0320152c82007ef72833704aaebb4096fd89c69ef55b12b9",
+      "text_sha256": "32e33010aef8f525f00398a8c0b74b9c5182b38f50607d4920deeb952e79a30f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-09-postmortem-three-issues-07": {
+      "quote_sha256": "25c3342a32e75cc831742d2900f552235f3fb600f0cc31947624b0b5e6a90a28",
+      "text_sha256": "32e33010aef8f525f00398a8c0b74b9c5182b38f50607d4920deeb952e79a30f",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-09-postmortem-three-issues-08": {
+      "quote_sha256": "ec00876bced8cd28a8a43c09598b2de0fab777348b656a02c013bfd86e2ce7f0",
+      "text_sha256": "32e33010aef8f525f00398a8c0b74b9c5182b38f50607d4920deeb952e79a30f",
+      "verified": "2026-11-11"
+    }
+  }
+}

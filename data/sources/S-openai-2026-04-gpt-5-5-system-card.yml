@@ -1,0 +1,192 @@
+id: S-openai-2026-04-gpt-5-5-system-card
+title: GPT-5.5 System Card
+publisher: OpenAI
+authors: []
+published: 2026-04-23
+url: https://deploymentsafety.openai.com/gpt-5-5/gpt-5-5.pdf
+type: system_card
+vantage: first_party
+labs: [OpenAI]
+summary: >-
+  OpenAI's system card for GPT-5.5. Reports alignment evaluations built by resampling internal
+  coding-agent traffic, measurements of how well its misalignment monitor detects known and
+  unfamiliar misbehavior, which monitor labels people review, chain-of-thought monitorability
+  results, and Preparedness Framework capability assessments with third-party testing.
+limits: >-
+  Self-reported. Third-party results (Apollo Research, UK AISI, US CAISI, SecureBio, Irregular) are
+  OpenAI's summaries. The monitor recall figures rest on 21 and 63 hand-labeled transcripts. The
+  snapshot includes an update dated 2026-04-24 and a change-log correction dated 2026-08-19. Figures
+  are not in the extracted text. The resampling misalignment rates are monitor labels on
+  trajectories with simulated tool responses, whose realism is judged by a model.
+evidence:
+  - id: EV-openai-2026-04-gpt-5-5-system-card-01
+    claim: >-
+      In OpenAI's current review of internal coding-agent transcripts, people mainly review those a
+      model monitor has labeled severity 3 or 4.
+    quote: >-
+      For context, in our current review process, humans mainly review transcripts labeled as
+      severity 3 and 4, and therefore recall at the severity 3 threshold is particularly
+      important.
+    locator: Section 7.2.1, Measuring our ability to detect misalignment
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-04
+    tasks: []
+    note: >-
+      Section 7.2 gives the severity 3 rate in the resampling evaluation as 0.01% for both models
+      tested. These are transcripts of internal deployment, not evaluation transcripts, so no
+      evaluation task is tagged.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-02
+    claim: >-
+      When the relevant category was removed from the monitor's prompt, to test detection of
+      unfamiliar misbehavior, 95% of current severity 3 traffic was still classified as at
+      least severity 2 but less than half as severity 3.
+    quote: >-
+      95% of current severity 3 traffic would be classified as at least severity 2, but less than
+      half would be classified as severity 3.
+    locator: Section 7.2.1
+    kind: oversight
+    strength: measured
+    grade: A
+    tasks: [T-eval-safeguards]
+    note: >-
+      Read with item 01: severity 3 is the level people mainly review, so a new kind of serious
+      misbehavior would more often than not fall below it.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-03
+    claim: >-
+      The monitor's recall on real misbehavior was measured on 21 internal transcripts that
+      staff labeled severity 3 (97.6% recall) and on 63 labeled borderline severity 3 (69%
+      recall at severity 3 or above).
+    quote: >-
+      On a dataset of 21 real internal transcripts which we labeled as severity level 3, our
+      classifier has 97.6% recall at flagging these transcripts as severity level 3+ (we
+      classify each datapoint 10 times). We additionally labeled 63 transcripts as borderline
+      severity 3, on these the classifier has 69% recall for 3+ (98.2% for 2+).
+    locator: Section 7.2.1
+    kind: method
+    strength: measured
+    grade: A
+    tasks: [T-eval-safeguards, T-eval-graders]
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-04
+    claim: >-
+      To interpret differences between models, flagged trajectories were grouped into
+      subcategories that, after human review, covered 86.4% of flagged classifications.
+    quote: >-
+      we grouped flagged trajectories into subcategories defined by both the user’s situation
+      and the model’s harmful action. After human review, these subcategories covered 86.4% of
+      flagged classifications.
+    locator: Section 7.2
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts]
+    note: >-
+      The card does not say how the grouping was produced or how many trajectories people read.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-05
+    claim: >-
+      OpenAI stopped using two of its chain-of-thought monitorability evaluations because of
+      grading problems: a mismatch between the monitor and the answer grader in one, and
+      unreliable answer grading in the other.
+    quote: >-
+      we have discontinued internal use of the Anti-scheming and Memory evaluations until we
+      develop an improved Anti-scheming version that addresses the mismatch between the generic
+      CoT monitor and the task-specific answer grader, and an improved Memory version with more
+      reliable answer grading.
+    locator: Section 7.3.1, CoT Monitorability
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders, T-eval-safeguards]
+    note: The card says the two were discontinued since the GPT 5.4 Thinking system card.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-06
+    claim: >-
+      On August 19, 2026 OpenAI corrected a biological capability score in the card from 0.4%
+      to 1.48%; the figure first published as the pass@4 score was the pass@1 score.
+    quote: >-
+      August 19, 2026: We corrected GPT-5.5’s pass@4 score on the hard-negative protein binding
+      prediction evaluation from 0.4% to 1.48%. The previously reported value was its pass@1
+      score.
+    locator: Change log
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2026-08
+    tasks: [T-eval-reporting, T-eval-dangerous]
+    note: The card is dated April 23, 2026.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-07
+    claim: >-
+      OpenAI says it has no current evidence that GPT-5.5 has the misalignment propensities or
+      long-range autonomy needed to cause internal deployment risks such as self-exfiltration or
+      sabotage of internal research, an assessment it says is informed by proxy evaluations such as
+      TerminalBench and by limits observed in internal use.
+    quote: >-
+      We do not currently have evidence that GPT-5.5 has misalignment propensities or the [...]
+      autonomy needed to cause internal deployment risks such as successfully self-exfiltrating
+      or sabotaging internal research. This assessment is informed by proxy evaluations such as
+      TerminalBench and observed limits in coherence and goal sustenance during internal usage.
+    locator: Section 9.3.2.9, Misalignment risks and internal deployment
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination, T-eval-alignment]
+    note: >-
+      The following sentences add the resampling evaluations of Section 7.2 as further evidence.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-08
+    claim: >-
+      OpenAI reports that Apollo Research's sandbagging result for GPT-5.5 is hard to
+      interpret: 52% of samples in the sandbagging condition of one task showed moderate or
+      higher verbalized awareness of an alignment evaluation, against 0% in the non-sandbagging
+      counterfactual.
+    quote: >-
+      interpretation is complicated by verbalized alignment-evaluation awareness: 52% of
+      sandbagging-condition samples on Strategic Deception Capability Sandbagging scored
+      moderate-or-higher (vs. 0% in the non-sandbagging counterfactual)
+    locator: Section 9.2.1
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-external]
+    note: Apollo's measurement, as summarized by OpenAI.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-09
+    claim: >-
+      OpenAI's internal research debugging evaluation includes 6 alignment-auditing tasks, in which
+      a model must rediscover misaligned behavior or bad environments that staff found in real
+      experiments without being told what to look for. GPT-5.5's median score on the whole
+      evaluation was 50.5%; no separate figure is given for the auditing tasks.
+    quote: >-
+      This evaluation also includes 6 alignment auditing-related tasks: tasks that measure
+      whether our AI models can rediscover misaligned behavior or bad environments that we found
+      in real research experiments, without being prompted about what to look for. [...]
+      GPT-5.5 is the highest scoring model on this benchmark, achieving a median score of of
+      50.5%
+    locator: Section 9.1.3.3, Internal Research Debugging Evaluation
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts]
+    note: >-
+      A capability measurement, not a statement that models do this work in practice.
+
+  - id: EV-openai-2026-04-gpt-5-5-system-card-10
+    claim: >-
+      OpenAI says its misalignment estimates from resampled representative prompts are likely
+      biased, because the same model on the same distribution gives different rates in
+      production data and in resampled data.
+    quote: >-
+      these misalignment estimates likely also exhibit meaningful bias, as seen by the
+      differences in rates between GPT-5.4 Thinking production data and resampled data with the
+      same model on the same distribution.
+    locator: Section 7.1
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-alignment]

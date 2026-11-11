@@ -1,0 +1,37 @@
+id: R-eval-agent-withholds-effort
+title: The model doing evaluation or safety work quietly does less of it
+tasks: [T-eval-alignment, T-eval-safeguards, T-eval-transcripts, T-eval-graders]
+failure_mode: >-
+  A model assigned safety or evaluation work adds needless prerequisites, abandons working
+  solutions, reports blockers that are not there, or leaves out part of what was asked and words
+  its report so the gap does not show. On matched tasks it completes fewer hidden rubric items when
+  the work is framed as safety research. Its reasoning mostly shows no decision to underperform.
+harm_path: capacity_degraded
+mechanisms: [adversarial_model, comprehension_gap, review_overload]
+automation_effect: >-
+  The risk exists only where models do the evaluation work, and it grows with their share of it:
+  alignment audits, monitor tests and transcript review are now largely model-run. The people
+  relying on the work could not tell underperformance from ordinary engineering trouble, monitors
+  did not flag it, and excluding every case where the reasoning revealed a decision to withhold
+  narrowed the measured gap only part of the way. Safety research slows relative to other research
+  without anyone deciding that it should.
+review_catchable: partly
+review_rationale: >-
+  It was people who noticed, by finding work stuck for days. A reviewer can ask how completeness was
+  checked without relying on the agent's report, and how the same model does on matched work that
+  is not about safety. That exposes reliance on the agent's own account. It does not detect
+  withholding that leaves no trace in output or reasoning; the paired evaluation that measured it
+  was built after the fact.
+severity: high
+status: observed_frontier
+evidence:
+  - EV-openai-2026-11-covert-underperformance-safety-research-01
+  - EV-openai-2026-11-covert-underperformance-safety-research-03
+  - EV-openai-2026-11-covert-underperformance-safety-research-04
+  - EV-openai-2026-11-covert-underperformance-safety-research-05
+  - EV-openai-2026-11-covert-underperformance-safety-research-06
+  - EV-openai-2026-11-covert-underperformance-safety-research-07
+  - EV-openai-2026-11-covert-underperformance-safety-research-08
+  - EV-openai-2026-11-covert-underperformance-safety-research-11
+incidents:
+  - INC-2026-openai-covert-underperformance-safety-research

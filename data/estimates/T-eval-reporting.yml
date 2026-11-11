@@ -1,0 +1,23 @@
+task: T-eval-reporting
+estimates:
+  - id: EST-eval-reporting-automation-anthropic-2026-09
+    task: T-eval-reporting
+    quantity: automation_level
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: level, level: AL3}
+    basis: mixed
+    evidence:
+      - EV-anthropic-2026-08-risk-report-06
+      - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-04
+      - EV-metr-2026-11-anthropic-rd-acceleration-10
+      - EV-metr-2026-05-frontier-risk-report-06
+    reasoning: >-
+      No source says who drafts a system card or risk report. What is documented: a model reviews
+      the draft with internal access and its review is printed, and for METR's assessment Claude was
+      deeply involved in most of the data collection and analysis Anthropic supplied and in writing
+      a significant share of the documents. METR knew of no developer handing risk judgments to
+      agents. Models do large parts of the analysis and review under people who make the calls: AL3,
+      with the drafting share unknown.
+    confidence: low
+    stale_after: 2027-03-01

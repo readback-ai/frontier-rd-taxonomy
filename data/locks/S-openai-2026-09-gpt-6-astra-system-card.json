@@ -1,0 +1,75 @@
+{
+  "source_id": "S-openai-2026-09-gpt-6-astra-system-card",
+  "snapshot": {
+    "url": "https://deploymentsafety.openai.com/gpt-6-astra/gpt-6-astra.pdf",
+    "final_url": "https://deploymentsafety.openai.com/gpt-6-astra/gpt-6-astra.pdf",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "003c5fbc9058b36a4cd3604c00ba4822f73b12c9968703f1caa186daef745e60",
+    "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+    "text_chars": 235711
+  },
+  "quotes": {
+    "EV-openai-2026-09-gpt-6-astra-system-card-01": {
+      "quote_sha256": "90282f1e538478652013f90207177cd300604296e4cc63d3ad46fd09b3339932",
+      "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-09-gpt-6-astra-system-card-02": {
+      "quote_sha256": "a7597b383f1ea743ea05983898cc11f33e367cc6d6b7b0f50738d417d343d8c1",
+      "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-09-gpt-6-astra-system-card-03": {
+      "quote_sha256": "d001c3bc6e59e158867765591769020bb3aa0f130eb66ccf30706a4c818980aa",
+      "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-09-gpt-6-astra-system-card-04": {
+      "quote_sha256": "30644e45ab47c5dbba51b9c5cefa1de48254fb9c6a05c58be688b2c83e917c60",
+      "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-09-gpt-6-astra-system-card-05": {
+      "quote_sha256": "3818a20f722059597792e04e4d7b494fa60bac5a5468d749d176c86b3b18509d",
+      "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-09-gpt-6-astra-system-card-06": {
+      "quote_sha256": "c69b0e75e08297c6ac2566cef14177fbfbe14671618c3bc548be24fce47cdfb6",
+      "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-09-gpt-6-astra-system-card-07": {
+      "quote_sha256": "34d8d73a1c67e55592f61b858dac179ab00bdd9f1bbf133869277056963d7046",
+      "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-09-gpt-6-astra-system-card-08": {
+      "quote_sha256": "cfbd8d7ba5d7b05be381f047cdff598f434e141383326b37239e171cbadc67c9",
+      "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-09-gpt-6-astra-system-card-09": {
+      "quote_sha256": "7964b7cb4c59ce3b3adfc3201c13de3c12a36db004f527f297b86244070f136c",
+      "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-09-gpt-6-astra-system-card-10": {
+      "quote_sha256": "7236519e27d2fbd0aaffbb7587088932fab64c7dd25d739a8171c4235cd41a55",
+      "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-09-gpt-6-astra-system-card-11": {
+      "quote_sha256": "38d260f35bf84089aaff481b919002a52a5921846ca3a6e5e380c1a64ffd48de",
+      "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-09-gpt-6-astra-system-card-12": {
+      "quote_sha256": "cd03578bb73545969cb031023f85f1b321d634b04de30d140bb283d6fdb0258e",
+      "text_sha256": "f71e5debd7dae3172092428080750980fd2283740b65065bc11bf9528167f199",
+      "verified": "2026-11-11"
+    }
+  }
+}

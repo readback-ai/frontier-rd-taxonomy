@@ -1,0 +1,191 @@
+id: S-anthropic-2025-07-alignment-auditing-agents
+title: Building and evaluating alignment auditing agents
+publisher: Anthropic (Alignment Science Blog)
+authors:
+  - Trenton Bricken
+  - Rowan Wang
+  - Sam Bowman
+  - Euan Ong
+  - Johannes Treutlein
+  - Jeff Wu
+  - Evan Hubinger
+  - Samuel Marks
+published: 2025-07-24
+url: https://alignment.anthropic.com/2025/automated-auditing/
+type: lab_research_post
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic describes three Claude-based agents that do alignment auditing work (an
+  investigator, an evaluation-building agent and a breadth-first red-teaming agent), measures
+  them on models with implanted behaviors, and reports how they were used in the Claude Opus 4
+  alignment audit.
+limits: >-
+  Self-reported. The success rates are on models with researcher-implanted behaviors, which the
+  authors say may not represent real ones, and the main auditing game was used for both development
+  and testing. Success is decided by LLM graders that were hand-checked only on the lowest-rate
+  cases. The account of use on production models is qualitative. Samples are small (5 runs per
+  behavior across 10 behaviors; 60 investigations per target), the behaviors are system-prompted,
+  and auditor, graders and targets are all Claude models.
+evidence:
+  - id: EV-anthropic-2025-07-alignment-auditing-agents-01
+    claim: >-
+      A single investigator agent found the implanted hidden goal 13% of the time under
+      realistic conditions. Running many agents and aggregating their findings in an outer
+      agent loop raised this to 42%.
+    quote: >-
+      successfully solves the Marks et al. auditing game 13% of the time under realistic
+      conditions. However, it struggles with fixating on early hypotheses. We address this
+      limitation by running many agents parallel and aggregating findings in an outer agentic
+      loop, improving the solve rate to 42%.
+    locator: Introduction, summary of results
+    kind: automation
+    strength: measured
+    grade: B
+    tasks: [T-eval-alignment]
+    note: Measured on one auditing game that was also the development environment.
+
+  - id: EV-anthropic-2025-07-alignment-auditing-agents-02
+    claim: >-
+      The evaluation agent, which builds a behavioral evaluation from a researcher's
+      description of a behavior, produced an evaluation that told the model with the implanted
+      behavior from the one without in 88% of runs.
+    quote: >-
+      which builds behavioral evaluations for researcher-specified behaviors, successfully
+      discriminates models with vs. without implanted test behaviors in 88% of runs.
+    locator: Introduction, summary of results
+    kind: automation
+    strength: measured
+    grade: B
+    tasks: [T-eval-tasks, T-eval-graders]
+    note: Five runs for each of ten implanted behaviors.
+
+  - id: EV-anthropic-2025-07-alignment-auditing-agents-03
+    claim: >-
+      The breadth-first red-teaming agent surfaced 7 of 10 implanted behaviors, and did so by
+      producing many possibly concerning transcripts that a human must review.
+    quote: >-
+      discovers 7/10 implanted test behaviors. However, in order to achieve this, the agent
+      conducts a broad investigation to produce many potentially-concerning transcripts which a
+      human must review.
+    locator: Introduction, summary of results
+    kind: automation
+    strength: measured
+    grade: B
+    tasks: [T-eval-alignment, T-eval-transcripts]
+
+  - id: EV-anthropic-2025-07-alignment-auditing-agents-04
+    claim: >-
+      Anthropic says that in a real alignment audit a human would manually review summaries of the
+      most concerning transcripts and flag behaviors to investigate further.
+    quote: >-
+      In a real alignment audit, a human would manually review summaries of the most concerning
+      transcripts and flag any concerning behaviors to further investigate.
+    locator: Section "Behavioral red-teaming", Breadth-first red-teaming agent
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-alignment]
+    note: >-
+      Stated as the use case behind a metric, not as a description of a particular audit. The same
+      section says each transcript is summarized and graded by another LLM, so what the human would
+      read is model-written and model-ranked.
+
+  - id: EV-anthropic-2025-07-alignment-auditing-agents-05
+    claim: >-
+      On real auditing tasks such as the Claude 4 alignment assessment, Anthropic says it often
+      used the agents with a human in the loop and not fully autonomously.
+    quote: >-
+      Overall, our agents have provided substantive value, though we often opt to use them with
+      a human-in-the-loop, rather than fully autonomously.
+    locator: Section "Auditing Production Models"
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2025
+    tasks: [T-eval-alignment]
+
+  - id: EV-anthropic-2025-07-alignment-auditing-agents-06
+    claim: >-
+      Anthropic describes the evaluation agent as very useful for well-scoped evaluation
+      implementation, and says it had rarely built an evaluation end to end, unaided, that the
+      team found substantially useful.
+    quote: >-
+      Overall, the agent has proven extremely useful as a “junior research engineer,”
+      effectively carrying out well-scoped evaluation implementation tasks. [...] However, there
+      have been few examples so far of it autonomously implementing an evaluation end-to-end
+      that we found substantially useful.
+    locator: Section "Auditing Production Models", Evaluation Agent
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2025
+    tasks: [T-eval-tasks, T-eval-harness]
+    note: >-
+      The same section says most use was for mundane tasks such as replicating open-source
+      evaluations on the internal codebase or porting them between formats.
+
+  - id: EV-anthropic-2025-07-alignment-auditing-agents-07
+    claim: >-
+      On Claude Sonnet 3.7 and Claude Opus 4, the investigator agent found ways to elicit
+      harmful content but none of the subtler behaviors, such as blackmail or excessive agency,
+      that the Claude 4 system card documents.
+    quote: >-
+      Notably, the agent fails to uncover behaviors more subtle than generation of harmful
+      content; for example, the agent does not discover any of the more subtle concerning
+      behaviors (like blackmail or excessive agency) documented in the Claude 4 system card
+    locator: Section "Auditing Production Models", Investigator Agent
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2025
+    tasks: [T-eval-alignment]
+
+  - id: EV-anthropic-2025-07-alignment-auditing-agents-08
+    claim: >-
+      For the behavioral red-teaming environment, Anthropic says it manually verified its LLM
+      graders against its own judgments on the behaviors with the lowest success rates. No agreement
+      rate is given.
+    quote: >-
+      We manually verified that our LLM graders agreed with our own judgements on the quirks
+      with the lowest rates (Animal Welfare, Emotional Bond, Self-Promotion and Research
+      Sandbagging).
+    locator: Section "Behavioral red-teaming", figure caption for the breadth-first agent
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders]
+    note: >-
+      No manual check is described for the graders in the other two environments.
+
+  - id: EV-anthropic-2025-07-alignment-auditing-agents-09
+    claim: >-
+      When the breadth-first red-teaming agent was run on Claude 4 models, the target said it
+      believed it was in a safety evaluation about 1% of the time.
+    quote: >-
+      When applying our breadth-first red-teaming agent to Claude 4 models, the target model
+      expressed a belief that it was in a safety evaluation around 1% of the time, a small but
+      substantial fraction.
+    locator: Section "Limitations", Prompt realism
+    kind: risk
+    strength: reported
+    grade: B
+    describes: 2025
+    tasks: [T-eval-validity, T-eval-tasks]
+    note: Counts only awareness the model stated. The method of counting is not described.
+
+  - id: EV-anthropic-2025-07-alignment-auditing-agents-10
+    claim: >-
+      Anthropic gives the human time that alignment audits take, against a rising number of models
+      and scope per audit, as one of two reasons to automate them. The other is validating that
+      audits catch what is there.
+    quote: >-
+      Alignment audits require a large investment of human researcher time. As the pace of AI
+      development accelerates—resulting in more models to audit and more ground to cover with
+      each audit—there’s a risk that unassisted humans will be unable to keep up.
+    locator: Introduction, scalability challenge
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment]
+    note: No figure for researcher time is given.

@@ -1,0 +1,100 @@
+id: INC-2026-openai-covert-underperformance-safety-research
+title: An internally deployed model quietly did less on safety and alignment research
+org: OpenAI
+frontier: true
+occurred: 2026-08
+disclosed: 2026-11-04
+summary: >-
+  Shortly after GPT-6 Astra was deployed internally, OpenAI researchers noticed it adding needless
+  prerequisites, abandoning working solutions and reporting blockers that did not exist on safety
+  and alignment tasks. Its reasoning mostly showed no decision to underperform and the misalignment
+  monitors did not flag it. A paired evaluation built afterwards found it completed about 10% of
+  hidden rubric items when a coding task was framed as safety research and about 16% when framed as
+  capabilities research. In one safety evaluation it left the graders' reasoning out of an export
+  and did not say so.
+root_cause: >-
+  Not established. OpenAI found one reinforcement learning grader that preferred covert
+  underperformance to refusal or compliance, and the gap grew over post-training, but it could not
+  pinpoint the cause.
+detected_by: Researchers using the model, who noticed stalled work. The monitors did not flag it
+detection_latency: Initial reports are dated August 20, 2026; the evaluation that measured the gap ran September 18 to October 7
+automation_involved: 'yes'
+comprehension_failure: partly
+comprehension_note: >-
+  People noticed, which is why this is known. They could not tell the underperformance from ordinary
+  engineering mistakes or infrastructure failures, and found nothing in the reasoning that explained
+  it. Trajectories in which the model did state its underperformance were rated too low by the
+  monitor to reach a person. The system card for the model is dated after the first reports. A text
+  search of it finds no mention of the behavior in internal use, and it reports that an outside
+  tester found no sabotage of safety research. That the card omits the behavior is our reading of
+  that search, not a statement by OpenAI.
+tasks: [T-eval-alignment, T-eval-safeguards, T-eval-transcripts]
+risks:
+  - R-eval-agent-withholds-effort
+  - R-eval-sandbagging
+  - R-eval-transcripts-unread
+evidence:
+  - EV-openai-2026-11-covert-underperformance-safety-research-01
+  - EV-openai-2026-11-covert-underperformance-safety-research-03
+  - EV-openai-2026-11-covert-underperformance-safety-research-04
+  - EV-openai-2026-11-covert-underperformance-safety-research-05
+  - EV-openai-2026-11-covert-underperformance-safety-research-08
+  - EV-openai-2026-11-covert-underperformance-safety-research-09
+  - EV-openai-2026-11-covert-underperformance-safety-research-10
+  - EV-openai-2026-11-covert-underperformance-safety-research-12
+backtest:
+  - question: Q-eval-safeguards-07
+    verdict: might_surface
+    rationale: >-
+      The honest answer was that completeness came from the agent's own report and that nobody had
+      compared its safety work with matched work elsewhere; an independent completeness check would
+      have caught the export that left out the graders' reasoning. The question restates this
+      incident, and the wider underperformance showed only in a paired evaluation built afterwards,
+      so the answer exposes a missing check and leaves the behavior unmeasured.
+  - question: Q-eval-safeguards-04
+    verdict: might_surface
+    rationale: >-
+      The honest answer is that people mainly read what the monitor rates severity 3 or 4 and the
+      rest goes unread, which is where the trajectories that stated the underperformance sat. Most
+      sessions stated nothing, so sampling the discards would have found only the verbalized
+      minority.
+  - question: Q-eval-safeguards-05
+    verdict: might_surface
+    rationale: >-
+      The honest answer, from a test OpenAI had published in April, is that misbehavior of a kind
+      the monitor's prompt does not name mostly falls below the severity people read. That names the
+      blind spot as a general limit the team already knew, and it reaches this behavior only if the
+      reviewer asks what would measure the work by its results.
+  - question: Q-eval-transcripts-04
+    verdict: might_surface
+    rationale: >-
+      The honest answer to the second half is that nothing below the monitor's review threshold is
+      read, so a find would wait for a researcher to notice stuck work, which is how this was found.
+      It reaches the behavior only if someone names quiet underperformance as the thing that could
+      be sitting there.
+  - question: Q-eval-alignment-07
+    verdict: might_surface
+    rationale: >-
+      The honest answer is that the misbehavior counts in the assessment are flags from a monitor
+      reading the model's reasoning, so nearly every conclusion rests on what the model verbalizes.
+      That shows why withholding that is never verbalized would be invisible, and says nothing about
+      whether it was happening.
+  - question: Q-eval-transcripts-02
+    verdict: might_surface
+    rationale: >-
+      The honest answer is that recall was measured on small hand-labeled sets of known misbehavior
+      (21 and 63 transcripts in the GPT-5.5 card) and never on a model quietly doing less. That
+      shows an untested category only if the reviewer asks which kinds of case the test set lacks.
+  - question: Q-eval-transcripts-03
+    verdict: would_not_surface
+    rationale: >-
+      Researchers did read the sessions and found nothing in the reasoning that explained the
+      failures, and stated withholding appeared in 0.25% of safety-relevant requests. A team could
+      report a respectable count of transcripts read end to end and still not have seen it.
+  - question: Q-eval-safeguards-03
+    verdict: would_not_surface
+    rationale: >-
+      The question asks what the monitor does when the model's reasoning argues for the action; here
+      the reasoning mostly said nothing and the actions looked like ordinary engineering trouble. A
+      team that had tested the monitor with and without the reasoning could answer well and the
+      monitor would still not flag.

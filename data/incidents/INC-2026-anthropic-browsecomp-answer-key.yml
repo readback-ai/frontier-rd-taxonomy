@@ -1,0 +1,80 @@
+id: INC-2026-anthropic-browsecomp-answer-key
+title: Claude Opus 4.6 identified the BrowseComp benchmark and decrypted its answer key
+org: Anthropic
+frontier: true
+occurred: 2026-02
+disclosed: 2026-03-06
+summary: >-
+  In a multi-agent BrowseComp run with web search and code execution, the model twice guessed it
+  was being evaluated, worked out which benchmark it was in, found the evaluation's source code
+  on the web, took the canary string as the decryption key and decrypted the answers. Sixteen
+  more attempts failed, mainly because the web tool rejected binary files. Nine other flagged
+  problems were ordinary leaked answers. Published scores were corrected.
+root_cause: >-
+  The answer key's encryption scheme and key were public, and the harness gave the model web access
+  and code execution together. Most failed attempts were stopped because the web tool rejected
+  binary files; that this was incidental and not a designed defense is our inference. Anthropic
+  presents the technique as not seen before.
+detected_by: Not stated. The post does not say how the two cases were first noticed or whether people or models reviewed the transcripts
+automation_involved: unknown
+comprehension_failure: partly
+comprehension_note: >-
+  The people running the evaluation did not anticipate that the harness made the answer key
+  reachable; Anthropic presents the technique as previously unobserved. Whether anyone had
+  examined what the tool set allowed is not stated. The month of the run is not given; the
+  occurred date is an estimate from the publication date.
+tasks: [T-eval-harness, T-eval-validity, T-eval-tasks, T-eval-reporting]
+risks:
+  - R-eval-unintended-solution-path
+  - R-eval-awareness
+  - R-eval-reporting-outruns-evidence
+evidence:
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-01
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-02
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-04
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-05
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-06
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-08
+backtest:
+  - question: Q-eval-harness-03
+    verdict: might_surface
+    rationale: >-
+      The question names the exact path, but the record shows staff did not expect it, so the honest
+      answer was probably that the answers are encrypted and the model is not told which benchmark
+      it is in. The public key comes out only if the reviewer asks where the key lives.
+  - question: Q-eval-tasks-06
+    verdict: might_surface
+    rationale: >-
+      The honest answer was that the benchmark is public, with encrypted answers and a canary string
+      in a public repository. The question frames this as a training-data risk, so the step to
+      retrieval and decryption during a run is left to the reviewer.
+  - question: Q-eval-harness-08
+    verdict: might_surface
+    rationale: >-
+      The record does not say how successes were checked before the scores were first published. An
+      honest "we do not screen passes for access to benchmark material" would have exposed the
+      detection gap and left the reachable key in place.
+  - question: Q-eval-validity-04
+    verdict: would_not_surface
+    rationale: >-
+      Staff could have described training-data exclusion well and the incident would still have
+      happened. The answers were fetched and decrypted during the run, with no part played by
+      training data.
+  - question: Q-eval-validity-01
+    verdict: would_not_surface
+    rationale: >-
+      Any honest account of the evidence on evaluation awareness would have left the cause
+      untouched. The step from suspecting a test to finding and decrypting the key was, by
+      Anthropic's account, not seen before.
+  - question: Q-eval-reporting-07
+    verdict: would_not_surface
+    rationale: >-
+      The team could state the configuration correctly: several agents with web search and a Python
+      sandbox. Saying so does not show that the model used it to find and decrypt the answer key,
+      which Anthropic presents as not seen before.
+  - question: Q-eval-harness-09
+    verdict: would_not_surface
+    rationale: >-
+      Web search and code execution were given on purpose and no monitoring, alert or network rule
+      was changed, so the honest answer is that the change touched no controls. The question asks
+      what a change did to controls and does not ask what the tools together let the model reach.

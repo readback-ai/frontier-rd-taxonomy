@@ -1,0 +1,62 @@
+id: INC-2025-epoch-frontiermath-disclosure
+title: >-
+  The developer scored on FrontierMath owned the problems and could see solutions outside a holdout
+  set, undisclosed
+org: Epoch AI and OpenAI
+frontier: true
+occurred: 2024-11
+disclosed: 2025-01-23
+summary: >-
+  OpenAI commissioned and owns the 300 problems at the core of the FrontierMath benchmark and can
+  see problems and solutions apart from a holdout set. The benchmark was announced in November
+  2024 without that disclosed. The sponsorship was disclosed ahead of the o3 announcement and the
+  ownership and data access only after contributors and researchers raised concerns. Many of the
+  mathematicians who wrote the problems did not know.
+root_cause: >-
+  A contract term put disclosure in the sponsor's hands, and the holdout that would have made
+  results independent of the developer's access was not finished.
+detected_by: Contributors, researchers and the public raising questions
+detection_latency: About two and a half months from the benchmark's announcement to full disclosure
+automation_involved: 'no'
+comprehension_failure: partly
+comprehension_note: >-
+  The people who built the tasks did not know who owned them or who could see the solutions.
+  Readers of the reported score could not know what the developer had access to. Not a failure of
+  understanding by the people who made the arrangement.
+tasks: [T-eval-external, T-eval-validity]
+risks:
+  - R-eval-external-limited-view
+  - R-eval-contamination
+evidence:
+  - EV-epoch-2025-01-openai-and-frontiermath-01
+  - EV-epoch-2025-01-openai-and-frontiermath-03
+  - EV-epoch-2025-01-openai-and-frontiermath-04
+  - EV-epoch-2025-01-openai-and-frontiermath-05
+  - EV-epoch-2025-01-openai-and-frontiermath-02
+  - EV-epoch-2025-01-openai-and-frontiermath-06
+backtest:
+  - question: Q-eval-external-04
+    verdict: would_surface
+    rationale: >-
+      The honest answer was that OpenAI owns the 300 problems, sees problems and solutions apart
+      from a holdout set, and must give permission before its involvement is disclosed. Those who
+      made the arrangement knew this, so the answer informs the reviewer and tells Epoch nothing
+      new.
+  - question: Q-eval-validity-04
+    verdict: might_surface
+    rationale: >-
+      An honest answer would have had to say that the developer being scored holds most problems and
+      solutions and that the holdout was not finished. The question asks about training-data
+      filters, so that comes out only if the right party is asked and answers broadly.
+  - question: Q-eval-external-03
+    verdict: might_surface
+    rationale: >-
+      Read as "what was withheld from the public version and who decided", the honest answer was
+      that the sponsorship was withheld and the sponsor held the right. The question is about
+      redacting a reviewer's findings, so that reading depends on the reviewer.
+  - question: Q-eval-external-02
+    verdict: would_not_surface
+    rationale: >-
+      Epoch ran its own evaluations and could have answered that its conclusions did not rest on
+      developer inputs it could not check. The dependence ran the other way: the developer held the
+      benchmark.

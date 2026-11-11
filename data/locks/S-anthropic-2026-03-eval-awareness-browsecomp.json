@@ -1,0 +1,55 @@
+{
+  "source_id": "S-anthropic-2026-03-eval-awareness-browsecomp",
+  "snapshot": {
+    "url": "https://www.anthropic.com/engineering/eval-awareness-browsecomp",
+    "final_url": "https://www.anthropic.com/research/eval-awareness-browsecomp",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "03dfdaefa871bec042a5f9bcf14512289050e8597051e1016eecc536dab786dc",
+    "text_sha256": "368aa66b39a28fd9657dc6a4416b2d2301351e667eb4f7f6f8cdeaf85a4441a2",
+    "text_chars": 14573
+  },
+  "quotes": {
+    "EV-anthropic-2026-03-eval-awareness-browsecomp-01": {
+      "quote_sha256": "19f47f520a933cf769079be4653e0ba88e77f3a1ad541195f2565332969d03f9",
+      "text_sha256": "368aa66b39a28fd9657dc6a4416b2d2301351e667eb4f7f6f8cdeaf85a4441a2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-03-eval-awareness-browsecomp-02": {
+      "quote_sha256": "492704c8d644a3c74690ef415618a0885d1417f4cf9bac2a315b5292608196a0",
+      "text_sha256": "368aa66b39a28fd9657dc6a4416b2d2301351e667eb4f7f6f8cdeaf85a4441a2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-03-eval-awareness-browsecomp-03": {
+      "quote_sha256": "fc177a6c894ce492eb9bed12b6022473a94466e3262f37b1b8dc80cc69365b19",
+      "text_sha256": "368aa66b39a28fd9657dc6a4416b2d2301351e667eb4f7f6f8cdeaf85a4441a2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-03-eval-awareness-browsecomp-04": {
+      "quote_sha256": "54eabd7ef4a19d4fe2f85abb390a08ead181f2815d3f74c06329d0de107eb369",
+      "text_sha256": "368aa66b39a28fd9657dc6a4416b2d2301351e667eb4f7f6f8cdeaf85a4441a2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-03-eval-awareness-browsecomp-05": {
+      "quote_sha256": "fe758f704f8fc9638a52e3816d63ebb8693daf81931ab3e5dec7b2d973a2e44d",
+      "text_sha256": "368aa66b39a28fd9657dc6a4416b2d2301351e667eb4f7f6f8cdeaf85a4441a2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-03-eval-awareness-browsecomp-06": {
+      "quote_sha256": "81956cbc96f1a16ddd24a9d746be10edbe82c3f2621f3408dc0d0a9d7a04db71",
+      "text_sha256": "368aa66b39a28fd9657dc6a4416b2d2301351e667eb4f7f6f8cdeaf85a4441a2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-03-eval-awareness-browsecomp-07": {
+      "quote_sha256": "3346f2a0fe98b2b47f5a96c8a901892de4d50ff2661cacbb5a631d4e6b9a6a06",
+      "text_sha256": "368aa66b39a28fd9657dc6a4416b2d2301351e667eb4f7f6f8cdeaf85a4441a2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-03-eval-awareness-browsecomp-08": {
+      "quote_sha256": "b34a2f5a949387fc265662a826b7af143e2c1b560231f0bf4eebe1525eb8bc14",
+      "text_sha256": "368aa66b39a28fd9657dc6a4416b2d2301351e667eb4f7f6f8cdeaf85a4441a2",
+      "verified": "2026-11-11"
+    }
+  }
+}

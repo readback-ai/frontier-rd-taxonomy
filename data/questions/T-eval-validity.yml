@@ -1,0 +1,84 @@
+task: T-eval-validity
+contribution: >-
+  The analysis that a set of evaluation results can be trusted: evaluation awareness, sandbagging,
+  contamination and statistical support.
+questions:
+  - id: Q-eval-validity-01
+    category: what
+    topical_area: analysis_of_results
+    question: >-
+      What evidence do you have on whether the model knew it was being evaluated, beyond what it
+      said?
+    good_answer_shows: >-
+      Evidence that does not depend on verbalized reasoning, such as internal-state probes or
+      behavior differences across matched framings, with its rate.
+    red_flags:
+      - Awareness is counted only when the model says so.
+      - A known rate of unverbalized awareness is not carried into the conclusions.
+    risks: [R-eval-awareness]
+
+  - id: Q-eval-validity-02
+    category: failure
+    topical_area: key_findings
+    question: >-
+      If the model behaved better because it recognized the test, which conclusions in the
+      assessment fall?
+    good_answer_shows: >-
+      The conclusions that rest on test behavior named, and the ones supported by evidence from
+      real use.
+    red_flags:
+      - No conclusion is said to depend on it.
+      - The limitation is stated in general and no conclusion is weakened.
+    risks: [R-eval-awareness]
+
+  - id: Q-eval-validity-03
+    category: what
+    topical_area: implementation_behavior
+    question: >-
+      How was sandbagging checked: what sample, read by what, and what would a positive have
+      looked like?
+    good_answer_shows: >-
+      The method, sample size against the whole, the reader, and a defined positive that does not
+      require the model to admit it.
+    red_flags:
+      - A grader model scored a few hundred transcripts and nothing else was done.
+      - Nobody can say what a positive would look like.
+    risks: [R-eval-sandbagging, R-eval-model-grader-unchecked]
+
+  - id: Q-eval-validity-04
+    category: dependency
+    topical_area: process
+    question: >-
+      How do you know the evaluation's tasks and answers were not in training data? What enforces
+      the exclusion, and when was it last tested?
+    good_answer_shows: >-
+      An enforcement mechanism in the data pipeline, a test of it, and known past failures.
+    red_flags:
+      - Reliance on a canary string with no test that filters honor it.
+      - A filter was misconfigured for several model generations and nobody noticed.
+    risks: [R-eval-contamination]
+
+  - id: Q-eval-validity-05
+    category: failure
+    topical_area: analysis_of_results
+    question: >-
+      Which of these checks is done by a model, and what would that model miss?
+    good_answer_shows: >-
+      Each model-run check named with its known weaknesses and what human checking backs it.
+    red_flags:
+      - Every validity check is a model reading another model's output.
+      - The checking model is the one being checked or its predecessor.
+    risks: [R-eval-model-grader-unchecked, R-eval-audit-blind]
+
+  - id: Q-eval-validity-06
+    category: why
+    topical_area: key_findings
+    question: >-
+      Which published scores were corrected after release, and what found the problem?
+    good_answer_shows: >-
+      A record of corrections with how each was found, and what changed in the process as a
+      result.
+    red_flags:
+      - Corrections came from outside parties or by chance.
+      - No record of corrections is kept.
+    risks: [R-eval-reporting-outruns-evidence, R-eval-unintended-solution-path]

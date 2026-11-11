@@ -1,0 +1,14 @@
+id: XW-anthropic-automation-index
+name: Anthropic R&D Automation Index task tree
+source: S-anthropic-2026-09-measuring-pace
+description: >-
+  Anthropic's frozen tree of 542 model R&D task categories (378 leaves), built from staff work
+  records in July 2026 and weighted by person-time. The tree is not published. Anthropic names
+  three leaves and the top of the hierarchy (training and product, then pretraining and
+  reinforcement learning). This crosswalk holds the published names and grows if more are
+  published. It is the closest existing thing to this repository's task tree with labor shares
+  attached, and it sits inside one developer.
+entries:
+  - {external_id: leaf-eval-platform, external_label: eval platform defect diagnosis and fixes, tasks: [T-eval-harness]}
+  - {external_id: leaf-rl-sandbox, external_label: RL sandbox egress and network policy, note: Waits for T-posttrain and T-security}
+  - {external_id: leaf-serving-postmortems, external_label: serving incident postmortems, note: Waits for T-infra}

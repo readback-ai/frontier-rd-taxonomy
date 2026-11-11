@@ -10,6 +10,7 @@ import datetime as dt
 import hashlib
 import io
 import json
+import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -41,6 +42,16 @@ class SnapshotMeta:
     raw_sha256: str
     text_sha256: str
     text_chars: int
+    paywalled: bool = False  # the page's own metadata says it is not free to read
+
+
+# schema.org metadata that publishers set on paywalled articles. A plain fetch can still return
+# the full text of such a page; only what a non-subscriber is shown may be used (AGENTS.md).
+_PAYWALL_MARK = re.compile(rb"isAccessibleForFree[\"']?\s*[:=]\s*[\"']?\s*false", re.IGNORECASE)
+
+
+def marks_itself_paywalled(raw: bytes) -> bool:
+    return bool(_PAYWALL_MARK.search(raw))
 
 
 def _is_pdf(raw: bytes, content_type: str) -> bool:
@@ -116,6 +127,7 @@ def write_snapshot(
         raw_sha256=hashlib.sha256(raw).hexdigest(),
         text_sha256=sha256_text(text),
         text_chars=len(text),
+        paywalled=not _is_pdf(raw, content_type) and marks_itself_paywalled(raw),
     )
     (folder / "meta.json").write_text(json.dumps(asdict(meta), indent=2) + "\n", encoding="utf-8")
     return meta

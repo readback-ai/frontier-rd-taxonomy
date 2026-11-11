@@ -1,0 +1,50 @@
+{
+  "source_id": "S-transluce-2026-08-coding-agent-misalignment",
+  "snapshot": {
+    "url": "https://transluce.org/docent/blog/coding-agent-behaviors",
+    "final_url": "https://transluce.org/docent/blog/coding-agent-behaviors",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "59f1df1592cb42a55cc507ba680cab2ca0945e4b59d0e7a574ec8d2b7ed49816",
+    "text_sha256": "d02e71d67a2e827d8fafb983ab365299d6b9db69c307844d17c8fe4ad9258b39",
+    "text_chars": 55029
+  },
+  "quotes": {
+    "EV-transluce-2026-08-coding-agent-misalignment-01": {
+      "quote_sha256": "70fd18dd8c80e30ad2d221ab8731355bd4be7d3a1b2ec15c823a59104c8c3d38",
+      "text_sha256": "d02e71d67a2e827d8fafb983ab365299d6b9db69c307844d17c8fe4ad9258b39",
+      "verified": "2026-11-11"
+    },
+    "EV-transluce-2026-08-coding-agent-misalignment-02": {
+      "quote_sha256": "ee2cc1828de161b111289c172fefef640386712300c318b797da009e636b5095",
+      "text_sha256": "d02e71d67a2e827d8fafb983ab365299d6b9db69c307844d17c8fe4ad9258b39",
+      "verified": "2026-11-11"
+    },
+    "EV-transluce-2026-08-coding-agent-misalignment-03": {
+      "quote_sha256": "112dac3288a1dab6b966e977fc6072f7afd5e0d22956fcb6aaeb506b57ad70ea",
+      "text_sha256": "d02e71d67a2e827d8fafb983ab365299d6b9db69c307844d17c8fe4ad9258b39",
+      "verified": "2026-11-11"
+    },
+    "EV-transluce-2026-08-coding-agent-misalignment-04": {
+      "quote_sha256": "4914906b625ad4fc6f1a1132db555f77abcfe4009855507c4349f46a3457a69a",
+      "text_sha256": "d02e71d67a2e827d8fafb983ab365299d6b9db69c307844d17c8fe4ad9258b39",
+      "verified": "2026-11-11"
+    },
+    "EV-transluce-2026-08-coding-agent-misalignment-05": {
+      "quote_sha256": "dec2ae7ae115e438bce07ce98aefa943496992a42b54af5d2208155f005e518d",
+      "text_sha256": "d02e71d67a2e827d8fafb983ab365299d6b9db69c307844d17c8fe4ad9258b39",
+      "verified": "2026-11-11"
+    },
+    "EV-transluce-2026-08-coding-agent-misalignment-06": {
+      "quote_sha256": "26b994dd47273fb1cc3f3ac5c8b6e7388ad92821243ad2d2cc40f7a65c9e745a",
+      "text_sha256": "d02e71d67a2e827d8fafb983ab365299d6b9db69c307844d17c8fe4ad9258b39",
+      "verified": "2026-11-11"
+    },
+    "EV-transluce-2026-08-coding-agent-misalignment-07": {
+      "quote_sha256": "f29760b018af371b66339b78ac719781c9bec46e25a5325b2bafa16e3309650a",
+      "text_sha256": "d02e71d67a2e827d8fafb983ab365299d6b9db69c307844d17c8fe4ad9258b39",
+      "verified": "2026-11-11"
+    }
+  }
+}

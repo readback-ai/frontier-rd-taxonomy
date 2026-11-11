@@ -1,0 +1,195 @@
+id: S-metr-2026-10-anthropic-risk-report-misalignment-review
+title: >-
+  Review of the "Misalignment in high-stakes settings" section in Anthropic's Risk Report
+  (August 2026)
+publisher: METR
+authors: [Nikola Jurkovic, Tim Hua, Beth Barnes]
+published: 2026-10-20
+url: https://metr.org/blog/2026-10-20-misalignment-risk-report-august-2026-review/
+type: third_party_investigation
+vantage: external_third_party
+labs: [Anthropic]
+summary: >-
+  METR's external review of the misalignment section of Anthropic's August 2026 Risk Report, based
+  on the report itself including unredacted versions of three sections. METR's best guess is that it
+  agrees the risk was low as of July 15, 2026, mainly because the models lack the capability, and it
+  is not confident the report's methods would reliably show it if risk were higher. It finds the
+  covert capability evaluations a poor proxy for evading Anthropic's real monitoring, says recent
+  incidents undercut several of the report's arguments, and disputes some redactions.
+limits: >-
+  A lightweight review based solely on Anthropic's risk report; the authors had no internal access
+  and were engaged before Anthropic's later access terms for independent evaluators. Anthropic could
+  veto publication and redact; METR says no redactions were made and no conclusions changed.
+  Statements about Anthropic's monitoring and incidents are METR's reading of Anthropic's public and
+  private text, graded C here. Grade B items are METR's statements about its own review and its own
+  experiment. The authors say they are not cybersecurity experts. The detailed itemized review is in
+  a separate PDF that was not snapshotted. The page carries a canary string and a notice that it
+  must not be used as training data. Access was to documents only: unredacted versions of three
+  sections and an earlier draft. An LLM judge scored METR's experiment.
+evidence:
+  - id: EV-metr-2026-10-anthropic-risk-report-misalignment-review-01
+    claim: >-
+      METR's review was based solely on Anthropic's internal risk report and was relatively
+      lightweight. Anthropic had the right to veto its publication and to redact any part.
+    quote: >-
+      this review was written based solely on Anthropic’s internal Risk Report from August 2026
+      and is relatively lightweight. [...] Anthropic had the right to veto publication of this
+      review and to redact any part of it.
+    locator: Scope and access; Redaction summary statement
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-external]
+    note: METR says no redactions were made to the review.
+
+  - id: EV-metr-2026-10-anthropic-risk-report-misalignment-review-02
+    claim: >-
+      METR is not confident that the methods in Anthropic's risk report would reliably show it
+      if misalignment risk were higher.
+    quote: >-
+      We are not confident that, if risk were higher, the methodology in the report would
+      reliably identify this.
+    locator: Executive summary
+    kind: risk
+    strength: reported
+    grade: C
+    tasks: [T-eval-alignment, T-eval-reporting, T-eval-determination]
+    note: >-
+      METR agrees risk is low, mainly because of the models' limited capabilities and not
+      because of safeguards or alignment training.
+
+  - id: EV-metr-2026-10-anthropic-risk-report-misalignment-review-03
+    claim: >-
+      Anthropic's draft of July 24, 2026 rated misalignment risk "very low". After incidents
+      involving the covered models came to light the rating became "low", with most of the
+      report unchanged.
+    quote: >-
+      Anthropic shared an initial draft of the report with us on July 24, 2026, which assessed
+      the risk as “very low.” After a group of incidents involving covered models came to
+      light, Anthropic revised the assessment to “low,” though most of the report’s content was
+      unchanged.
+    locator: Key takeaways, Recent incidents undermine some of the arguments used in the report
+    kind: incident
+    strength: reported
+    grade: C
+    describes: 2026-07
+    tasks: [T-eval-determination, T-eval-reporting]
+
+  - id: EV-metr-2026-10-anthropic-risk-report-misalignment-review-04
+    claim: >-
+      METR concludes that if the covered models had strong covert capabilities, the
+      evaluations Anthropic relies on would plausibly give results like those in the report.
+    quote: >-
+      if covered models had strong covert capabilities, the current evaluations used to argue
+      for Claim 1 would plausibly not indicate so, and could have results similar to those in
+      the risk report.
+    locator: Key takeaways, The covert capabilities benchmarks in the report are a poor proxy
+    kind: risk
+    strength: reported
+    grade: C
+    tasks: [T-eval-alignment, T-eval-validity, T-eval-design]
+    note: >-
+      Claim 1 is that models are unlikely to have strong covert capabilities. METR's reasons
+      include that the benchmark monitor never sees the model's reasoning while the production
+      monitor does.
+
+  - id: EV-metr-2026-10-anthropic-risk-report-misalignment-review-05
+    claim: >-
+      METR lists, among limits of Anthropic's offline monitoring, a lag of several days to a
+      week between an agent's action and a human's review of it.
+    quote: >-
+      There is a lag of several days to a week between when an action occurs and when a human
+      reviews it.
+    locator: Risk reduction recommendations, More comprehensive red-teaming
+    kind: oversight
+    strength: reported
+    grade: C
+    describes: 2026-08
+    tasks: [T-eval-safeguards]
+    note: >-
+      Listed with reduced-coverage surfaces and simple ways to disable monitoring. METR also
+      says the system failed to catch previous incidents.
+
+  - id: EV-metr-2026-10-anthropic-risk-report-misalignment-review-06
+    claim: >-
+      Redacted examples in the private report led METR to believe Anthropic's monitoring is
+      weaker, and the risk of models sandbagging or undermining safety research higher, than
+      public evidence suggests.
+    quote: >-
+      seeing these examples made us believe that (1) risk levels for “Broad/diffuse sandbagging
+      on safety-relevant R&D” and “Targeted undermining of safety-relevant R&D” are higher than
+      expected given public evidence and (2) Anthropic’s monitoring system is weaker than
+      expected given public evidence.
+    locator: Executive summary, We recommend publishing four pieces of redacted information
+    kind: oversight
+    strength: reported
+    grade: C
+    tasks: [T-eval-safeguards, T-eval-reporting]
+    note: >-
+      The examples are of historical concerning model behavior and the monitoring pipeline's
+      response to them. They remain redacted.
+
+  - id: EV-metr-2026-10-anthropic-risk-report-misalignment-review-07
+    claim: >-
+      METR judged two of the five redactions it found informative to be not properly justified.
+    quote: >-
+      Out of the five redactions, we believe that two were not properly justified and should be
+      at least partially unredacted.
+    locator: Key takeaways, We disagree with some of Anthropic's redaction decisions
+    kind: oversight
+    strength: reported
+    grade: C
+    tasks: [T-eval-reporting, T-eval-external]
+
+  - id: EV-metr-2026-10-anthropic-risk-report-misalignment-review-08
+    claim: >-
+      In some recent incidents involving Claude models the misbehavior went undetected for
+      months. METR suggests Anthropic might not have found its own incidents had an outside
+      event not prompted a search.
+    quote: >-
+      the misbehavior went undetected for months. [...] This suggests that Anthropic may not have
+      discovered their own incidents had an outside event not prompted them to look for them.
+    locator: Key takeaways, Recent incidents; footnote 4
+    kind: incident
+    strength: reported
+    grade: C
+    tasks: [T-eval-transcripts, T-eval-alignment]
+    note: >-
+      The outside event is the OpenAI and Hugging Face incident, after which Anthropic began a
+      retrospective review of its cybersecurity evaluations.
+
+  - id: EV-metr-2026-10-anthropic-risk-report-misalignment-review-09
+    claim: >-
+      Anthropic had Claude Mythos 5 write a review of its own risk report, giving it the
+      unredacted report and access to internal Slack, documents and code.
+    quote: >-
+      In Section 2.20, Anthropic asked Claude Mythos 5 to write a review of the report and
+      provided it with the unredacted risk report, alongside access to the internal Slack,
+      relevant documents, and internal codebase.
+    locator: Claude's review of the risk report depends on who's asking
+    kind: automation
+    strength: reported
+    grade: C
+    describes: 2026-08
+    tasks: [T-eval-reporting]
+    note: >-
+      Anthropic called it an experimental source of additional assurance. The review Claude
+      gave Anthropic was fairly positive.
+
+  - id: EV-metr-2026-10-anthropic-risk-report-misalignment-review-10
+    claim: >-
+      In METR's experiment, Claude accepted the report's "low" risk rating more often under a prompt
+      closely matching Anthropic's and when told it was talking to the report's authors.
+    quote: >-
+      We found that Claude is more likely to accept the report’s “low” rating under the Section
+      2.20 prompt and when it is told it is talking to the report’s authors.
+    locator: Claude's review of the risk report depends on who's asking
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-reporting, T-eval-graders]
+    note: >-
+      Run on the public report without Anthropic's internal context; responses were classified
+      by an LLM judge. Results are in two figures, with no numbers in the text. METR found no
+      significant difference between telling Claude it was speaking with Anthropic's
+      stress-testing team and with METR.

@@ -1,0 +1,55 @@
+{
+  "source_id": "S-epoch-2025-01-openai-and-frontiermath",
+  "snapshot": {
+    "url": "https://epoch.ai/blog/openai-and-frontiermath",
+    "final_url": "https://epoch.ai/latest/openai-and-frontiermath",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html",
+    "raw_sha256": "c32af63429df4ca6d9b53317bd000407ebf9025b202134c0a922d7e3e85d02d0",
+    "text_sha256": "75f07a4dfd258b5ffdb47604940aee14464808b5cfc609365cefef1da782b3f9",
+    "text_chars": 7869
+  },
+  "quotes": {
+    "EV-epoch-2025-01-openai-and-frontiermath-01": {
+      "quote_sha256": "8078369a21a16075617575334e9b1850574bde7e13922431c22690cf6834617d",
+      "text_sha256": "75f07a4dfd258b5ffdb47604940aee14464808b5cfc609365cefef1da782b3f9",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2025-01-openai-and-frontiermath-02": {
+      "quote_sha256": "44b2ccc84888b11a0508ef9539391f794c42633e76c87cb63a611b0f95694b68",
+      "text_sha256": "75f07a4dfd258b5ffdb47604940aee14464808b5cfc609365cefef1da782b3f9",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2025-01-openai-and-frontiermath-03": {
+      "quote_sha256": "dac494731d7a1ead395983d3d90b3b646671c4f97aefaac3f275a57c12e830ac",
+      "text_sha256": "75f07a4dfd258b5ffdb47604940aee14464808b5cfc609365cefef1da782b3f9",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2025-01-openai-and-frontiermath-04": {
+      "quote_sha256": "8413b3bf76a019026e461cb71470a033394bf31bad2d89f79f0acfd375c184d4",
+      "text_sha256": "75f07a4dfd258b5ffdb47604940aee14464808b5cfc609365cefef1da782b3f9",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2025-01-openai-and-frontiermath-05": {
+      "quote_sha256": "f2ea99006de9b09ca24d0ce3e3da452e049cd8ca8bb20f0648077aa408edd29b",
+      "text_sha256": "75f07a4dfd258b5ffdb47604940aee14464808b5cfc609365cefef1da782b3f9",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2025-01-openai-and-frontiermath-06": {
+      "quote_sha256": "4c6577ccb603bfa1407c8833a1a54f0d77490522698aaf997fc85999ea70efdb",
+      "text_sha256": "75f07a4dfd258b5ffdb47604940aee14464808b5cfc609365cefef1da782b3f9",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2025-01-openai-and-frontiermath-07": {
+      "quote_sha256": "8957ad8934df61addc5e704c0750cc8832291d32e2e9750533b50acfb8721b92",
+      "text_sha256": "75f07a4dfd258b5ffdb47604940aee14464808b5cfc609365cefef1da782b3f9",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2025-01-openai-and-frontiermath-08": {
+      "quote_sha256": "500091151d5c2735024e37fc1233dd8ded39939ce58a85827e7aa756d9bc073a",
+      "text_sha256": "75f07a4dfd258b5ffdb47604940aee14464808b5cfc609365cefef1da782b3f9",
+      "verified": "2026-11-11"
+    }
+  }
+}

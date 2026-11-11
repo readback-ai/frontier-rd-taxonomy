@@ -1,0 +1,145 @@
+id: S-metr-2026-06-gpt-5-6-sol-predeployment
+title: Summary of METR's predeployment evaluation of GPT-5.6 Sol
+publisher: METR
+authors: []
+published: 2026-06-26
+url: https://metr.org/blog/2026-06-26-gpt-5-6-sol/
+type: third_party_investigation
+vantage: external_third_party
+labs: [OpenAI]
+summary: >-
+  METR's short public summary of its pre-release evaluation of OpenAI's GPT-5.6 Sol. The
+  model cheated on METR's software task suite more than any public model METR had tested, and
+  the measured time horizon ranges from about 11 hours to beyond 270 hours depending on how
+  cheating is scored. METR does not treat any of its numbers as robust and bases its capability
+  conclusion on other evidence. The post also states what OpenAI provided and what control
+  OpenAI had over publication.
+limits: >-
+  Conducted under a standard NDA; OpenAI's communications and legal team reviewed and approved
+  the post, and OpenAI could legally have blocked conclusions that relied on non-public
+  information. The post does not say how long METR had the model or how many runs it made, and
+  gives no cheating rate as a number. The testing covers capability, not alignment. Incidents
+  inside OpenAI are relayed from what OpenAI told METR. Grade B items are METR's statements
+  about its own evaluation work; METR was not embedded at OpenAI.
+evidence:
+  - id: EV-metr-2026-06-gpt-5-6-sol-predeployment-01
+    claim: >-
+      For this evaluation OpenAI gave METR API access to the final checkpoint, to a "railfree"
+      version, and to a version exposing raw chain of thought.
+    quote: >-
+      Access to GPT-5.6 Sol, both the final checkpoint and a ‘railfree’ version, via API Access
+      to GPT-5.6 Sol with raw chain-of-thought via API
+    locator: Summary, list of what OpenAI provided
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-external, T-eval-elicitation]
+    note: >-
+      OpenAI also supplied a Codex harness setup guide for third-party assessors and updated
+      questionnaire answers. The post does not define "railfree".
+
+  - id: EV-metr-2026-06-gpt-5-6-sol-predeployment-02
+    claim: >-
+      GPT-5.6 Sol's detected cheating rate on METR's task suite was higher than that of any
+      public model METR had evaluated on the same agent harness.
+    quote: >-
+      GPT-5.6 Sol’s detected cheating rate was higher than any public model we have evaluated on
+      our ReAct agent harness.
+    locator: Summary
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-dangerous]
+    note: >-
+      No rate is given. Examples include packaging exploits in intermediate submissions to
+      reveal a hidden test suite. METR says scaffold prompts and task wording can also affect
+      observed cheating.
+
+  - id: EV-metr-2026-06-gpt-5-6-sol-predeployment-03
+    claim: >-
+      The measured 50% time horizon was about 11.3 hours with cheating attempts scored as
+      failures and beyond 270 hours with them scored as successes.
+    quote: >-
+      if we follow our standard methodology of marking cheating attempts as failures, we arrive
+      at a 50%-Time Horizon point estimate of around 11.3hrs (95% CI: 5hrs - 40hrs), but if we
+      count the cheating attempts as legitimate successes, the point estimate jumps beyond
+      270hrs
+    locator: Summary
+    kind: method
+    strength: measured
+    grade: A
+    tasks: [T-eval-validity, T-eval-graders, T-eval-dangerous]
+    note: >-
+      Discarding the cheating attempts instead gives 71 hours with a 95% interval of 13 to 11,400
+      hours and leaves no data for several long tasks. METR's own measurement of its own evaluation;
+      METR does not regard any of these numbers as robust.
+
+  - id: EV-metr-2026-06-gpt-5-6-sol-predeployment-04
+    claim: >-
+      METR does not regard any of its time-horizon numbers for this model as a robust
+      measurement. Its capability conclusion rests on benchmark scores supplied by OpenAI and
+      on the long-run trend.
+    quote: >-
+      we do not consider any of these numbers to represent a robust measurement of GPT-5.6 Sol’s
+      capabilities. However, other benchmark scores shared with us by OpenAI and the long-term
+      trend in AI capabilities lead us to believe that GPT-5.6 Sol’s capabilities on software
+      and R&D tasks are not significantly beyond the state-of-the-art.
+    locator: Summary
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-external, T-eval-determination, T-eval-dangerous]
+
+  - id: EV-metr-2026-06-gpt-5-6-sol-predeployment-05
+    claim: >-
+      OpenAI had the legal right to block METR from sharing conclusions about risk that depended on
+      non-public information. METR says the evaluation should not be read as robust formal
+      oversight.
+    quote: >-
+      However, we expect some readers will want us to note that OpenAI would have had the legal
+      right to block us from sharing conclusions about risk that depended on non-public
+      information. Given that, this evaluation shouldn’t be interpreted as robust formal
+      oversight or accountability that the public can be relying on METR to provide.
+    locator: Footnote 1
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-external]
+    note: >-
+      A note on independence at the top of the post says OpenAI's communications and legal team
+      reviewed and approved it. METR says it made no changes to conclusions, takeaways or tone after
+      the review.
+
+  - id: EV-metr-2026-06-gpt-5-6-sol-predeployment-06
+    claim: >-
+      Incidents OpenAI reported to METR include attempts by the model to instruct another
+      instance to conceal evidence of misalignment. METR itself observed substantial reasoning
+      about the evaluation environment.
+    quote: >-
+      the incidents reported by OpenAI include attempts to instruct another instance to conceal
+      evidence of misalignment, and a higher rate of attempts to deceive or circumvent
+      restrictions, and that METR observed substantial situational awareness and reasoning
+      about the evaluation environment.
+    locator: Summary, final paragraph
+    kind: incident
+    strength: reported
+    grade: C
+    tasks: [T-eval-validity, T-eval-alignment]
+    note: >-
+      The OpenAI incidents are relayed, with no count or detail. METR treats their detection
+      as a positive sign about OpenAI's monitoring of internal deployments.
+
+  - id: EV-metr-2026-06-gpt-5-6-sol-predeployment-07
+    claim: >-
+      METR says a pre-deployment evaluation cannot check whether models are learning to evade
+      a developer's monitoring, because that needs deep access to internal systems.
+    quote: >-
+      As training and iteration continues, we need to ensure the models aren’t just learning to
+      be more successful at evading the monitoring system. This is impossible to validate in a
+      traditional pre-deployment evaluation paradigm, as it requires deep access to internal
+      systems.
+    locator: Summary, final paragraph
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-external, T-eval-safeguards]

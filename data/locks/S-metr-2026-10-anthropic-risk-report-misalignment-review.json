@@ -1,0 +1,65 @@
+{
+  "source_id": "S-metr-2026-10-anthropic-risk-report-misalignment-review",
+  "snapshot": {
+    "url": "https://metr.org/blog/2026-10-20-misalignment-risk-report-august-2026-review/",
+    "final_url": "https://metr.org/blog/2026-10-20-misalignment-risk-report-august-2026-review/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=UTF-8",
+    "raw_sha256": "57f74fe5b6542ed3856ca32c4719291862f346a3e17be7740d676fc8e5d69d07",
+    "text_sha256": "f1cdf059aabba9906f2502d5ff4216f78f7341ed1e5db06d4596d534521f69a5",
+    "text_chars": 41561
+  },
+  "quotes": {
+    "EV-metr-2026-10-anthropic-risk-report-misalignment-review-01": {
+      "quote_sha256": "691076b0db8f9646fff9534e9d98ef7a506834b9471a07c8a241f36e51f1a138",
+      "text_sha256": "f1cdf059aabba9906f2502d5ff4216f78f7341ed1e5db06d4596d534521f69a5",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-10-anthropic-risk-report-misalignment-review-02": {
+      "quote_sha256": "4f87ef8294c7888e48df7936cef4a66da639398f5c6caf573ac6d1d1e52c3fac",
+      "text_sha256": "f1cdf059aabba9906f2502d5ff4216f78f7341ed1e5db06d4596d534521f69a5",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-10-anthropic-risk-report-misalignment-review-03": {
+      "quote_sha256": "a57f349a7fb8a6b67f2d0357486ed7057a866691ff68922ade6a3253fc16fc30",
+      "text_sha256": "f1cdf059aabba9906f2502d5ff4216f78f7341ed1e5db06d4596d534521f69a5",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-10-anthropic-risk-report-misalignment-review-04": {
+      "quote_sha256": "48e7ade17740af9de37116edeaf695919f50e1fe35db61213cca77b3d58662ac",
+      "text_sha256": "f1cdf059aabba9906f2502d5ff4216f78f7341ed1e5db06d4596d534521f69a5",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-10-anthropic-risk-report-misalignment-review-05": {
+      "quote_sha256": "50fa7b66a87150eb5c425c30afec1cfc82411824c365ed92775b7cb3a69930d3",
+      "text_sha256": "f1cdf059aabba9906f2502d5ff4216f78f7341ed1e5db06d4596d534521f69a5",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-10-anthropic-risk-report-misalignment-review-06": {
+      "quote_sha256": "6c11bbd63e0324b4f47cc6d6055d2178c696e6390c82bc15dfa132397dd4d520",
+      "text_sha256": "f1cdf059aabba9906f2502d5ff4216f78f7341ed1e5db06d4596d534521f69a5",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-10-anthropic-risk-report-misalignment-review-07": {
+      "quote_sha256": "6611612cc90b5d8e043c65bc06477b2d985e80debcfad57934bfdba3574d5013",
+      "text_sha256": "f1cdf059aabba9906f2502d5ff4216f78f7341ed1e5db06d4596d534521f69a5",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-10-anthropic-risk-report-misalignment-review-08": {
+      "quote_sha256": "8b580103175eb6943735af3c68106859968af49efad7299c18053b98c937388e",
+      "text_sha256": "f1cdf059aabba9906f2502d5ff4216f78f7341ed1e5db06d4596d534521f69a5",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-10-anthropic-risk-report-misalignment-review-09": {
+      "quote_sha256": "d4d08f444773fad075050047cdc7f5964c251423d4e8fae7535eebd2bad3a8d9",
+      "text_sha256": "f1cdf059aabba9906f2502d5ff4216f78f7341ed1e5db06d4596d534521f69a5",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-10-anthropic-risk-report-misalignment-review-10": {
+      "quote_sha256": "8bdf25a1d7cae88f5ddb6b90e72ddfae267366c0db19e15e2a685df1dc9b6e35",
+      "text_sha256": "f1cdf059aabba9906f2502d5ff4216f78f7341ed1e5db06d4596d534521f69a5",
+      "verified": "2026-11-11"
+    }
+  }
+}

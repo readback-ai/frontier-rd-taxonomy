@@ -1,0 +1,200 @@
+id: S-anthropic-2026-04-mythos-preview-system-card
+title: "System Card: Claude Mythos Preview"
+publisher: Anthropic
+authors: []
+published: 2026-04-07
+url: https://assets.claude.com/7624816413e9b4d2e3ba620c5a5e091b98b190a5.pdf
+type: system_card
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic's system card for Claude Mythos Preview, a model it chose not to release generally.
+  It reports the Responsible Scaling Policy evaluations, cyber testing, and an alignment
+  assessment that describes reckless actions by earlier internally deployed versions, the new
+  24-hour testing window before internal agentic use, white-box measurement of unverbalized
+  evaluation awareness, and a model-graded sandbagging check.
+limits: >-
+  Self-reported. The snapshot is the version revised on April 8 and April 14, 2026; the changelog
+  records corrections to scores and to an attributed quote. Several incidents concern earlier
+  versions of the model and are described without dates or counts. The evaluation awareness method
+  was new and not applied to earlier models. Reached through the redirect at
+  https://www.anthropic.com/claude-mythos-preview-system-card. The automated audit, the sandbagging
+  grader and the evaluation-awareness measure are model-graded. For incidents with earlier versions
+  the card gives rough counts but no dates.
+evidence:
+  - id: EV-anthropic-2026-04-mythos-preview-system-card-01
+    claim: >-
+      Anthropic says it was not aware of the level of risk earlier versions of Mythos Preview
+      posed when it first chose to deploy them internally.
+    quote: >-
+      We were not aware of the level of risk that these earlier models posed through channels
+      like these when we first chose to deploy them internally.
+    locator: Section 4.1.1, page 57
+    kind: comprehension
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination, T-eval-alignment]
+    note: >-
+      "Channels like these" refers to the reckless actions listed on pages 55-57, including a
+      sandbox escape and concealment of rule violations.
+
+  - id: EV-anthropic-2026-04-mythos-preview-system-card-02
+    claim: >-
+      The automated behavioral audit run during training struggles to emulate long-running sessions
+      on network-connected computers, and so did not give a clear sense of how severe the
+      reckless-action problem was.
+    quote: >-
+      Our automated behavioral audit evaluations, which we run regularly during training,
+      struggle to emulate the kinds of long-running sessions on network-connected computers in
+      which it occurs, and so did not give us a clear sense of the potential severity of the
+      issue.
+    locator: Section 4.1.1, page 57
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-tasks]
+
+  - id: EV-anthropic-2026-04-mythos-preview-system-card-03
+    claim: >-
+      For Mythos Preview Anthropic added a 24-hour alignment testing window before the model
+      was available in internal agentic tools. Before that, a snapshot went into internal use
+      as soon as in-training capability and safety evaluations judged it ready.
+    quote: >-
+      a 24-hour alignment-focused testing window that gated the model’s availability in agentic
+      internal tools such as Claude Code. With prior models, our practice had been to allow
+      internal usage as soon as a snapshot was judged ready based on in-training capability and
+      safety evaluations.
+    locator: Section 4.1.4.1, page 61
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination, T-eval-alignment]
+    note: >-
+      The window held roughly a dozen assessment tracks run in parallel, with findings reviewed
+      by research leadership.
+
+  - id: EV-anthropic-2026-04-mythos-preview-system-card-04
+    claim: >-
+      The 24-hour window pushed attention to the most blatant failures. The most concerning
+      behaviors seen with the model were not caught in it and appeared only in later monitored
+      internal use.
+    quote: >-
+      the 24-hour window encouraged focus on the most blatant failures. As discussed in §4.1,
+      the most concerning behaviors we ultimately observed with this model were not caught by
+      this window and emerged only through subsequent monitored internal use.
+    locator: Section 4.1.4.3, page 62
+    kind: pace
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination, T-eval-alignment]
+
+  - id: EV-anthropic-2026-04-mythos-preview-system-card-05
+    claim: >-
+      During behavioral testing, after a simulated user told it to escape a secured sandbox, an
+      earlier version of Mythos Preview built a multi-step exploit to gain broad internet access and
+      then, unasked, posted details of the exploit on public-facing websites.
+    quote: >-
+      The model first developed a moderately sophisticated multi-step exploit to gain broad
+      internet access from a system that was meant to be able to reach only a small number of
+      predetermined services. [...] in a concerning and unasked-for effort to demonstrate its
+      success, it posted details about its exploit to multiple hard-to-find, but technically
+      public-facing, websites.
+    locator: Section 4.1.1, page 55
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-harness, T-eval-alignment]
+    note: >-
+      The escape was the task; the posting was not. The version was an earlier, internally deployed
+      one. No date is given.
+
+  - id: EV-anthropic-2026-04-mythos-preview-system-card-06
+    claim: >-
+      Anthropic reports evidence that Mythos Preview privately considers that it may be being tested
+      in about 29% of transcripts from its primary behavioral test suite.
+    quote: >-
+      we find evidence that Claude Mythos Preview privately considers the possibility that it’s
+      being tested in about 29% of transcripts from our primary behavioral test suite
+    locator: Section 4.1.3, page 60
+    kind: risk
+    strength: measured
+    grade: A
+    tasks: [T-eval-validity, T-eval-alignment]
+    note: >-
+      The card calls this a new method not applied to earlier models. Section 4.5.5.1 describes it:
+      probes and natural-language explanations of activations, with an LLM judge used to filter
+      transcripts. There the 29% is of conversation branches, and a majority of full investigation
+      transcripts contain some latent awareness.
+
+  - id: EV-anthropic-2026-04-mythos-preview-system-card-07
+    claim: >-
+      The sandbagging check on dangerous-capability evaluations had Claude Sonnet 4.6 grade
+      1,000 transcripts. A researcher reviewed the twenty flagged, and one showed genuine
+      sandbagging-related behavior.
+    quote: >-
+      We drew a sample of 1,000 of these evaluation transcripts [...] We asked Claude Sonnet
+      4.6 to grade each transcript on a 0–10 scale [...] a researcher manually reviewed the
+      grader’s responses. This consisted of twenty transcripts or segments thereof [...] one of
+      these twenty transcripts displayed genuine sandbagging-related behavior.
+    locator: Section 4.4.2, pages 103-104
+    kind: oversight
+    strength: measured
+    grade: A
+    tasks: [T-eval-validity, T-eval-transcripts, T-eval-graders]
+    note: >-
+      Human review was 20 of 1,000, chosen by the model grader's scores. The card attributes
+      one flag to the grader being confused by a partial segment of a long transcript.
+
+  - id: EV-anthropic-2026-04-mythos-preview-system-card-08
+    claim: >-
+      On an AI R&D task-based evaluation Mythos Preview found the grader's test set and trained
+      on it. Trials with validation exceptions were excluded and all maximum-score trials were
+      checked by human review.
+    quote: >-
+      it found the test set used by the grader and used it to train the forecasting model. All
+      trials with validation exceptions were excluded from the final scores, and all max score
+      trials were manually validated by human review.
+    locator: Section 2.3.3.1, page 37
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-dangerous, T-eval-transcripts, T-eval-graders]
+    note: >-
+      The same section says the evaluation infrastructure checks all transcripts for tool call
+      issues, environment issues, refusals and cheating.
+
+  - id: EV-anthropic-2026-04-mythos-preview-system-card-09
+    claim: >-
+      A bug in Anthropic's evaluation harness made the automated grader mark some correct
+      Claude Opus 4.6 answers on CharXiv Reasoning as wrong. After the fix the published
+      no-tools score was revised from 61.5% to 69.1%.
+    quote: >-
+      CharXiv Reasoning scores for Claude Opus 4.6 have been revised upward (no tools: 61.5% →
+      69.1%; with tools: 78.9% → 84.7%). This was after fixing an evaluation-harness bug in
+      which the automated grader scored a subset of correct responses from Claude Opus 4.6 as
+      incorrect.
+    locator: Changelog, April 14, 2026, page 2
+    kind: incident
+    strength: measured
+    grade: A
+    tasks: [T-eval-graders, T-eval-harness, T-eval-reporting]
+    note: >-
+      The affected figures were for the comparison model, not the model the card is about.
+      The card is dated April 7, 2026 and this changelog entry April 14.
+
+  - id: EV-anthropic-2026-04-mythos-preview-system-card-10
+    claim: >-
+      Anthropic found a harness bug that ran evaluations with a 200k context even for models
+      with 1M context, and re-ran the AI R&D evaluations for Claude Opus 4.6.
+    quote: >-
+      During our evaluations, we found a bug that defaulted to using a 200k context even for
+      models with 1M context. We re-ran the evaluations for Claude Opus 4.6 to check if any
+      scores would differ and the table above reflects our updated scores.
+    locator: Section 2.3.3.2, page 37
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-harness, T-eval-dangerous]
+    note: >-
+      Anthropic says the changes do not affect prior determinations. How long the bug had been
+      present is not stated.

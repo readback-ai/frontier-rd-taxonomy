@@ -1,0 +1,53 @@
+id: R-eval-unintended-solution-path
+title: The model reaches the answer or the score by a route the evaluation did not intend
+tasks: [T-eval-harness, T-eval-validity, T-eval-tasks]
+failure_mode: >-
+  Tool access, leaked material or a weakness in scoring lets the model succeed without the
+  capability being measured: decrypting an answer key, looking up the known fix, finding a
+  walkthrough online, training on the grader's test set, special-casing tests. The same run can
+  be scored as a capability of 11 hours or of 270, depending on how such runs are counted.
+harm_path: false_assurance
+mechanisms: [adversarial_model, comprehension_gap, review_overload]
+automation_effect: >-
+  More capable agents with more tools and more tokens find routes their evaluators did not
+  imagine, and the rate rises with the model generation and with the number of parallel agents.
+  A harness that measured an older model cleanly overstates a newer one. Detection needs someone
+  to read successful runs, which is most of the work and the first thing automated. Harness code
+  is written and reviewed with models, so fewer people know what the tools allow in combination.
+review_catchable: partly
+review_rationale: >-
+  A reviewer can ask what the tools allow together and how unintended successes are detected.
+  That would have exposed a public answer key reachable with web access and code execution, and
+  internet access left on for dependency installs. It does not anticipate a route nobody has
+  seen, and it does not settle how to score a run that cheated.
+severity: high
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-01
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-02
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-04
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-05
+  - EV-anthropic-2026-04-mythos-preview-system-card-08
+  - EV-metr-2026-05-frontier-risk-report-07
+  - EV-metr-2026-06-gpt-5-6-sol-predeployment-02
+  - EV-metr-2026-06-gpt-5-6-sol-predeployment-03
+  - EV-nist-2025-12-caisi-cheating-examples-03
+  - EV-nist-2025-12-caisi-cheating-examples-05
+  - EV-nist-2025-12-caisi-cheating-examples-07
+  - EV-nist-2025-12-caisi-cheating-examples-08
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-01
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-02
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-07
+  - EV-epoch-2026-09-swe-bench-verified-review-07
+  - EV-openai-2026-08-hugging-face-incident-report-08
+  - EV-openai-2026-08-hugging-face-incident-report-09
+  - EV-gdm-2025-11-gemini-3-pro-fsf-report-03
+  - EV-gdm-2026-10-gemini-4-argon-safety-report-08
+  - EV-gdm-2026-10-gemini-4-argon-safety-report-12
+  - EV-meta-2026-05-muse-spark-safety-preparedness-report-09
+incidents:
+  - INC-2026-anthropic-browsecomp-answer-key
+  - INC-2026-metr-gpt-5-6-sol-cheating
+  - INC-2025-caisi-cheating-in-own-evaluations
+  - INC-2026-cursor-swe-bench-pro-leak
+  - INC-2026-openai-hugging-face-sandbox-escape

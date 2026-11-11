@@ -1,0 +1,157 @@
+id: S-anthropic-2026-04-claude-code-quality-postmortem
+title: An update on recent Claude Code quality reports
+publisher: Anthropic
+published: 2026-04-23
+url: https://www.anthropic.com/engineering/april-23-postmortem
+type: incident_report
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic's postmortem of three product changes that made Claude Code, the Agent SDK and Cowork
+  worse between early March and 20 April 2026: a lower default reasoning effort (shipped March 4,
+  reverted April 7), chosen as a tradeoff after internal evaluations showed slightly lower
+  intelligence; a caching bug that dropped the model's earlier reasoning (shipped March 26, fixed
+  April 10); and a system prompt line limiting response length (shipped April 16, reverted April 20)
+  that showed no regressions in the evaluations run. Users found the problems, and a broader
+  evaluation set later showed the prompt change cost 3% on one evaluation.
+limits: >-
+  Self-reported, with no author named. The evaluations that passed are not named or counted, and the
+  3% drop is given for one unnamed evaluation. The post does not say whether the faulty changes were
+  written by people or by Claude. The incident is in the product harness and its release checks, not
+  in a pre-release capability or safety assessment of a model. No measure of user impact is given.
+evidence:
+  - id: EV-anthropic-2026-04-claude-code-quality-postmortem-01
+    claim: >-
+      Anthropic began looking into user reports in early March. At first they were hard to tell
+      from normal variation in feedback, and neither internal usage nor its evaluations
+      reproduced the problems.
+    quote: >-
+      While we began investigating reports in early March, they were challenging to distinguish
+      from normal variation in user feedback at first, and neither our internal usage nor evals
+      initially reproduced the issues identified.
+    locator: Introduction
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2026-03
+    tasks: [T-eval-inloop]
+    note: >-
+      Found by users, not by the developer's own checks. The post later thanks users who sent
+      feedback or posted reproducible examples as the ones who allowed it to find the problems.
+
+  - id: EV-anthropic-2026-04-claude-code-quality-postmortem-02
+    claim: >-
+      The system prompt change was shipped on April 16 after several weeks of internal testing
+      showed no regressions in the evaluations Anthropic ran.
+    quote: >-
+      After multiple weeks of internal testing and no regressions in the set of evaluations we
+      ran, we felt confident about the change and shipped it alongside Opus 4.7 on April 16.
+    locator: A system prompt change to reduce verbosity
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-inloop, T-eval-design]
+    note: >-
+      A release decision resting on an evaluation set that turned out to be too narrow.
+
+  - id: EV-anthropic-2026-04-claude-code-quality-postmortem-03
+    claim: >-
+      During the investigation, ablations on a broader set of evaluations showed a 3% drop for
+      Opus 4.6 and 4.7 on one evaluation, and the prompt was reverted in the April 20 release.
+    quote: >-
+      As part of this investigation, we ran more ablations (removing lines from the system prompt
+      to understand the impact of each line) using a broader set of evaluations. One of these
+      evaluations showed a 3% drop for both Opus 4.6 and 4.7. We immediately reverted the prompt
+      as part of the April 20 release.
+    locator: A system prompt change to reduce verbosity
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-inloop, T-eval-design]
+    note: >-
+      Four days from shipping to revert. The regression showed once a broader set of evaluations
+      was run; the post does not say whether that set existed before the change shipped.
+
+  - id: EV-anthropic-2026-04-claude-code-quality-postmortem-04
+    claim: >-
+      In Anthropic's internal evaluations and testing, medium reasoning effort gave slightly lower
+      intelligence with significantly less latency for the majority of tasks, and it was made the
+      default. Users soon reported Claude Code felt less intelligent.
+    quote: >-
+      In our internal evals and testing, medium effort achieved slightly lower intelligence with
+      significantly less latency for the majority of tasks. [...] As a result, we rolled out a
+      change making medium the default effort [...] Soon after rolling out, users began reporting
+      that Claude Code felt less intelligent.
+    locator: A change to Claude Code's default reasoning effort
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-inloop, T-eval-design]
+    note: >-
+      The post calls this the wrong tradeoff and gives latency and usage limits among its reasons.
+      The change was made on March 4 and reversed on April 7.
+
+  - id: EV-anthropic-2026-04-claude-code-quality-postmortem-05
+    claim: >-
+      The caching bug passed several human and automated code reviews, unit tests, end-to-end
+      tests, automated verification and internal use, and took over a week to root-cause.
+    quote: >-
+      The changes it introduced made it past multiple human and automated code reviews, as well as
+      unit tests, end-to-end tests, automated verification, and dogfooding. Combined with this
+      only happening in a corner case (stale sessions) and the difficulty of reproducing the
+      issue, it took us over a week to discover and confirm the root cause.
+    locator: A caching optimization that dropped prior reasoning
+    kind: incident
+    strength: reported
+    grade: B
+    note: >-
+      Review of a product harness change, by people and by models. No task in T-eval fits.
+
+  - id: EV-anthropic-2026-04-claude-code-quality-postmortem-06
+    claim: >-
+      Two unrelated experiments made the caching bug hard for Anthropic to reproduce at first. One
+      suppressed it in most command-line sessions, so it was not caught even when testing external
+      builds.
+    quote: >-
+      Two unrelated experiments made it challenging for us to reproduce the issue at first: an
+      internal-only server-side experiment related to message queuing; and an orthogonal change in
+      how we display thinking suppressed this bug in most CLI sessions, so we didn’t catch it even
+      when testing external builds.
+    locator: A caching optimization that dropped prior reasoning
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-inloop]
+    note: >-
+      The configuration staff tested differed from the one users ran. Among the remedies the post
+      lists is having more staff use the exact public build.
+
+  - id: EV-anthropic-2026-04-claude-code-quality-postmortem-07
+    claim: >-
+      Back-testing Anthropic's Code Review tool on the offending pull requests, Opus 4.7 found the
+      bug when given the repositories needed for full context; Opus 4.6 did not.
+    quote: >-
+      As part of the investigation, we back-tested Code Review against the offending pull requests
+      using Opus 4.7. When provided the code repositories necessary to gather complete context,
+      Opus 4.7 found the bug, while Opus 4.6 didn't.
+    locator: A caching optimization that dropped prior reasoning
+    kind: oversight
+    strength: reported
+    grade: B
+    note: >-
+      Automated review missed the bug at the time; a later model with wider context finds it in
+      hindsight. No task in T-eval fits.
+
+  - id: EV-anthropic-2026-04-claude-code-quality-postmortem-08
+    claim: >-
+      As a remedy Anthropic will run a broad suite of per-model evaluations for every system
+      prompt change to Claude Code and keep running line-by-line ablations.
+    quote: >-
+      We will run a broad suite of per-model evals for every system prompt change to Claude Code,
+      continuing ablations to understand the impact of each line, and we have built new tooling to
+      make prompt changes easier to review and audit.
+    locator: Going forward
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-inloop, T-eval-design]

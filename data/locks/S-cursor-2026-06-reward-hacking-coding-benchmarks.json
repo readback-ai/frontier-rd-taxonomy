@@ -1,0 +1,55 @@
+{
+  "source_id": "S-cursor-2026-06-reward-hacking-coding-benchmarks",
+  "snapshot": {
+    "url": "https://cursor.com/blog/reward-hacking-coding-benchmarks",
+    "final_url": "https://cursor.com/blog/reward-hacking-coding-benchmarks",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "762175e789af85c6f4869bde04096b1c39e80fa3e52eea031e16b595c5acdd05",
+    "text_sha256": "8159e79293ec22d840e7cb303ba942fb92f9ef93f6d08b3ff2c9fc5bd766538f",
+    "text_chars": 19448
+  },
+  "quotes": {
+    "EV-cursor-2026-06-reward-hacking-coding-benchmarks-01": {
+      "quote_sha256": "c78c56957145a4bb0e0a223b2aab26faf5d46d82df83d857e03271d36066cf40",
+      "text_sha256": "8159e79293ec22d840e7cb303ba942fb92f9ef93f6d08b3ff2c9fc5bd766538f",
+      "verified": "2026-11-11"
+    },
+    "EV-cursor-2026-06-reward-hacking-coding-benchmarks-02": {
+      "quote_sha256": "3b5b16c6c447e44fdcdf35d83866375e4d255984d42983077ed595b59de19a54",
+      "text_sha256": "8159e79293ec22d840e7cb303ba942fb92f9ef93f6d08b3ff2c9fc5bd766538f",
+      "verified": "2026-11-11"
+    },
+    "EV-cursor-2026-06-reward-hacking-coding-benchmarks-03": {
+      "quote_sha256": "ba2adabfca948ece4bd84ebb404f03bb6f8cc6eaa28e292ae9befaa2e083e1eb",
+      "text_sha256": "8159e79293ec22d840e7cb303ba942fb92f9ef93f6d08b3ff2c9fc5bd766538f",
+      "verified": "2026-11-11"
+    },
+    "EV-cursor-2026-06-reward-hacking-coding-benchmarks-04": {
+      "quote_sha256": "a3df9939800b373b2e7d0cfecdcf0d9aec0267829311353df9956e147795b262",
+      "text_sha256": "8159e79293ec22d840e7cb303ba942fb92f9ef93f6d08b3ff2c9fc5bd766538f",
+      "verified": "2026-11-11"
+    },
+    "EV-cursor-2026-06-reward-hacking-coding-benchmarks-05": {
+      "quote_sha256": "bfa26deefd4f02b24362e5483e936f54f0922c2fc41ef6d5604e22cc830ff57a",
+      "text_sha256": "8159e79293ec22d840e7cb303ba942fb92f9ef93f6d08b3ff2c9fc5bd766538f",
+      "verified": "2026-11-11"
+    },
+    "EV-cursor-2026-06-reward-hacking-coding-benchmarks-06": {
+      "quote_sha256": "777f6027d528297824afced121a6670e38e6fac441a210055c5078b16a45cdcc",
+      "text_sha256": "8159e79293ec22d840e7cb303ba942fb92f9ef93f6d08b3ff2c9fc5bd766538f",
+      "verified": "2026-11-11"
+    },
+    "EV-cursor-2026-06-reward-hacking-coding-benchmarks-07": {
+      "quote_sha256": "1d7da64aca7534683a6a095f2384cfb61e8d19167cd421e81f1bf4ae7e315da2",
+      "text_sha256": "8159e79293ec22d840e7cb303ba942fb92f9ef93f6d08b3ff2c9fc5bd766538f",
+      "verified": "2026-11-11"
+    },
+    "EV-cursor-2026-06-reward-hacking-coding-benchmarks-08": {
+      "quote_sha256": "088cdfe7e11f599c1c809faf53f4f457f2bbe1f216e7284006a0ba0d8caa72bb",
+      "text_sha256": "8159e79293ec22d840e7cb303ba942fb92f9ef93f6d08b3ff2c9fc5bd766538f",
+      "verified": "2026-11-11"
+    }
+  }
+}

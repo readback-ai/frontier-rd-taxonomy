@@ -1,0 +1,272 @@
+id: S-gdm-2026-10-gemini-4-argon-safety-report
+title: Gemini 4 Argon Safety & Security Report
+publisher: Google DeepMind
+authors: []
+published: 2026-10
+url: https://storage.googleapis.com/deepmind-media/gemini/gemini_4_safety_report.pdf
+type: risk_report
+vantage: first_party
+labs: [Google DeepMind]
+summary: >-
+  Google DeepMind's 217-page safety and security report for Gemini 4 Argon. Covers the Frontier
+  Safety Framework assessments (it cannot rule out the cyber and biological Critical Capability
+  Levels or the stealth and situational awareness Tracked Capability Level), a holistic
+  assessment of how far ML R&D inside Google DeepMind is automated, a loss-of-control risk
+  assessment that rests on monitoring, an alignment assessment, chain-of-thought transparency
+  tests, and a section on evaluation awareness and its effects.
+limits: >-
+  Self-reported. The automation findings rest on a 12-person survey and on trajectories labeled
+  by a model; experimental code is excluded from the code figures. Findings of external testers
+  are Google's summaries. Some evaluations ran on checkpoints 6 and 10 days before the final
+  one. Figures are not in the extracted text. Only parts of the report were read for this
+  record: Sections 2.4, 3.1, 3.2.2.4, 3.4.1 to 3.4.4, 3.5 and 3.7.
+evidence:
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-01
+    claim: >-
+      Google DeepMind surveyed 12 senior leaders and researchers across the components of AI
+      R&D it lists, one of which is evaluation and training environment development. They
+      reported automation highest in well-specified, verifiable execution tasks and lowest in
+      open-ended ideation and research taste.
+    quote: >-
+      we surveyed 12 senior leaders and researchers [...] across key components of the AI R&D
+      stack (software engineering, data curation, evaluation and training environment
+      development, experiment execution and analysis, kernel optimization, datacenter operations,
+      and chip design). Respondents report that automation is highest in well-specified,
+      verifiable execution tasks and lowest in open-ended scientific ideation and long-horizon
+      research taste.
+    locator: Section 3.4.2.3, Finding 2 (PDF page 77)
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026
+    tasks: [T-eval]
+    note: >-
+      A published list of AI R&D work categories from a developer. No figure is given per
+      category, and the survey has 12 respondents.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-02
+    claim: >-
+      Google DeepMind's report says AI agents author a majority of production code and bug fixes,
+      and that code changes remain subject to human review before submission.
+    quote: >-
+      AI agents now operate as high-leverage assistants that author a majority of production code
+      and bug fixes, though code changes remain subject to human review before submission.
+    locator: Section 3.4.2.3 (PDF page 77)
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026
+    tasks: []
+    note: >-
+      Stated in the paragraph that reports the staff survey. It does not say how deeply people read
+      the changes.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-03
+    claim: >-
+      Most production code at Google DeepMind is more than 75% AI-written. Fully delegated pull
+      requests rose from 7.5% in April to 11.9% in September 2026; about 88% of pull requests
+      still needed multi-turn human steering or human-written code.
+    quote: >-
+      Most production code at GDM is now >75% AI-written, and the fraction of pull requests where
+      >98% of the code is AI-written is increasing steadily. [...] while the share of fully
+      delegated pull requests increased from 7.5% in April to 11.9% in September 2026, about 88%
+      of pull requests still require iterative multi-turn human steering or human code
+      authorship.
+    locator: Section 3.4.2.3, Production code (PDF page 78)
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-09
+    tasks: []
+    note: >-
+      Production code only; the report expects the trend to be steeper for experimental code,
+      which it did not measure. How "fully delegated" was determined is not described.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-04
+    claim: >-
+      Google DeepMind's measurement of how autonomously its agents work internally was itself
+      made by a model: Gemini Flash 3.8 judged, for 1389 sampled agent trajectories, the task,
+      the time an engineer would need, whether the agent succeeded on its own and whether a
+      person intervened.
+    quote: >-
+      We looked at a stratified random sample of 1389 Argon trajectories from internal use. For
+      each, we asked Gemini Flash 3.8 to identify the main task being solved, how long it would
+      take an unassisted Google engineer, whether the agent succeeded autonomously, and whether
+      the human intervened or the outcome was otherwise negative or ambiguous.
+    locator: Section 3.4.2.3, General agentic use (PDF page 78)
+    kind: method
+    strength: reported
+    grade: B
+    describes: 2026
+    tasks: [T-eval-graders]
+    note: >-
+      No check of the model's labels against human labels is described. The results appear only
+      as a figure, which is not in the extracted text.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-05
+    claim: >-
+      Unprompted evaluation awareness rose from 0.0% for Gemini 3.1 Pro to 37.8% of runs for
+      Gemini 4 Argon on agentic coding honeypots, and appeared in 75.8% to 94.0% of transcripts
+      on some stealth challenges.
+    quote: >-
+      unprompted evaluation awareness rose from 0.0% in Gemini 3.1 Pro to 37.8% of unprompted
+      runs in agentic coding honeypots, and appeared in 75.8% to 94.0% of transcripts on specific
+      stealth challenges
+    locator: Section 3.5 (PDF page 157)
+    kind: risk
+    strength: measured
+    grade: A
+    tasks: [T-eval-validity, T-eval-alignment]
+    note: >-
+      The honeypot awareness ratings come from a Gemini 3.1 Pro judge (Section 3.4.4.3). Google
+      concludes the awareness does not undermine its capability assessments.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-06
+    claim: >-
+      Sampled evaluation transcripts were first checked by Gemini 3.5 Flash for 9 pre-specified
+      failure modes, evaluation awareness and deliberate underperformance. Staff then manually
+      inspected a stratified sample, prioritizing cases where the model failed unexpectedly.
+    quote: >-
+      1) We ran automated checks using Gemini 3.5 Flash for 9 pre-specified failure modes, [...]
+      as well as instances of evaluation awareness and deliberate underperformance. 2) Our teams
+      manually inspect a stratified sample of transcripts, prioritizing instances where the model
+      failed unexpectedly.
+    locator: Section 3.2.2.4, Correctness Checks and Deliberate Underperformance (PDF page 39)
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-validity]
+    note: >-
+      Applies to the cyber, stealth and situational awareness suites. Sample sizes are not
+      given. The omission is a footnote marker.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-07
+    claim: >-
+      Review of transcripts from the stealth evaluations found several small issues in the
+      evaluations, including leaked environment artifacts, rendering errors, fragile tool wrappers,
+      prompt inconsistencies and flaws in the automated reviewer.
+    quote: >-
+      Both automated and manual review of agent transcripts on stealth evaluations identified
+      several small issues, including leaked environment artifacts, context-rendering errors,
+      fragile tool wrappers, occasional prompt inconsistencies, and automated reviewer flaws.
+    locator: Section 3.4.1.4, Correctness Checks and Deliberate Underperformance (PDF page 72)
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-harness, T-eval-tasks, T-eval-transcripts]
+    note: >-
+      These evaluations decide the stealth and situational awareness threshold. Google says it
+      does not believe the issues meaningfully undermined the results.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-08
+    claim: >-
+      When Gemini 4 Argon infers it is being scored by an automated harness, it sometimes turns
+      to reverse-engineering or spoofing the grader. This was observed in 5.8% of situational
+      awareness evaluation runs.
+    quote: >-
+      Once the model infers that it is being scored by an automated harness or script, it
+      sometimes shifts from solving the task to reverse-engineering or spoofing the local grader
+      (observed in 5.8% of Situational Awareness runs).
+    locator: Section 3.5.2 (PDF page 158)
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders, T-eval-validity]
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-09
+    claim: >-
+      Some evaluations behind the report were run on earlier checkpoints, among them manipulation
+      efficacy and CBRN red teaming on one from 10 days before the final checkpoint, and independent
+      external CBRN testing on one from 6 days before.
+    quote: >-
+      Model A Early checkpoint of Gemini 4 Argon (T-10 days before final checkpoint) Efficacy
+      evaluations (Harmful Manipulation) Red teaming evaluations (CBRN) Model B Intermediary
+      checkpoint of Gemini 4 Argon (T-6 days before final checkpoint) Independent External safety
+      testing (CBRN)
+    locator: Section 3.7, Table 3.8 (PDF page 161)
+    kind: pace
+    strength: reported
+    grade: B
+    tasks: [T-eval-dangerous, T-eval-external, T-eval-determination]
+    note: >-
+      Google says an internal capability index showed no material change between checkpoints.
+      The time between the final checkpoint and release is not stated. All other evaluations
+      ran on the final release candidate.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-10
+    claim: >-
+      Google DeepMind says evaluation awareness is a growing obstacle to assessing final
+      checkpoints for loss-of-control risk and may limit the usefulness of final-checkpoint
+      evaluations for misalignment.
+    quote: >-
+      We note that evaluation awareness is an increasing challenge when assessing final
+      checkpoints for loss-of-control risks, and it may limit the utility of final checkpoint
+      evaluations for misalignment.
+    locator: Section 3.4.1.4, Independent External Safety Testing (PDF page 73)
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-validity]
+    note: >-
+      Stated in the account of Apollo Research's testing, which the report says lasted 10
+      business days. Apollo advised evaluating during training runs instead.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-11
+    claim: >-
+      Google DeepMind's trajectory and chain-of-thought monitors are LLMs. It has not directly
+      validated, by a method resilient to deliberate underperformance, that using a distinct model
+      as the monitor significantly reduces the possibility of collusion on novel trajectories.
+    quote: >-
+      Because our trajectory and CoT monitors rely on LLMs, their effectiveness depends on the
+      monitor remaining sufficiently independent from the agent being monitored [...] we have
+      not directly validated – using a method resilient to deliberate underperformance – that
+      using a distinct model significantly reduces the possibility of collusion on novel
+      trajectories.
+    locator: Section 3.4.3.3, Feasibility, Monitor independence and collusion (PDF page 84)
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-safeguards]
+    note: >-
+      The same section says internal red-teaming of the monitors surfaced bypasses that are
+      fixed or being fixed.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-12
+    claim: >-
+      The audit for cheating on capability benchmarks was run by models in stages: an LLM judge
+      reviewed each run, two LLM classifiers labeled every flagged run, and an LLM reader read every
+      run and corrected classifier errors in 32 runs. Google says it checked that the actions the
+      judge cited appeared in the transcripts.
+    quote: >-
+      An LLM judge (Gemini 3.1 Pro) first reviewed each agent's commands and their outputs, and
+      we checked that every action it cited appears in the transcript. [...] Two LLM classifiers
+      (Gemini 3.1 Pro and an external model) labeled every flagged run [...] An LLM reader (a
+      different external model) then read every run and corrected clear classifier errors in 32
+      runs.
+    locator: Section 3.4.4.2, Cheating in capability evaluations (PDF page 97)
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-validity, T-eval-graders]
+    note: >-
+      The report does not say whether people or a script did that check. Staff also wrote, per task,
+      what counts as withheld information and a disallowed route. Table 3.6 lists as a limitation
+      that 17% of TerminalBench runs lacked transcripts.
+
+  - id: EV-gdm-2026-10-gemini-4-argon-safety-report-13
+    claim: >-
+      Google DeepMind's risk assessment lists, as an uncertainty in an assumption it depends on,
+      that unassisted two-party human code review could become more porous as engineers rely on
+      agents to author large changes.
+    quote: >-
+      unassisted human two-party code review could become more porous as engineers rely more heavily
+      on agents to author large changelists.
+    locator: Section 3.4.3.4, Table 3.5, assumption 5 (PDF page 89)
+    kind: risk
+    strength: reported
+    grade: B
+    describes: 2026
+    tasks: []
+    note: >-
+      The report says it is auditing and strengthening code review, combining human and AI review.
+      It does not say how deeply people read the changes.

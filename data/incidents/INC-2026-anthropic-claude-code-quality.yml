@@ -1,0 +1,59 @@
+id: INC-2026-anthropic-claude-code-quality
+title: Three product changes passed internal evaluations and degraded Claude Code for weeks
+org: Anthropic
+frontier: true
+occurred: 2026-03
+disclosed: 2026-04-23
+summary: >-
+  A lower default reasoning effort was chosen as a tradeoff after internal evaluations showed
+  slightly lower intelligence with much less latency. A caching bug that dropped the model's earlier
+  reasoning passed code review and tests. A system prompt line limiting response length shipped
+  after showing no regressions in the evaluations run. Users reported the degradation. A broader
+  evaluation set, run during the investigation, showed the prompt change cost 3% on one evaluation.
+root_cause: >-
+  The release decisions rested on an evaluation set too narrow to show the regression: a broader
+  set, run during the investigation, did show it. The post does not say whether that set existed
+  before the change shipped. Unrelated experiments in staff sessions made one of the bugs hard to
+  reproduce.
+detected_by: Users, through feedback and reproducible examples
+detection_latency: About five weeks for the first change (March 4 to April 7); four days for the system prompt change
+automation_involved: unknown
+comprehension_failure: partly
+comprehension_note: >-
+  The people shipping the changes believed the evaluations they ran covered the effect. The post
+  does not say whether people or Claude wrote the changes. The caching bug passed human and
+  automated code review.
+tasks: [T-eval-inloop, T-eval-design]
+risks:
+  - R-eval-inloop-metric-diverges
+  - R-eval-suite-misses-behavior
+evidence:
+  - EV-anthropic-2026-04-claude-code-quality-postmortem-01
+  - EV-anthropic-2026-04-claude-code-quality-postmortem-02
+  - EV-anthropic-2026-04-claude-code-quality-postmortem-03
+  - EV-anthropic-2026-04-claude-code-quality-postmortem-04
+  - EV-anthropic-2026-04-claude-code-quality-postmortem-06
+backtest:
+  - question: Q-eval-inloop-02
+    verdict: might_surface
+    rationale: >-
+      For the system prompt change the honest answer was "no regressions in the set of evaluations
+      we ran". Whether staff could have named a broader set they had and skipped is not stated in
+      the evidence, and the question does not reach the effort change or the caching bug.
+  - question: Q-eval-inloop-03
+    verdict: might_surface
+    rationale: >-
+      The honest answer would have named the internal-only server-side experiment only if the people
+      shipping the caching change knew it was active in their sessions. The source says external
+      builds were tested too and still did not show the bug.
+  - question: Q-eval-inloop-06
+    verdict: would_not_surface
+    rationale: >-
+      Staff could have answered well: the changes had weeks of internal testing and dogfooding, and
+      internal usage did not reproduce what users reported.
+  - question: Q-eval-inloop-07
+    verdict: would_not_surface
+    rationale: >-
+      For the effort change the honest answer was already known and accepted: slightly lower
+      intelligence for much less latency. For the prompt change it was "nothing in the evaluations
+      we ran".

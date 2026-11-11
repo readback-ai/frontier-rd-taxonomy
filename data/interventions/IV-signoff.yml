@@ -1,0 +1,13 @@
+id: IV-signoff
+name: Human sign-off without a comprehension standard
+kind: signoff_gate
+description: >-
+  A person approves every deployed change, with no test of whether they understand it. The
+  pacing model prices it at half an hour per change.
+targets:
+  change_types: [training_improvement, dataset_update, system_software_change, monitor_change]
+pacing_policy: Human sign-off, no comprehension standard
+note: >-
+  Anthropic's illustration of AL4 resembles this intervention: the engineer reads the write-up,
+  skims the change and decides whether it ships (EV-anthropic-2026-09-measuring-pace-06).
+evidence: [EV-anthropic-2026-09-measuring-pace-06]

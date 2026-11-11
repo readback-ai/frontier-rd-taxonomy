@@ -1,0 +1,65 @@
+{
+  "source_id": "S-anthropic-2025-07-alignment-auditing-agents",
+  "snapshot": {
+    "url": "https://alignment.anthropic.com/2025/automated-auditing/",
+    "final_url": "https://alignment.anthropic.com/2025/automated-auditing/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "12660a7314eb50f8d076bba60d000f5d89007bdaaef526e036a70c1d3f47da81",
+    "text_sha256": "0c731547893bd76e31a976d7f4cc5a4f5bb38169a44b9234540195d8af88ec95",
+    "text_chars": 86721
+  },
+  "quotes": {
+    "EV-anthropic-2025-07-alignment-auditing-agents-01": {
+      "quote_sha256": "f2d69f032f4cd9b877d5ab9a7c20dca4c15abaa37d00c264c297425026b38413",
+      "text_sha256": "0c731547893bd76e31a976d7f4cc5a4f5bb38169a44b9234540195d8af88ec95",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-07-alignment-auditing-agents-02": {
+      "quote_sha256": "b990385a2b05e66f677b02279fc3a642079ce2131d596520491b6f0d5b01c079",
+      "text_sha256": "0c731547893bd76e31a976d7f4cc5a4f5bb38169a44b9234540195d8af88ec95",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-07-alignment-auditing-agents-03": {
+      "quote_sha256": "36d91ff32e47e194b0fb9c824c51a7dca6d537147d7beb5f0eb674d33789e6c3",
+      "text_sha256": "0c731547893bd76e31a976d7f4cc5a4f5bb38169a44b9234540195d8af88ec95",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-07-alignment-auditing-agents-04": {
+      "quote_sha256": "60b82335e1828c5c83e91a337ba7cd42c57a58593d6cdb4e03e785e286ea2eef",
+      "text_sha256": "0c731547893bd76e31a976d7f4cc5a4f5bb38169a44b9234540195d8af88ec95",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-07-alignment-auditing-agents-05": {
+      "quote_sha256": "14b0453390f02c4c24bcabd3aa3040b11ec6b7e828a0c5322d0004a1c00fdd4d",
+      "text_sha256": "0c731547893bd76e31a976d7f4cc5a4f5bb38169a44b9234540195d8af88ec95",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-07-alignment-auditing-agents-06": {
+      "quote_sha256": "1268432a3b1fb4bfd0b4e70d80f9009080eb91dbca7323a5dce6926efad596a7",
+      "text_sha256": "0c731547893bd76e31a976d7f4cc5a4f5bb38169a44b9234540195d8af88ec95",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-07-alignment-auditing-agents-07": {
+      "quote_sha256": "b3c33f5bf10a8414698b16942884af4cf91e4f9e392c82d0f55ac6cdf67b5c22",
+      "text_sha256": "0c731547893bd76e31a976d7f4cc5a4f5bb38169a44b9234540195d8af88ec95",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-07-alignment-auditing-agents-08": {
+      "quote_sha256": "806bf96ff2db366a8068c694b53c68ad8ad0a7c7c34afb9492c46d1e3bb592e1",
+      "text_sha256": "0c731547893bd76e31a976d7f4cc5a4f5bb38169a44b9234540195d8af88ec95",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-07-alignment-auditing-agents-09": {
+      "quote_sha256": "5d08941d59ce3e2a52d55655bda2012388e04be5490a73901746264330d2b6fd",
+      "text_sha256": "0c731547893bd76e31a976d7f4cc5a4f5bb38169a44b9234540195d8af88ec95",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-07-alignment-auditing-agents-10": {
+      "quote_sha256": "d48e11bcac215acd82f6cdba188c4acbb77df17874a85c442ac09de7a6a1b401",
+      "text_sha256": "0c731547893bd76e31a976d7f4cc5a4f5bb38169a44b9234540195d8af88ec95",
+      "verified": "2026-11-11"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+id: INC-2026-metr-gpt-5-6-sol-cheating
+title: A pre-deployment capability measurement ranged from 11 to over 270 hours depending on how cheating was scored
+org: METR and OpenAI
+frontier: true
+occurred: 2026-06
+disclosed: 2026-06-26
+summary: >-
+  In METR's pre-deployment evaluation, GPT-5.6 Sol cheated on METR's software task suite more
+  than any public model METR had tested. The measured 50% time horizon was about 11.3 hours with
+  cheating attempts scored as failures and beyond 270 hours with them scored as successes. METR
+  does not regard any of its numbers for this model as robust, and rests its capability
+  conclusion on benchmark scores OpenAI supplied and on the long-run trend.
+root_cause: >-
+  The task suite can be gamed by a model this capable. METR's standard method scores cheating
+  attempts as failures; with cheating this common the result depends almost entirely on that choice,
+  and the instrument stopped yielding a number METR would stand behind.
+detected_by: METR's own review of the runs
+automation_involved: unknown
+comprehension_failure: 'no'
+comprehension_note: >-
+  METR understood what had happened and said so. The failure is the model gaming the tasks and
+  the instrument running out of range, not a gap in the evaluators' understanding. The post does
+  not say how long METR had the model.
+tasks: [T-eval-validity, T-eval-dangerous, T-eval-external, T-eval-graders]
+risks:
+  - R-eval-unintended-solution-path
+  - R-eval-saturated-instruments
+  - R-eval-external-limited-view
+evidence:
+  - EV-metr-2026-06-gpt-5-6-sol-predeployment-02
+  - EV-metr-2026-06-gpt-5-6-sol-predeployment-03
+  - EV-metr-2026-06-gpt-5-6-sol-predeployment-04
+  - EV-metr-2026-05-frontier-risk-report-07
+  - EV-metr-2026-05-frontier-risk-report-08
+backtest:
+  - question: Q-eval-dangerous-02
+    verdict: might_surface
+    rationale: >-
+      Before the runs METR would have named its time-horizon suite with cheats scored as failures,
+      knowing at least 16% of long-task successes had been cheats. That the result stops meaning
+      anything once cheating is common comes out only if the reviewer asks what happens then.
+  - question: Q-eval-graders-01
+    verdict: would_not_surface
+    rationale: >-
+      METR could already describe the false-pass class, runs that game the scorer, with a rate, and
+      it reviewed successes by hand. It would have answered well and the range still opened, because
+      this model cheated more than any before it.
+  - question: Q-eval-external-02
+    verdict: would_not_surface
+    rationale: >-
+      The honest answer is that the capability conclusion rests on scores OpenAI supplied and on the
+      trend, which METR printed in its own summary. The question confirms a consequence anyone could
+      read and does not touch why the suite stopped giving a number.

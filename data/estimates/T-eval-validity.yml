@@ -1,0 +1,54 @@
+task: T-eval-validity
+estimates:
+  - id: EST-eval-validity-automation-anthropic-2026-09
+    task: T-eval-validity
+    quantity: automation_level
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: level, level: AL4}
+    basis: evidence
+    evidence:
+      - EV-anthropic-2026-04-mythos-preview-system-card-07
+      - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-06
+      - EV-anthropic-2026-04-mythos-preview-system-card-06
+    reasoning: >-
+      The sandbagging check on dangerous-capability evaluations is a grader model scoring 800 to
+      1,000 sampled transcripts. In April 2026 a researcher reviewed the twenty it flagged; the
+      September card describes no human review. The evaluation-awareness measurement uses probes
+      with a model judge filtering transcripts. Models do the checking and a person reads the
+      flags: AL4. Contamination checks are not described in enough detail to rate.
+    confidence: medium
+    stale_after: 2027-03-01
+
+  - id: EST-eval-validity-oversight-anthropic-2026-09
+    task: T-eval-validity
+    quantity: oversight_mode
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: category, value: ai_review_human_by_exception}
+    basis: evidence
+    evidence:
+      - EV-anthropic-2026-04-mythos-preview-system-card-07
+      - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-06
+    reasoning: >-
+      A grader model reads the sample and a person reads what it flags. For the September 2026
+      card no human reading is described at all, so this may already be model review only.
+    confidence: low
+    stale_after: 2027-03-01
+
+  - id: EST-eval-validity-human-coverage-anthropic-2026-04
+    task: T-eval-validity
+    quantity: human_review_coverage
+    scope: Anthropic
+    as_of: 2026-04
+    value: {kind: point, value: 0.02}
+    denominator: transcripts sampled for the sandbagging check on dangerous-capability evaluations
+    basis: evidence
+    evidence:
+      - EV-anthropic-2026-04-mythos-preview-system-card-07
+    reasoning: >-
+      A researcher reviewed 20 of the 1,000 transcripts the grader model scored, the 20 it
+      flagged. The 1,000 are themselves a sample of the evaluation's transcripts, so coverage of
+      all transcripts is lower. The unit is transcripts, not contributions.
+    confidence: medium
+    stale_after: 2027-04-01

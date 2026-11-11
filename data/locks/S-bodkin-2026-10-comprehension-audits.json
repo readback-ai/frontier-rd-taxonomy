@@ -1,0 +1,50 @@
+{
+  "source_id": "S-bodkin-2026-10-comprehension-audits",
+  "snapshot": {
+    "url": "https://arxiv.org/pdf/2610.10064",
+    "final_url": "https://arxiv.org/pdf/2610.10064",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "6ca6043e2a55c403784669173a201d036160a5c697dc980c91adc21d0db27866",
+    "text_sha256": "b1e1cd4fd7f72f46543657d973b360cd9d4286f8cb356462a82b36cb07199b63",
+    "text_chars": 118082
+  },
+  "quotes": {
+    "EV-bodkin-2026-10-comprehension-audits-01": {
+      "quote_sha256": "3bcb0ece6a0041b597e8b373f7210d6411388cd478602255b976b534bed51968",
+      "text_sha256": "b1e1cd4fd7f72f46543657d973b360cd9d4286f8cb356462a82b36cb07199b63",
+      "verified": "2026-11-11"
+    },
+    "EV-bodkin-2026-10-comprehension-audits-02": {
+      "quote_sha256": "19e837e528013bede5263a3b8533c0d71ae2cc567ffc159146443e9baf9be6b3",
+      "text_sha256": "b1e1cd4fd7f72f46543657d973b360cd9d4286f8cb356462a82b36cb07199b63",
+      "verified": "2026-11-11"
+    },
+    "EV-bodkin-2026-10-comprehension-audits-03": {
+      "quote_sha256": "5ee765c5a2ea00d58a8b49dcb209c120bc275e4546089be95aee61f3d4d1997c",
+      "text_sha256": "b1e1cd4fd7f72f46543657d973b360cd9d4286f8cb356462a82b36cb07199b63",
+      "verified": "2026-11-11"
+    },
+    "EV-bodkin-2026-10-comprehension-audits-04": {
+      "quote_sha256": "93502367979739e47cd246bd5c08648448461f4a68177d39aa1c0d823b992367",
+      "text_sha256": "b1e1cd4fd7f72f46543657d973b360cd9d4286f8cb356462a82b36cb07199b63",
+      "verified": "2026-11-11"
+    },
+    "EV-bodkin-2026-10-comprehension-audits-05": {
+      "quote_sha256": "ed183ea4eb2f904fc255fcd1e46cbdec7787a7281f4057e129c4257bc06bd973",
+      "text_sha256": "b1e1cd4fd7f72f46543657d973b360cd9d4286f8cb356462a82b36cb07199b63",
+      "verified": "2026-11-11"
+    },
+    "EV-bodkin-2026-10-comprehension-audits-06": {
+      "quote_sha256": "eba0e831578cebd5c8f817153da3d95ac3f8cd10f17efa13285acb6c2a507b7e",
+      "text_sha256": "b1e1cd4fd7f72f46543657d973b360cd9d4286f8cb356462a82b36cb07199b63",
+      "verified": "2026-11-11"
+    },
+    "EV-bodkin-2026-10-comprehension-audits-07": {
+      "quote_sha256": "27fc2fb6421e025203eadeeb1621935624ffcd4ce073cbc799df586134243d12",
+      "text_sha256": "b1e1cd4fd7f72f46543657d973b360cd9d4286f8cb356462a82b36cb07199b63",
+      "verified": "2026-11-11"
+    }
+  }
+}

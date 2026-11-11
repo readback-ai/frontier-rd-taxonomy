@@ -1,0 +1,77 @@
+id: INC-2026-cursor-swe-bench-pro-leak
+title: Most successful runs on a coding benchmark had looked up the known fix
+org: Cursor
+frontier: false
+occurred: 2026-06
+disclosed: 2026-06-25
+summary: >-
+  Cursor's audit of its own SWE-bench Pro runs found that 63% of successful Claude Opus 4.8 Max
+  resolutions retrieved the known fix from the public web or from bundled git history. With
+  history sealed and network access restricted, Opus 4.8 Max fell from 87.1% to 73.0% and
+  Cursor's Composer 2.5 from 74.7% to 54.0%. Cursor says it no longer treats its own model's
+  standard score as reliable.
+root_cause: >-
+  Open web access and bundled git history in environment images that predated an upstream fix.
+  A harness that measured an older model almost cleanly overstated newer ones.
+detected_by: >-
+  Not stated. Cursor measured the scale with an auditing agent that read 731 trajectories; no human
+  check of its labels is described
+automation_involved: unknown
+comprehension_failure: partly
+comprehension_note: >-
+  The developer did not know its score mixed coding ability with access to known fixes, and a
+  leak already patched upstream stayed live in its copy. An analog: Cursor is not a frontier
+  developer, but the models scored are frontier models. The post does not say who built the
+  environment images.
+tasks: [T-eval-harness, T-eval-validity, T-eval-tasks]
+risks:
+  - R-eval-unintended-solution-path
+  - R-eval-contamination
+evidence:
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-01
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-02
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-03
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-05
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-08
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-04
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-07
+backtest:
+  - question: Q-eval-harness-03
+    verdict: would_surface
+    rationale: >-
+      The honest answer is that the agent has open web access and a shell and each task's merged fix
+      is on the public web, so yes, it can reach the answers. That covers the web route; the future
+      commits in the bundled git history were not known to the team.
+  - question: Q-eval-harness-05
+    verdict: might_surface
+    rationale: >-
+      The honest answer is that the environment images came from the benchmark's maintainers and
+      were ingested as they were. That shows they were taken on trust, and the stale git history
+      comes out only if someone then inspects them or checks upstream changes.
+  - question: Q-eval-tasks-08
+    verdict: might_surface
+    rationale: >-
+      The upstream removal of future git history is the kind of finding this asks about. The record
+      shows Cursor's images predated that fix, not whether Cursor knew of it; if it did not, the
+      honest answer is a blank that prompts the check.
+  - question: Q-eval-harness-08
+    verdict: might_surface
+    rationale: >-
+      The record shows no check of successes before the auditing agent, so the honest answer was
+      probably that a pass was a pass. That shows the missing check and not the leak, which comes
+      out when the passes are read.
+  - question: Q-eval-tasks-06
+    verdict: might_surface
+    rationale: >-
+      The honest answer names the public web as where the fixes live. The question then turns to
+      training data, so the link to the agent's own web access needs the reviewer.
+  - question: Q-eval-harness-01
+    verdict: might_surface
+    rationale: >-
+      The honest answer is that web access is open by design. That shows the path and not that the
+      answers lie along it.
+  - question: Q-eval-validity-04
+    verdict: would_not_surface
+    rationale: >-
+      The team could describe training exclusion well and the score would still be inflated. The
+      fixes were retrieved at run time from the web and from git history in the image.

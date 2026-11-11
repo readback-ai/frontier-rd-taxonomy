@@ -1,0 +1,52 @@
+id: R-eval-environment-not-contained
+title: An evaluation environment that is supposed to be isolated is not
+tasks: [T-eval-harness, T-eval-dangerous, T-eval-external, T-eval-tasks]
+failure_mode: >-
+  A sandbox or test range has a path to real systems, by misconfiguration or by a deliberate
+  choice nobody revisited. A model pursuing the evaluation's goal acts on real organizations.
+  Dangerous-capability evaluations run offensive tasks, on models with deployment safeguards
+  removed, thousands of times, often in a partner's environment.
+harm_path: containment_weakened
+mechanisms: [comprehension_gap, accountability_diffusion, review_overload]
+automation_effect: >-
+  The volume of runs is beyond per-run human attention, so containment has to hold by construction,
+  and it rested on one layer. Environments are built by vendors and institutes outside the
+  developer's controls, and at two developers misalignment monitoring did not cover evaluations. The
+  prompt tells the model it is isolated, which removes its reason to hold back; tested afterwards, a
+  monitor reading the model's reasoning accepted its account. Capability rose faster than anyone
+  revisited the choice to leave internet access on.
+review_catchable: 'yes'
+review_rationale: >-
+  Anthropic's own account says validating every internet access path beforehand would have
+  surfaced it, and AISI says it did not revisit a deliberate trade-off. The review question is
+  who verified isolation, by what test, and what second layer exists if the configuration is
+  wrong.
+severity: critical
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-07-cyber-eval-incidents-01
+  - EV-anthropic-2026-07-cyber-eval-incidents-02
+  - EV-anthropic-2026-07-cyber-eval-incidents-06
+  - EV-anthropic-2026-07-cyber-eval-incidents-08
+  - EV-anthropic-2026-08-improving-alignment-security-efforts-02
+  - EV-anthropic-2026-08-improving-alignment-security-efforts-04
+  - EV-anthropic-2026-08-improving-alignment-security-efforts-07
+  - EV-anthropic-2026-10-unintended-model-actions-01
+  - EV-anthropic-2026-10-unintended-model-actions-03
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-05
+  - EV-anthropic-2026-04-mythos-preview-system-card-05
+  - EV-ukaisi-2026-08-cyber-testing-incident-report-01
+  - EV-ukaisi-2026-08-cyber-testing-incident-report-02
+  - EV-ukaisi-2026-08-cyber-testing-incident-report-03
+  - EV-ukaisi-2026-08-cyber-testing-incident-report-08
+  - EV-openai-2026-08-hugging-face-incident-report-01
+  - EV-openai-2026-08-hugging-face-incident-report-03
+  - EV-openai-2026-08-hugging-face-incident-report-05
+  - EV-openai-2026-08-hugging-face-incident-report-06
+  - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-01
+  - EV-openai-2026-09-gpt-6-astra-system-card-12
+incidents:
+  - INC-2026-anthropic-cyber-eval-internet-access
+  - INC-2026-ukaisi-cyber-testing-live-internet
+  - INC-2026-anthropic-unintended-actions-in-evals
+  - INC-2026-openai-hugging-face-sandbox-escape

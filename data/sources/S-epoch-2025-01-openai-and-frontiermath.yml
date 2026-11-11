@@ -1,0 +1,154 @@
+id: S-epoch-2025-01-openai-and-frontiermath
+title: Clarifying the creation and use of the FrontierMath benchmark
+publisher: Epoch AI
+authors: [Tamay Besiroglu, Jaime Sevilla]
+published: 2025-01-23
+url: https://epoch.ai/blog/openai-and-frontiermath
+type: incident_report
+vantage: first_party
+labs: [OpenAI]
+summary: >-
+  Epoch AI's own account of the FrontierMath disclosure problem. OpenAI commissioned and owns
+  the 300 problems and can see problems and solutions apart from a holdout set; Epoch needed
+  OpenAI's permission to disclose the relationship, disclosed the sponsorship only ahead of the
+  o3 announcement, and disclosed the ownership and data-access terms only in this post, after
+  contributors and researchers raised concerns.
+limits: >-
+  Written by the benchmark's builder about its own conduct; the contract is not published. The
+  post does not say who first raised the issue, whether OpenAI used the problems in training or
+  model selection, or what assurances OpenAI gave. It does not give the date of the o3
+  announcement. "First party" here means the benchmark builder, not the model developer.
+evidence:
+  - id: EV-epoch-2025-01-openai-and-frontiermath-01
+    claim: >-
+      OpenAI commissioned the 300 problems at the core of FrontierMath, owns them, and has access
+      to the problems and solutions apart from a holdout set.
+    quote: >-
+      OpenAI commissioned Epoch AI to produce 300 advanced math problems for AI evaluation that
+      form the core of the FrontierMath benchmark. As is typical of commissioned work, OpenAI
+      retains ownership of these questions and has access to the problems and solutions, with the
+      exception of a holdout set.
+    locator: List of facts, first item
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-tasks, T-eval-validity, T-eval-external]
+    note: >-
+      The developer whose model was scored on the benchmark could see the problems and solutions
+      outside a holdout set.
+
+  - id: EV-epoch-2025-01-openai-and-frontiermath-02
+    claim: >-
+      Epoch says it did not communicate the relationship with OpenAI clearly enough, and that
+      this led contributors, researchers and the public to raise questions and concerns.
+    quote: >-
+      However, we recognize we have not communicated clearly enough about the relationship between
+      FrontierMath and OpenAI, leading to questions and concerns among contributors, researchers,
+      and the public.
+    locator: Third paragraph
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-external]
+    note: >-
+      The problem surfaced through outside questions, not through Epoch's or OpenAI's own
+      disclosure process. The post does not name who raised it.
+
+  - id: EV-epoch-2025-01-openai-and-frontiermath-03
+    claim: >-
+      Many of the mathematicians who wrote the problems did not know an AI company sponsored the
+      work, although the agreement allowed Epoch to tell them.
+    quote: >-
+      Our agreement did not prevent us from disclosing to our contributors that this work was
+      sponsored by an AI company. Many contributors were unaware of these details, and our
+      communication with them should have been more systematic and transparent.
+    locator: List of facts, fourth item
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-tasks]
+    note: >-
+      People who wrote the benchmark's problems did not know an AI company sponsored the work.
+
+  - id: EV-epoch-2025-01-openai-and-frontiermath-04
+    claim: >-
+      Epoch needed OpenAI's permission to disclose its involvement. It asked before the benchmark
+      was announced in November 2024 and received permission only ahead of the o3 announcement.
+    quote: >-
+      Per our agreement, we needed OpenAI’s permission before publicly disclosing their
+      involvement. We requested this permission ahead of the benchmark announcement in November
+      2024. We received permission from OpenAI ahead of the o3 announcement, and updated our paper
+      and publicly announced the partnership.
+    locator: List of facts, fifth item
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2024-11
+    tasks: [T-eval-external]
+    note: >-
+      A contract term put disclosure in the sponsor's hands. The benchmark was public for a period
+      with the sponsorship undisclosed.
+
+  - id: EV-epoch-2025-01-openai-and-frontiermath-05
+    claim: >-
+      When Epoch announced the partnership it did not disclose the ownership and data-access
+      terms. It did so only in this later post.
+    quote: >-
+      At that point, we didn’t clarify the data access and ownership agreement with OpenAI. We are
+      doing this now.
+    locator: List of facts, fifth item
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-external]
+    note: >-
+      The post is dated 23 January 2025. From the November 2024 benchmark announcement to this
+      disclosure is about two and a half months; that span is my arithmetic.
+
+  - id: EV-epoch-2025-01-openai-and-frontiermath-06
+    claim: >-
+      Epoch was finalizing a 50-problem set for which OpenAI gets the statements but not the
+      solutions, so models can be tested on solutions no developer holds.
+    quote: >-
+      We are finalizing a 50-problem set for which OpenAI will only receive the problem statements
+      and not the solutions. This allows us to independently test OpenAI and other AI models on
+      solutions no AI developer has access to.
+    locator: List of facts, third item
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-tasks, T-eval-validity, T-eval-external]
+    note: >-
+      The post says "finalizing", so the holdout was not finished when this was written. That the
+      earlier results did not rest on a completed holdout is our inference.
+
+  - id: EV-epoch-2025-01-openai-and-frontiermath-07
+    claim: >-
+      Epoch may evaluate any model on the commissioned problems and publish the results, but
+      cannot share the questions and answers with anyone else without OpenAI's written permission.
+    quote: >-
+      Epoch AI is free to conduct and publish evaluations of any models using the FrontierMath
+      problem set commissioned by OpenAI. However, we cannot share the questions and answers with
+      other parties without written permission from OpenAI.
+    locator: List of facts, second item
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-external]
+    note: >-
+      Other developers and outside auditors cannot inspect the tasks without the consent of one
+      of the developers being measured.
+
+  - id: EV-epoch-2025-01-openai-and-frontiermath-08
+    claim: >-
+      Epoch commits to give contributors information on industry funding and data access before
+      they take part, and to disclose benchmark sponsorship and data-access agreements publicly.
+    quote: >-
+      Going forward, we will ensure all contributors have access to information about industry
+      funding and data access agreements before participating and proactively publicly disclose
+      benchmark sponsorship and data access agreements.
+    locator: Final paragraph
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-external]

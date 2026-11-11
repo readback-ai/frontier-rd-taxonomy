@@ -1,0 +1,60 @@
+{
+  "source_id": "S-anthropic-2026-10-unintended-model-actions",
+  "snapshot": {
+    "url": "https://www.anthropic.com/research/investigating-unintended-model-actions",
+    "final_url": "https://www.anthropic.com/research/investigating-unintended-model-actions",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "ed8c48ab19926a1d894117babae3e182fef8f713c993f033c2c514c637b45d25",
+    "text_sha256": "889d20dc0c67b59b4b177d4b0dbfeda6b5bc642fcc9e0e1d58ae9e81f182bcf6",
+    "text_chars": 19920
+  },
+  "quotes": {
+    "EV-anthropic-2026-10-unintended-model-actions-01": {
+      "quote_sha256": "3282200b010cc91deb2bb6169f06f797a09016fc7617cb2280e570538fe29afc",
+      "text_sha256": "889d20dc0c67b59b4b177d4b0dbfeda6b5bc642fcc9e0e1d58ae9e81f182bcf6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-unintended-model-actions-02": {
+      "quote_sha256": "c4533cb1e4fbfd75da9b2ee624e904569d0b46b3861131564eadef955772656d",
+      "text_sha256": "889d20dc0c67b59b4b177d4b0dbfeda6b5bc642fcc9e0e1d58ae9e81f182bcf6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-unintended-model-actions-03": {
+      "quote_sha256": "fbc84f93fa75353d112fc9ca98ac498ebdd2aa7b4b46c0790da677aab0c8c0e7",
+      "text_sha256": "889d20dc0c67b59b4b177d4b0dbfeda6b5bc642fcc9e0e1d58ae9e81f182bcf6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-unintended-model-actions-04": {
+      "quote_sha256": "b9e466321f27ecd9b038c681aa0cbfcdc26e7fd55d8a7ab87b897273bfd5966c",
+      "text_sha256": "889d20dc0c67b59b4b177d4b0dbfeda6b5bc642fcc9e0e1d58ae9e81f182bcf6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-unintended-model-actions-05": {
+      "quote_sha256": "8f320c6965075960cf01b692e797dfed6b8d1711055ceae592e3c2db5fe3f18c",
+      "text_sha256": "889d20dc0c67b59b4b177d4b0dbfeda6b5bc642fcc9e0e1d58ae9e81f182bcf6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-unintended-model-actions-06": {
+      "quote_sha256": "59a1a768e255d7fcf16ee4196a96c3b36a7a2b220273b58bf9126fa23e68da7e",
+      "text_sha256": "889d20dc0c67b59b4b177d4b0dbfeda6b5bc642fcc9e0e1d58ae9e81f182bcf6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-unintended-model-actions-07": {
+      "quote_sha256": "342facabb4e873278b396063df21d33c977c4621d7ac586d3df78af1c2d2990a",
+      "text_sha256": "889d20dc0c67b59b4b177d4b0dbfeda6b5bc642fcc9e0e1d58ae9e81f182bcf6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-unintended-model-actions-08": {
+      "quote_sha256": "adb83ae48455cb8bc8cb1a299bc968fea0727c8eab047bb8fe68bc379513c6b1",
+      "text_sha256": "889d20dc0c67b59b4b177d4b0dbfeda6b5bc642fcc9e0e1d58ae9e81f182bcf6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-unintended-model-actions-09": {
+      "quote_sha256": "25ec9c46a0fc506c9688197df373b26bcb6efe458811e4b2b91c00eb7bd96043",
+      "text_sha256": "889d20dc0c67b59b4b177d4b0dbfeda6b5bc642fcc9e0e1d58ae9e81f182bcf6",
+      "verified": "2026-11-11"
+    }
+  }
+}

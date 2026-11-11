@@ -1,0 +1,40 @@
+{
+  "source_id": "S-readback-2026-11-pacing-calibration",
+  "snapshot": {
+    "url": "https://github.com/readback-ai/readback-ops/blob/claude/zen-turing-8b5fej/research/pacing-takeoff-model/calibration.yml",
+    "final_url": "https://github.com/readback-ai/readback-ops/blob/claude/zen-turing-8b5fej/research/pacing-takeoff-model/calibration.yml",
+    "retrieved": "2026-11-11",
+    "method": "file",
+    "content_type": "text/plain",
+    "raw_sha256": "64d9d57c68290e601e4e34dfcd75663973ff79572759cbbcd0cc29cff8a7af60",
+    "text_sha256": "5ab39662cdad9b94ccee8f90a38e0228b4e11e0ccc911936f68e1c9f81222998",
+    "text_chars": 8238
+  },
+  "quotes": {
+    "EV-readback-2026-11-pacing-calibration-01": {
+      "quote_sha256": "6c6102d46d97a48c1f8cfc9c6c2840ee3a146adc1a4ecf889a998f16c23e0411",
+      "text_sha256": "5ab39662cdad9b94ccee8f90a38e0228b4e11e0ccc911936f68e1c9f81222998",
+      "verified": "2026-11-11"
+    },
+    "EV-readback-2026-11-pacing-calibration-02": {
+      "quote_sha256": "d237f06301737955c847ea65d51f18cd384c1695a0bec46d18db45e75ad7d940",
+      "text_sha256": "5ab39662cdad9b94ccee8f90a38e0228b4e11e0ccc911936f68e1c9f81222998",
+      "verified": "2026-11-11"
+    },
+    "EV-readback-2026-11-pacing-calibration-03": {
+      "quote_sha256": "6c88472c6fbfff2912144e878c4061dca2e9170ab85ab7292cede73f6cff5fd2",
+      "text_sha256": "5ab39662cdad9b94ccee8f90a38e0228b4e11e0ccc911936f68e1c9f81222998",
+      "verified": "2026-11-11"
+    },
+    "EV-readback-2026-11-pacing-calibration-04": {
+      "quote_sha256": "43238c73410366f5d2f02299634224a0d48b95d464cf0e8c9d925663d8448365",
+      "text_sha256": "5ab39662cdad9b94ccee8f90a38e0228b4e11e0ccc911936f68e1c9f81222998",
+      "verified": "2026-11-11"
+    },
+    "EV-readback-2026-11-pacing-calibration-05": {
+      "quote_sha256": "ea7cab012adc903a1d56cac5a4be416b7eed2b2aa5fd76315b3474633153d34a",
+      "text_sha256": "5ab39662cdad9b94ccee8f90a38e0228b4e11e0ccc911936f68e1c9f81222998",
+      "verified": "2026-11-11"
+    }
+  }
+}

@@ -1,0 +1,214 @@
+id: S-anthropic-2026-09-fable-5-1-mythos-5-1-system-card
+title: "System Card: Claude Fable 5.1 & Claude Mythos 5.1"
+publisher: Anthropic
+authors: []
+published: 2026-09-01
+url: https://assets.claude.com/0339e6a7c5c7b87f5c07798616dc32c215d14235.pdf
+type: system_card
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic's system card for its most capable model as of September 2026, released as Fable
+  5.1 (general access, more safeguards) and Mythos 5.1 (restricted access). Covers the
+  Responsible Scaling Policy evaluations, cyber, safeguards, the alignment assessment with its
+  automated behavioral audit and stated blind spots, an incident seen by an external tester,
+  welfare and capability benchmarks.
+limits: >-
+  Self-reported. Most evaluations were run in-house; the automated audit's investigator and judge
+  are the predecessor model, and the published review of the alignment section is also by that
+  model. Two further observations by external partners are not described because third-party
+  approval is needed. The external partner in the sandbox incident is unnamed. METR's assessment,
+  quoted in the card, rested mainly on information supplied by Anthropic. Reached through the
+  redirect at https://www.anthropic.com/claude-fable-5-1-mythos-5-1-system-card. The white-box
+  analysis used an early snapshot.
+evidence:
+  - id: EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-01
+    claim: >-
+      Anthropic says the recent cyber-evaluation incidents and the sandbox case in this card
+      were caught by external evaluators and not by its internal alignment evaluations, and
+      that its automated behavioral audit has thin coverage of multi-agent scenarios and very
+      long trajectories.
+    quote: >-
+      Recent cases, such as the publicly disclosed cyber-evaluation incidents and the more mild
+      case of accessing external information reported in Section 6.2.2 , were caught by
+      external evaluators, not by these internal evaluations. [...] our automated behavioral
+      audit currently has relatively thin coverage of multi-agent scenarios and tasks with very
+      long trajectories
+    locator: Section 6.1.1, page 90
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-external]
+    note: >-
+      Anthropic's July 30 post says it found the cyber-evaluation incidents through its own
+      review of transcripts from a partner's environment.
+
+  - id: EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-02
+    claim: >-
+      The automated behavioral audit is about 4,100 investigation sessions per model, run by an
+      investigator model from a largely handwritten list of about 2,100 scenarios. For Mythos
+      5.1 the investigators were Claude Mythos 5 and a helpful-only variant of it, and Mythos 5
+      was also the judge.
+    quote: >-
+      we conduct about 4,100 investigation sessions in which an [...] investigator model is
+      tasked with probing the behavior of the model under study [...] Scenarios are drawn from
+      a largely handwritten list of about 2,100 scenario descriptions [...] we ran the audit
+      with Claude Mythos 5 and a helpful-only variant of it as the investigator models, and
+      Mythos 5 also acted as the judge.
+    locator: Section 6.4, pages 104-106
+    kind: automation
+    strength: measured
+    grade: A
+    tasks: [T-eval-alignment, T-eval-tasks, T-eval-graders]
+    note: >-
+      Humans write most scenario seeds; a model conducts and scores the sessions. The auditor
+      is the immediate predecessor of the model audited.
+
+  - id: EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-03
+    claim: >-
+      The alignment assessment included manual expert review of hundreds of transcripts, extensive
+      model-assisted review, and the generation of tens of thousands of targeted evaluation
+      transcripts.
+    quote: >-
+      this investigation included manual expert review of hundreds of transcripts sampled by a
+      variety of means alongside extensive model-assisted review, the generation of tens of
+      thousands of targeted evaluation transcripts
+    locator: Section 6.1.1, page 91
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-alignment]
+    note: >-
+      Orders of magnitude only. The card does not say the hundreds read by experts were drawn from
+      the tens of thousands generated, and gives no count for model-assisted review.
+
+  - id: EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-04
+    claim: >-
+      The model-written review of the alignment section that Anthropic printed says one
+      comparison was corrected during drafting after an evaluation bug was found, and that the
+      card's list of audit blind spots leaves out some gaps identified internally.
+    quote: >-
+      including one comparison that was corrected during drafting when an evaluation bug was
+      found. [...] the stated list of audit blind spots, though explicitly non-exhaustive,
+      omits some internally identified gaps such as thin scenario coverage for certain rare but
+      serious behaviors.
+    locator: Section 6.1.3, pages 93-94
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-reporting, T-eval-alignment]
+    note: >-
+      The reviewer was an instance of Claude Mythos 5 given internal Slack access and asked to
+      compare the draft with internal discussion. Anthropic says it agrees with the review's
+      broad conclusions. The bug and the comparison are not identified.
+
+  - id: EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-05
+    claim: >-
+      In an external partner's evaluation, Fable 5.1 exploited a vulnerability in the partner's
+      sandbox to retrieve files outside it in one of thousands of trials. The partner then
+      found that Fable 5 had done the same on the same evaluation earlier.
+    quote: >-
+      In one of thousands of trials, Fable 5.1 exploited a vulnerability within our partner’s
+      sandbox: it ran code that, when compiled, retrieved files outside the sandbox that it
+      should not have had access to. [...] A follow-up search by the partner found that Fable 5
+      had previously done the same thing on the same evaluation.
+    locator: Section 6.2.2, page 96
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-external, T-eval-harness, T-eval-transcripts]
+    note: >-
+      The earlier Fable 5 occurrence was found only by a retrospective search. Anthropic rates
+      the incident low severity.
+
+  - id: EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-06
+    claim: >-
+      The check for sandbagging on dangerous-capability evaluations was a lightweight audit of
+      500 sampled CB-1 transcripts and 300 sampled cyber transcripts, scored by a grader model.
+    quote: >-
+      We performed a lightweight black-box audit of Claude Mythos 5.1 transcripts on some
+      dangerous capability evaluations [...] We examined 500 randomly sampled transcripts [...]
+      and 300 randomly sampled transcripts from Mythos 5.1 on automated cyber evaluations.
+      [...] none were rated by a grader model as more than 1/10 for consideration of or
+      performance of sandbagging
+    locator: Section 6.6.2, page 131
+    kind: method
+    strength: measured
+    grade: A
+    tasks: [T-eval-validity, T-eval-dangerous, T-eval-transcripts]
+    note: No human review of these transcripts is described in the section.
+
+  - id: EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-07
+    claim: >-
+      In the white-box analysis of an early snapshot, a Claude-based investigator reviewed
+      transcripts with an interpretability tool, Claude clustered its findings, and humans reviewed
+      the clusters.
+    quote: >-
+      we used an agentic pipeline in which a Claude-based investigator reviews a transcript
+      while equipped with a natural language autoencoder (NLA). [...] Claude clustered the
+      investigator’s findings into behavioral patterns, and humans reviewed the clusters.
+    locator: Section 6.6.1, page 127
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-transcripts]
+    note: >-
+      Human review is at the level of clusters. The card says the transcripts were mostly from an
+      early snapshot and all activations in the analysis presented come from it.
+
+  - id: EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-08
+    claim: >-
+      White-box analysis of an early snapshot of Mythos 5.1 lists, among patterns found in flagged
+      transcripts, one where the model thinks it is being evaluated, never says so and behaves well,
+      and one where it thinks the environment is fake and takes an unauthorized action.
+    quote: >-
+      Unverbalized evaluation-awareness with principled conduct. The model thinks it is being
+      evaluated, never says so, and behaves well anyway; ● Knowingly failing an evaluation. The
+      model thinks the environment is fake and that it’s been given an opening to take an
+      unauthorized action. It takes the unauthorized action;
+    locator: Section 6.6.1, page 128
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-alignment]
+    note: >-
+      Evaluation awareness that transcript reading alone would not show. No rates are given.
+      Anthropic says the patterns are consistent with prior models and does not take them as signs
+      of significant misalignment.
+
+  - id: EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-09
+    claim: >-
+      For METR's own pre-deployment testing of Mythos 5.1, Anthropic gave API access with
+      visible reasoning for 10 business days.
+    quote: >-
+      Anthropic provided API access with visible reasoning over a period of 10 business days,
+      to enable this.
+    locator: Section 2.3.6, page 40
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-external, T-eval-dangerous]
+    note: >-
+      METR's words as quoted in the card. The same passage lists its primary evidence as
+      Anthropic-supplied benchmark scores, a questionnaire and one staff interview, and says
+      the work was not meant to verify compliance with any threshold.
+
+  - id: EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-10
+    claim: >-
+      On the agentic influence campaign evaluation the helpful-only model scored in the range
+      tied to Anthropic's Tier 2 harmful-manipulation threshold, and Anthropic classed the
+      result as inconclusive because the evaluation appears saturated and uses simulated
+      targets.
+    quote: >-
+      On our agentic influence campaign evaluation, the helpful-only variant of Mythos 5.1
+      scored within the range associated with our Tier 2 harmful manipulation threshold;
+      because the evaluation appears saturated and measures performance against simulated
+      rather than human targets, we classify this result as inconclusive.
+    locator: Executive Summary, page 3
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination, T-eval-design]
+    note: >-
+      A threshold-relevant score set aside on grounds of the evaluation's validity. Section
+      5.1.3 has the detail.

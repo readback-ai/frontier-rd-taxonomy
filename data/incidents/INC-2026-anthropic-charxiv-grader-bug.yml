@@ -1,0 +1,72 @@
+id: INC-2026-anthropic-charxiv-grader-bug
+title: Harness bugs misgraded correct answers and capped context, and a published score was revised a week later
+org: Anthropic
+frontier: true
+occurred: 2026-04
+disclosed: 2026-04-14
+summary: >-
+  A bug in Anthropic's evaluation harness made the automated grader mark some correct Claude
+  Opus 4.6 answers on CharXiv Reasoning as wrong. The published no-tools score was revised from
+  61.5% to 69.1% in a changelog entry a week after the system card. A second harness bug ran
+  evaluations with a 200k context for models with a 1M context, and the AI R&D evaluations for
+  Opus 4.6 were re-run.
+root_cause: Harness bugs. The system card gives no further cause and does not say how long either had been present
+detected_by: Not stated
+detection_latency: One week from the card's publication to the correction; how long the bugs predated it is not stated
+automation_involved: unknown
+comprehension_failure: unknown
+comprehension_note: >-
+  The card does not say who wrote the harness code or how the bugs were found. The affected
+  figures were for a comparison model, and Anthropic says prior determinations are unaffected.
+tasks: [T-eval-graders, T-eval-harness, T-eval-reporting]
+risks:
+  - R-eval-model-grader-unchecked
+  - R-eval-reporting-outruns-evidence
+  - R-eval-under-elicitation
+evidence:
+  - EV-anthropic-2026-04-mythos-preview-system-card-09
+  - EV-anthropic-2026-04-mythos-preview-system-card-10
+backtest:
+  - question: Q-eval-graders-04
+    verdict: might_surface
+    rationale: >-
+      If the honest answer was that nobody had read this run's fail verdicts, it shows the gap, and
+      reading them would probably have found correct answers marked wrong. The record does not say
+      what had been read.
+  - question: Q-eval-graders-02
+    verdict: might_surface
+    rationale: >-
+      A blind human-labeled sample of the Opus 4.6 outputs would have shown the misgrading. An
+      honest team could also report a sound agreement figure taken before the bug entered, and the
+      record does not say when it entered.
+  - question: Q-eval-harness-04
+    verdict: might_surface
+    rationale: >-
+      A team that believed the 1M context was in use would honestly say context does not bind. The
+      200k default comes out only if the reviewer asks whether anyone counted runs ending on the
+      limit, and Anthropic found this bug itself during the evaluations.
+  - question: Q-eval-reporting-07
+    verdict: might_surface
+    rationale: >-
+      The published error was a grading fault, so an honest and correct account of tools, attempts
+      and context leaves the misgraded 61.5% in place. Only the 200k context default is within
+      reach, if someone compares run records with the intended setting, and Anthropic found that one
+      itself during the evaluations.
+  - question: Q-eval-reporting-04
+    verdict: would_not_surface
+    rationale: >-
+      A reviewer of the section reads claims and tables, where a comparison model's misgraded score
+      looks like any other number. The team could name independent reviewers and the bug would still
+      be there.
+  - question: Q-eval-graders-06
+    verdict: would_not_surface
+    rationale: >-
+      The team could list every rubric and threshold change correctly. The fault was a harness bug,
+      which is neither, and nobody knew of it.
+  - question: Q-eval-harness-09
+    verdict: would_not_surface
+    rationale: >-
+      The question lists controls: monitoring, alerts, network policy and their tests. The bugs were
+      in grading and in a context default, and the record does not say how they entered or that an
+      agent wrote the code, so an author unaware of them would truthfully answer that no control was
+      touched.

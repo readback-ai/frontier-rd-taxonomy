@@ -1,0 +1,44 @@
+id: R-eval-external-limited-view
+title: An outside evaluation's conclusion inherits limits of access, time and independence the reader cannot see
+tasks: [T-eval-external, T-eval-reporting]
+failure_mode: >-
+  The outside party sees what it is shown, for as long as it is given, through the developer's
+  staff, and publishes what the developer approves. Its conclusion rests on developer-supplied
+  scores. Most of what it found informative is redacted. The result is cited as independent
+  confirmation.
+harm_path: false_assurance
+mechanisms: [time_pressure, accountability_diffusion, correlated_error]
+automation_effect: >-
+  The developer's model is deeply involved in most of the data collection handed to the reviewer and
+  in most of the reviewer's own analysis. External testers get days: three for one model's deception
+  testing, ten business days for two others. That does not grow as models and their internal use
+  grow. The things that matter most as automation rises, such as whether models evade internal
+  monitoring, cannot be checked from outside at all.
+review_catchable: partly
+review_rationale: >-
+  A reviewer can ask what access was given and denied, what was redacted, what the contract lets
+  the developer control and how much of the analysis the developer's model did. That exposes an
+  overstated claim of independence. It does not supply the access.
+severity: high
+status: observed_frontier
+evidence:
+  - EV-epoch-2025-01-openai-and-frontiermath-01
+  - EV-epoch-2025-01-openai-and-frontiermath-04
+  - EV-epoch-2025-01-openai-and-frontiermath-07
+  - EV-metr-2026-11-anthropic-rd-acceleration-01
+  - EV-metr-2026-11-anthropic-rd-acceleration-02
+  - EV-metr-2026-11-anthropic-rd-acceleration-10
+  - EV-metr-2026-11-anthropic-rd-acceleration-12
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-08
+  - EV-metr-2026-06-gpt-5-6-sol-predeployment-05
+  - EV-metr-2026-06-gpt-5-6-sol-predeployment-07
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-01
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-07
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-09
+  - EV-metr-2026-05-frontier-risk-report-12
+  - EV-openai-2026-09-gpt-6-astra-system-card-11
+  - EV-gdm-2026-10-gemini-4-argon-safety-report-09
+  - EV-gdm-2026-10-gemini-4-argon-safety-report-10
+  - EV-xai-2026-04-grok-4-20-system-card-04
+incidents:
+  - INC-2025-epoch-frontiermath-disclosure

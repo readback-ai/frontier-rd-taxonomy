@@ -1,0 +1,55 @@
+{
+  "source_id": "S-nist-2025-12-caisi-cheating-examples",
+  "snapshot": {
+    "url": "https://www.nist.gov/caisi/cheating-ai-agent-evaluations/2-examples-cheating-caisis-agent-evaluations",
+    "final_url": "https://www.nist.gov/caissi/2-examples-cheating-caisis-agent-evaluations",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=UTF-8",
+    "raw_sha256": "e13a29af6b61d49474ae47c194a8528a3a0de52318dc8332783897c77281858b",
+    "text_sha256": "813bc4bc8f0ef275c6ca6331f84943fa94c4e82e9f607c2349dc215325bcf37b",
+    "text_chars": 16013
+  },
+  "quotes": {
+    "EV-nist-2025-12-caisi-cheating-examples-01": {
+      "quote_sha256": "796af8f4e9ee96bcb6a72e9df30f49a547e53062f6119f1e5ec2aa319e6a4472",
+      "text_sha256": "813bc4bc8f0ef275c6ca6331f84943fa94c4e82e9f607c2349dc215325bcf37b",
+      "verified": "2026-11-11"
+    },
+    "EV-nist-2025-12-caisi-cheating-examples-02": {
+      "quote_sha256": "ed3ca5d6fb4a14a491976e89fbb6f43220dbc7345022e9e76ff8a97af0a8a632",
+      "text_sha256": "813bc4bc8f0ef275c6ca6331f84943fa94c4e82e9f607c2349dc215325bcf37b",
+      "verified": "2026-11-11"
+    },
+    "EV-nist-2025-12-caisi-cheating-examples-03": {
+      "quote_sha256": "97f3fbbce7b677da79d464191aae36cad41976bba723cd142912303a634d4047",
+      "text_sha256": "813bc4bc8f0ef275c6ca6331f84943fa94c4e82e9f607c2349dc215325bcf37b",
+      "verified": "2026-11-11"
+    },
+    "EV-nist-2025-12-caisi-cheating-examples-04": {
+      "quote_sha256": "61371bea2b34626c945aae3edafe7e123612ffd6060a33388bb81c699ac091bb",
+      "text_sha256": "813bc4bc8f0ef275c6ca6331f84943fa94c4e82e9f607c2349dc215325bcf37b",
+      "verified": "2026-11-11"
+    },
+    "EV-nist-2025-12-caisi-cheating-examples-05": {
+      "quote_sha256": "24cd9390a8b1420f994be391b55ac491a7f803786944e28d6b126b7a18e9be1d",
+      "text_sha256": "813bc4bc8f0ef275c6ca6331f84943fa94c4e82e9f607c2349dc215325bcf37b",
+      "verified": "2026-11-11"
+    },
+    "EV-nist-2025-12-caisi-cheating-examples-06": {
+      "quote_sha256": "be32ffcc569f07ff524956c2e887001b6af77b99842e35e5666283bf8ba58d5b",
+      "text_sha256": "813bc4bc8f0ef275c6ca6331f84943fa94c4e82e9f607c2349dc215325bcf37b",
+      "verified": "2026-11-11"
+    },
+    "EV-nist-2025-12-caisi-cheating-examples-07": {
+      "quote_sha256": "89c3e15dd49d4e7cb43fbdd561f8579aa7b66b450d2946edc015f4cc37bdbc74",
+      "text_sha256": "813bc4bc8f0ef275c6ca6331f84943fa94c4e82e9f607c2349dc215325bcf37b",
+      "verified": "2026-11-11"
+    },
+    "EV-nist-2025-12-caisi-cheating-examples-08": {
+      "quote_sha256": "efa7f2e03b6d0dfbd44f38976a12dc31bc5f5bac3493744fa6cc77c577cc1045",
+      "text_sha256": "813bc4bc8f0ef275c6ca6331f84943fa94c4e82e9f607c2349dc215325bcf37b",
+      "verified": "2026-11-11"
+    }
+  }
+}

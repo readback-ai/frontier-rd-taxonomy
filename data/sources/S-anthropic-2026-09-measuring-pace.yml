@@ -1,0 +1,214 @@
+id: S-anthropic-2026-09-measuring-pace
+title: Measurements for understanding the pace of AI development inside frontier labs
+publisher: Anthropic
+authors: [Marina Favaro, Phillie Wright]
+published: 2026-09
+url: https://www.anthropic.com/institute/measuring-pace-of-ai-development
+type: lab_measurement_report
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic's prototype measurements of how much of its AI R&D Claude performs (the R&D
+  Automation Index, on Epoch's automation levels), how agent actions on its internal platform
+  are monitored, and how its compute splits between safety and other R&D.
+limits: >-
+  Self-reported. The automation ratings are assigned by a Claude judge from evidence gathered by
+  Claude agents; staff ratings were used as a check. The task list and person-time weights were
+  extracted by Claude from Slack and documents of a 20% staff sample, and the tree itself is not
+  published. The oversight figures cover the most-used internal platform only. The compute split
+  covers one week and was sorted by a Claude classifier on about 14% of runs, using best-effort
+  labels. The page carries no date. Nothing here measures whether staff understand the work.
+evidence:
+  - id: EV-anthropic-2026-09-measuring-pace-01
+    claim: >-
+      In August 2026 Claude led (AL4) 26% of Anthropic's AI R&D work, more than 90% was at AL3 or
+      above, and none was fully autonomous (AL5).
+    quote: >-
+      Claude is not operating fully autonomously for any measured subset of AI R&D work. Claude
+      “leads” 26% of Anthropic’s AI R&D work. The share of work at or above “AI collaborates” is
+      above 90%.
+    locator: Section 1, What we found
+    kind: automation
+    strength: measured
+    grade: A
+    describes: 2026-08
+    tasks: [T-eval]
+    note: Whole-company figure. No breakdown by task area is published.
+
+  - id: EV-anthropic-2026-09-measuring-pace-02
+    claim: >-
+      Anthropic built a frozen tree of 542 model R&D task categories, 378 of them leaves, from
+      about 15,000 tasks that Claude agents extracted from a 20% weekly staff sample in July 2026.
+      One named leaf is evaluation platform defect diagnosis and fixes.
+    quote: >-
+      we randomly sampled 20% of staff from each department that make up the model R&D loop. [...]
+      gives us a flat list of ~15,000 granular model R&D tasks. [...] The resulting tree has 542
+      nodes at different depths, of which 378 are leaves like “eval platform defect diagnosis and
+      fixes,” “RL sandbox egress and network policy,” and “serving incident postmortems.”
+    locator: Appendix, Measuring AI-led R&D
+    kind: method
+    strength: measured
+    grade: A
+    describes: 2026-07
+    tasks: [T-eval-harness]
+
+  - id: EV-anthropic-2026-09-measuring-pace-03
+    claim: >-
+      Task weights in the Automation Index are person-time: each sampled person's week is split
+      evenly across the tasks they worked on.
+    quote: >-
+      Each person gets one unit of weight per week, split evenly across the tasks they worked on
+      that week.
+    locator: Appendix, Measuring AI-led R&D
+    kind: method
+    strength: reported
+    grade: B
+    describes: 2026-07
+    note: >-
+      A weighting rule, not a measured quantity. It implies a person-time weight exists for each
+      leaf inside Anthropic; that reading is ours, and no weights are published.
+
+  - id: EV-anthropic-2026-09-measuring-pace-04
+    claim: >-
+      The automation level of each task category was assigned by a Claude judge reading evidence
+      gathered by a Claude agent. Exact agreement with staff ratings was 59%, against 35% between
+      staff, and 97% were within one level.
+    quote: >-
+      Our judge model agreed with humans about as often as humans agreed with each other
+      (model-versus-human exact agreement was 59%, human-versus-human was 35%), and model and human
+      ratings were within one level of each other 97% of the time.
+    locator: Appendix, What this does and doesn't capture
+    kind: method
+    strength: measured
+    grade: A
+    tasks: [T-eval-graders]
+    note: >-
+      A measurement of automation that is itself automated, validated against human labels that
+      agree with each other only 35% of the time.
+
+  - id: EV-anthropic-2026-09-measuring-pace-05
+    claim: >-
+      Anthropic names, as an obstacle to comparing its automation measure across developers, that
+      its judge model could make the same kinds of errors as the model it is checking.
+    quote: >-
+      we’re using our own models to evaluate our systems, which could mean that the “judge” model
+      could make the same kinds of errors as the model it is checking.
+    locator: Section 1, What any AI developer could report today
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders]
+
+  - id: EV-anthropic-2026-09-measuring-pace-06
+    claim: >-
+      In Anthropic's illustrative example of AL4, the engineer reads the agent's write-up, skims the
+      change and decides whether it ships. In its example of AL3, the engineer might review the
+      change line by line.
+    quote: >-
+      Once the tests passed, the engineer might review the change line by line, rerun the pipeline
+      themselves, and deploy it. [...] Instead it would tag the engineer, who would read the
+      write-up, skim the change, maybe ask a few questions, and decide whether it ships tonight or
+      waits.
+    locator: Footnote 1
+    kind: oversight
+    strength: reported
+    grade: B
+    note: >-
+      From a hypothetical illustration of the levels on a routine infrastructure task. It shows the
+      depth of review Anthropic associates with each level. It is not a measurement of practice.
+
+  - id: EV-anthropic-2026-09-measuring-pace-07
+    claim: >-
+      About 30,000 agents were doing research and engineering work at any one time on Anthropic's
+      most-used internal platform in August 2026.
+    quote: >-
+      As of August 2026, there were approximately 30,000 agents doing research and engineering work
+      at Anthropic at any one time in our most-used internal platform.
+    locator: Section 2, What we found
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-08
+
+  - id: EV-anthropic-2026-09-measuring-pace-08
+    claim: >-
+      On Anthropic's most-used internal agent platform, the offline monitor flags roughly 100,000
+      transcripts a week. Classifiers resolve most, and about 50 a week are escalated to human
+      review.
+    quote: >-
+      The monitor flags roughly 100,000 transcripts per week that are then reviewed by multiple
+      classifiers for false-positives and initial oversight review. Most of the flags are resolved
+      by this process, and the highest priority flags (approximately ~50 per week) are escalated to
+      human review.
+    locator: Section 2, table, Review latency
+    kind: oversight
+    strength: measured
+    grade: A
+    describes: 2026-08
+    tasks: []
+    note: >-
+      Human review is about 1 in 2,000 of flagged transcripts; the rest is model review. The
+      platform carries agents' research and engineering work, not evaluation runs, so no evaluation
+      task is tagged.
+
+  - id: EV-anthropic-2026-09-measuring-pace-09
+    claim: >-
+      Anthropic says developers should report how often monitors catch known agent misbehavior and
+      have third parties test it, and that METR has red-teamed its offline monitoring.
+    quote: >-
+      Developers should share how often known agent misbehavior is caught by monitors, and should
+      have third parties do this kind of testing independently.
+    locator: Section 2, What an AI developer could report today
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-safeguards, T-eval-external]
+    note: The report gives coverage, latency and escalation rate. It gives no recall figure.
+
+  - id: EV-anthropic-2026-09-measuring-pace-10
+    claim: >-
+      Anthropic ran almost 10,000 research training and evaluation runs in the measured week of
+      July 2026.
+    quote: >-
+      Rather than classify all of the week’s almost 10,000 runs, we sampled about 14% of them
+    locator: Appendix, Measuring compute allocation
+    kind: pace
+    strength: measured
+    grade: A
+    describes: 2026-07
+    tasks: [T-eval]
+    note: >-
+      The count mixes research training runs and evaluation runs.
+
+  - id: EV-anthropic-2026-09-measuring-pace-11
+    claim: >-
+      About 6% of Anthropic's AI R&D compute in one week of July 2026 was allocated toward safety,
+      and about 12% of the compute for AI-driven AI R&D.
+    quote: >-
+      Over the examined week, about 6% of compute that went to AI R&D was allocated toward safety,
+      and about 12% of compute that went to AI-driven AI R&D was allocated toward safety.
+    locator: Section 3, What we found
+    kind: share
+    strength: measured
+    grade: A
+    describes: 2026-07
+    tasks: [T-eval]
+    note: >-
+      Anthropic calls the estimate deliberately conservative: work that helps capability as much as
+      safety counts as AI R&D, and safeguards classifiers are excluded. A Claude classifier sorted
+      the workloads. Safety work includes evaluating whether a model can be safely deployed, with
+      interpretability and alignment research, so the figure bounds only the evaluation compute the
+      classifier labelled safety-dominant, not evaluation compute generally.
+
+  - id: EV-anthropic-2026-09-measuring-pace-12
+    claim: >-
+      Anthropic says it is hard to be sure its monitoring makes agent behavior legible to human
+      oversight at this scale.
+    quote: >-
+      it is hard to be certain we have a complete picture of all possible kinds of behaviors, or
+      that we are making these patterns adequately legible to human oversight.
+    locator: Appendix, Oversight of agents
+    kind: comprehension
+    strength: reported
+    grade: B
+    tasks: [T-eval-safeguards]

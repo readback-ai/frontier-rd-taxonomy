@@ -1,0 +1,96 @@
+task: T-eval-inloop
+contribution: >-
+  The evaluation results that justify promoting a training change or shipping a product change.
+questions:
+  - id: Q-eval-inloop-01
+    category: what
+    topical_area: key_findings
+    question: >-
+      What did this change improve, on which evaluations, and what does each of those evaluations
+      stand for?
+    good_answer_shows: >-
+      The property each metric is a proxy for, and where the proxy is known to be loose.
+    red_flags:
+      - The answer stops at the metric's name.
+      - '"The index went up."'
+    risks: [R-eval-inloop-metric-diverges]
+
+  - id: Q-eval-inloop-02
+    category: failure
+    topical_area: analysis_of_results
+    question: >-
+      What was this change not tested on? Is there an evaluation you have and did not run before
+      promoting it?
+    good_answer_shows: >-
+      A list of untested areas and a reason the narrower set was judged enough.
+    red_flags:
+      - '"No regressions in the evaluations we ran," with no account of which were not run.'
+      - A broader suite exists and is run only after complaints.
+    risks: [R-eval-inloop-metric-diverges, R-eval-suite-misses-behavior]
+
+  - id: Q-eval-inloop-03
+    category: dependency
+    topical_area: implementation_behavior
+    question: >-
+      Were the evaluations run on the configuration that ships or is used internally? Where do the
+      two differ?
+    good_answer_shows: >-
+      Knowledge of every difference between the tested and the deployed configuration: flags,
+      experiments, serving stack, system prompt.
+    red_flags:
+      - Staff builds differ from user builds and nobody tested the user build.
+      - Evaluations do not run against production systems.
+    risks: [R-eval-inloop-metric-diverges]
+
+  - id: Q-eval-inloop-04
+    category: failure
+    topical_area: analysis_of_results
+    question: >-
+      How large is run-to-run noise on these evaluations compared with the effect you are
+      claiming? How would an intermittent fault look in them?
+    good_answer_shows: >-
+      A noise estimate, and awareness that an end-result score hides faults the model recovers
+      from.
+    red_flags:
+      - A single run per condition.
+      - Reports of degradation are dismissed as normal variation without a test.
+    risks: [R-eval-inloop-metric-diverges]
+
+  - id: Q-eval-inloop-05
+    category: why
+    topical_area: process
+    question: >-
+      If this metric improved for a reason unrelated to what you care about, what would that
+      reason be, and what rules it out?
+    good_answer_shows: >-
+      At least one named alternative explanation, such as overfitting to the benchmark's task
+      type or a leak, and the check that addresses it.
+    red_flags:
+      - No alternative explanation has been considered.
+      - Every benchmark in the index is one the organization tunes against.
+    risks: [R-eval-inloop-metric-diverges, R-eval-contamination]
+
+  - id: Q-eval-inloop-06
+    category: provenance
+    topical_area: process
+    question: >-
+      Who looked at outputs, not scores, before this was promoted? How many, and how were they
+      chosen?
+    good_answer_shows: A person who read sampled outputs, with a count and a sampling rule.
+    red_flags:
+      - The person presenting the result points to an agent's thread and has not read it.
+      - Only the agent that ran the experiment has seen the outputs.
+    risks: [R-eval-transcripts-unread, R-eval-inloop-metric-diverges]
+
+  - id: Q-eval-inloop-07
+    category: side_effects
+    topical_area: key_findings
+    question: >-
+      What got worse with this change? Which safety-relevant behaviors were measured before and
+      after?
+    good_answer_shows: >-
+      A before-and-after on behaviors outside the target metric, including safety evaluations.
+    red_flags:
+      - Only the target metric was compared.
+      - Safety evaluations run at release and not on the change.
+    risks: [R-eval-inloop-metric-diverges]

@@ -1,0 +1,44 @@
+task: T-eval-harness
+estimates:
+  - id: EST-eval-harness-oversight-anthropic-2026-05
+    task: T-eval-harness
+    quantity: oversight_mode
+    scope: Anthropic
+    as_of: 2026-05
+    value: {kind: category, value: human_every_change}
+    basis: mixed
+    evidence:
+      - EV-metr-2026-05-frontier-risk-report-05
+      - EV-anthropic-2026-06-recursive-self-improvement-03
+      - EV-anthropic-2026-06-recursive-self-improvement-01
+      - EV-anthropic-2026-09-measuring-pace-06
+    reasoning: >-
+      Anthropic told METR that people review code before it enters shared codebases, and an
+      automated Claude reviewer reads every proposed change. That is the most favorable reading and
+      it is company-wide, not specific to evaluation code. Anthropic also calls human code review a
+      bottleneck, and its own illustration of AL4 has the engineer read the write-up and skim the
+      change, which falls short of review in substance. Treat this as an upper bound on oversight of
+      harness changes. No automation estimate is recorded for this leaf: the branch figure applies
+      and nothing task-specific was found.
+    confidence: low
+    stale_after: 2026-12-01
+
+  - id: EST-eval-harness-oversight-gdm-2026-09
+    task: T-eval-harness
+    quantity: oversight_mode
+    scope: Google DeepMind
+    as_of: 2026-09
+    value: {kind: category, value: human_every_change}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-02
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-03
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-13
+    reasoning: >-
+      Google DeepMind's report says code changes remain subject to human review before submission,
+      while agents write a majority of production code. Its risk assessment lists as an uncertainty
+      that this review could become more porous as engineers rely on agents to author large changes.
+      Company-wide and for production code; nothing specific to evaluation harnesses. As with
+      Anthropic, the depth of the human reading is not stated.
+    confidence: low
+    stale_after: 2027-03-01

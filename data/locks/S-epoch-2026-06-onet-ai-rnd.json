@@ -1,0 +1,60 @@
+{
+  "source_id": "S-epoch-2026-06-onet-ai-rnd",
+  "snapshot": {
+    "url": "https://epoch.ai/gradient-updates/toward-an-onet-for-ai-rnd",
+    "final_url": "https://epoch.ai/gradient-updates/toward-an-onet-for-ai-rnd",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html",
+    "raw_sha256": "55c282286ffdeb34d494c989e2763209dc7b4991c1d1d00bf6c8486a4d38c8a4",
+    "text_sha256": "d9676683bf4b1a51d39bd86cc299a8dcd8f4517a4204933fd176e19ecdf69a44",
+    "text_chars": 17759
+  },
+  "quotes": {
+    "EV-epoch-2026-06-onet-ai-rnd-01": {
+      "quote_sha256": "11090f024dd7165153727ffa4774ee3146d62d603a7642e7bb11822c3453d1a1",
+      "text_sha256": "d9676683bf4b1a51d39bd86cc299a8dcd8f4517a4204933fd176e19ecdf69a44",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-06-onet-ai-rnd-02": {
+      "quote_sha256": "615ddba4cfc9d566cf06357dd42b96c5316f67331194c21e2b3bc0d5942d0944",
+      "text_sha256": "d9676683bf4b1a51d39bd86cc299a8dcd8f4517a4204933fd176e19ecdf69a44",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-06-onet-ai-rnd-03": {
+      "quote_sha256": "7e8816da5bf899d5db5f8a1340ee46fc0a1c0ef920048199357612a827878ca3",
+      "text_sha256": "d9676683bf4b1a51d39bd86cc299a8dcd8f4517a4204933fd176e19ecdf69a44",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-06-onet-ai-rnd-04": {
+      "quote_sha256": "648ade5bd3c91412ab30d87288edaa43d7b42b7ff7e25dcfc0688b3f4911ac04",
+      "text_sha256": "d9676683bf4b1a51d39bd86cc299a8dcd8f4517a4204933fd176e19ecdf69a44",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-06-onet-ai-rnd-05": {
+      "quote_sha256": "1bda456c271176cf19930f74ea0ad0eba72a5bfd3381c7c6af57ad7f02c790c5",
+      "text_sha256": "d9676683bf4b1a51d39bd86cc299a8dcd8f4517a4204933fd176e19ecdf69a44",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-06-onet-ai-rnd-06": {
+      "quote_sha256": "dad561fa5fe84b88c905eb1298f7e53b396ffd6548445a2660debd26f72c5eae",
+      "text_sha256": "d9676683bf4b1a51d39bd86cc299a8dcd8f4517a4204933fd176e19ecdf69a44",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-06-onet-ai-rnd-07": {
+      "quote_sha256": "87b4c4e209c34ba25e575c0aba06d8542bfac3029b69e5632e9ba49242ae4c82",
+      "text_sha256": "d9676683bf4b1a51d39bd86cc299a8dcd8f4517a4204933fd176e19ecdf69a44",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-06-onet-ai-rnd-08": {
+      "quote_sha256": "5e0346f3b6e93bc27037d3e9ca16f3241c7ce110845d5cd2f1382c926e780a93",
+      "text_sha256": "d9676683bf4b1a51d39bd86cc299a8dcd8f4517a4204933fd176e19ecdf69a44",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-06-onet-ai-rnd-09": {
+      "quote_sha256": "78963d97ffd77d54aefb3bf62daa51a0d81a359f3b3aaad64168f3279e222436",
+      "text_sha256": "d9676683bf4b1a51d39bd86cc299a8dcd8f4517a4204933fd176e19ecdf69a44",
+      "verified": "2026-11-11"
+    }
+  }
+}

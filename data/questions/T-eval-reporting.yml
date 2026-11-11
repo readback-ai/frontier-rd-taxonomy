@@ -1,0 +1,104 @@
+task: T-eval-reporting
+contribution: >-
+  A section of a system card or risk report: what was tested, what was found and what the
+  developer concludes.
+questions:
+  - id: Q-eval-reporting-01
+    category: what
+    topical_area: key_findings
+    question: >-
+      For this section's main claim: what did a person examine directly, and what was taken from a
+      summary a model produced?
+    good_answer_shows: >-
+      The line between first-hand examination and model-mediated evidence, for each support of
+      the claim.
+    red_flags:
+      - The authors read summaries of evidence they could not read in full and the section does
+        not say so.
+      - Nobody can say who looked at the underlying results.
+    risks: [R-eval-reporting-outruns-evidence]
+
+  - id: Q-eval-reporting-02
+    category: failure
+    topical_area: analysis_of_results
+    question: >-
+      What would have to be true for this claim to be wrong, and what in the report bears on that?
+    good_answer_shows: >-
+      A specific way the claim could fail and the evidence, or lack of it, against that.
+    red_flags:
+      - The claim is restated.
+      - The report's own printed review says the discussion is more reassuring than the record
+        supports.
+    risks: [R-eval-reporting-outruns-evidence]
+
+  - id: Q-eval-reporting-03
+    category: dependency
+    topical_area: process
+    question: >-
+      What does the internal version say that the public one does not? Which qualifications were
+      dropped?
+    good_answer_shows: >-
+      Knowledge of each difference and a reason, with no difference that changes the reader's
+      conclusion.
+    red_flags:
+      - A figure is rounded in the direction that favors the conclusion.
+      - A caveat present internally is absent publicly.
+    evidence_to_request: The internal and public versions side by side.
+    risks: [R-eval-reporting-outruns-evidence, R-eval-external-limited-view]
+
+  - id: Q-eval-reporting-04
+    category: provenance
+    topical_area: process
+    question: >-
+      Who reviewed this section before publication? If a model did, which model, with what access,
+      for how long, and how is it related to the model the section is about?
+    good_answer_shows: >-
+      Named reviewers independent of the authors, and a model review treated as an addition to
+      human review.
+    red_flags:
+      - The only review printed is by the model the section assesses.
+      - The review took minutes.
+    risks: [R-eval-reporting-outruns-evidence, R-eval-model-grader-unchecked]
+
+  - id: Q-eval-reporting-05
+    category: why
+    topical_area: process
+    question: >-
+      Which statements here were written under a deadline before the analysis was finished? How
+      are they marked?
+    good_answer_shows: >-
+      Preliminary statements labeled as such, with what remains to be done.
+    red_flags:
+      - A strong claim about cause or intent was made within days of discovery.
+      - A later document withdraws the claim.
+    risks: [R-eval-reporting-outruns-evidence]
+
+  - id: Q-eval-reporting-06
+    category: side_effects
+    topical_area: key_findings
+    question: >-
+      What was corrected in the last report after publication, and what does that say about this
+      one?
+    good_answer_shows: >-
+      The corrections known, their causes, and a change made so the same cause does not recur.
+    red_flags:
+      - Earlier documents omitted something already in place and this one was written the same
+        way.
+      - Corrections are appended as dated notes and not followed up.
+    risks: [R-eval-reporting-outruns-evidence]
+
+  - id: Q-eval-reporting-07
+    category: dependency
+    topical_area: analysis_of_results
+    question: >-
+      For each headline number: what configuration produced it (tools, attempts, context, snapshot),
+      and was it the same for the models it is compared with? Who checked?
+    good_answer_shows: >-
+      The configuration behind each number, confirmed against the run records by someone other than
+      whoever produced it, with any difference from the comparison models stated beside the number.
+    red_flags:
+      - A score came from an outside tester and was printed as received.
+      - One model was run with a tool the comparison models did not have.
+      - Nobody can say which of several metrics the published figure is.
+    evidence_to_request: The run configuration for each published number and its comparators.
+    risks: [R-eval-reporting-outruns-evidence, R-eval-under-elicitation]

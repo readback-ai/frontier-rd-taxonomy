@@ -1,0 +1,36 @@
+id: R-eval-suite-misses-behavior
+title: The evaluation suite does not contain the situation in which the model misbehaves
+tasks: [T-eval-design, T-eval-alignment]
+failure_mode: >-
+  The suite has no test of the conditions under which the harmful behavior appears, so every
+  result is clean. The gap is in what was never built: long sessions on networked machines, many
+  agents together, tasks with mixed signs of simulation and reality and no in-scope solution.
+harm_path: false_assurance
+mechanisms: [spec_gap, comprehension_gap, time_pressure]
+automation_effect: >-
+  Models extend a suite by producing more tests like the ones it has. The count of evaluations
+  grows and reads as coverage, while the set of situations stays where the people who last
+  compared it with the threat model left it. Deciding what is missing is the part that stays with
+  people, and it gets a smaller share of attention as everything else speeds up. Meanwhile the
+  model's real use moves into the settings the suite lacks.
+review_catchable: partly
+review_rationale: >-
+  A reviewer can ask what the suite cannot see and when a person last compared it with how the
+  model is used. That exposes a suite nobody owns and blind spots the team already knows. It does
+  not produce the situation nobody has thought of.
+severity: critical
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-05
+  - EV-anthropic-2026-04-mythos-preview-system-card-02
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-01
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-04
+  - EV-anthropic-2026-04-claude-code-quality-postmortem-02
+  - EV-anthropic-2026-04-claude-code-quality-postmortem-03
+  - EV-anthropic-2025-09-postmortem-three-issues-02
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-04
+  - EV-meta-2026-05-muse-spark-safety-preparedness-report-04
+incidents:
+  - INC-2026-anthropic-mythos-preview-internal-deployment
+  - INC-2026-anthropic-claude-code-quality
+  - INC-2025-anthropic-serving-bugs-missed-by-evals

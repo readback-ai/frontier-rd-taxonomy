@@ -1,0 +1,65 @@
+{
+  "source_id": "S-anthropic-2025-10-petri",
+  "snapshot": {
+    "url": "https://alignment.anthropic.com/2025/petri/",
+    "final_url": "https://alignment.anthropic.com/2025/petri/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "5e9038060a323630662ac54874d5f39916c55604a1538a5b3564fe331808d391",
+    "text_sha256": "06f1fc4973972dbfd309b19b6fff6b782b25033647a16a9bcbc834eba1600bba",
+    "text_chars": 50537
+  },
+  "quotes": {
+    "EV-anthropic-2025-10-petri-01": {
+      "quote_sha256": "25b480d53d0c9655222d6ea0b4b3dd03c10da7171cec560db5db29c894bb2d51",
+      "text_sha256": "06f1fc4973972dbfd309b19b6fff6b782b25033647a16a9bcbc834eba1600bba",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-10-petri-02": {
+      "quote_sha256": "ea3a4e6f24293e407f282f66884fe6392587e80c7e56de90be00ffa88954b1e7",
+      "text_sha256": "06f1fc4973972dbfd309b19b6fff6b782b25033647a16a9bcbc834eba1600bba",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-10-petri-03": {
+      "quote_sha256": "c4404d14a3f73f30b320e2c35d42e5f8209bcf2de65b9cac63db032187c756d0",
+      "text_sha256": "06f1fc4973972dbfd309b19b6fff6b782b25033647a16a9bcbc834eba1600bba",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-10-petri-04": {
+      "quote_sha256": "1e20b3b1ca6a383389710670401756650fd35cc4e049ade668c44733e02dfb62",
+      "text_sha256": "06f1fc4973972dbfd309b19b6fff6b782b25033647a16a9bcbc834eba1600bba",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-10-petri-05": {
+      "quote_sha256": "9989987761745e63e490cf3ee8ea5d0bc1ddbd37aea9c0d84b3f9ef8e9cd0992",
+      "text_sha256": "06f1fc4973972dbfd309b19b6fff6b782b25033647a16a9bcbc834eba1600bba",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-10-petri-06": {
+      "quote_sha256": "7fa82d211dd2e4bd0b50147219acb69217ecf94508561bd585a9f7f611f19ae6",
+      "text_sha256": "06f1fc4973972dbfd309b19b6fff6b782b25033647a16a9bcbc834eba1600bba",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-10-petri-07": {
+      "quote_sha256": "3566462f1c187a1d5fbb69d3fd3201845dbf2c78dd887f6612181ead3878414a",
+      "text_sha256": "06f1fc4973972dbfd309b19b6fff6b782b25033647a16a9bcbc834eba1600bba",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-10-petri-08": {
+      "quote_sha256": "6280458edea9c7124a443c091eb70d9fbb2d0bdd64e23d075d49d7be7b6924e4",
+      "text_sha256": "06f1fc4973972dbfd309b19b6fff6b782b25033647a16a9bcbc834eba1600bba",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-10-petri-09": {
+      "quote_sha256": "3f07639983ca26c991a46fd73e6a7fc77322a3309bdcadd91c522762fb91d582",
+      "text_sha256": "06f1fc4973972dbfd309b19b6fff6b782b25033647a16a9bcbc834eba1600bba",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-10-petri-10": {
+      "quote_sha256": "669f560547bcad050b1425ade4bba6aff64141fa3dd02478d578f33b82338ddd",
+      "text_sha256": "06f1fc4973972dbfd309b19b6fff6b782b25033647a16a9bcbc834eba1600bba",
+      "verified": "2026-11-11"
+    }
+  }
+}

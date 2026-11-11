@@ -1,0 +1,75 @@
+{
+  "source_id": "S-anthropic-2026-09-measuring-pace",
+  "snapshot": {
+    "url": "https://www.anthropic.com/institute/measuring-pace-of-ai-development",
+    "final_url": "https://www.anthropic.com/institute/measuring-pace-of-ai-development",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "9598a8ebbcd78be1b2342bf815ff326ae97320f73621dbf5c99610ab35b3f65c",
+    "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+    "text_chars": 27924
+  },
+  "quotes": {
+    "EV-anthropic-2026-09-measuring-pace-01": {
+      "quote_sha256": "e44173b093904a7ed0202d70cbae74955445ea3bf00e3f82ce90551d376e866a",
+      "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-measuring-pace-02": {
+      "quote_sha256": "6bd78c4e6d1bd29b8fdc7060a2edd8c9e1ffceab3436bfdc727a92994206bc6c",
+      "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-measuring-pace-03": {
+      "quote_sha256": "8f2f0f9a5e25066678b269207828b8a5fd11a4506565ca703419341476b0fb72",
+      "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-measuring-pace-04": {
+      "quote_sha256": "2d772d790594ea611ae276a57b1dc1e789853fc2fa515c81ff1993f31fd90aaa",
+      "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-measuring-pace-05": {
+      "quote_sha256": "5a1179dd1a90a05ded6d4e1234a3ed3937fd7d15d50eb0a5d428db4e151d9101",
+      "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-measuring-pace-06": {
+      "quote_sha256": "cf4153d09a15835523ab62ba2fb5218aade0cb3a0aea008372d52fa151410c7c",
+      "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-measuring-pace-07": {
+      "quote_sha256": "1b0060159996a336b981b36fc153aed855463915482d41ab6854eaa6eaab43cf",
+      "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-measuring-pace-08": {
+      "quote_sha256": "333f0f1e6935010164a9777e5643ce8cf868149f6e1cb76ad4800da068986534",
+      "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-measuring-pace-09": {
+      "quote_sha256": "c98520943b1c3b3e63da67a0ad82c8226f26f6900f167216bc50d0b360ee4d44",
+      "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-measuring-pace-10": {
+      "quote_sha256": "e816cf154b6f349602dfa196f51889f1324274c6d936c2450c071dcaadda2cd6",
+      "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-measuring-pace-11": {
+      "quote_sha256": "6ef74ea368bb0a01e5468377a72d202dc48cb8d5ba67a282d37a7ae0d5f3df0f",
+      "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-measuring-pace-12": {
+      "quote_sha256": "6d407bbd2adf727cbd23e6a41930ff7cac55831182ec5dd9d5c635effb32de14",
+      "text_sha256": "fb96b1b1479a0f62da49bbe616495c7129e9647158224d5f2826973ee5558042",
+      "verified": "2026-11-11"
+    }
+  }
+}

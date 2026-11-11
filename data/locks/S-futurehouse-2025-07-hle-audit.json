@@ -1,0 +1,50 @@
+{
+  "source_id": "S-futurehouse-2025-07-hle-audit",
+  "snapshot": {
+    "url": "https://futurehouse.org/research/hle-exam",
+    "final_url": "https://www.futurehouse.org/research/hle-exam",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "77cbb45e7df301aedf8fba64b3ab3ccfa68b82c7920ed7037554e07b93d6206f",
+    "text_sha256": "1b95391da302d83f9fa77a5c358885f78b59d8c414e57b77c514f5c8354b56ed",
+    "text_chars": 12675
+  },
+  "quotes": {
+    "EV-futurehouse-2025-07-hle-audit-01": {
+      "quote_sha256": "d4c9835c4aa503452d38cd952ed37eff7ae42e857ea13d84bdf8100efcfe223d",
+      "text_sha256": "1b95391da302d83f9fa77a5c358885f78b59d8c414e57b77c514f5c8354b56ed",
+      "verified": "2026-11-11"
+    },
+    "EV-futurehouse-2025-07-hle-audit-02": {
+      "quote_sha256": "0d72d8a441d73e12d5b12e44c95b352c5ae2cd992a55316fb5b9eaf16b18b8be",
+      "text_sha256": "1b95391da302d83f9fa77a5c358885f78b59d8c414e57b77c514f5c8354b56ed",
+      "verified": "2026-11-11"
+    },
+    "EV-futurehouse-2025-07-hle-audit-03": {
+      "quote_sha256": "310791b265629561c5184e5ff52ca36eaa0caafa95a56ae7a066fab5913d4b7d",
+      "text_sha256": "1b95391da302d83f9fa77a5c358885f78b59d8c414e57b77c514f5c8354b56ed",
+      "verified": "2026-11-11"
+    },
+    "EV-futurehouse-2025-07-hle-audit-04": {
+      "quote_sha256": "aafb84769d24419b515da6073fae74df0c7c86cd3bd633a995ddd0874eed3d99",
+      "text_sha256": "1b95391da302d83f9fa77a5c358885f78b59d8c414e57b77c514f5c8354b56ed",
+      "verified": "2026-11-11"
+    },
+    "EV-futurehouse-2025-07-hle-audit-05": {
+      "quote_sha256": "c2d0ed190fa1f0b104dc0bc917c78776006b9da7008e4a38674c7509e8433bff",
+      "text_sha256": "1b95391da302d83f9fa77a5c358885f78b59d8c414e57b77c514f5c8354b56ed",
+      "verified": "2026-11-11"
+    },
+    "EV-futurehouse-2025-07-hle-audit-06": {
+      "quote_sha256": "b846a74d5273c2fd6ef1499b84a87b515199e50fcb3691e806c909148fb006df",
+      "text_sha256": "1b95391da302d83f9fa77a5c358885f78b59d8c414e57b77c514f5c8354b56ed",
+      "verified": "2026-11-11"
+    },
+    "EV-futurehouse-2025-07-hle-audit-07": {
+      "quote_sha256": "2c8c581df4fd88dbe4f506960b028c32ec0908116dcf1a4a9d9109dae54e29ad",
+      "text_sha256": "1b95391da302d83f9fa77a5c358885f78b59d8c414e57b77c514f5c8354b56ed",
+      "verified": "2026-11-11"
+    }
+  }
+}

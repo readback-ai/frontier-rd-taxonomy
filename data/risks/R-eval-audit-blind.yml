@@ -1,0 +1,41 @@
+id: R-eval-audit-blind
+title: An alignment audit finds nothing because it cannot see the problem
+tasks: [T-eval-alignment]
+failure_mode: >-
+  The audit's agents and tools fail to detect misalignment that is present. A clean result from a
+  blind audit and from a safe model look the same. In a test its authors say was made harder by
+  misaligned baseline models, an auditing agent alone surfaced one of three overt saboteurs. A first
+  audit missed a deliberately misaligned test model, and internal audits did not warn of behavior
+  that outside evaluators and later use exposed.
+harm_path: false_assurance
+mechanisms: [correlated_error, comprehension_gap, review_overload]
+automation_effect: >-
+  The audit is about four thousand sessions per model, conducted and judged by the subject's
+  predecessor from a mostly handwritten scenario list. A person has hours with its output and
+  reads what the judge ranks highest. Stress tests of the audit are few. As the loop is
+  automated, fewer people have a hands-on sense of what it would miss, and the developer's own
+  outside reviewer is not confident the methods would show it if risk were higher.
+review_catchable: partly
+review_rationale: >-
+  Ask what the audit has been shown to detect and miss on models with known problems, who the
+  auditor and judge are, and what a person read. The answers bound the audit and expose
+  overclaiming. They do not make a blind audit see.
+severity: critical
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-08-risk-report-05
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-05
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-01
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-02
+  - EV-anthropic-2026-04-mythos-preview-system-card-02
+  - EV-anthropic-2025-07-alignment-auditing-agents-01
+  - EV-anthropic-2025-07-alignment-auditing-agents-07
+  - EV-anthropic-2026-01-auditing-overt-saboteur-05
+  - EV-anthropic-2026-01-auditing-overt-saboteur-08
+  - EV-anthropic-2026-01-auditing-overt-saboteur-09
+  - EV-anthropic-2026-10-training-alignment-auditors-02
+  - EV-anthropic-2025-10-petri-10
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-02
+  - EV-openai-2026-04-gpt-5-5-system-card-10
+incidents:
+  - INC-2026-anthropic-mythos-preview-internal-deployment

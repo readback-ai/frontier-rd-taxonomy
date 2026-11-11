@@ -1,0 +1,78 @@
+id: INC-2026-anthropic-agentic-scan-missed-incident
+title: A model-run transcript scan missed a fourth incident, and the first public account was partly withdrawn
+org: Anthropic
+frontier: true
+occurred: 2026-07
+disclosed: 2026-09-09
+summary: >-
+  The July 2026 search of 141,006 evaluation runs that found three cyber evaluation incidents was
+  an agentic search, chosen for volume and speed of disclosure. It missed a set of transcripts
+  with internet access. Those held a fourth incident, found in August while staff assembled
+  transcripts for an external reviewer. The July 30 account of what the models believed was later
+  withdrawn in part: it had rested only on what the models said in their reasoning.
+root_cause: >-
+  The review was an agentic search, chosen for the volume of transcripts and the wish to disclose
+  quickly, and it missed a set of transcripts. The sources do not say its recall was measured before
+  the count was published. The interpretation of the transcripts rested only on what the models said
+  in their reasoning.
+detected_by: Staff assembling transcripts by hand for METR's independent investigation
+detection_latency: About one month from the first scan to finding the missed transcripts
+automation_involved: 'yes'
+comprehension_failure: partly
+comprehension_note: >-
+  Staff knew the scan was model-run and chose it for speed. Nothing in the sources shows anyone knew
+  what it would miss, and the published count was presented as the result of the review. Anthropic
+  says the preliminary analysis was limited by the wish to disclose quickly.
+tasks: [T-eval-transcripts, T-eval-reporting]
+risks:
+  - R-eval-transcripts-unread
+  - R-eval-reporting-outruns-evidence
+  - R-eval-model-grader-unchecked
+evidence:
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-01
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-02
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-04
+  - EV-anthropic-2026-07-cyber-eval-incidents-01
+backtest:
+  - question: Q-eval-transcripts-02
+    verdict: would_surface
+    rationale: >-
+      As far as the record shows, the honest answer was that recall had not been measured: the
+      agentic search was picked for volume and speed and the count was published a week after the
+      review began. That is the stated root cause of the missed incident.
+  - question: Q-eval-transcripts-06
+    verdict: would_surface
+    rationale: >-
+      The honest answer is on record: the method was chosen for the volume of transcripts and the
+      wish to disclose quickly. Nobody could have said what it cost in completeness, and the July
+      post did not say the review was an agentic search.
+  - question: Q-eval-transcripts-05
+    verdict: would_surface
+    rationale: >-
+      The honest answer was that nothing else supported the claims about what the models believed;
+      Anthropic later wrote that they rested solely on what Claude said it believed. This covers the
+      withdrawn interpretation and has no bearing on the missed transcripts.
+  - question: Q-eval-transcripts-01
+    verdict: might_surface
+    rationale: >-
+      The honest answer was that an agentic search picked out the runs where Claude could have had
+      internet access and people read what it flagged. That shows the population was model-selected,
+      which is where the miss occurred, but the reviewer has to go on to ask how anyone knew the
+      selection was complete.
+  - question: Q-eval-reporting-01
+    verdict: might_surface
+    rationale: >-
+      The honest answer was that people examined the three flagged incidents and that the claim to
+      have reviewed 141,006 runs came from a model's search. Staff knew this already, so the missed
+      set comes out only if the reviewer asks what checked the search.
+  - question: Q-eval-reporting-05
+    verdict: might_surface
+    rationale: >-
+      The honest answer was that the whole post was written within a week and described as the
+      current understanding. Picking out the belief claims as the ones that outran the analysis
+      depends on the reviewer or the authors making that connection.
+  - question: Q-eval-reporting-04
+    verdict: would_not_surface
+    rationale: >-
+      Named human reviewers of the post could have been listed and the count would still have been
+      wrong. A reader of the draft had no way to see transcripts the search never returned.

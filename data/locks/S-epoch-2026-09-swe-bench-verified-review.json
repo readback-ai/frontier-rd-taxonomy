@@ -1,0 +1,55 @@
+{
+  "source_id": "S-epoch-2026-09-swe-bench-verified-review",
+  "snapshot": {
+    "url": "https://epoch.ai/benchmarks/swe-bench-verified/review",
+    "final_url": "https://epoch.ai/benchmarks/swe-bench-verified/review",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html",
+    "raw_sha256": "c6827ba0fdcf416bf8fbfbc23a5eb895b43b406d302c59e5fbba5c6cbcc717e7",
+    "text_sha256": "cfaffa31790ec2eab8bd1340c6fb6f7d57c79c4799eeec1dc65dd0779d8d69c0",
+    "text_chars": 11045
+  },
+  "quotes": {
+    "EV-epoch-2026-09-swe-bench-verified-review-01": {
+      "quote_sha256": "2b26af32b7291f6e84df901f6dc99cb1436c985b47943ce64940e8ca857f0d0b",
+      "text_sha256": "cfaffa31790ec2eab8bd1340c6fb6f7d57c79c4799eeec1dc65dd0779d8d69c0",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-swe-bench-verified-review-02": {
+      "quote_sha256": "d6929972883dc020a1f84e57dcb37821c8965e935181df7eaa881b65c98c3060",
+      "text_sha256": "cfaffa31790ec2eab8bd1340c6fb6f7d57c79c4799eeec1dc65dd0779d8d69c0",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-swe-bench-verified-review-03": {
+      "quote_sha256": "97ceb70a2953d23dd5ce1c489c1d3d62ee75bfca0635486f80e0eb3d663192f4",
+      "text_sha256": "cfaffa31790ec2eab8bd1340c6fb6f7d57c79c4799eeec1dc65dd0779d8d69c0",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-swe-bench-verified-review-04": {
+      "quote_sha256": "b5cc4c7c8a0e2e3ce7324a762941bda91a8285a5d74eddceb11dd81e87d9e9cc",
+      "text_sha256": "cfaffa31790ec2eab8bd1340c6fb6f7d57c79c4799eeec1dc65dd0779d8d69c0",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-swe-bench-verified-review-05": {
+      "quote_sha256": "83c3dd14f28f20170beb25cc0557e038429139683e737e1593bc626b9f4cca28",
+      "text_sha256": "cfaffa31790ec2eab8bd1340c6fb6f7d57c79c4799eeec1dc65dd0779d8d69c0",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-swe-bench-verified-review-06": {
+      "quote_sha256": "427722b586adc55feb482cf391ccac04d910e171632b644a0751680e66fada8e",
+      "text_sha256": "cfaffa31790ec2eab8bd1340c6fb6f7d57c79c4799eeec1dc65dd0779d8d69c0",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-swe-bench-verified-review-07": {
+      "quote_sha256": "3e8ae8420883e0c9cde6441ab6f9dc0c864557df570c69c756bf7607fbb06bfa",
+      "text_sha256": "cfaffa31790ec2eab8bd1340c6fb6f7d57c79c4799eeec1dc65dd0779d8d69c0",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-swe-bench-verified-review-08": {
+      "quote_sha256": "68ed33e5d9517ae3f7d5e6a0e2113ff44d1d4fb8e22194d1e401d8a2eb426eab",
+      "text_sha256": "cfaffa31790ec2eab8bd1340c6fb6f7d57c79c4799eeec1dc65dd0779d8d69c0",
+      "verified": "2026-11-11"
+    }
+  }
+}

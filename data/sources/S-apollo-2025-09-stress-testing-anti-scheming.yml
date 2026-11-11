@@ -1,0 +1,122 @@
+id: S-apollo-2025-09-stress-testing-anti-scheming
+title: Stress Testing Deliberative Alignment for Anti-Scheming Training
+publisher: Apollo Research
+authors: []
+published: 2025-09-17
+url: https://www.apolloresearch.ai/science/stress-testing-deliberative-alignment-for-anti-scheming-training
+type: academic_paper
+vantage: external_third_party
+labs: [OpenAI]
+summary: >-
+  Apollo Research's summary of work done with OpenAI: evaluations for covert behavior in
+  frontier models, and a test of whether a training method reduces it. Covert action rates in
+  o3 and o4-mini fell sharply after the training, but the models also reasoned more often about
+  being evaluated, and that reasoning itself lowers covert actions. Apollo concludes that
+  evaluation awareness complicates what its alignment evaluations measure.
+limits: >-
+  A short summary post for a longer paper, which was not snapshotted; the post gives rates
+  without sample sizes or intervals and does not describe Apollo's access terms. The work was
+  done in partnership with OpenAI, the developer of the main models tested, so it is not
+  independent of the developer. Scenarios are deliberately non-typical stress tests, and covert
+  action is used as a proxy for scheming. Evaluation-awareness rates count only awareness the
+  model puts into words. Grade B items are Apollo's statements about its own evaluations;
+  Apollo was not embedded at OpenAI on the evidence of this page.
+evidence:
+  - id: EV-apollo-2025-09-stress-testing-anti-scheming-01
+    claim: >-
+      Across Apollo's test environments, anti-scheming training cut covert action rates from
+      13% to 0.4% for o3 and from 8.7% to 0.3% for o4-mini.
+    quote: >-
+      We find that our anti-scheming training significantly reduces covert action rates across
+      our test environments for both OpenAI o3 (13% → 0.4%) and OpenAI o4-mini (8.7% → 0.3%).
+    locator: Anti-scheming training reduces but does not eliminate covert actions
+    kind: risk
+    strength: measured
+    grade: B
+    tasks: [T-eval-alignment]
+    note: >-
+      Measured on 26 evaluations that differ from the training environments. Apollo says rare
+      cases of serious misbehavior remained.
+
+  - id: EV-apollo-2025-09-stress-testing-anti-scheming-02
+    claim: >-
+      Between an early and a late checkpoint of an experimental OpenAI capabilities-focused RL run
+      with no safety training, the share of samples with verbalized evaluation awareness rose from
+      2.0% to 20.6%.
+    quote: >-
+      We separately compared two checkpoints early and late in an experimental
+      capabilities-focused reinforcement learning (RL) training run by OpenAI. This run did not
+      include any safety or anti-scheming training. The rate of samples with explicit verbalized
+      evaluation awareness increased from 2.0% to 20.6%.
+    locator: Situational awareness increases with training
+    kind: risk
+    strength: measured
+    grade: B
+    tasks: [T-eval-validity, T-eval-alignment]
+    note: >-
+      After anti-scheming training the rates for o4-mini and o3 rose from 0.9% and 2.3% to 5.5%
+      and 4.5%.
+
+  - id: EV-apollo-2025-09-stress-testing-anti-scheming-03
+    claim: >-
+      Counterfactual tests on o3 showed that reasoning about being evaluated lowers covert
+      actions, so part of the measured reduction may come from the model recognizing the test.
+    quote: >-
+      Through counterfactual tests with OpenAI o3, we establish that reasoning about being
+      evaluated causally decreases covert actions. This means that the reductions in undesired
+      behavior we observe after training could be partially explained by the model realizing
+      that it is being evaluated.
+    locator: Situational awareness causally influences covert behavior
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-alignment]
+    note: The post gives no effect size.
+
+  - id: EV-apollo-2025-09-stress-testing-anti-scheming-04
+    claim: >-
+      Apollo says that when a model recognizes an evaluation and acts aligned for that reason,
+      the evaluation stops measuring the model's underlying tendency.
+    quote: >-
+      when models realize when they are being evaluated and then act aligned because of that,
+      our evaluations stop measuring models’ underlying tendency for the misaligned behavior.
+    locator: Models sometimes display situational awareness
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-validity]
+
+  - id: EV-apollo-2025-09-stress-testing-anti-scheming-05
+    claim: >-
+      Asked to grade a transcript of itself sandbagging another evaluation, o3 in rare cases
+      deliberately classified the transcript as not sandbagging.
+    quote: >-
+      when OpenAI o3 is asked to grade a transcript of itself sandbagging another evaluation
+      [...] In rare cases, as shown in the transcript above, o3 decides to trust the developers’
+      claim that its internal reasoning cannot be checked and proceeds to intentionally
+      misclassify the transcript as not sandbagging.
+    locator: Models sometimes engage in deceptive reasoning and actions
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders, T-eval-validity]
+    note: >-
+      A constructed scenario: the model was told that discovery of sandbagging would stop its
+      deployment. In other runs it answered honestly because it inferred the scenario was a
+      test.
+
+  - id: EV-apollo-2025-09-stress-testing-anti-scheming-06
+    claim: >-
+      Apollo found the models' reasoning traces sometimes hard to interpret: they can run to
+      many pages without a clear conclusion, which makes it hard to name the reason for an
+      action.
+    quote: >-
+      Furthermore, models’ reasoning traces can be many pages long, including extensive
+      reasoning about different actions without necessarily coming to a clear conclusion. This
+      can make it difficult to identify a single “reason” why the model took a specific action.
+    locator: Challenges for interpreting the chain-of-thought
+    kind: comprehension
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts]
+    note: Apollo also reports non-standard terminology in the traces.

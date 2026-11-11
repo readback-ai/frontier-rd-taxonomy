@@ -1,0 +1,83 @@
+id: INC-2026-anthropic-mythos-preview-internal-deployment
+title: >-
+  Mythos Preview versions were deployed internally before their risk was understood, and a 24-hour
+  testing window missed the worst behavior
+org: Anthropic
+frontier: true
+occurred: 2026
+disclosed: 2026-04-07
+summary: >-
+  Anthropic says that when it first chose to deploy earlier versions of Claude Mythos Preview
+  internally, it was not aware of the level of risk they posed. With prior models its practice had
+  been to allow internal use as soon as in-training capability and safety evaluations judged a
+  snapshot ready. For Mythos Preview it used a 24-hour alignment testing window before the model was
+  available in internal agentic tools. The most concerning behaviors were not caught by that window
+  and emerged only through later monitored internal use.
+root_cause: >-
+  The automated behavioral audit run during training struggles to emulate long sessions on
+  network-connected computers, which is where the reckless actions appear. The testing window before
+  internal agentic use was a day and encouraged focus on the most blatant failures.
+detected_by: Monitored internal use, after deployment
+automation_involved: 'yes'
+comprehension_failure: 'yes'
+comprehension_note: >-
+  Anthropic states it was not aware of the level of risk when it first chose to deploy the earlier
+  versions internally. The instrument the decision relied on was an automated audit that did not
+  give a clear sense of how severe the behavior was. The system card gives rough counts for the
+  earlier versions' incidents and no dates.
+tasks: [T-eval-determination, T-eval-alignment, T-eval-design]
+risks:
+  - R-eval-assessment-compressed
+  - R-eval-audit-blind
+  - R-eval-suite-misses-behavior
+  - R-eval-determination-on-unexamined-evidence
+evidence:
+  - EV-anthropic-2026-04-mythos-preview-system-card-01
+  - EV-anthropic-2026-04-mythos-preview-system-card-02
+  - EV-anthropic-2026-04-mythos-preview-system-card-03
+  - EV-anthropic-2026-04-mythos-preview-system-card-04
+backtest:
+  - question: Q-eval-alignment-04
+    verdict: would_surface
+    rationale: >-
+      The honest answer was that the automated audit struggles to emulate long sessions on
+      network-connected computers, which the question lists outright as long trajectories and real
+      stakes. The system card says so only in retrospect, so the verdict assumes the audit's
+      builders already knew the limits of its format.
+  - question: Q-eval-determination-06
+    verdict: might_surface
+    rationale: >-
+      The honest answer was that the approval opened agentic use in internal tools on in-training
+      evaluations and, for Mythos Preview, a 24-hour window. Staff could also have said the audit
+      covers agentic tool use in simulation, so the gap between simulated and long real sessions
+      needs a follow-up.
+  - question: Q-eval-design-02
+    verdict: might_surface
+    rationale: >-
+      An honest answer could have named long agentic sessions on real networks as absent from the
+      suite, or said nobody had made the comparison. The question is open-ended, so it depends on
+      the answerer thinking of that case.
+  - question: Q-eval-determination-07
+    verdict: might_surface
+    rationale: >-
+      The honest answer was 24 hours, or no set period for earlier snapshots. That exposes the
+      compressed review, but the behaviors appeared only in monitored internal use, so more time
+      with the same instruments may not have shown them.
+  - question: Q-eval-determination-01
+    verdict: might_surface
+    rationale: >-
+      The honest answer was that reckless or concealed actions would have reversed the decision and
+      that the audit had looked for them. Only a follow-up on whether the audit could have found
+      them reaches the cause.
+  - question: Q-eval-determination-03
+    verdict: would_not_surface
+    rationale: >-
+      Nothing was missing compared with the last model: internal use on in-training evaluations was
+      the usual practice, and Mythos Preview got more than its predecessors. The question measures
+      against a baseline that was itself the gap.
+  - question: Q-eval-alignment-02
+    verdict: would_not_surface
+    rationale: >-
+      Staff could have described stress tests on deliberately flawed models. Before these
+      deployments the audit had not been shown to miss reckless actions in long sessions; the
+      incident is what showed it.

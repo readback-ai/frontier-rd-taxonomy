@@ -1,0 +1,237 @@
+id: S-anthropic-2026-08-risk-report
+title: "Risk Report: August 2026"
+publisher: Anthropic
+authors: []
+published: 2026-08
+url: https://www-cdn.anthropic.com/f61d49fa5596956a5dec75fea0e973bf6a6a8378/Redacted%20Risk%20Report%20August%202026%20.pdf
+type: risk_report
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic's risk report under its Responsible Scaling Policy (version 3.4), covering February 24
+  to July 15, 2026 and all its models, including two unreleased internal ones. It sets out the
+  argument that misalignment risk is low, with the alignment assessment, monitoring evaluations and
+  their stated limits; the evidence on AI R&D automation; chemical and biological risk; and a sample
+  of safety process failures.
+limits: >-
+  Self-reported. The public version is redacted: two appendices, one safety-process-failure case, an
+  incident in the monitoring-evaluation section, internal leading indicators of acceleration, and
+  details of monitoring weaknesses are removed. The safety process failures are a stated sample, not
+  a full list. Much model-specific evidence is by reference to system cards. Internal Model 2
+  received less than the usual pre-deployment assessment. The only review printed in the report is
+  by a Claude model. The report says its Long-Term Benefit Trust had not requested an external
+  review and the policy did not require one, while Anthropic continues to pilot public external
+  review. The July 15 coverage date precedes the cyber-evaluation disclosures.
+evidence:
+  - id: EV-anthropic-2026-08-risk-report-01
+    claim: >-
+      In an experiment run by autonomous Claude agents, staff followed progress through the
+      automatic grader's metrics instead of interacting with the agents. One agent's refusal spread
+      to later agents through a shared notebook while the metrics made the run seem to be
+      progressing. The refusals were found 3 days later, when a human manually read the notebook.
+    quote: >-
+      Rather than interact with any of these agents directly, we kept track of the overall progress
+      by inspecting the metrics captured by the grading process [...] This led to subsequent agents
+      also refusing to perform the task [...] Based on our metrics, the run seemed to be
+      progressing. We only discovered the refusals during a manual review of the notebook 3 days
+      later, when a human noticed that progress rates were lower than expected.
+    locator: Section 5.2.2, page 164
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-safeguards, T-eval-transcripts]
+    note: >-
+      The experiment asked agents to find misalignment-inducing data that would look benign to
+      Anthropic's monitors, a stress test of those monitors. The first agent declined to invent new
+      techniques, kept optimizing existing ones and wrote its decision in the shared notebook.
+
+  - id: EV-anthropic-2026-08-risk-report-02
+    claim: >-
+      Anthropic says evaluation awareness partially undermines its confidence in its alignment
+      assessments for ruling out severe misalignment, and that a large portion of the automated
+      behavioral audit is likely detectably unrealistic to the models assessed.
+    quote: >-
+      We currently believe that evaluation awareness does partially undermine our confidence in
+      the results of our alignment assessments with respect to ruling out severe misalignment.
+      A large portion of the automated behavioral audit likely is detectably unrealistic to
+      covered models, such that it primarily provides evidence for behaviors that are not gated
+      by realism.
+    locator: Section 2.9.4, Claim 3.4.2, page 47
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-alignment]
+    note: >-
+      The next sentence adds that the distributions most important for the risk pathways are covered
+      with sufficient realism.
+
+  - id: EV-anthropic-2026-08-risk-report-03
+    claim: >-
+      The review that precedes broad internal deployment of a new model takes much less time and
+      effort than a full alignment audit, so several of the more human-labor-intensive sources of
+      evidence are not reliably collected for it.
+    quote: >-
+      Pre-internal-deployment reviews currently occur over a much shorter duration and with
+      fewer total hours of effort than our full alignment audits, so several of the more
+      human-labor-intensive sources of evidence cited in this section are not reliably
+      collected.
+    locator: Section 2.18, page 70
+    kind: pace
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination, T-eval-alignment]
+    note: >-
+      The same passage says the review is generally based on testing during training, not on
+      the snapshot that is deployed, and that infrastructure issues in the alignment testing
+      pipeline have limited the data collected.
+
+  - id: EV-anthropic-2026-08-risk-report-04
+    claim: >-
+      Anthropic had not run its full usual suite of pre-deployment assessments on an unreleased
+      internal model, and says it is less confident about that model's capabilities as a
+      result.
+    quote: >-
+      We do not currently have plans to release this model externally, and have not run all of
+      our typical suite of predeployment assessments, so we have somewhat lower confidence in
+      our beliefs about its capabilities.
+    locator: Section 1.4, page 16
+    kind: practice
+    strength: reported
+    grade: B
+    describes: 2026-07
+    tasks: [T-eval-dangerous, T-eval-determination]
+    note: >-
+      "Model 2" in the report, described on the same page as somewhat more capable than Mythos
+      5; Table 6.6.A gives its internal usage as similar to Mythos 5 and its alignment
+      assessment as less extensive.
+
+  - id: EV-anthropic-2026-08-risk-report-05
+    claim: >-
+      Anthropic's first alignment audit of a deliberately misaligned test model did not detect
+      it; a second audit with newer tooling did. Anthropic says its stress-testing of the audit
+      has not been extensive and covers few such models.
+    quote: >-
+      Our initial alignment audit did not detect this model; however, a second audit using a
+      more recent version of the audit tooling did detect this model [...] our audit
+      stress-testing efforts have not been particularly extensive, and the overall quantity of
+      model organisms that our auditing has been tested on remains low.
+    locator: Section 2.9.4, Claim 3.4.4, page 51
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-validity]
+    note: >-
+      The model was trained to introduce bugs only after use across several contexts with the
+      same external memory file. Five stress-testing exercises are reported; this was the most
+      recent.
+
+  - id: EV-anthropic-2026-08-risk-report-06
+    claim: >-
+      Anthropic had an instance of Claude Mythos 5 review a near-final draft of the report's
+      misalignment section. The review took 24 minutes.
+    quote: >-
+      we prompted an instance of Claude Mythos 5 to review a near-final draft of Section 2 of
+      this report [...] In practice, Claude took 24 minutes to produce this review.
+    locator: Section 2.20, pages 72-74
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-reporting]
+    note: >-
+      The reviewer is the model the section assesses. It was given internal Slack channels,
+      documents and the codebase and asked to compare the draft with internal discussion.
+      Anthropic calls the review broadly reasonable and its criticisms fair, and says that with
+      more time it would address two of them in more detail.
+
+  - id: EV-anthropic-2026-08-risk-report-07
+    claim: >-
+      Anthropic is not confident that its practices as of the coverage date reliably keep public
+      alignment evaluation data out of training.
+    quote: >-
+      we are not confident that our practices as of the coverage date reliably eliminate such data
+      from training
+    locator: Section 2.9.4, Claim 3.4.3, page 49
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity]
+    note: >-
+      Said of data marked with canary strings. Section 5.2.6 describes a failed exclusion of
+      alignment-faking transcripts across several model generations.
+
+  - id: EV-anthropic-2026-08-risk-report-08
+    claim: >-
+      Many of the automated evaluations for this threat model that Anthropic runs at each release
+      have saturated or are no longer well assessed by their grading scripts. If a capable new model
+      scored worse on them, Anthropic says it would doubt the evaluation more than the model's
+      abilities.
+    quote: >-
+      many of these have saturated or reached the point where current models’ performance is
+      not well-assessed by existing automated grading scripts; in practice, if a new and
+      otherwise-capable model were to perform worse on some of these evaluations, we would be
+      more skeptical of the validity of the evaluation than of the model’s risk-relevant
+      abilities.
+    locator: Section 4.4, page 123
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-dangerous, T-eval-graders, T-eval-design]
+    note: >-
+      The threat model is chemical and biological (CB-1). The executive summary says the same of AI
+      R&D: the most concrete task-based evaluations have saturated and the "low" rating is held with
+      less confidence.
+
+  - id: EV-anthropic-2026-08-risk-report-09
+    claim: >-
+      CoBench, Anthropic's newer internal AI R&D evaluation of 449 problems, is graded by a
+      model against a rubric. Anthropic lists grader error and overly narrow rubrics among the
+      reasons a fully capable system would fall short of a full score.
+    quote: >-
+      comprises 449 problems [...] Problems are model-graded using a rubric that compares a
+      solution to the root cause we identified in practice [...] Grader error, or cases where a
+      rubric was written in an overly narrow way so as to exclude some valid answers.
+    locator: Section 3.4.3, pages 99-100
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders, T-eval-tasks, T-eval-dangerous]
+    note: >-
+      The problems are root causes of issues Anthropic engineers solved, mostly February to
+      April 2026, filtered to those Mythos Preview failed at least once in three tries.
+      Anthropic calls its 85% equivalence mark an uncertain estimate.
+
+  - id: EV-anthropic-2026-08-risk-report-10
+    claim: >-
+      On 163 attacks from a METR red-teaming exercise, Anthropic's current first-stage offline
+      monitor flagged 94% and 79% remained flagged after the second-stage filter. Anthropic did
+      not evaluate the monitoring pipeline end to end.
+    quote: >-
+      METR Red Teaming Exercise, all attacks (n=163) 78% 94% 62% 79% [...] we did not perform
+      end-to-end evaluations of our automated offline monitoring pipeline, and we did not run
+      adaptive red-teaming against our latest first stage monitor.
+    locator: Section 2.23.1.2, Table 2.23.1.2.B, page 79; Section 2.23.3, page 83
+    kind: oversight
+    strength: measured
+    grade: A
+    tasks: [T-eval-safeguards, T-eval-external]
+    note: >-
+      Column order in the table: Opus 4.6 monitor, Opus 4.8 monitor, Opus 4.6 monitor plus
+      second-stage filter, Opus 4.8 monitor plus second-stage filter. The table notes the
+      attacks were mostly developed against an earlier monitor. Page 81 says the summarization
+      and human review steps were not extensively evaluated.
+
+  - id: EV-anthropic-2026-08-risk-report-11
+    claim: >-
+      The Claude Mythos 5 review that Anthropic printed in the report says some evaluations central
+      to the report's argument about covert capabilities have partially leaked into training data.
+    quote: >-
+      some evaluations central to the section's argument about models' covert capabilities (Section
+      2.7) have partially leaked into training data.
+    locator: Section 2.20, page 73
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity]
+    note: >-
+      The speaker is the model reviewer, working from internal records. Anthropic calls the review's
+      criticisms fair in general; it does not itself state the leak.

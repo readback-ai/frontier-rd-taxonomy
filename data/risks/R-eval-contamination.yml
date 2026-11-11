@@ -1,0 +1,34 @@
+id: R-eval-contamination
+title: Evaluation material is in the training data, or in the developer's hands, and nobody can say how much
+tasks: [T-eval-validity, T-eval-tasks, T-eval-external]
+failure_mode: >-
+  Tasks, answers or evaluation transcripts enter training corpora, or the developer being scored
+  holds the solutions. Scores then measure recall or access. Exclusion relies on markers that
+  pipelines do not reliably honor, and a filter can stay misconfigured across model generations
+  without anyone noticing.
+harm_path: false_assurance
+mechanisms: [comprehension_gap, accountability_diffusion, review_overload]
+automation_effect: >-
+  Training data is assembled by automated pipelines at a scale nobody reads, and models now
+  generate both evaluation transcripts and training data. Whether a given evaluation leaked is a
+  question put to a model with access to internal records. Static public benchmarks can be
+  assumed seen by every current and future model.
+review_catchable: partly
+review_rationale: >-
+  A reviewer can ask how exclusion is enforced, when it was last tested, and what the developer
+  can see of a third party's benchmark. That exposes reliance on an untested marker and an
+  undisclosed access term. It cannot show the absence of a leak in a corpus nobody can inspect.
+severity: high
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-08-risk-report-07
+  - EV-epoch-2025-01-openai-and-frontiermath-01
+  - EV-epoch-2026-09-swe-bench-verified-review-03
+  - EV-epoch-2026-09-swe-bench-verified-review-04
+  - EV-epoch-2026-09-swe-bench-verified-review-06
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-02
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-04
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-05
+incidents:
+  - INC-2026-swe-bench-verified-flawed
+  - INC-2025-epoch-frontiermath-disclosure

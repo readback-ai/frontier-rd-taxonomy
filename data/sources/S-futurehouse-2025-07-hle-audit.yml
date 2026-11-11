@@ -1,0 +1,140 @@
+id: S-futurehouse-2025-07-hle-audit
+title: About 30% of Humanity's Last Exam Chemistry/biology Answers are Likely Wrong
+publisher: FutureHouse
+authors: [Michael Skarlinski, Jon Laurent, Albert Bou, Andrew White]
+published: 2025-07-23
+url: https://futurehouse.org/research/hle-exam
+type: third_party_investigation
+vantage: external_third_party
+summary: >-
+  FutureHouse's audit of the answer key of Humanity's Last Exam, a benchmark on which frontier
+  developers report scores. A literature-search agent checked the 321 text-only chemistry and
+  biology questions and experts checked a sample of its output; FutureHouse estimates that
+  about 29% of the answers conflict with published evidence and blames the way the benchmark
+  was built. A September 2025 update reports the benchmark's own team found about 18% of a
+  subset problematic.
+limits: >-
+  An outside analysis by a company that builds literature-search agents and released its own
+  filtered subset. It covers one slice of the benchmark (321 of 2,500 questions). The 29% is an
+  extrapolation from an agent's labels adjusted by expert review of 150 outputs. The account of the
+  benchmark team's follow-up is secondhand. The post does not say how long scores had been reported
+  before the audit, and names no frontier developer's handling of the benchmark. FutureHouse is a
+  nonprofit. How the 150 outputs and the experts were chosen is not stated.
+evidence:
+  - id: EV-futurehouse-2025-07-hle-audit-01
+    claim: >-
+      FutureHouse estimates that 29 ± 3.7% (95% CI) of the text-only chemistry and biology questions
+      in Humanity's Last Exam have answers with directly conflicting evidence in peer-reviewed
+      literature.
+    quote: >-
+      We found that 29 ± 3.7% (95% CI) of the text-only chemistry and biology questions had
+      answers with directly conflicting evidence in peer reviewed literature.
+    locator: Summary
+    kind: incident
+    strength: measured
+    grade: C
+    tasks: [T-eval-tasks, T-eval-validity]
+    note: >-
+      Extrapolated from the expert-checked sample in item 05 under a stated assumption.
+
+  - id: EV-futurehouse-2025-07-hle-audit-02
+    claim: >-
+      FutureHouse attributes the errors to a design choice: questions were included only if
+      current frontier models could not answer them, which it believes produced adversarial
+      "gotcha" questions that confused writers and reviewers.
+    quote: >-
+      Part of the criteria of question inclusion was that current frontier language models cannot
+      answer the questions. We believe this decision led to many “gotcha” adversarial-type
+      questions that ultimately confused the question writers and evaluators to the point that
+      the questions lost all meaning.
+    locator: Original article
+    kind: incident
+    strength: reported
+    grade: C
+    tasks: [T-eval-design, T-eval-tasks]
+    note: >-
+      The auditor's stated belief about root cause, not a tested finding. Filtering tasks by model
+      failure selects for wrong answer keys as well as hard questions; that gloss is mine.
+
+  - id: EV-futurehouse-2025-07-hle-audit-03
+    claim: >-
+      As FutureHouse reports from the benchmark's own paper, first-round reviewers did not have to
+      verify the full accuracy of a question's rationale if doing so would take more than 5 minutes.
+    quote: >-
+      reviewers were not required to verify the full accuracy of a question’s rationale if it
+      would take “more than 5 minutes”
+    locator: Original article
+    kind: oversight
+    strength: reported
+    grade: C
+    tasks: [T-eval-tasks]
+    note: >-
+      A second review round and a post-release bug bounty followed.
+
+  - id: EV-futurehouse-2025-07-hle-audit-04
+    claim: >-
+      The audit was run by a model: FutureHouse's PaperQA2 agent was prompted to find supporting
+      or contradicting evidence for each rationale in the 321 text-only biology and chemistry
+      questions.
+    quote: >-
+      We audited the HLE validation process using our open source PaperQA2 agent called Crow,
+      prompting it to find either direct supporting evidence or contradicting evidence for each
+      HLE rationale. We focused on the text-only biology/health and chemistry subsets of HLE (321
+      questions), since our human evaluator expertise was limited to these fields.
+    locator: Original article
+    kind: method
+    strength: reported
+    grade: C
+    tasks: [T-eval-validity, T-eval-tasks]
+
+  - id: EV-futurehouse-2025-07-hle-audit-05
+    claim: >-
+      The agent judged 53.3% of the rationales to conflict with published evidence. Independent
+      experts then examined 150 of the 321 outputs.
+    quote: >-
+      Crow found 53.3% (n=171) of the rationales provided to be directly conflicting with
+      published evidence. [...] We worked with independent expert chemistry and biology evaluators
+      to examine 150 of the 321 outputs
+    locator: Original article
+    kind: oversight
+    strength: measured
+    grade: C
+    tasks: [T-eval-validity, T-eval-tasks]
+    note: >-
+      The model's raw rate is nearly twice the 29% FutureHouse reports after expert review. Under
+      half of the model's outputs were checked by a person.
+
+  - id: EV-futurehouse-2025-07-hle-audit-06
+    claim: >-
+      The problem was noticed when FutureHouse ran the chemistry and biology subset on its own
+      systems and saw the literature contradict the benchmark's ground truth.
+    quote: >-
+      We tried running the text-only chemistry and biology subset of HLE on our systems and were
+      surprised to see so much contradiction in the literature with the ground truth answers in
+      HLE.
+    locator: Original article
+    kind: incident
+    strength: reported
+    grade: C
+    tasks: [T-eval-validity]
+    note: >-
+      Found by an outside user of the benchmark.
+
+  - id: EV-futurehouse-2025-07-hle-audit-07
+    claim: >-
+      According to FutureHouse, the benchmark's team then ran its own three-expert review and
+      found about 18% of a subset of biology and chemistry questions problematic, with at least
+      one reviewer disagreeing 25% of the time.
+    quote: >-
+      They did an independent follow-up analysis and found about 18% of a subset of questions in
+      Bio/Chem were problematic. [...] They did this via a three expert review, which is an
+      excellent standard. They found that 25% of the time at least one reviewer disagreed
+    locator: Update (Sep 16, 2025)
+    kind: incident
+    strength: reported
+    grade: C
+    describes: 2025-09
+    tasks: [T-eval-tasks, T-eval-validity]
+    note: >-
+      Secondhand: FutureHouse relaying the maintainers' result. The update is dated under two
+      months after the audit.

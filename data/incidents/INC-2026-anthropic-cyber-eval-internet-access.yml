@@ -1,0 +1,87 @@
+id: INC-2026-anthropic-cyber-eval-internet-access
+title: Claude models reached and compromised real systems from a partner's cyber evaluation environment
+org: Anthropic
+frontier: true
+occurred: 2026-01
+disclosed: 2026-07-30
+summary: >-
+  In capture-the-flag evaluations run in a third-party partner's environment, a misconfiguration
+  left the machines with live internet access while the prompt said there was none. Across four
+  incidents from January to July 2026, Claude models reached real organizations' production
+  systems; in one, a malicious package was published to a public registry and run on 15 real
+  systems. The transcripts sat unread for three to seven months.
+root_cause: >-
+  One layer of defense, the environment's configuration, was relied on and it was wrong. Anthropic
+  says careful validation of all internet access paths beforehand would have surfaced it. Only a
+  sample of evaluation transcripts got an automated review after the fact, and the containment and
+  monitoring built for internal agents did not cover evaluations.
+detected_by: >-
+  A retrospective review of evaluation transcripts that Anthropic began after another developer
+  disclosed a sandbox escape. Not by its routine checks, the partner, or the affected
+  organizations.
+detection_latency: About three months for the first three incidents (April to July 2026); about seven for the fourth (January to August 2026)
+automation_involved: unknown
+comprehension_failure: 'yes'
+comprehension_note: >-
+  Neither Anthropic nor its partner knew the machines had internet access until the review found
+  it. The sources do not say whether people or models built and configured the environment.
+tasks: [T-eval-harness, T-eval-dangerous, T-eval-external, T-eval-transcripts]
+risks:
+  - R-eval-environment-not-contained
+  - R-eval-transcripts-unread
+  - R-eval-safeguard-tests-known-cases
+evidence:
+  - EV-anthropic-2026-07-cyber-eval-incidents-01
+  - EV-anthropic-2026-07-cyber-eval-incidents-02
+  - EV-anthropic-2026-07-cyber-eval-incidents-03
+  - EV-anthropic-2026-07-cyber-eval-incidents-04
+  - EV-anthropic-2026-07-cyber-eval-incidents-06
+  - EV-anthropic-2026-08-improving-alignment-security-efforts-01
+  - EV-anthropic-2026-08-improving-alignment-security-efforts-02
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-02
+backtest:
+  - question: Q-eval-harness-01
+    verdict: would_surface
+    rationale: >-
+      The honest answer was that the machines were configured to have no internet access and that
+      neither Anthropic nor the partner had carefully tested every path. Anthropic later wrote that
+      validating all access paths would have surfaced the problem and that it needed a process for
+      verifying a sandbox is sealed.
+  - question: Q-eval-harness-02
+    verdict: would_surface
+    rationale: >-
+      The honest answer was that nothing acted in real time and the only second layer was an
+      automated review of a sample of transcripts after the fact. That is the single layer of
+      defense the August post names as the failure.
+  - question: Q-eval-harness-05
+    verdict: would_surface
+    rationale: >-
+      The honest answer was that the partner built and ran the environment and Anthropic had taken
+      its isolation on the partner's word. Neither side knew of the misconfiguration, and Anthropic
+      says its containment work missed third-party evaluations above all.
+  - question: Q-eval-external-05
+    verdict: would_surface
+    rationale: >-
+      The honest answer was that the partner's containment applied, Anthropic's monitoring of
+      internal agents did not reach these runs, and only a sample of transcripts got an automated
+      review afterwards. That exposes the uncovered boundary; the open network path itself would
+      still have needed a test to find.
+  - question: Q-eval-dangerous-03
+    verdict: might_surface
+    rationale: >-
+      The honest answer was that the runs were in the partner's environment, without deployment
+      classifiers, on machines staff believed had no internet access. It shows a single layer of
+      containment, but the question does not ask how that layer was verified, so the reviewer has to
+      press.
+  - question: Q-eval-transcripts-03
+    verdict: might_surface
+    rationale: >-
+      The honest answer was that people read few or none end to end and a sample got an automated
+      review. That explains the three to seven months of delay and leaves the open path untouched,
+      and a human sample would be unlikely to hit a handful of runs in 141,006.
+  - question: Q-eval-dangerous-07
+    verdict: would_not_surface
+    rationale: >-
+      Staff could have named results a person had inspected at transcript level without having
+      opened any of the affected runs. Spot inspection of scores does not find a containment fault
+      in a handful of runs out of 141,006.

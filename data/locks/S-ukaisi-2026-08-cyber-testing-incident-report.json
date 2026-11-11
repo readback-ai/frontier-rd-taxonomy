@@ -1,0 +1,60 @@
+{
+  "source_id": "S-ukaisi-2026-08-cyber-testing-incident-report",
+  "snapshot": {
+    "url": "https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing",
+    "final_url": "https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "70a5dc2a751cc4bcd286e2180d4ec4f9dd695281032dbcce605bbd6850a8f71b",
+    "text_sha256": "d8887a7a97badf3f7f493831e93eb4668fcbbc5ef9520af6d7a99006cef30669",
+    "text_chars": 18447
+  },
+  "quotes": {
+    "EV-ukaisi-2026-08-cyber-testing-incident-report-01": {
+      "quote_sha256": "6841f5045fd95f5b4113d0dad3f6fd480bde476147751e104aa18c72c43e746d",
+      "text_sha256": "d8887a7a97badf3f7f493831e93eb4668fcbbc5ef9520af6d7a99006cef30669",
+      "verified": "2026-11-11"
+    },
+    "EV-ukaisi-2026-08-cyber-testing-incident-report-02": {
+      "quote_sha256": "5c851069b900c5c385542971a85f59fabc1a6ca057f11aa46ef07abdf008f419",
+      "text_sha256": "d8887a7a97badf3f7f493831e93eb4668fcbbc5ef9520af6d7a99006cef30669",
+      "verified": "2026-11-11"
+    },
+    "EV-ukaisi-2026-08-cyber-testing-incident-report-03": {
+      "quote_sha256": "c673ef7b361b62074c81f9b9370a91ab8879e9f7d22ec4ea699ee13f05cdcdf5",
+      "text_sha256": "d8887a7a97badf3f7f493831e93eb4668fcbbc5ef9520af6d7a99006cef30669",
+      "verified": "2026-11-11"
+    },
+    "EV-ukaisi-2026-08-cyber-testing-incident-report-04": {
+      "quote_sha256": "603f9e47d0ebf268131bed63e7e6c65338ef9d31d603dcae628756f47ae340b7",
+      "text_sha256": "d8887a7a97badf3f7f493831e93eb4668fcbbc5ef9520af6d7a99006cef30669",
+      "verified": "2026-11-11"
+    },
+    "EV-ukaisi-2026-08-cyber-testing-incident-report-05": {
+      "quote_sha256": "b86e501a7054394e9b733c3aba5096461bd129e9e83418730757a80632b05927",
+      "text_sha256": "d8887a7a97badf3f7f493831e93eb4668fcbbc5ef9520af6d7a99006cef30669",
+      "verified": "2026-11-11"
+    },
+    "EV-ukaisi-2026-08-cyber-testing-incident-report-06": {
+      "quote_sha256": "93c73ef25b870e5e13717b8963084a2ed2070b0accda3bdd236ce5ef4dd497cc",
+      "text_sha256": "d8887a7a97badf3f7f493831e93eb4668fcbbc5ef9520af6d7a99006cef30669",
+      "verified": "2026-11-11"
+    },
+    "EV-ukaisi-2026-08-cyber-testing-incident-report-07": {
+      "quote_sha256": "9b14389a5ad036fb598474f4d182914b081fe709c5f428589282f94b0da90516",
+      "text_sha256": "d8887a7a97badf3f7f493831e93eb4668fcbbc5ef9520af6d7a99006cef30669",
+      "verified": "2026-11-11"
+    },
+    "EV-ukaisi-2026-08-cyber-testing-incident-report-08": {
+      "quote_sha256": "63d849a88da26130516eb900c08457b02e14d27e0fff5b089f91a09e1788f5b5",
+      "text_sha256": "d8887a7a97badf3f7f493831e93eb4668fcbbc5ef9520af6d7a99006cef30669",
+      "verified": "2026-11-11"
+    },
+    "EV-ukaisi-2026-08-cyber-testing-incident-report-09": {
+      "quote_sha256": "9e49697645f66c4730ce3f5e8eeafc7a5830aa70163aed5c0df742349eba73c0",
+      "text_sha256": "d8887a7a97badf3f7f493831e93eb4668fcbbc5ef9520af6d7a99006cef30669",
+      "verified": "2026-11-11"
+    }
+  }
+}

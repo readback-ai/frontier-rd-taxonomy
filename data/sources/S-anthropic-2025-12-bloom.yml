@@ -1,0 +1,190 @@
+id: S-anthropic-2025-12-bloom
+title: "Bloom: an open source tool for automated behavioral evaluations"
+publisher: Anthropic (Alignment Science Blog)
+authors:
+  - Isha Gupta
+  - Kai Fronsdal
+  - Abhay Sheshadri
+  - Jonathan Michala
+  - Jacqueline Tay
+  - Rowan Wang
+  - Samuel R. Bowman
+  - Sara Price
+published: 2025-12-19
+url: https://alignment.anthropic.com/2025/bloom-auto-evals/
+type: lab_research_post
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic's release post for Bloom, a pipeline in which models turn a researcher's
+  description of a behavior into an evaluation suite: they write the scenarios, play the user
+  and the tools, and judge the transcripts. It reports how the model judge compares with human
+  labels and where the tool should not be used.
+limits: >-
+  Self-reported, from the tool's makers. The judge was validated on 40 transcripts that the authors
+  labelled themselves; the number of labellers and their agreement with each other are not stated,
+  and the prompts had been tuned on the two judge models that then scored best. Validity is
+  otherwise shown on system-prompted model organisms, not on real misalignment. Describes the
+  open-source tool, not a stated internal release process. Users and tools are simulated, and one
+  model was the evaluator at every stage of the released benchmarks.
+evidence:
+  - id: EV-anthropic-2025-12-bloom-01
+    claim: >-
+      Bloom generates behavioral evaluations automatically, in four stages, from a seed that
+      the researcher provides.
+    quote: >-
+      Bloom is a four-stage automated pipeline that generates behavioral evaluations from a
+      user-provided seed.
+    locator: Section "System Design", figure caption
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-tasks, T-eval-alignment]
+    note: >-
+      The stages are Understanding, Ideation, Rollout and Judgment. In Rollout the agent plays
+      both the user and any tool responses.
+
+  - id: EV-anthropic-2025-12-bloom-02
+    claim: >-
+      Scoring is done by a judge model on each transcript, and a meta-judge stage writes the report
+      on the whole suite from those scores and summaries.
+    quote: >-
+      The judge model reviews and scores each transcript for the target behavior plus secondary
+      qualities that help contextualize the score. These scores and summaries then go to a
+      meta-judge, which produces a report with an overall suite summary
+    locator: Section "System Design", Four-Stage Pipeline, Judgment
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders, T-eval-transcripts]
+    note: >-
+      The suite-level report is a model's summary of model-written summaries. The post does not say
+      the meta-judge is a different model.
+
+  - id: EV-anthropic-2025-12-bloom-03
+    claim: >-
+      In the workflow Anthropic describes, the user first specifies the behavior, then checks sample
+      evaluations against what was intended, which it calls the most hands-on phase.
+    quote: >-
+      First, precisely specify the behavior you want to measure and the interaction type you
+      want to investigate. Then, generate sample evaluations locally and check whether they
+      capture what you intend—this is the most hands-on phase, often involving iteration on
+      configuration options and agent prompts.
+    locator: Section "System Design", typical workflow
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-design, T-eval-tasks]
+    note: >-
+      A third phase is running sweeps and exploring results.
+
+  - id: EV-anthropic-2025-12-bloom-04
+    claim: >-
+      Against human labels, the best judge model (Claude Opus 4.1) reached a Spearman
+      correlation of 0.86 and the next (Claude Sonnet 4.5) 0.75.
+    quote: >-
+      We found that Claude Opus 4.1 shows the strongest correlation with human-labeled scores as
+      a judge (Spearman correlation of 0.86), followed by Claude Sonnet 4.5 (0.75).
+    locator: Section "Judge Trust and Calibration"
+    kind: method
+    strength: measured
+    grade: B
+    tasks: [T-eval-graders]
+
+  - id: EV-anthropic-2025-12-bloom-05
+    claim: >-
+      The judge validation set was 40 hand-labelled transcripts covering 12 behaviors, scored
+      by 11 judge models.
+    quote: >-
+      We measure Spearman correlation of model-assigned and human-labeled behavior presence
+      scores for 40 transcripts spanning 12 behaviors and a variety of interaction types. We
+      measure correlation for 11 judge models.
+    locator: Section "Judge Trust and Calibration", figure caption
+    kind: method
+    strength: measured
+    grade: B
+    tasks: [T-eval-graders]
+    note: >-
+      About three transcripts per behavior. The appendix text says 12 judge models; the
+      caption says 11.
+
+  - id: EV-anthropic-2025-12-bloom-06
+    claim: >-
+      Anthropic says the two best judges probably scored best partly because the judge prompts
+      had been refined on those same models' failure modes.
+    quote: >-
+      Claude Opus 4.1 and Sonnet 4.5 likely perform best in this experiment partly because we
+      refined our prompts during development based on these models' failure modes.
+    locator: Section "Judge Trust and Calibration"
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders]
+
+  - id: EV-anthropic-2025-12-bloom-07
+    claim: >-
+      Scoring the same transcript repeatedly, Claude judges almost never changed their scores,
+      while GPT-5's scores varied widely.
+    quote: >-
+      Claude, particularly Sonnet 4, is extremely consistent when scoring the same transcript
+      multiple times, almost never changing its scores. In contrast, GPT-5's judge
+      variance—particularly for reasoning unfaithfulness and self-preservation evaluations—is
+      high
+    locator: Section "Judge Trust and Calibration", consistency across repeated samples
+    kind: method
+    strength: measured
+    grade: B
+    tasks: [T-eval-graders]
+    note: >-
+      Five judge samples on each of 50 transcripts. Consistency is not accuracy; a judge can
+      repeat the same wrong score.
+
+  - id: EV-anthropic-2025-12-bloom-08
+    claim: >-
+      Bloom's evaluations separated a model given an implanted quirk from its baseline for 9 of
+      10 quirks.
+    quote: >-
+      Bloom successfully distinguishes system-prompted model organisms from baseline models for
+      9/10 quirks, even without example transcripts.
+    locator: Section "Meaningfulness and Trust", figure caption
+    kind: method
+    strength: measured
+    grade: B
+    tasks: [T-eval-tasks, T-eval-alignment]
+    note: >-
+      50 rollouts per model per quirk, with Claude Sonnet 4 or 3.7 as target. The post says the
+      tenth, self-promotion, failed because the baseline model showed it at similar rates.
+
+  - id: EV-anthropic-2025-12-bloom-09
+    claim: >-
+      Anthropic says Bloom is less suitable where objective correctness must be checked, such
+      as whether code works or a task was really completed, because judge models may not score
+      those outcomes reliably.
+    quote: >-
+      but is less suitable for evaluations that require checking objective correctness—such as
+      whether a complex math solution is actually right, whether code actually works, or whether
+      a task was genuinely completed. Judge models may not be capable enough to reliably score
+      these outcomes.
+    locator: Section "Limitations"
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders]
+
+  - id: EV-anthropic-2025-12-bloom-10
+    claim: >-
+      Anthropic says the four benchmark suites it released, covering 16 models, took a few days
+      to conceive, refine and generate with Bloom.
+    quote: >-
+      we are releasing benchmarks for four behaviors—delusional sycophancy, instructed
+      long-horizon sabotage, self-preservation and self-preferential bias—across 16 frontier
+      models. These only took a few days to conceptualize, refine and generate with Bloom.
+    locator: Introduction
+    kind: pace
+    strength: reported
+    grade: B
+    tasks: [T-eval-tasks]
+    note: >-
+      Calendar time for building evaluations with the tool. The number of people is not
+      stated. The post contrasts this with bespoke evaluations that "require large amounts of
+      researcher time".

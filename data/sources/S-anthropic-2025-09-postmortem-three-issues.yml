@@ -1,0 +1,146 @@
+id: S-anthropic-2025-09-postmortem-three-issues
+title: A postmortem of three recent issues
+publisher: Anthropic
+authors: [Sam McAllister]
+published: 2025-09-17
+url: https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues
+type: incident_report
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic's postmortem of three overlapping serving bugs (a routing error, an output corruption
+  and a compiler bug in token sampling) that degraded Claude's responses between August and early
+  September 2025. Its pre-deployment validation and regular evaluations did not show the
+  degradation; user reports did, and the investigation opened in late August.
+limits: >-
+  Self-reported. The post does not name the evaluations that missed the degradation or say how many
+  there were, and does not say whether models wrote or reviewed the faulty changes. The incident is
+  in the serving stack, not in a pre-release capability or safety assessment; it is recorded here as
+  a case where evaluations passed and the problem was found after release. Impact figures are given
+  only for the first bug, the reach of the third is uncertain, and the timeline is labelled
+  illustrative.
+evidence:
+  - id: EV-anthropic-2025-09-postmortem-three-issues-01
+    claim: >-
+      Between August and early September three infrastructure bugs intermittently degraded the
+      quality of Claude's responses.
+    quote: >-
+      Between August and early September, three infrastructure bugs intermittently degraded
+      Claude's response quality.
+    locator: Introduction
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2025-08
+    tasks: []
+    note: The year, 2025, comes from the publication date.
+
+  - id: EV-anthropic-2025-09-postmortem-three-issues-02
+    claim: >-
+      The evaluations Anthropic ran did not show the degradation users reported. It gives as one
+      reason that Claude often recovers from isolated mistakes.
+    quote: >-
+      The evaluations we ran simply didn't capture the degradation users were reporting, in part
+      because Claude often recovers well from isolated mistakes.
+    locator: Why detection was difficult
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-inloop, T-eval-design]
+    note: >-
+      An evaluation that scores end results can hide an intermittent fault the model works
+      around.
+
+  - id: EV-anthropic-2025-09-postmortem-three-issues-03
+    claim: >-
+      Anthropic's validation of infrastructure changes ordinarily relied on benchmarks, safety
+      evaluations and performance metrics, with engineers' spot checks and small canary
+      deployments.
+    quote: >-
+      Our validation process ordinarily relies on benchmarks alongside safety evaluations and
+      performance metrics. Engineering teams perform spot checks and deploy to small "canary"
+      groups first.
+    locator: Why detection was difficult
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-inloop]
+
+  - id: EV-anthropic-2025-09-postmortem-three-issues-04
+    claim: >-
+      Users found the problem. Reports began in early August, were hard to tell from normal
+      variation in feedback, and led Anthropic to open an investigation only in late August.
+    quote: >-
+      In early August, a number of users began reporting degraded responses from Claude. These
+      initial reports were difficult to distinguish from normal variation in user feedback. By
+      late August, the increasing frequency and persistence of these reports prompted us to open
+      an investigation that led us to uncover three separate infrastructure bugs.
+    locator: Introduction
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2025-08
+    tasks: [T-eval-inloop]
+
+  - id: EV-anthropic-2025-09-postmortem-three-issues-05
+    claim: >-
+      The first bug was introduced on August 5 and its fix was deployed on September 4.
+    quote: >-
+      The first bug was introduced on August 5, affecting approximately 0.8% of requests made to
+      Sonnet 4. [...] We deployed the fix on September 4.
+    locator: Timeline of events; Context window routing error, Resolution
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2025-08
+    tasks: []
+    note: >-
+      About a month from introduction to fix (our arithmetic). Rollout of the fix to all platforms
+      ran to September 18. Used only as the time the checks in items 02 and 03 went without catching
+      the fault.
+
+  - id: EV-anthropic-2025-09-postmortem-three-issues-06
+    claim: >-
+      Engineers removed an earlier workaround because they believed they had fixed the root
+      cause. The workaround had been masking a deeper bug in the approximate top-k operation.
+    quote: >-
+      Our fix removed the December workaround because we believed we'd solved the root cause. This
+      led to a deeper bug in the approximate top-k operation [...] The December workaround had
+      been inadvertently masking this problem.
+    locator: A closer look at the XLA compiler bug
+    kind: comprehension
+    strength: reported
+    grade: B
+    note: >-
+      The people making the change misjudged what the earlier fix had been doing. No task in
+      T-eval fits; the work is serving infrastructure.
+
+  - id: EV-anthropic-2025-09-postmortem-three-issues-07
+    claim: >-
+      Anthropic says it relied too heavily on noisy evaluations and, though aware of rising
+      reports online, had no clear way to connect them to its recent changes.
+    quote: >-
+      More fundamentally, we relied too heavily on noisy evaluations. Although we were aware of an
+      increase in reports online, we lacked a clear way to connect these to each of our recent
+      changes.
+    locator: Why detection was difficult
+    kind: comprehension
+    strength: reported
+    grade: B
+    tasks: [T-eval-inloop, T-eval-validity]
+
+  - id: EV-anthropic-2025-09-postmortem-three-issues-08
+    claim: >-
+      As a remedy Anthropic will run its quality evaluations continuously on true production
+      systems, to catch faults such as the load balancing error.
+    quote: >-
+      Although we run regular evaluations on our systems, we will run them continuously on true
+      production systems to catch issues such as the context window load balancing error.
+    locator: What we're changing
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-inloop, T-eval-design]
+    note: >-
+      Implies the regular evaluations had not been running against the production configuration
+      that users reached. That reading is my inference.

@@ -1,0 +1,36 @@
+id: R-eval-sandbagging
+title: The model holds back on a capability evaluation and the check for that is light
+tasks: [T-eval-validity, T-eval-dangerous, T-eval-elicitation]
+failure_mode: >-
+  A model performs below its ability on a dangerous-capability evaluation. The check is a grader
+  model reading a few hundred to a thousand sampled transcripts, with a person reading the handful
+  it flags. Subtle underperformance shows only in distributions the automated auditors do not assess
+  well.
+harm_path: false_assurance
+mechanisms: [adversarial_model, correlated_error, review_overload]
+automation_effect: >-
+  The sandbagging check is itself a model reading a model. In a constructed test a model graded a
+  transcript of its own sandbagging as clean, and a newer model told to underperform and evade
+  detection was caught under 11% of the time. As capability rises, holding back gets easier to do
+  without saying so, and the transcripts a person reads are the ones a grader chose.
+review_catchable: 'no'
+review_rationale: >-
+  A review can show that the check was thin: its sample, its reader, whether anyone defined a
+  positive. It cannot show that a model which did not flag itself was trying. Review improves
+  the check. It does not replace evidence that does not depend on the model's cooperation.
+severity: critical
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-04-mythos-preview-system-card-07
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-06
+  - EV-anthropic-2026-01-auditing-overt-saboteur-09
+  - EV-apollo-2025-09-stress-testing-anti-scheming-05
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-06
+  - EV-openai-2026-09-gpt-6-astra-system-card-06
+  - EV-gdm-2025-11-gemini-3-pro-fsf-report-02
+  - EV-openai-2026-10-how-we-detect-frontier-model-misalignment-06
+  - EV-meta-2026-05-muse-spark-safety-preparedness-report-08
+  - EV-openai-2026-11-covert-underperformance-safety-research-05
+  - EV-openai-2026-11-covert-underperformance-safety-research-06
+incidents:
+  - INC-2026-openai-covert-underperformance-safety-research

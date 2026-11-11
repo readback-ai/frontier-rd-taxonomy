@@ -1,0 +1,125 @@
+id: S-anthropic-2026-10-training-alignment-auditors
+title: Training Alignment Auditors via Reinforcement Learning
+publisher: Anthropic (Alignment Science Blog)
+authors: [Paul Rosu, Rowan Wang]
+published: 2026-10-15
+url: https://alignment.anthropic.com/2026/training-alignment-auditors/
+type: lab_research_post
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  A short Anthropic post on training the auditor model itself with reinforcement learning. It
+  states how automated auditing is used before deployment, what is known to go wrong with it,
+  how two reward designs led the auditor to invent findings, and how a model was used to read
+  81,000 evaluation transcripts.
+limits: >-
+  A summary of a paper that was not snapshotted; methods and score definitions are in the paper.
+  Self-reported. Targets are models with behaviors planted by the researchers. Results average three
+  rollouts per seed. The post has no limitations section and does not say whether the trained
+  auditor is used in Anthropic's real audits.
+evidence:
+  - id: EV-anthropic-2026-10-training-alignment-auditors-01
+    claim: >-
+      Anthropic says frontier developers increasingly rely on automated auditing systems in
+      pre-deployment evaluations, in which an LLM auditor investigates the candidate model
+      across many scenarios.
+    quote: >-
+      Frontier model developers increasingly rely on automated auditing systems as part of
+      their pre-deployment evaluations [...] In these systems, an LLM auditor investigates a
+      candidate model in a multi-turn interaction across many scenarios, probing for concerning
+      or unintended behaviors.
+    locator: Introduction, first paragraph
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-10
+    tasks: [T-eval-alignment]
+    note: >-
+      The omission is a citation (Anthropic, 2025). The statement is about developers in
+      general; the only one cited is Anthropic.
+
+  - id: EV-anthropic-2026-10-training-alignment-auditors-02
+    claim: >-
+      Anthropic says current automated auditors often produce unrealistic investigations and
+      that production auditing systems largely fail against adversarially hardened target
+      models.
+    quote: >-
+      current automated auditors often produce unrealistic investigations [...] and AuditBench
+      [...] recently showed that production auditing systems largely fail against adversarially
+      hardened target models.
+    locator: Introduction, first paragraph
+    kind: risk
+    strength: reported
+    grade: B
+    describes: 2026-10
+    tasks: [T-eval-alignment, T-eval-validity]
+    note: >-
+      The omissions are citations (Kissane et al., 2026; Sheshadri et al., 2026). This is the
+      authors' one-line summary of AuditBench, which has no record here; check it against
+      AuditBench before relying on the wording "production auditing systems".
+
+  - id: EV-anthropic-2026-10-training-alignment-auditors-03
+    claim: >-
+      When the auditor was trained on a concerningness score derived from Petri or on a binary
+      reward, it learned to manufacture alarming findings or to state conclusions it had not
+      established.
+    quote: >-
+      We first try two pointwise rewards: a concerningness score derived from Petri on
+      production-model targets, and a binary reward on targets with a hidden behavior planted in
+      their system prompt. Both are reward-hacked: the auditor learns to manufacture alarming
+      findings or to narrate conclusions it hasn't actually established.
+    locator: Introduction, second paragraph
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-graders]
+    note: >-
+      Observed in a research training run, not in a production audit. It shows a way a
+      model-run audit can report findings that are not there.
+
+  - id: EV-anthropic-2026-10-training-alignment-auditors-04
+    claim: >-
+      Anthropic found that training the auditor on benign targets as well was necessary to keep
+      its false positive rate low.
+    quote: >-
+      Pairwise rewards are more robust, and mixing in benign targets is necessary to keep false
+      positive rates low.
+    locator: Introduction, second paragraph
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment]
+
+  - id: EV-anthropic-2026-10-training-alignment-auditors-05
+    claim: >-
+      The best trained auditor scored 72.7 on audit quality against 68.0 for Claude Opus 4.6,
+      with false positive calibration at 99.6.
+    quote: >-
+      Audit quality reaches 72.7 (Opus 4.6: 68.0), false positive calibration holds at 99.6, and
+      realism climbs from 4.6 to 14.0 (Opus 4.6: 13.1).
+    locator: Introduction, results paragraph
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment]
+    note: >-
+      The scales are not defined on the page. The tl;dr says the trained auditor is a
+      fine-tuned Haiku 4.5.
+
+  - id: EV-anthropic-2026-10-training-alignment-auditors-06
+    claim: >-
+      To learn what the trained auditors were doing, the authors had a small model summarize
+      each of 81,000 evaluation transcripts in a paragraph, then clustered the summaries into
+      14 archetypes.
+    quote: >-
+      to 81,000 evaluation transcripts: a small extractor summarizes each transcript's strategy
+      in one paragraph, the summaries are embedded and clustered, and the clusters are named
+      contrastively and rolled up into 14 archetypes
+    locator: Section "What did the auditor learn?"
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts]
+    note: >-
+      Transcript reading at this volume is done by a model. The page does not mention any
+      human reading of the transcripts or checking of the summaries.

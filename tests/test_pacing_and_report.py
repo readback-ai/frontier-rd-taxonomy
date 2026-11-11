@@ -123,3 +123,26 @@ def test_reports_are_reproducible_and_dated_by_the_data(verified: Paths):
     assert "How do you know the grader agrees with people?" in first["question-pack-x.md"]
     assert "1 of 1 backtested incidents" in first["backtest.md"]
     assert "A model-written grader passes wrong answers" in first["branch-x.md"]
+
+
+def test_coverage_shows_each_scope_and_never_merges_them(verified: Paths):
+    two_scopes = copy.deepcopy(ESTIMATES)
+    two_scopes["estimates"].append(
+        dict(
+            estimate("automation-other", "automation_level", {"kind": "level", "level": "AL2"}),
+            scope="Other Lab",
+            as_of="2026-06",
+        )
+    )
+    write_record(verified, "estimates/T-x-graders.yml", two_scopes)
+    coverage = {p.name: p.read_text() for p in write_reports(verified)}["coverage.md"]
+    assert "Other Lab: AL2 [evidence]; frontier: AL4 [evidence]" in coverage
+
+
+def test_no_judgment_estimates_is_stated_plainly(verified: Paths):
+    sourced = copy.deepcopy(ESTIMATES)
+    sourced["estimates"] = sourced["estimates"][:2]
+    write_record(verified, "estimates/T-x-graders.yml", sourced)
+    coverage = {p.name: p.read_text() for p in write_reports(verified)}["coverage.md"]
+    assert "0 of 2 estimates (0%) rest on judgment alone.\n" in coverage
+    assert "priors" not in coverage

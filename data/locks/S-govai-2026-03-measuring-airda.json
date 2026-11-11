@@ -1,0 +1,60 @@
+{
+  "source_id": "S-govai-2026-03-measuring-airda",
+  "snapshot": {
+    "url": "https://arxiv.org/pdf/2603.03992",
+    "final_url": "https://arxiv.org/pdf/2603.03992",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "4b707665a64a53ccabbbaad7be06c27e152b64e99b6bb9e20461f314f1de3e5d",
+    "text_sha256": "429fdf59a9915747abbf5a1c521b12e79d687449701a01e97f36b5d01cf8f4b7",
+    "text_chars": 96146
+  },
+  "quotes": {
+    "EV-govai-2026-03-measuring-airda-01": {
+      "quote_sha256": "37c157f5de758ac7acac6a2ad4a193003322197dd91f9a0bf25837f6f821b290",
+      "text_sha256": "429fdf59a9915747abbf5a1c521b12e79d687449701a01e97f36b5d01cf8f4b7",
+      "verified": "2026-11-11"
+    },
+    "EV-govai-2026-03-measuring-airda-02": {
+      "quote_sha256": "2aca66ac6e30e6353cb8864d3ac928703bb5e308633b43867eea31ebbab8b906",
+      "text_sha256": "429fdf59a9915747abbf5a1c521b12e79d687449701a01e97f36b5d01cf8f4b7",
+      "verified": "2026-11-11"
+    },
+    "EV-govai-2026-03-measuring-airda-03": {
+      "quote_sha256": "2d3e828b16abde4390392f6c42c532d36b17ceccd0deb0edd7fca97066321936",
+      "text_sha256": "429fdf59a9915747abbf5a1c521b12e79d687449701a01e97f36b5d01cf8f4b7",
+      "verified": "2026-11-11"
+    },
+    "EV-govai-2026-03-measuring-airda-04": {
+      "quote_sha256": "596a90b72ec49c26c3346ac8c9ad45627c2485e59e41dfb8c9f40f2d1277a44f",
+      "text_sha256": "429fdf59a9915747abbf5a1c521b12e79d687449701a01e97f36b5d01cf8f4b7",
+      "verified": "2026-11-11"
+    },
+    "EV-govai-2026-03-measuring-airda-05": {
+      "quote_sha256": "d97a2d86745535f3f462415126a8f9150f0ae8035bd51f95f45a42e8f98f6ab6",
+      "text_sha256": "429fdf59a9915747abbf5a1c521b12e79d687449701a01e97f36b5d01cf8f4b7",
+      "verified": "2026-11-11"
+    },
+    "EV-govai-2026-03-measuring-airda-06": {
+      "quote_sha256": "42169e86510774d8ffa58a04cac4e0808e93a00a3225a1c829e9d48a1fa0b385",
+      "text_sha256": "429fdf59a9915747abbf5a1c521b12e79d687449701a01e97f36b5d01cf8f4b7",
+      "verified": "2026-11-11"
+    },
+    "EV-govai-2026-03-measuring-airda-07": {
+      "quote_sha256": "52f6135b8b4554c650aedf347e8deca648c78a8c473353dcc9a3f80bc0e25c47",
+      "text_sha256": "429fdf59a9915747abbf5a1c521b12e79d687449701a01e97f36b5d01cf8f4b7",
+      "verified": "2026-11-11"
+    },
+    "EV-govai-2026-03-measuring-airda-08": {
+      "quote_sha256": "e2942318920ba00192fce105eb63603ec38ceca18041ee6b9130ad13c776f520",
+      "text_sha256": "429fdf59a9915747abbf5a1c521b12e79d687449701a01e97f36b5d01cf8f4b7",
+      "verified": "2026-11-11"
+    },
+    "EV-govai-2026-03-measuring-airda-09": {
+      "quote_sha256": "3e21455780b253fe2dc04fe23c5449671a75ac023f3b9630432d875fa9a6acc5",
+      "text_sha256": "429fdf59a9915747abbf5a1c521b12e79d687449701a01e97f36b5d01cf8f4b7",
+      "verified": "2026-11-11"
+    }
+  }
+}

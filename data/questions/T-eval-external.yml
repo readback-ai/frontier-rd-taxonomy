@@ -1,0 +1,84 @@
+task: T-eval-external
+contribution: >-
+  A third-party evaluation or review, as the developer and its readers rely on it.
+questions:
+  - id: Q-eval-external-01
+    category: what
+    topical_area: process
+    question: >-
+      What did the outside party have access to: which model versions, which internal data, for
+      how long? What did they ask for and not get?
+    good_answer_shows: >-
+      Access stated precisely, including denied requests and whether access was direct or
+      mediated by developer staff.
+    red_flags:
+      - '"High access," with data handed over by two employees.'
+      - A planned verification was removed from scope midway.
+    risks: [R-eval-external-limited-view]
+
+  - id: Q-eval-external-02
+    category: dependency
+    topical_area: key_findings
+    question: >-
+      Which of their conclusions rest on information the developer supplied and they could not
+      check?
+    good_answer_shows: >-
+      Conclusions sorted by whether the outside party verified the inputs.
+    red_flags:
+      - The primary evidence is the developer's own benchmark scores and a questionnaire.
+      - The report is cited as independent confirmation.
+    risks: [R-eval-external-limited-view]
+
+  - id: Q-eval-external-03
+    category: failure
+    topical_area: process
+    question: >-
+      What was redacted from the public version, who decided, and does the public version still
+      support its conclusions without it?
+    good_answer_shows: >-
+      The extent of redaction, who held the right, and a reader's ability to follow the argument
+      regardless.
+    red_flags:
+      - The developer redacted most of what the reviewer found most informative.
+      - The reviewer softened descriptions to protect future access.
+    risks: [R-eval-external-limited-view, R-eval-reporting-outruns-evidence]
+
+  - id: Q-eval-external-04
+    category: why
+    topical_area: architecture_design
+    question: >-
+      What does the outside party's contract let the developer control: publication, scope, access
+      to tasks or answers?
+    good_answer_shows: >-
+      The terms that bear on independence, disclosed to readers of the result.
+    red_flags:
+      - The developer scored on a benchmark owns it or holds its solutions.
+      - Disclosure of the relationship needs the developer's permission.
+    risks: [R-eval-external-limited-view, R-eval-contamination]
+
+  - id: Q-eval-external-05
+    category: side_effects
+    topical_area: implementation_behavior
+    question: >-
+      When evaluations run in the outside party's environment, whose containment and monitoring
+      apply?
+    good_answer_shows: >-
+      A clear owner for isolation and for watching the runs, and verification across the
+      boundary.
+    red_flags:
+      - Each side assumed the other had checked.
+      - The developer's monitoring does not reach runs in a partner's environment.
+    risks: [R-eval-environment-not-contained]
+
+  - id: Q-eval-external-06
+    category: provenance
+    topical_area: analysis_of_results
+    question: >-
+      How much of the outside party's analysis, and of the material given to them, was produced by
+      the developer's own model?
+    good_answer_shows: >-
+      The share stated, and independent checks on the parts that matter.
+    red_flags:
+      - The developer's model was deeply involved in most of the data collection and most of the reviewer's analysis.
+      - The check on the model's work was the model.
+    risks: [R-eval-external-limited-view, R-eval-model-grader-unchecked]

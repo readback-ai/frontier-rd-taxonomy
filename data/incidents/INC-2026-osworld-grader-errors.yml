@@ -1,0 +1,71 @@
+id: INC-2026-osworld-grader-errors
+title: Grader and task errors in most audited OSWorld tasks understated a frontier model's score by a fifth
+org: XLANG Lab (benchmark), Epoch AI (audit)
+frontier: false
+occurred: 2026-06
+disclosed: 2026-09-28
+summary: >-
+  Epoch AI audited 50 of the 108 tasks in the computer-use benchmark OSWorld v2.1 and found errors
+  in 36: checkpoints impossible as written, graders that denied credit for correct work and graders
+  that gave credit for clearly incorrect work. Epoch calculates that GPT-6 Astra lost around 20.8%
+  of its score on the tasks it examined to incorrect grading. The errors remain after two maintainer
+  updates.
+root_cause: >-
+  Answer keys that disagree with the task's own materials, a model judge inside the grader,
+  over-strict matching, and graders that do not penalize excess submissions.
+detected_by: Epoch AI's audit, in which Claude Opus 5.5 subagents flagged candidate errors and people confirmed each one
+detection_latency: About three months from the benchmark's first release
+automation_involved: 'yes'
+comprehension_failure: unknown
+comprehension_note: >-
+  At least one faulty grader was a model judge. The review does not say how the graders were
+  built or what the maintainers knew. An analog: the benchmark is not built by a frontier
+  developer, but frontier models are scored on it.
+tasks: [T-eval-graders, T-eval-tasks]
+risks:
+  - R-eval-model-grader-unchecked
+  - R-eval-task-defects
+evidence:
+  - EV-epoch-2026-09-osworld-review-01
+  - EV-epoch-2026-09-osworld-review-02
+  - EV-epoch-2026-09-osworld-review-04
+  - EV-epoch-2026-09-osworld-review-05
+  - EV-epoch-2026-09-osworld-review-08
+  - EV-epoch-2026-09-osworld-review-03
+  - EV-epoch-2026-09-osworld-review-06
+backtest:
+  - question: Q-eval-graders-02
+    verdict: might_surface
+    rationale: >-
+      The record does not say what the maintainers had measured. With errors in 36 of 50 audited
+      tasks no sound agreement figure on agent outputs can have existed, so the honest answer was
+      probably "not measured", which shows the missing audit and no specific error.
+  - question: Q-eval-graders-04
+    verdict: might_surface
+    rationale: >-
+      Reading verdicts next to the work is how Epoch found the errors. The maintainers' honest count
+      is not in the record; a low count shows the gap and a high one would mean the reading missed
+      them.
+  - question: Q-eval-graders-01
+    verdict: might_surface
+    rationale: >-
+      Asked about one grader, its author might think of the upload-everything pass or the exact-name
+      fail. The record does not show the maintainers knew either class, and the question covers one
+      grader at a time among 108 tasks.
+  - question: Q-eval-tasks-02
+    verdict: might_surface
+    rationale: >-
+      An honest count of tasks completed end to end for full credit would have exposed the 4
+      impossible tasks or checkpoints. Reference runs written to match the answer key would still
+      pass, so the 24 false negatives stay hidden.
+  - question: Q-eval-tasks-08
+    verdict: might_surface
+    rationale: >-
+      The honest answer is two rounds of fixes for task and setup issues since June, with no
+      systematic audit and no defect rate. That signals more errors without finding them.
+  - question: Q-eval-graders-03
+    verdict: would_not_surface
+    rationale: >-
+      The model judge failed by holding a correct row to an answer key that disagreed with the
+      task's own materials. A judge from another family given the same key rejects the same row, so
+      a good answer on shared blind spots changes nothing.

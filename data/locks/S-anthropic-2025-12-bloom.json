@@ -1,0 +1,65 @@
+{
+  "source_id": "S-anthropic-2025-12-bloom",
+  "snapshot": {
+    "url": "https://alignment.anthropic.com/2025/bloom-auto-evals/",
+    "final_url": "https://alignment.anthropic.com/2025/bloom-auto-evals/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "f8462508f7cd3eb287f8a2ce3a32b38878b313fabcd65569948c2dcdc368a306",
+    "text_sha256": "3fb0cff35e56af388eb97807e59012c33bd8e82ad2ae876ee76208844fd85f8a",
+    "text_chars": 64035
+  },
+  "quotes": {
+    "EV-anthropic-2025-12-bloom-01": {
+      "quote_sha256": "b3a6e7dfdc8ec4cb8db0def31fe5140f6b767ea42be2d5cbe51cdfb050435537",
+      "text_sha256": "3fb0cff35e56af388eb97807e59012c33bd8e82ad2ae876ee76208844fd85f8a",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-12-bloom-02": {
+      "quote_sha256": "f67d7bf47fdd287270bf846fad7c70e31e06463bea5255e6feb1af3f599768b0",
+      "text_sha256": "3fb0cff35e56af388eb97807e59012c33bd8e82ad2ae876ee76208844fd85f8a",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-12-bloom-03": {
+      "quote_sha256": "5dbf998793c0172d8fe1350f3b45d84b09573465b1e7ad46770e5ae1d6463067",
+      "text_sha256": "3fb0cff35e56af388eb97807e59012c33bd8e82ad2ae876ee76208844fd85f8a",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-12-bloom-04": {
+      "quote_sha256": "0911d9a78696c18d09571286e9cd52ace5de7ebaa1b1dd80a3e3ba0430d59437",
+      "text_sha256": "3fb0cff35e56af388eb97807e59012c33bd8e82ad2ae876ee76208844fd85f8a",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-12-bloom-05": {
+      "quote_sha256": "e7a957e3c3b2b2d5099cd48a07fafd8f117ca271c6a7ee55effc29bee1016522",
+      "text_sha256": "3fb0cff35e56af388eb97807e59012c33bd8e82ad2ae876ee76208844fd85f8a",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-12-bloom-06": {
+      "quote_sha256": "6fd963b01697f247aeadae46685b744c0454ee59adb50955cc9626cc40043545",
+      "text_sha256": "3fb0cff35e56af388eb97807e59012c33bd8e82ad2ae876ee76208844fd85f8a",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-12-bloom-07": {
+      "quote_sha256": "20041a49b70fd5b1dc9c6c66dce36d8b20ff24a3eda5bf01e6ab323ba7e68942",
+      "text_sha256": "3fb0cff35e56af388eb97807e59012c33bd8e82ad2ae876ee76208844fd85f8a",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-12-bloom-08": {
+      "quote_sha256": "df4778530bff390f28d8edd935a6d054e6d8576808cb69b112c6fc8218f11847",
+      "text_sha256": "3fb0cff35e56af388eb97807e59012c33bd8e82ad2ae876ee76208844fd85f8a",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-12-bloom-09": {
+      "quote_sha256": "f817182d0c382cd7c53f383d20bd48a2b738ef17d01729365eea5c7119582eb4",
+      "text_sha256": "3fb0cff35e56af388eb97807e59012c33bd8e82ad2ae876ee76208844fd85f8a",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2025-12-bloom-10": {
+      "quote_sha256": "8356826de99dd5906355bf720624d47e5f3332a2dca348b3452aae90fd574aff",
+      "text_sha256": "3fb0cff35e56af388eb97807e59012c33bd8e82ad2ae876ee76208844fd85f8a",
+      "verified": "2026-11-11"
+    }
+  }
+}

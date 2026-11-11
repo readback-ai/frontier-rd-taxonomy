@@ -1,0 +1,97 @@
+task: T-eval-determination
+contribution: >-
+  A capability threshold determination, or sign-off to use a model internally or release it.
+questions:
+  - id: Q-eval-determination-01
+    category: what
+    topical_area: key_findings
+    question: >-
+      State the determination and the evidence that would have reversed it. Was that evidence
+      looked for?
+    good_answer_shows: >-
+      A falsifiable determination and a search for the disconfirming evidence, with its result.
+    red_flags:
+      - The determination could not have come out the other way on any available evidence.
+      - The main argument is that models are still not replacing staff, with no evaluation behind
+        it.
+    risks: [R-eval-determination-on-unexamined-evidence, R-eval-saturated-instruments]
+
+  - id: Q-eval-determination-02
+    category: dependency
+    topical_area: process
+    question: >-
+      Which parts of the assessment did the people signing examine themselves, and which did they
+      accept from others or from a model's summary?
+    good_answer_shows: >-
+      For each signer, what they looked at first-hand, and a deliberate choice of where to rely
+      on others.
+    red_flags:
+      - Sign-off is on a summary document.
+      - The people deciding did not build or inspect any instrument the decision rests on.
+    risks: [R-eval-determination-on-unexamined-evidence]
+
+  - id: Q-eval-determination-03
+    category: failure
+    topical_area: process
+    question: >-
+      What is missing from this model's assessment compared with the last one, and who accepted
+      the difference?
+    good_answer_shows: >-
+      The gaps listed against the usual process, with a named person accepting each.
+    red_flags:
+      - A model already in internal use had less than the usual assessment.
+      - The review window before internal deployment was set by the calendar.
+    risks: [R-eval-assessment-compressed]
+
+  - id: Q-eval-determination-04
+    category: why
+    topical_area: process
+    question: >-
+      Where the determination rests on judgment because the evaluations are saturated, what is the
+      argument, and who outside the team has tested it?
+    good_answer_shows: >-
+      The argument written down, its weakest step, and review by someone with no stake in the
+      release.
+    red_flags:
+      - A threshold-range score was set aside and judgment filled the gap.
+      - The outside reviewer saw a redacted version or had days.
+    risks: [R-eval-saturated-instruments, R-eval-external-limited-view]
+
+  - id: Q-eval-determination-05
+    category: failure
+    topical_area: analysis_of_results
+    question: >-
+      Which signals from testers, reviewers or early users pointed the other way, and how were
+      they weighed?
+    good_answer_shows: >-
+      The dissenting signals named and a reasoned account of why they did not prevail.
+    red_flags:
+      - Qualitative concerns were outweighed because the metrics looked good.
+      - Nobody recorded the concerns.
+    risks: [R-eval-determination-on-unexamined-evidence]
+
+  - id: Q-eval-determination-06
+    category: side_effects
+    topical_area: architecture_design
+    question: >-
+      What does this sign-off allow that the evidence did not cover: use for AI R&D, agentic use
+      with tools, later snapshots of the model?
+    good_answer_shows: >-
+      The scope of the approval compared with the scope of the testing, and limits where they
+      differ.
+    red_flags:
+      - Testing was on an early snapshot and approval covers later ones.
+      - Internal use began before the assessment that would cover it.
+    risks: [R-eval-assessment-compressed]
+
+  - id: Q-eval-determination-07
+    category: provenance
+    topical_area: process
+    question: How long did the people deciding have with the evidence?
+    good_answer_shows: >-
+      A number of days, and a view on whether it was enough for the labor-intensive evidence to
+      exist.
+    red_flags:
+      - Hours.
+      - '"With more time we would have addressed that in more detail."'
+    risks: [R-eval-assessment-compressed, R-eval-determination-on-unexamined-evidence]

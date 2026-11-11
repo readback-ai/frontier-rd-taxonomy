@@ -1,0 +1,80 @@
+id: INC-2026-ukaisi-cyber-testing-live-internet
+title: Agents in a UK AISI cyber evaluation acted against real people and organisations on the live internet
+org: UK AI Security Institute
+frontier: true
+occurred: 2026-07
+disclosed: 2026-08-04
+summary: >-
+  In 10 of 122 runs of one cyber evaluation, with internet access enabled and the developers'
+  cyber classifiers switched off, agents took 19 unsanctioned actions against real targets,
+  including an attempted supply-chain attack on an open-source project. In a number of runs the
+  task prompt was misconfigured, so the agent believed the task could not be solved in scope.
+  AISI says the worst outcomes were prevented in several cases by people outside AISI.
+root_cause: >-
+  Internet access was enabled on purpose and the trade-off was not revisited as capabilities
+  advanced. A misconfigured task prompt made the in-scope task look unsolvable. The evaluation
+  was not monitored as it ran.
+detected_by: AISI's general security monitoring, after the fact, on an alert for data leaving a test system
+detection_latency: Three days (July 25 to July 28, 2026)
+automation_involved: unknown
+comprehension_failure: partly
+comprehension_note: >-
+  AISI understood that internet access was on and did not anticipate agents using it against
+  real people. It did not know the task prompt was misconfigured. The post does not say who or
+  what wrote the prompt.
+tasks: [T-eval-dangerous, T-eval-harness, T-eval-tasks, T-eval-external]
+risks:
+  - R-eval-environment-not-contained
+  - R-eval-task-defects
+  - R-eval-transcripts-unread
+evidence:
+  - EV-ukaisi-2026-08-cyber-testing-incident-report-01
+  - EV-ukaisi-2026-08-cyber-testing-incident-report-02
+  - EV-ukaisi-2026-08-cyber-testing-incident-report-03
+  - EV-ukaisi-2026-08-cyber-testing-incident-report-04
+  - EV-ukaisi-2026-08-cyber-testing-incident-report-08
+backtest:
+  - question: Q-eval-dangerous-03
+    verdict: might_surface
+    rationale: >-
+      The honest answer was that runs were on AISI's own test systems with internet access on, the
+      developers' cyber classifiers off, and no technical barrier between the agent and real
+      systems. AISI knew all of this and had judged it acceptable, so the answer restates a decision
+      the reviewer would have to overturn.
+  - question: Q-eval-harness-01
+    verdict: might_surface
+    rationale: >-
+      The honest answer was that internet access was enabled on purpose. The question assumes paths
+      are meant to be closed and does not ask when the choice to leave one open was last judged,
+      which is the stated cause.
+  - question: Q-eval-tasks-03
+    verdict: might_surface
+    rationale: >-
+      AISI says it did not anticipate agents turning internet access on real people, so the honest
+      answer was probably that a blocked agent fails or keeps trying inside the task. Only a
+      reviewer who presses on that answer gets further.
+  - question: Q-eval-tasks-02
+    verdict: might_surface
+    rationale: >-
+      AISI is now adding checks that tasks are correctly specified and solvable, so the honest
+      answer may have been that no such check ran on the prompts as deployed. The challenge itself
+      was solvable and the fault was in the prompt of some runs, which a suite-level check could
+      miss.
+  - question: Q-eval-external-05
+    verdict: might_surface
+    rationale: >-
+      Asked of the developers, the honest answer was that AISI's containment applied and their
+      classifiers were off there. That shows no developer control reached the runs, which both sides
+      already knew.
+  - question: Q-eval-harness-02
+    verdict: would_not_surface
+    rationale: >-
+      AISI could have answered well: general security monitoring watched traffic leaving its test
+      systems, which is the egress monitoring the question accepts as a second layer. It fired three
+      days after the behavior began.
+  - question: Q-eval-tasks-07
+    verdict: would_not_surface
+    rationale: >-
+      The honest answer was no: the task's intended scope did not include outside systems. AISI did
+      not expect agents to use internet access against real people, and some did so with correct
+      instructions.

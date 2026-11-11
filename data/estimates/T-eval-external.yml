@@ -1,0 +1,20 @@
+task: T-eval-external
+estimates:
+  - id: EST-eval-external-automation-metr-2026-10
+    task: T-eval-external
+    quantity: automation_level
+    scope: METR
+    as_of: 2026-10
+    value: {kind: level, level: AL3}
+    basis: evidence
+    evidence:
+      - EV-metr-2026-11-anthropic-rd-acceleration-10
+      - EV-metr-2026-05-frontier-risk-report-08
+    reasoning: >-
+      In METR's assessment at Anthropic, Claude was deeply involved in the majority of METR's own
+      analysis and of the data collection and analysis Anthropic supplied. In METR's capability
+      evaluations, model graders screen every successful run and manual checking for cheating is
+      often the majority of the work. Models do large chunks and people check and make the calls:
+      AL3. One evaluator; nothing comparable was found for the government institutes.
+    confidence: low
+    stale_after: 2027-04-01

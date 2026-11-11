@@ -1,0 +1,35 @@
+{
+  "source_id": "S-cherny-2026-07-steps-of-ai-adoption",
+  "snapshot": {
+    "url": "https://x.com/bcherny/status/2077929390806073807",
+    "final_url": "https://x.com/bcherny/status/2077929390806073807",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=UTF-8",
+    "raw_sha256": "34e322a7d4ac6ddceb64d01c9a57b28c30f9de560868d93f1107e730bdfdb7dd",
+    "text_sha256": "6a1cd8713647ea6cfd471afec8b3b9309b12d0ec56dc2a032204d11bf097a3dd",
+    "text_chars": 4334
+  },
+  "quotes": {
+    "EV-cherny-2026-07-steps-of-ai-adoption-01": {
+      "quote_sha256": "38ea2797cba48e2a875bf8ca18ef652684ec85b770afc13e5eba60857fe46197",
+      "text_sha256": "6a1cd8713647ea6cfd471afec8b3b9309b12d0ec56dc2a032204d11bf097a3dd",
+      "verified": "2026-11-11"
+    },
+    "EV-cherny-2026-07-steps-of-ai-adoption-02": {
+      "quote_sha256": "5cd2950081c1f24ca682cb6c0cf98a4ad1f78168913a8a8f64bcb020fc8bf69c",
+      "text_sha256": "6a1cd8713647ea6cfd471afec8b3b9309b12d0ec56dc2a032204d11bf097a3dd",
+      "verified": "2026-11-11"
+    },
+    "EV-cherny-2026-07-steps-of-ai-adoption-03": {
+      "quote_sha256": "3dbe2ceaf149cc74da1224b892bc766079331fa80f1d7935b78549f8cf5787b2",
+      "text_sha256": "6a1cd8713647ea6cfd471afec8b3b9309b12d0ec56dc2a032204d11bf097a3dd",
+      "verified": "2026-11-11"
+    },
+    "EV-cherny-2026-07-steps-of-ai-adoption-04": {
+      "quote_sha256": "42f7a891a6d920754625d9f5f052a29d0c9252b7c64845f5a9c2341e9ff86283",
+      "text_sha256": "6a1cd8713647ea6cfd471afec8b3b9309b12d0ec56dc2a032204d11bf097a3dd",
+      "verified": "2026-11-11"
+    }
+  }
+}

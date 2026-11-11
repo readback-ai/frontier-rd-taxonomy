@@ -1,0 +1,86 @@
+task: T-eval-elicitation
+contribution: >-
+  The elicitation used for a capability assessment, and the argument that it was enough to bound
+  what the model can do.
+questions:
+  - id: Q-eval-elicitation-01
+    category: what
+    topical_area: process
+    question: >-
+      What was done to get this model's best performance, and which known techniques were not
+      tried?
+    good_answer_shows: >-
+      The scaffolds, prompts, tools and tuning used, and a list of what was left out with the
+      reason for each.
+    red_flags:
+      - '"We used our standard scaffold."'
+      - Nobody can name a technique that was not tried.
+    risks: [R-eval-under-elicitation]
+
+  - id: Q-eval-elicitation-02
+    category: why
+    topical_area: key_findings
+    question: >-
+      How much did the score move between the weakest and the strongest elicitation you tried?
+      What does that say about what an outside team with more time would get?
+    good_answer_shows: >-
+      A measured spread across elicitation effort and a stated view of how much headroom is left.
+    red_flags:
+      - Only one elicitation was run.
+      - The reported score is treated as the model's ceiling.
+    risks: [R-eval-under-elicitation]
+
+  - id: Q-eval-elicitation-03
+    category: failure
+    topical_area: analysis_of_results
+    question: >-
+      Of the failed tasks, what share failed because of the scaffold, a refusal or a resource
+      limit and not for lack of capability? Who read those transcripts?
+    good_answer_shows: >-
+      A breakdown of failures by cause, drawn from transcripts a person read, with the count
+      read.
+    red_flags:
+      - Failures are counted and not classified.
+      - The classification was done by a model and nobody checked a sample.
+    risks: [R-eval-under-elicitation, R-eval-transcripts-unread]
+
+  - id: Q-eval-elicitation-04
+    category: dependency
+    topical_area: architecture_design
+    question: >-
+      Was the model you tested the one being deployed: the same snapshot, with the same safeguards
+      on or off? Where do they differ?
+    good_answer_shows: >-
+      The tested snapshot and configuration named, the differences from what ships or is used
+      internally, and what those differences could do to the result.
+    red_flags:
+      - Testing was on a training-time checkpoint and the final model is assumed to be the same.
+      - Nobody is sure which snapshot was tested.
+    risks: [R-eval-under-elicitation, R-eval-assessment-compressed]
+
+  - id: Q-eval-elicitation-05
+    category: failure
+    topical_area: key_findings
+    question: >-
+      What would you expect to see if the model were holding back on this evaluation? Did you look
+      for it?
+    good_answer_shows: >-
+      A concrete signature of underperformance on purpose, such as inconsistency across framings
+      or between easy and hard items, and a check that was run.
+    red_flags:
+      - '"We have no reason to think it would."'
+      - The only check is the model's own reasoning text.
+    risks: [R-eval-sandbagging]
+
+  - id: Q-eval-elicitation-06
+    category: provenance
+    topical_area: process
+    question: >-
+      How much person-time went into elicitation, and how does that compare with what a motivated
+      outside team would spend?
+    good_answer_shows: >-
+      An honest figure in person-days and a comparison that is not flattering by default.
+    red_flags:
+      - Elicitation was fitted into the days left before release.
+      - An agent did the elicitation and nobody reviewed what it tried.
+    risks: [R-eval-under-elicitation, R-eval-assessment-compressed]

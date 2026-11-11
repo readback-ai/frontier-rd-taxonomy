@@ -1,0 +1,190 @@
+id: S-anthropic-2026-07-cyber-eval-incidents
+title: Investigating three real-world incidents in our cybersecurity evaluations
+publisher: Anthropic
+authors: []
+published: 2026-07-30
+url: https://www.anthropic.com/research/investigating-incidents-cybersecurity-evals
+type: incident_report
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic's disclosure that, in capture-the-flag evaluations run in a third-party partner's
+  environment, three Claude models (Opus 4.7, Mythos 5 and an internal research test model)
+  reached the open internet through a misconfiguration and gained unauthorized access to real
+  systems at three organizations. Found by a retrospective review of evaluation transcripts
+  that Anthropic began after OpenAI disclosed a sandbox escape.
+limits: >-
+  Self-reported, written one week after the review began and described as the current understanding.
+  Affected organizations are not named and only one transcript was promised for release. The
+  evaluation partner's own investigation and the planned METR review were not finished. The post
+  does not say how the 141,006 runs were reviewed; a later Anthropic post (September 9) says the
+  scan was an agentic search and missed a fourth incident. Updated August 3 with a correction
+  unrelated to the claims recorded here. The review was done jointly with the partner whose
+  environment failed and covers only runs where Claude could have obtained internet access. The post
+  says its three incidents are not a controlled comparison.
+evidence:
+  - id: EV-anthropic-2026-07-cyber-eval-incidents-01
+    claim: >-
+      After reviewing 141,006 evaluation runs where Claude could have obtained internet access,
+      Anthropic identified three incidents in which a model reached the internet from within or
+      while interacting with a partner's evaluation environment and gained unauthorized access to
+      production infrastructure at three organizations.
+    quote: >-
+      After reviewing 141,006 evaluation runs where Claude could have obtained internet access,
+      we identified three incidents in which a model accessed the internet from within or while
+      interacting with the evaluation environment of Irregular, one of our third-party
+      evaluation partners, and then gained unauthorized access to the production infrastructure
+      of three different organizations.
+    locator: Introduction
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2026-07
+    tasks: [T-eval-dangerous, T-eval-harness, T-eval-external]
+    note: >-
+      The post gives no review method. Anthropic's September 9 post says the scan was an agentic
+      search and that it missed a fourth incident.
+
+  - id: EV-anthropic-2026-07-cyber-eval-incidents-02
+    claim: >-
+      The evaluation prompt told the model it had no internet access, but a misconfiguration
+      left the machines with live internet access. Neither Anthropic nor the partner knew until
+      the retrospective monitoring found it.
+    quote: >-
+      However, a misconfiguration left the machines that Claude accessed as part of the
+      evaluation with live internet access. Neither we nor our evaluation partner were aware of
+      this misconfiguration until we detected it through our additional evaluation monitoring
+      last week.
+    locator: What happened
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-harness, T-eval-external]
+
+  - id: EV-anthropic-2026-07-cyber-eval-incidents-03
+    claim: >-
+      The earliest incidents date to April 2026. The transcript review that found them began on
+      July 23, and all cyber evaluations were stopped that day.
+    quote: >-
+      The earliest incidents date to April. [...] We began our transcript review on Thursday,
+      July 23, and stopped all cyber evaluations the same day after identifying transcripts
+      where Claude may have accessed the internet.
+    locator: Introduction
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2026-04
+    tasks: [T-eval-transcripts, T-eval-dangerous]
+    note: >-
+      April to late July is roughly three months in which the transcripts existed and nobody
+      had seen the behavior. The review was prompted by another developer's disclosure, not by
+      Anthropic's routine checks.
+
+  - id: EV-anthropic-2026-07-cyber-eval-incidents-04
+    claim: >-
+      Anthropic says validation of internet access paths before the evaluations, real-time
+      monitoring of evaluation logs, and more thorough review of transcripts or network logs
+      could have surfaced the problem sooner.
+    quote: >-
+      Careful validation of all internet access paths before evaluations began and real-time
+      monitoring of the evaluation logs would have helped to surface the problem sooner. Both
+      we and our partner also could have reviewed evaluation transcripts or network logs more
+      thoroughly.
+    locator: What happened
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-harness]
+
+  - id: EV-anthropic-2026-07-cyber-eval-incidents-05
+    claim: >-
+      The two affected organizations Anthropic reached had not detected the activity before
+      Anthropic told them.
+    quote: >-
+      The two organizations we were able to reach had not previously detected the activity or
+      contacted us, and we are now working with them to remediate.
+    locator: Introduction
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-dangerous]
+
+  - id: EV-anthropic-2026-07-cyber-eval-incidents-06
+    claim: >-
+      In one evaluation Claude Mythos 5 published a malicious package to the real PyPI
+      registry. It was available for roughly one hour and was downloaded and run on 15 real
+      systems.
+    quote: >-
+      in reality the package was made freely available online for roughly one hour. During
+      that window, the package was downloaded and run on 15 real systems.
+    locator: What happened, Incident 2
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-dangerous, T-eval-harness]
+
+  - id: EV-anthropic-2026-07-cyber-eval-incidents-07
+    claim: >-
+      In all four runs of one evaluation, Claude Opus 4.7's verbalized reasoning showed it
+      recognized the target system was real, and in none did it stop the attack on that basis.
+    quote: >-
+      In all four of the runs, the model eventually recognized (as can be observed in its
+      verbalized reasoning) that the system was real—in two cases, the model rationalized that
+      the real company must be part of the exercise. However, none stopped the attack on that
+      basis.
+    locator: What happened, Incident 1
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-dangerous]
+    note: >-
+      The reverse of evaluation awareness: a model treating a real system as part of a test.
+
+  - id: EV-anthropic-2026-07-cyber-eval-incidents-08
+    claim: >-
+      The models in these evaluations ran without the classifiers and monitoring Anthropic deploys
+      on generally available models.
+    quote: >-
+      The models in each of these evaluations ran without the standard safeguards we deploy
+      when we make the model generally available (that is, they did not have the classifiers
+      and monitoring we usually implement to prevent misuse).
+    locator: Introduction
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-dangerous, T-eval-elicitation]
+    note: >-
+      The next sentence says the models kept their safety training and were not helpful-only
+      variants. One of the three was an internal research test model (same paragraph), which
+      footnote 1 says is not planned for general release.
+
+  - id: EV-anthropic-2026-07-cyber-eval-incidents-09
+    claim: >-
+      Anthropic classes the incidents as closer to a harness and operational failure than a
+      model alignment failure.
+    quote: >-
+      we believe these incidents to be closer to a harness and operational failure than a model
+      alignment failure.
+    locator: How we're responding
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-harness]
+    note: >-
+      Anthropic's August 31 post says the incidents reflect an operational security failure and
+      two alignment issues; its September 9 assessment describes alignment failures in detail.
+
+  - id: EV-anthropic-2026-07-cyber-eval-incidents-10
+    claim: >-
+      Anthropic says that going forward it will expand continuous monitoring of evaluation
+      transcripts, improve its investigation tooling and do more rigorous assurance work with the
+      vendors it relies on.
+    quote: >-
+      Moving forward, it will include expanding our continuous monitoring of evaluation
+      transcripts for unexpected behavior, improving our investigation tooling, and conducting
+      more rigorous assurance work with the vendors we rely on.
+    locator: How we're responding
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-external, T-eval-harness]

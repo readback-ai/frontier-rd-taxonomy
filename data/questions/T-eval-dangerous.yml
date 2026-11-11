@@ -1,0 +1,97 @@
+task: T-eval-dangerous
+contribution: >-
+  The capability assessment for one risk domain of a model: chemical and biological, cyber, or
+  autonomy and AI R&D.
+questions:
+  - id: Q-eval-dangerous-01
+    category: what
+    topical_area: key_findings
+    question: >-
+      State the conclusion for this domain and the three pieces of evidence it rests on most.
+      Which is the weakest?
+    good_answer_shows: >-
+      The conclusion, its main supports, and a candid ranking of how much each can bear.
+    red_flags:
+      - The conclusion is supported by "the suite" as a whole.
+      - The weakest evidence turns out to be the only evidence that is not saturated.
+    risks: [R-eval-saturated-instruments, R-eval-determination-on-unexamined-evidence]
+
+  - id: Q-eval-dangerous-02
+    category: failure
+    topical_area: analysis_of_results
+    question: >-
+      Which evaluations in this assessment could still have shown that the threshold was crossed?
+      What would that result have looked like?
+    good_answer_shows: >-
+      Named evaluations with headroom and the score or observation that would have counted.
+    red_flags:
+      - Every task-based evaluation is saturated.
+      - '"We would have known."'
+    risks: [R-eval-saturated-instruments]
+
+  - id: Q-eval-dangerous-03
+    category: what
+    topical_area: architecture_design
+    question: >-
+      Where did these runs execute, with which safeguards removed, and what stood between the
+      model and real systems?
+    good_answer_shows: >-
+      The environment, its operator, the safeguards that were off for the test, and independent
+      layers of containment.
+    red_flags:
+      - The model ran without deployment safeguards in an environment nobody on the team had
+        tested for isolation.
+      - '"It was told it had no internet access."'
+    risks: [R-eval-environment-not-contained]
+
+  - id: Q-eval-dangerous-04
+    category: failure
+    topical_area: analysis_of_results
+    question: >-
+      What was done to check the model was not holding back? How many transcripts did that cover,
+      and who or what read them?
+    good_answer_shows: >-
+      A described check, its sample size against the total, the reader, and what a positive would
+      have looked like.
+    red_flags:
+      - A grader model read a few hundred sampled transcripts and no person read any.
+      - The check relies on the model saying it is holding back.
+    risks: [R-eval-sandbagging, R-eval-transcripts-unread]
+
+  - id: Q-eval-dangerous-05
+    category: dependency
+    topical_area: process
+    question: >-
+      Which parts of the usual assessment were not run on this model, and why?
+    good_answer_shows: >-
+      A complete list of omissions against the standard suite and who accepted each.
+    red_flags:
+      - The model is in internal use and its assessment is "less extensive" with no list.
+      - The omissions surface only when asked.
+    risks: [R-eval-assessment-compressed]
+
+  - id: Q-eval-dangerous-06
+    category: why
+    topical_area: process
+    question: >-
+      Where a result was set aside as inconclusive or as a fault in the evaluation, who decided,
+      on what evidence, and what would have made them decide the other way?
+    good_answer_shows: >-
+      A named decision with evidence about the evaluation's validity that was gathered
+      independently of the inconvenient score.
+    red_flags:
+      - The evaluation was judged invalid after it returned a threshold-range score.
+      - The same evaluation's passing scores on earlier models were accepted.
+    risks: [R-eval-saturated-instruments, R-eval-determination-on-unexamined-evidence]
+
+  - id: Q-eval-dangerous-07
+    category: provenance
+    topical_area: process
+    question: >-
+      Which numbers in this assessment did a person reproduce or inspect at the transcript level?
+    good_answer_shows: >-
+      Specific results a person checked beneath the score, and the ones taken as reported.
+    red_flags:
+      - Numbers arrived from an automated pipeline and went into the report.
+      - '"The agent ran it and wrote it up."'
+    risks: [R-eval-transcripts-unread, R-eval-model-grader-unchecked]

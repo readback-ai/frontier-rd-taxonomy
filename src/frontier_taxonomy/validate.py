@@ -135,6 +135,12 @@ def validate(paths: Paths, as_of: dt.date | None = None) -> list[Problem]:
         problems.append(Problem("warning", where, message))
 
     _check_references(dataset, error)
+    for lock_file in sorted(paths.locks.glob("*.json")):
+        if lock_file.stem not in dataset.sources:
+            warning(
+                str(lock_file.relative_to(paths.root)),
+                "lock file has no source record. Add the source or run `taxo prune-locks`",
+            )
     status = evidence_status(paths, dataset)
     _check_evidence(dataset, status, error, warning)
     _check_coverage(dataset, problems)

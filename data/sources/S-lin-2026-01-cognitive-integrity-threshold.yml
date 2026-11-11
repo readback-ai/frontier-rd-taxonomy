@@ -1,0 +1,121 @@
+id: S-lin-2026-01-cognitive-integrity-threshold
+title: "Position: Human-Centric AI Requires a Minimum Viable Level of Human Understanding"
+publisher: arXiv 2602.00854 (Texas A&M University and co-authors)
+authors:
+  - Fangzhou Lin
+  - Qianwen Ge
+  - Lingyu Xu
+  - Peiran Li
+  - Xiangbo Gao
+  - Shuo Xing
+  - Kazunori Yamada
+  - Ziming Zhang
+  - Haichong Zhang
+  - Zhengzhong Tu
+published: 2026-01-31
+url: https://arxiv.org/pdf/2602.00854
+type: academic_paper
+vantage: external_third_party
+labs: []
+summary: >-
+  A position paper that defines the Cognitive Integrity Threshold (CIT): the minimum
+  task-relevant understanding a human must keep, under AI assistance, for oversight to stay
+  meaningful. It breaks the threshold into three capacities and proposes unassisted checks to
+  test whether it is still met.
+limits: >-
+  A position paper by university authors. It reports no data of its own and does not study frontier
+  AI developers; its worked domains are software engineering, healthcare and education. It gives no
+  numeric threshold and describes CIT as a conceptual framework that still needs empirical work. The
+  snapshot is arXiv version 1. An un-refereed arXiv preprint.
+evidence:
+  - id: EV-lin-2026-01-cognitive-integrity-threshold-01
+    claim: >-
+      The Cognitive Integrity Threshold is defined as the minimum task-relevant understanding a
+      human must keep, within a domain or role and under AI assistance, to sustain meaningful
+      oversight, autonomy and accountable participation in decisions.
+    quote: >-
+      the Cognitive Integrity Threshold (CIT), defined as the minimum viable level of
+      task-relevant understanding that a human must retain, within a given domain or role and
+      under AI assistance, in order to sustain meaningful oversight, autonomy, and accountable
+      participation in decision-making
+    locator: Section 1, Introduction, page 2
+    kind: method
+    strength: reported
+    grade: C
+
+  - id: EV-lin-2026-01-cognitive-integrity-threshold-02
+    claim: >-
+      The threshold is met only if the human can do three things: validate outputs beyond
+      surface plausibility, reconstruct the reasoning under time pressure, and detect and
+      escalate boundary violations. Below it, the paper says, oversight is nominal.
+    quote: >-
+      CIT is the minimum level of FCI required for the human to sustain three core [...]
+      oversight capacities: (i) validate outputs beyond surface plausibility, (ii) reconstruct
+      reasoning under time pressure, and (iii) detect and escalate boundary violations that
+      require escalation. Below CIT, oversight becomes nominal.
+    locator: Section 3.1, Definition, pages 4 to 5
+    kind: method
+    strength: reported
+    grade: C
+    note: >-
+      FCI is the paper's "Functional Cognitive Integrity", the capacity to keep a task-relevant
+      mental model. The omission is a page break and running header.
+
+  - id: EV-lin-2026-01-cognitive-integrity-threshold-03
+    claim: >-
+      The paper says whether the threshold is met must be tested without real-time AI
+      assistance, by checking that the person can reconstruct key structure, detect logical
+      failure modes and recognize escalation triggers.
+    quote: >-
+      Checks should probe reasoning without real-time assistance. They should test whether the
+      user can (i) reconstruct key [...] structure, (ii) detect logical failure modes, and (iii)
+      recognize escalation triggers.
+    locator: Section 4.1, A reusable operational template, pages 5 to 6
+    kind: comprehension
+    strength: reported
+    grade: C
+    note: The omission is a page break and running header.
+
+  - id: EV-lin-2026-01-cognitive-integrity-threshold-04
+    claim: >-
+      For software engineering, the paper's proposed unassisted checks are invariant-based
+      walkthroughs, bug injection diagnosis, rationale-first code extensions and post-incident
+      causal tracing.
+    quote: >-
+      Invariant-based walkthroughs; bug injection diagnosis; rationale-first code extensions;
+      post-incident causal tracing
+    locator: Table 1, row Software Engineering, column Independent verification, page 7
+    kind: comprehension
+    strength: reported
+    grade: C
+    note: Proposed checks. The paper does not report running them on anyone.
+
+  - id: EV-lin-2026-01-cognitive-integrity-threshold-05
+    claim: >-
+      The paper applies the threshold to sign-off: a person who cannot explain, unassisted, why
+      the system did what it did is no longer exercising oversight.
+    quote: >-
+      It requires that the person responsible for sign-off possesses sufficient domain knowledge
+      to identify logic failures. If the human cannot articulate the “why” behind the system’s
+      “what” without assistance, they are no longer exercising oversight.
+    locator: Section 5.3, Institutional governance and threshold enforcement, pages 6 to 7
+    kind: comprehension
+    strength: reported
+    grade: C
+    tasks: []
+    note: >-
+      A general normative claim about operators. The paper does not discuss release sign-off at AI
+      developers, so no task is tagged.
+
+  - id: EV-lin-2026-01-cognitive-integrity-threshold-06
+    claim: >-
+      The authors describe CIT as a conceptual framework that still needs theoretical, design
+      and institutional work before it is an operational standard.
+    quote: >-
+      the theoretical, design, and institutional work required to move CIT from a conceptual
+      framework to an operational standard in high-stakes automation
+    locator: Section 6, Alternative Views and Research Agenda, page 8
+    kind: method
+    strength: reported
+    grade: C
+    note: No numeric threshold or measured level of comprehension appears anywhere in the paper.

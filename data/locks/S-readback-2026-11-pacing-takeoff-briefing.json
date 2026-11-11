@@ -1,0 +1,45 @@
+{
+  "source_id": "S-readback-2026-11-pacing-takeoff-briefing",
+  "snapshot": {
+    "url": "https://github.com/readback-ai/readback-ops/blob/claude/zen-turing-8b5fej/research/pacing-takeoff-model/README.md",
+    "final_url": "https://github.com/readback-ai/readback-ops/blob/claude/zen-turing-8b5fej/research/pacing-takeoff-model/README.md",
+    "retrieved": "2026-11-11",
+    "method": "file",
+    "content_type": "text/plain",
+    "raw_sha256": "d2aff1382927b246f3a83147e4b4f977343523c549bdcbf4903698e1a93b49e4",
+    "text_sha256": "d3e26fa5346abd870f4979307c34a7c77df3cb4370af94bcac2b4cee0b8ef5b7",
+    "text_chars": 54878
+  },
+  "quotes": {
+    "EV-readback-2026-11-pacing-takeoff-briefing-01": {
+      "quote_sha256": "71b84b0b214d4b3e57edc6fa264d2c5b08c030a218a7a44de4f6a0b950178cc9",
+      "text_sha256": "d3e26fa5346abd870f4979307c34a7c77df3cb4370af94bcac2b4cee0b8ef5b7",
+      "verified": "2026-11-11"
+    },
+    "EV-readback-2026-11-pacing-takeoff-briefing-02": {
+      "quote_sha256": "f4047d47fd48ac0a48cbd94f3c9cfbc361e675b669d2eb00f41a5fea5cf2e37e",
+      "text_sha256": "d3e26fa5346abd870f4979307c34a7c77df3cb4370af94bcac2b4cee0b8ef5b7",
+      "verified": "2026-11-11"
+    },
+    "EV-readback-2026-11-pacing-takeoff-briefing-03": {
+      "quote_sha256": "0ce88e6f3bfbd31c9ea052977f88f3ecec406517d48adeb6e81088430841a5df",
+      "text_sha256": "d3e26fa5346abd870f4979307c34a7c77df3cb4370af94bcac2b4cee0b8ef5b7",
+      "verified": "2026-11-11"
+    },
+    "EV-readback-2026-11-pacing-takeoff-briefing-04": {
+      "quote_sha256": "8581f3d952d6654204df055da66ed43a551d6e0653ca835729ba6a44cb7d20b6",
+      "text_sha256": "d3e26fa5346abd870f4979307c34a7c77df3cb4370af94bcac2b4cee0b8ef5b7",
+      "verified": "2026-11-11"
+    },
+    "EV-readback-2026-11-pacing-takeoff-briefing-05": {
+      "quote_sha256": "1370b5b45c792fc85c091a64a7d8b20e611ccf72f4c8ed89377a06155d655b7b",
+      "text_sha256": "d3e26fa5346abd870f4979307c34a7c77df3cb4370af94bcac2b4cee0b8ef5b7",
+      "verified": "2026-11-11"
+    },
+    "EV-readback-2026-11-pacing-takeoff-briefing-06": {
+      "quote_sha256": "17349b7d9249081c95bd79973ff37e2dac074631585040cfd163bd2116a72327",
+      "text_sha256": "d3e26fa5346abd870f4979307c34a7c77df3cb4370af94bcac2b4cee0b8ef5b7",
+      "verified": "2026-11-11"
+    }
+  }
+}

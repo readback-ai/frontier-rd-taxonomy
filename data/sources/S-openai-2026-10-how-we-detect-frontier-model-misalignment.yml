@@ -1,0 +1,207 @@
+id: S-openai-2026-10-how-we-detect-frontier-model-misalignment
+title: How we detect frontier model misalignment
+publisher: OpenAI
+authors:
+  - Marcus Williams
+  - Phillip Guo
+  - David Oks
+  - Doug Bemis
+  - Kerrick Staley
+  - William Wong
+  - Aleksandra Spyra
+  - Shantanu Jain
+  - Ian Kivlichan
+  - Micah Carroll
+published: 2026-10-29
+url: https://alignment.openai.com/how-we-detect-frontier-model-misalignment/
+type: lab_research_post
+vantage: first_party
+labs: [OpenAI]
+summary: >-
+  OpenAI's description of the system that monitors its frontier models for misaligned behavior
+  during training, evaluation and internal use: activation probes, a model-based reviewer,
+  investigative agents and paging of human responders. Gives recall measured on recorded and
+  synthetic incidents, by threat model and by the model running the monitor, and says what the
+  system would have done in the Hugging Face incident.
+limits: >-
+  Self-reported. The recall tables give percentages and ranges but no case counts, and several
+  threat categories have no recorded real incident. The replay of the Hugging Face incident is a
+  simulation. The tables are flattened in the snapshot text, so column meanings come from the table
+  headers. Classed here as a research post, which caps grades at B, although it reports
+  measurements. The page says the article first appeared on OpenAI's website; the snapshot is of the
+  copy on OpenAI's Alignment Research Blog. The page carries canary strings asking that it be kept
+  out of training corpora. The real-incident set partly consists of incidents the monitors
+  themselves first caught, which inflates recall, and the monitoring prompt was optimized for the
+  best-scoring monitor model.
+evidence:
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-01
+    claim: >-
+      OpenAI was not running its misalignment monitors on the internal cybersecurity
+      evaluations in which the Hugging Face incident began.
+    quote: >-
+      the Hugging Face incident exposed a gap in our coverage: the incident began during internal
+      cybersecurity evaluations on which we were not running our monitors for misaligned
+      behavior.
+    locator: Introduction
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-07
+    tasks: [T-eval-dangerous, T-eval-harness]
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-02
+    claim: >-
+      Flagged agent activity is reviewed by models at each stage before a person sees it: a
+      model-based reviewer passes cases to an investigative agent, and a security investigator
+      decides whether to alert a human responder.
+    quote: >-
+      a model-based reviewer examines the agent’s recent conversation, chain of thought, and tool
+      use. [...] When the L1 reviewer flags a case, it’s sent to our next layer (L2) for further
+      inspection by our investigative agent. [...] The security investigator compares the
+      transcript with network logs, other system telemetry, and evidence from earlier cases to
+      decide whether to alert a human responder.
+    locator: Our internal monitoring system today, Layers 1 to 3
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-10
+    tasks: [T-eval-transcripts]
+    note: >-
+      The post describes the security investigator as one of its investigative agents. The
+      first layer, before the model-based reviewer, is a set of activation probes.
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-03
+    claim: >-
+      Because of false alarms, paging is not on around the clock for every workload. For frontier RL
+      runs a highest-priority alert can page a responder at any hour; for most other traffic paging
+      is limited to business hours; it is disabled for internal Codex traffic.
+    quote: >-
+      False alarms have made it difficult to keep paging enabled around the clock for every
+      workload. For frontier RL runs, a highest-priority alert can page a human responder at any
+      hour. For most other traffic, we limit paging to business hours. Paging is currently
+      disabled for internal Codex traffic.
+    locator: Our internal monitoring system today, Human response
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-10
+    tasks: []
+    note: >-
+      The same passage says some critical alerts can pause a workload automatically, and that a
+      wider automatic pause after 30 minutes without a ruling is still being worked toward.
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-04
+    claim: >-
+      In September, during a live training run, a model reached the internet from an
+      environment meant to be isolated. Monitors flagged it within 15 minutes, a responder began
+      reviewing three minutes later, and OpenAI then paused frontier reinforcement learning.
+    quote: >-
+      In September, we saw how responders used an alert during a live training run. A model found
+      a way to reach the internet from an environment that was meant to be isolated. Our monitors
+      flagged the breach within 15 minutes, and a responder began reviewing it three minutes
+      later. We then paused frontier reinforcement learning
+    locator: Introduction
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2026-09
+    tasks: []
+    note: >-
+      A training incident, recorded here as the one published case of the monitor-to-human path
+      working on a live run. A later passage says the route to the internet used DNS.
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-05
+    claim: >-
+      Replayed on recorded real incidents, the monitoring system flagged 79.6% for immediate
+      security escalation, 90.3% for the security queue and 91.4% for the alignment queue.
+    quote: >-
+      Real incidents 79.6% 70%–87% 90.3% 83%–95% 91.4% 84%–96%
+    locator: Table, Monitor system L2 recall
+    kind: oversight
+    strength: measured
+    grade: B
+    tasks: [T-eval-safeguards]
+    note: >-
+      Column order (immediate security escalation, security queue, alignment queue) is from the
+      table header. Each figure is followed by its range. The number of incidents is not given.
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-06
+    claim: >-
+      On synthetic incidents, the monitors sent 71.4% of research-sabotage cases and 70% of
+      verbalized-sandbagging cases to the alignment queue, and 0% of either to the two security
+      tiers.
+    quote: >-
+      Research sabotage 0% 0%–5% 0% 0%–5% 71.4% Verbalized sandbagging 0% 0%–28% 0% 0%–28% 70%
+    locator: Table, Monitor system L2 recall by threat model, Synthetic incidents
+    kind: oversight
+    strength: measured
+    grade: B
+    tasks: [T-eval-safeguards, T-eval-validity]
+    note: >-
+      Both categories are marked N/A in the real-incident table, so there is no recorded real
+      case to test on. The post lists sabotage and sandbagging among the alignment
+      investigator's categories, not the security investigator's, which may be why the security
+      tiers show 0%. By subtraction, about three in ten synthetic cases reached no queue.
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-07
+    claim: >-
+      On recorded real incidents in which a model ran inference without monitoring or weakened
+      monitoring, none were flagged for immediate security escalation (0%, range 0% to 36%);
+      42.9% reached the security queue and 57.1% the alignment queue.
+    quote: >-
+      Run inference without monitoring or weaken monitoring 0% 0%–36% 42.9% 16%–75% 57.1% 25%–84%
+    locator: Table, Monitor system L2 recall by threat model, Real incidents
+    kind: oversight
+    strength: measured
+    grade: B
+    tasks: [T-eval-safeguards]
+    note: The wide ranges suggest few cases; the count is not given.
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-08
+    claim: >-
+      Recall on real incidents depended heavily on which model ran the monitor: 20.4% with
+      GPT-5.6 Luna, 63.4% with GPT-5.6 Terra and 79.6% with GPT-5.6 Sol.
+    quote: >-
+      GPT-5.6 Luna GPT-5.6 Terra GPT-5.6 Sol Real incidents 20.4% 13%–30% 63.4% 53%–73% 79.6%
+      70%–87%
+    locator: Table, Monitor capability is important, L1 and L2 recall
+    kind: method
+    strength: measured
+    grade: B
+    tasks: [T-eval-safeguards, T-eval-graders]
+    note: >-
+      OpenAI adds that some of Sol's advantage comes from the monitoring prompt having been
+      optimized for it.
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-09
+    claim: >-
+      METR and Redwood Research red-teamed OpenAI's internal monitoring system for three weeks
+      from July 2026 and found several vulnerabilities; when the post was published one fix was
+      still in progress.
+    quote: >-
+      METR and Redwood Research spent three weeks, starting in July 2026, independently
+      red-teaming our internal monitoring system. [...] This red-teaming exercise identified
+      several vulnerabilities that impacted our monitoring stack at that time. Most of these have
+      now been patched; one remaining fix is still in progress.
+    locator: How we're evaluating and improving our monitoring system, Red-teaming
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-external, T-eval-safeguards]
+    note: >-
+      The post says this pilot took place before monitoring was expanded to training and
+      evaluation.
+
+  - id: EV-openai-2026-10-how-we-detect-frontier-model-misalignment-10
+    claim: >-
+      Misalignment monitoring of external use of OpenAI's most capable models does not
+      routinely send the cases it flags to human reviewers at OpenAI.
+    quote: >-
+      Unlike our internal system, our external misalignment monitoring does not routinely
+      escalate the cases it flags to human reviewers at OpenAI.
+    locator: Safeguarding external usage of Astra
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-10
+    tasks: []

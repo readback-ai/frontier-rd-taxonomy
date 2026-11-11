@@ -1,0 +1,75 @@
+{
+  "source_id": "S-metr-2026-11-anthropic-rd-acceleration",
+  "snapshot": {
+    "url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+    "final_url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=UTF-8",
+    "raw_sha256": "d827986508a851db0300f1a4d42780c4c76a25f866a1a5de5d1d0d4854be34bc",
+    "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+    "text_chars": 78204
+  },
+  "quotes": {
+    "EV-metr-2026-11-anthropic-rd-acceleration-01": {
+      "quote_sha256": "731f492efb6dbc99dcb987a34b2848a0ef891e0963d15b5f41b31121be459442",
+      "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-rd-acceleration-02": {
+      "quote_sha256": "34f4e982e6d5a953d6397a152672d77cb770fb522eda579b34bdba0cf0f04af2",
+      "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-rd-acceleration-03": {
+      "quote_sha256": "6ad84a079c703d3e75c19e5b1cff0772a093e7f00d0c306c7d332b052a3c6dbb",
+      "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-rd-acceleration-04": {
+      "quote_sha256": "167836c2f62cc30f47cc8fd81266ce0e17728fe0f2086a69ba13361235b4563a",
+      "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-rd-acceleration-05": {
+      "quote_sha256": "b6086b60ef81d1688c581b7c9d636f3ff5bd3ac0c8029a68b315dd27b44455d1",
+      "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-rd-acceleration-06": {
+      "quote_sha256": "b932273d05f87f5c97b0cc94e0cf65cc36ab9dbc2fe83d2df2a512fbe8476aa0",
+      "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-rd-acceleration-07": {
+      "quote_sha256": "0a5ad21de0a3cf6cdf131704c213be3f43a07e8cd7ac5b350070d3675d4ec18b",
+      "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-rd-acceleration-08": {
+      "quote_sha256": "1a90c855627fd8e97e31563760830a088ef6e2c82aec0db010549fc94e54ebfa",
+      "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-rd-acceleration-09": {
+      "quote_sha256": "7670377ad380aaf3f178c11a3b1faaa2df3e99fca43fb1e095318addea11af2b",
+      "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-rd-acceleration-10": {
+      "quote_sha256": "35148a6a07991bf49d82e24812db5e7137410f48e0e105e30595426cbb87aa95",
+      "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-rd-acceleration-11": {
+      "quote_sha256": "f6ec56b9b78bf24b283253c469633b455b4d8325220f78e097c652a4cb7dca26",
+      "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-rd-acceleration-12": {
+      "quote_sha256": "64eaadcf9351932fe9df8e07c2ca507ffc8ec048f0860c91c3a535a678d15056",
+      "text_sha256": "027fdcbe110225e696b5b48fcc654c5150693c873ca694ad37674a8851dba9a6",
+      "verified": "2026-11-11"
+    }
+  }
+}

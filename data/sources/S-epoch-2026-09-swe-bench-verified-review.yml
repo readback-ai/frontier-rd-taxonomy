@@ -1,0 +1,142 @@
+id: S-epoch-2026-09-swe-bench-verified-review
+title: "Benchmark Review: SWE-bench Verified"
+publisher: Epoch AI
+published: 2026-09-03
+url: https://epoch.ai/benchmarks/swe-bench-verified/review
+type: third_party_investigation
+vantage: external_third_party
+labs: [OpenAI]
+summary: >-
+  Epoch AI's review rating SWE-bench Verified as Flawed. It rests on OpenAI's February 2026
+  audit, which found flawed test cases in most of the audited tasks and training exposure in
+  every frontier model tested, on Epoch's own June 2025 review, and on a Berkeley RDI reward
+  hack that scores perfectly. It is the fetchable account of OpenAI's audit; OpenAI's own post
+  could not be snapshotted.
+limits: >-
+  A partial review that relies on other parties' audits and on Epoch's earlier review; it reports no
+  new task inspection by Epoch. OpenAI's figures are relayed, not re-measured, and OpenAI co-created
+  the benchmark it is now criticizing. The review does not say who at OpenAI found the problems,
+  how, or how long scores had been reported before the audit. No response from the benchmark's
+  developers is linked. The Flawed verdict rests on Epoch's extrapolation: the measured floor is
+  16.4% of tasks, below its 20% threshold.
+evidence:
+  - id: EV-epoch-2026-09-swe-bench-verified-review-01
+    claim: >-
+      Epoch rates SWE-bench Verified as Flawed, on the strength of an OpenAI audit that found over
+      half of commonly unsolved questions had tests rejecting functionally correct submissions.
+    quote: >-
+      An audit by OpenAI found that over half of commonly unsolved questions had test cases that
+      rejected functionally correct submissions. This audit gives us reasonable confidence that
+      over 20% of questions have scoring-based issues and informs our Flawed designation.
+    locator: Summary
+    kind: incident
+    strength: reported
+    grade: C
+    tasks: [T-eval-graders, T-eval-tasks, T-eval-validity]
+
+  - id: EV-epoch-2026-09-swe-bench-verified-review-02
+    claim: >-
+      OpenAI published its audit on February 23, 2026. It audited 27.6% of the tasks and found
+      flawed test cases in 59.4% of those, a floor of 16.4% of all tasks broken.
+    quote: >-
+      On February 23, 2026, OpenAI released their audit results. They audited 27.6% of the tasks,
+      finding that 59.4% had flawed test cases that rejected functionally correct submissions
+      (floor of 16.4% of tasks broken).
+    locator: Methodology
+    kind: incident
+    strength: reported
+    grade: C
+    describes: 2026-02
+    tasks: [T-eval-graders, T-eval-tasks]
+    note: >-
+      Epoch relays OpenAI's measurement. The audited tasks were ones models often failed, so the
+      59.4% is not a rate for the whole benchmark.
+
+  - id: EV-epoch-2026-09-swe-bench-verified-review-03
+    claim: >-
+      According to OpenAI's analysis as Epoch quotes it, every frontier model tested had seen some
+      of the problems and solutions in training, and gains on the benchmark no longer reflect
+      real gains in software development ability.
+    quote: >-
+      OpenAI’s analysis further revealed that all frontier models tested “have seen at least some
+      of the problems and solutions during training,” and they conclude that “improvements on
+      SWE-bench Verified no longer reflect meaningful improvements in models’ real-world software
+      development abilities.
+    locator: Methodology
+    kind: incident
+    strength: reported
+    grade: C
+    describes: 2026-02
+    tasks: [T-eval-validity]
+
+  - id: EV-epoch-2026-09-swe-bench-verified-review-04
+    claim: >-
+      Epoch says that because the benchmark is static, all current and future models can be assumed
+      to have trained on the codebases its tasks come from, leading to contamination.
+    quote: >-
+      SWE-bench Verified is a static benchmark, so it can be assumed that all current and future
+      models have been trained on the codebases used in its tasks, leading to contamination.
+    locator: Summary
+    kind: incident
+    strength: reported
+    grade: C
+    tasks: [T-eval-tasks, T-eval-validity]
+
+  - id: EV-epoch-2026-09-swe-bench-verified-review-05
+    claim: >-
+      The 500 tasks were chosen from 2,294 by independent review by 3 experts, a step meant to
+      remove problems that had issues.
+    quote: >-
+      SWE-bench Verified consists of 500 bug fixes sourced from 12 repos. It is a subset of the
+      original 2,294 SWE-bench problems created through independent review by 3 experts to attempt
+      to remove problems that had issues.
+    locator: Methodology
+    kind: method
+    strength: reported
+    grade: C
+    tasks: [T-eval-tasks]
+    note: >-
+      The human review that gave the benchmark its name did not remove the test flaws the later
+      audit found. That is my inference from this item and the audit figures.
+
+  - id: EV-epoch-2026-09-swe-bench-verified-review-06
+    claim: >-
+      Epoch had already flagged high contamination risk in a review published on June 13, 2025.
+    quote: >-
+      On June 13, 2025, Epoch AI released a prior review noting that the benchmark had high
+      contamination risk, among other issues.
+    locator: Methodology
+    kind: incident
+    strength: reported
+    grade: C
+    describes: 2025-06
+    tasks: [T-eval-validity]
+    note: >-
+      About eight months before OpenAI's audit was published (our arithmetic).
+
+  - id: EV-epoch-2026-09-swe-bench-verified-review-07
+    claim: >-
+      Berkeley RDI found a reward hack that gets a perfect score on the benchmark.
+    quote: >-
+      RDI identified a reward hack that achieves a perfect score.
+    locator: Methodology
+    kind: incident
+    strength: reported
+    grade: C
+    tasks: [T-eval-graders, T-eval-harness]
+    note: >-
+      Epoch links a Berkeley RDI post for this; that post was not added as a source.
+
+  - id: EV-epoch-2026-09-swe-bench-verified-review-08
+    claim: >-
+      Epoch's review is partial and built on audits published by OpenAI and RDI and on its own
+      earlier review; it stopped once the errors passed its threshold for a flawed benchmark.
+    quote: >-
+      This review relies on published audits from OpenAI and RDI as well as Epoch’s prior review.
+      [...] This is a partial review. We stopped inspecting once we discovered errors that
+      exceeded our published threshold for a flawed benchmark.
+    locator: Acknowledgements; Disclaimer
+    kind: method
+    strength: reported
+    grade: C
+    tasks: [T-eval-external]

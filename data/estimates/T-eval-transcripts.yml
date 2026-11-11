@@ -1,0 +1,99 @@
+task: T-eval-transcripts
+estimates:
+  - id: EST-eval-transcripts-automation-anthropic-2026-09
+    task: T-eval-transcripts
+    quantity: automation_level
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: level, level: AL4}
+    basis: evidence
+    evidence:
+      - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-01
+      - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-03
+      - EV-anthropic-2026-10-training-alignment-auditors-06
+      - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-07
+    reasoning: >-
+      Transcript review at Anthropic is done by models: an agentic search over 141,006 runs, then
+      Claude reviewing 9.2 million transcripts flagged from about 481 million, and a model
+      summarizing 81,000 in a research setting. People set the question and read what comes
+      back. A model does the task end to end from a high-level ask: AL4.
+    confidence: medium
+    stale_after: 2027-03-01
+
+  - id: EST-eval-transcripts-oversight-anthropic-2026-06
+    task: T-eval-transcripts
+    quantity: oversight_mode
+    scope: Anthropic
+    as_of: 2026-06
+    value: {kind: category, value: ai_review_only}
+    basis: evidence
+    evidence:
+      - EV-anthropic-2026-08-improving-alignment-security-efforts-01
+      - EV-anthropic-2026-07-cyber-eval-incidents-03
+    reasoning: >-
+      Before the July 2026 incidents, Anthropic says only a sample of evaluation transcripts got
+      an automated review, after the fact, with some high-risk evaluations monitored in real
+      time. No routine human review of evaluation transcripts is described. Models acted on real
+      systems from January and April and nobody saw it until late July.
+    confidence: medium
+    stale_after: 2026-12-01
+
+  - id: EST-eval-transcripts-oversight-anthropic-2026-09
+    task: T-eval-transcripts
+    quantity: oversight_mode
+    scope: Anthropic
+    as_of: 2026-09
+    value: {kind: category, value: ai_review_human_by_exception}
+    basis: evidence
+    evidence:
+      - EV-anthropic-2026-08-improving-alignment-security-efforts-03
+      - EV-anthropic-2026-10-unintended-model-actions-07
+      - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-03
+    reasoning: >-
+      After the incidents Anthropic put a real-time classifier on evaluations that blocks an
+      action, ends the task and alerts a person, and tooling that detects and blocks the known
+      behaviors on most evaluations. Models review; a person sees what they raise. The change
+      from the June estimate followed an incident, and the new controls were verified against
+      the cases already known.
+    confidence: medium
+    stale_after: 2027-03-01
+
+  - id: EST-eval-transcripts-automation-gdm-2026-10
+    task: T-eval-transcripts
+    quantity: automation_level
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: level, level: AL3}
+    basis: evidence
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-06
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-12
+      - EV-gdm-2025-11-gemini-3-pro-fsf-report-01
+    reasoning: >-
+      Google DeepMind has a model check sampled evaluation transcripts for pre-specified failure
+      modes, evaluation awareness and deliberate underperformance, after which staff inspect a
+      stratified sample by hand. Its audit for benchmark cheating is run by model judges,
+      classifiers and a model reader, with staff checking that cited actions appear in the
+      transcripts. Models do large parts and people check and decide: AL3. Sample sizes are not
+      given.
+    confidence: low
+    stale_after: 2027-04-01
+
+  - id: EST-eval-transcripts-oversight-gdm-2026-10
+    task: T-eval-transcripts
+    quantity: oversight_mode
+    scope: Google DeepMind
+    as_of: 2026-10
+    value: {kind: category, value: human_sampled}
+    basis: evidence
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-06
+      - EV-gdm-2025-11-gemini-3-pro-fsf-report-02
+    reasoning: >-
+      Staff manually inspect a stratified sample of evaluation transcripts, prioritizing
+      unexpected failures, in the cyber, stealth and situational awareness suites, and inspected
+      transcripts by hand in two risk domains for the previous model. A sample chosen by people,
+      alongside the model check. This is the one developer whose published account has people
+      reading transcripts a model did not select.
+    confidence: low
+    stale_after: 2027-04-01

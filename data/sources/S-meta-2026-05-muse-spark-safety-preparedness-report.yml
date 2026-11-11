@@ -1,0 +1,205 @@
+id: S-meta-2026-05-muse-spark-safety-preparedness-report
+title: Muse Spark Safety & Preparedness Report
+publisher: Meta
+authors:
+  - MSL Preparedness & Red Teaming & Alignment Team
+  - AI Security Team
+published: 2026-05-26
+url: https://ai.meta.com/static-resource/muse-spark-safety-and-preparedness-report/
+type: risk_report
+vantage: first_party
+labs: [Meta]
+summary: >-
+  Meta's safety and preparedness report for Muse Spark under its Advanced AI Scaling Framework.
+  Assesses chemical and biological, cybersecurity and loss-of-control risks, the last framed
+  as whether the model could undermine pre-deployment evaluations or automated monitoring, and
+  reports model behavior evaluations with an analysis of evaluation awareness and its effect on
+  results.
+limits: >-
+  Self-reported. The snapshot is the version dated May 26, 2026, revised after a bug fix; an earlier
+  release in April 2026 appears in search listings but is not stated in the document. Apollo
+  Research's findings are Meta's summary. Meta calls its analysis of the effect of evaluation
+  awareness preliminary and not causal. Parts of the PDF text have no word spacing; figures are not
+  in the text. Only parts of the report were read for this record: the change log and Sections 1.2,
+  1.3, 2.2.2.1, 2.3.1, 2.3.2, 4.1.1, 4.1.11 and Appendix C. Evaluation-awareness rates are labels
+  from an LLM classifier on verbalized reasoning, a lower bound. The report's denominators for the
+  behavioral-effect result disagree.
+evidence:
+  - id: EV-meta-2026-05-muse-spark-safety-preparedness-report-01
+    claim: >-
+      The key decision-makers for Muse Spark's risk threshold determinations were Meta's Chief AI
+      Officer and its Director of Alignment and Risk.
+    quote: >-
+      Key decision-makers for Muse Spark’s risk threshold determinations were the Chief AI
+      Officer and Director of Alignment and Risk, who oversee and conduct the lifecycle of risk
+      management and mitigation.
+    locator: Section 1.2, Governance (PDF page 14)
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination]
+    note: >-
+      The same people are described as overseeing and conducting the risk management whose results
+      they decide on. The paragraph also describes cross-functional review and sign-off.
+
+  - id: EV-meta-2026-05-muse-spark-safety-preparedness-report-02
+    claim: >-
+      Early checkpoints of Muse Spark were deployed to a limited share of product users before
+      broad availability, on the basis of preliminary preparedness assessments.
+    quote: >-
+      early checkpoints of Muse Spark were initially deployed to a small, percentage-limited
+      subset of product users prior to broad availability. For these controlled deployments,
+      preliminary preparedness assessments were conducted and chemical and biological mitigations
+      were proactively enabled to reduce risk before proceeding.
+    locator: Section 1.2, Governance (PDF page 14)
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-determination, T-eval-dangerous]
+    note: >-
+      The final pre-deployment assessment came later, before broad availability. What the
+      preliminary assessments covered is not described.
+
+  - id: EV-meta-2026-05-muse-spark-safety-preparedness-report-03
+    claim: >-
+      Meta's analysis of how human control of AI could be lost identifies two chokepoints:
+      pre-deployment safety evaluations and automated monitoring systems.
+    quote: >-
+      we identified two critical chokepoints: (1) pre-deployment safety evaluations and (2)
+      automated monitoring systems.
+    locator: Section 2.3, Loss of Control (PDF page 51)
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval, T-eval-safeguards]
+
+  - id: EV-meta-2026-05-muse-spark-safety-preparedness-report-04
+    claim: >-
+      Meta names two threat scenarios that could undermine its pre-deployment evaluations: AI
+      development outpacing an organization's evaluation processes, and performance in testing
+      failing to predict behavior in deployment.
+    quote: >-
+      We identify two key threat scenarios that could critically undermine our pre-deployment
+      evaluations. [...] AI development accelerates such that new capabilities and behaviors
+      emerge faster than an organization’s evaluation processes [...] AI performance in testing
+      environments consistently fails to predict deployment behavior
+    locator: Section 2.3.1, Reliability of Pre-Deployment Assessments (PDF page 52)
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-design, T-eval-validity]
+    note: >-
+      Meta judges that Muse Spark does not substantially contribute to either scenario, from
+      coding, ML engineering and research benchmarks for the first and sandbagging tests for
+      the second.
+
+  - id: EV-meta-2026-05-muse-spark-safety-preparedness-report-05
+    claim: >-
+      Muse Spark's average rate of suspecting an evaluation was 17.6% across public alignment
+      benchmarks, against 1.0% across Meta's internal evaluations that have not been publicly
+      discussed.
+    quote: >-
+      On publicly available benchmarks such as DeceptionBench, ImpossibleBench, and IHEval, Muse
+      Spark shows an average suspicion rate of 17.6%, compared to 1.0% on internal evaluations
+      that have not been publicly discussed
+    locator: Section 4.1.11, Prevalence of evaluation awareness (PDF page 120)
+    kind: risk
+    strength: measured
+    grade: A
+    tasks: [T-eval-validity, T-eval-tasks]
+    note: >-
+      Averages of per-benchmark rates, not shares of samples. Meta offers two explanations: public
+      discussion of the benchmarks in training data, or internal scenarios appearing more realistic
+      to the model.
+
+  - id: EV-meta-2026-05-muse-spark-safety-preparedness-report-06
+    claim: >-
+      Meta measures evaluation awareness with an LLM-based classifier run over the model's
+      reasoning, and says the method gives only a lower bound because a model could be aware
+      without saying so.
+    quote: >-
+      This approach is necessarily incomplete—a model could be evaluation-aware without saying
+      so—but it provides a useful lower bound with which to contextualize the results in this
+      section. Concretely, we ran an LLM-based classifier on Muse Spark’s reasoning across all
+      evaluations in this section.
+    locator: Section 4.1.11, Measuring verbalized evaluation awareness (PDF page 119)
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-graders]
+
+  - id: EV-meta-2026-05-muse-spark-safety-preparedness-report-07
+    claim: >-
+      In 3 of 20 alignment evaluations, Muse Spark's results differed to a statistically
+      significant degree between samples where it expressed evaluation awareness and samples
+      where it did not.
+    quote: >-
+      when checking whether Muse Spark behaves differently when expressing evaluation awareness,
+      3/20 alignment evaluations see a statistically significant impact while the rest either do
+      not, or do not have evaluation awareness to start.
+    locator: Section 4.1.11 (PDF page 119)
+    kind: risk
+    strength: measured
+    grade: A
+    tasks: [T-eval-validity, T-eval-alignment]
+    note: >-
+      Later in the section the same result is given as three of "the 10 alignment evaluations in
+      this analysis", and Table 25 has nine rows; the denominators do not agree within the
+      report. Meta says none of the three bore on dangerous capabilities or the launch decision.
+
+  - id: EV-meta-2026-05-muse-spark-safety-preparedness-report-08
+    claim: >-
+      Meta says a sufficiently capable model could in principle calibrate its outputs so that
+      an evaluation still looks credible, and that this cannot be ruled out from behavioral
+      evaluations alone.
+    quote: >-
+      a sufficiently capable model could in principle calibrate its outputs to make the overall
+      evaluation appear credible. [...] We cannot rule out this possibility on the basis of
+      behavioral evaluations alone and flag it as an inherent epistemic limitation of assessments
+      of this kind.
+    locator: Section 2.3.1.2, Assessment, and footnote 25 (PDF page 57)
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-dangerous]
+    note: >-
+      Said of strategic underperformance on chemical and biological capability evaluations.
+      Meta's complementary check is to compare scores with capability trends from other models.
+
+  - id: EV-meta-2026-05-muse-spark-safety-preparedness-report-09
+    claim: >-
+      On Meta's capture-the-flag cyber evaluations an LLM reviewer classified every successful
+      solve for cheating and staff manually verified the flagged cases. Solves on 2 challenges
+      were found to have been guided by public writeups.
+    quote: >-
+      (2) automated post-hoc cheating detection using an LLM reviewer that classifies every
+      successful solve, and (3) manual verification of all flagged cases. All successful solves
+      were reviewed. A small number of writeup-guided solves across 2 challenges were identified
+    locator: Section 2.2.2.1, CTF Challenges (PDF page 40)
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-validity, T-eval-dangerous]
+    note: >-
+      Those solves were marked incorrect. People read only what the LLM reviewer flagged. The
+      first of the three controls is a system prompt telling the model that trajectories are
+      reviewed for cheating.
+
+  - id: EV-meta-2026-05-muse-spark-safety-preparedness-report-10
+    claim: >-
+      Meta revised its instruction-hierarchy evaluation results on May 26, 2026 after finding a
+      bug in the evaluation implementation. The fix improved the results of other developers'
+      models and left Meta's assessment of its own model unchanged.
+    quote: >-
+      May 26, 2026: We have updated results for IH results after finding a bug in the evaluation
+      implementation. Muse Spark assessment has not changed, but third-party models show
+      improvements
+    locator: Change Log (PDF page 5)
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2026-05
+    tasks: [T-eval-harness, T-eval-reporting]
+    note: >-
+      The bug is not described. A footnote in Section 4.1 says a figure was updated on May 13th
+      after a bug fix, with a broken cross-reference.

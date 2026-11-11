@@ -1,0 +1,43 @@
+task: T-eval-determination
+estimates:
+  - id: EST-eval-determination-automation-frontier-2026-03
+    task: T-eval-determination
+    quantity: automation_level
+    scope: frontier
+    as_of: 2026-03
+    value: {kind: level, level: AL2}
+    basis: mixed
+    evidence:
+      - EV-metr-2026-05-frontier-risk-report-06
+      - EV-anthropic-2026-04-mythos-preview-system-card-03
+      - EV-gdm-2025-11-gemini-3-pro-fsf-report-04
+    reasoning: >-
+      METR, working with four developers in February and March 2026, knew of no evidence that any
+      relied on agents for all-things-considered judgments such as risk assessment. At Anthropic,
+      findings from pre-deployment testing are reviewed by research leadership, and at Google
+      DeepMind cybersecurity experts decide whether a capability level is reached. People decide and
+      models prepare the inputs: AL2 for the decision itself. This is the one estimate recorded
+      for all frontier developers, because the source covers four of them. METR says its "did
+      not" list rests on its own understanding, not on confirmations.
+    confidence: low
+    stale_after: 2026-12-01
+
+  - id: EST-eval-determination-oversight-anthropic-2026-04
+    task: T-eval-determination
+    quantity: oversight_mode
+    scope: Anthropic
+    as_of: 2026-04
+    value: {kind: category, value: human_every_change}
+    basis: mixed
+    evidence:
+      - EV-anthropic-2026-04-mythos-preview-system-card-03
+      - EV-anthropic-2026-04-mythos-preview-system-card-04
+      - EV-anthropic-2026-08-risk-report-03
+    reasoning: >-
+      Each internal deployment and release is decided by people, with a 24-hour testing window
+      before internal agentic use since Mythos Preview. Before that a snapshot went into internal
+      use once in-training evaluations judged it ready, which is closer to no review. The
+      category records that a person decides. It says nothing about what that person examined:
+      the window is a day and the review is lighter than a full audit.
+    confidence: low
+    stale_after: 2026-12-01

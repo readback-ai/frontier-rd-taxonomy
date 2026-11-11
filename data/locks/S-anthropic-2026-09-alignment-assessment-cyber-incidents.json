@@ -1,0 +1,65 @@
+{
+  "source_id": "S-anthropic-2026-09-alignment-assessment-cyber-incidents",
+  "snapshot": {
+    "url": "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents",
+    "final_url": "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "1329fe609ddaa517fbdbe72a23b06d368f0494d598aebab5826207d5bcee5056",
+    "text_sha256": "e45989ef5a724dce65cf644ea2259cbeb4842fed8c36d2f0127663489ec6e592",
+    "text_chars": 103767
+  },
+  "quotes": {
+    "EV-anthropic-2026-09-alignment-assessment-cyber-incidents-01": {
+      "quote_sha256": "a2d37bee871bb04725a73b6cd4789a68ae07d5e3e31543900072507b68c14821",
+      "text_sha256": "e45989ef5a724dce65cf644ea2259cbeb4842fed8c36d2f0127663489ec6e592",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-alignment-assessment-cyber-incidents-02": {
+      "quote_sha256": "901a178093bbb5ae24d8af9ec571f02d32d4d7e09ccb92ebf9dc166f5501257a",
+      "text_sha256": "e45989ef5a724dce65cf644ea2259cbeb4842fed8c36d2f0127663489ec6e592",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-alignment-assessment-cyber-incidents-03": {
+      "quote_sha256": "7c6b0c5d8bd0d687e4ea4f88821cf6dd4c9d9f0a8567889834f0c9054e3f4ceb",
+      "text_sha256": "e45989ef5a724dce65cf644ea2259cbeb4842fed8c36d2f0127663489ec6e592",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-alignment-assessment-cyber-incidents-04": {
+      "quote_sha256": "7d49ecdae3a9aa3cf81a6f8225c9c99172651a2e48583b7e12c699d196138a3d",
+      "text_sha256": "e45989ef5a724dce65cf644ea2259cbeb4842fed8c36d2f0127663489ec6e592",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-alignment-assessment-cyber-incidents-05": {
+      "quote_sha256": "e9d713fc965c4b0336861b515eb6091f799e1dd0dbd8b904839f54bff4806016",
+      "text_sha256": "e45989ef5a724dce65cf644ea2259cbeb4842fed8c36d2f0127663489ec6e592",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-alignment-assessment-cyber-incidents-06": {
+      "quote_sha256": "e87d2ad2eeae808f4f5f902a749edd531b95f0624c0fe7e813b29425c8b09d2b",
+      "text_sha256": "e45989ef5a724dce65cf644ea2259cbeb4842fed8c36d2f0127663489ec6e592",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-alignment-assessment-cyber-incidents-07": {
+      "quote_sha256": "91ea693db5c182c430c2a2147b6f7c78b16805bc6a5edca79cc27b0ae2c87562",
+      "text_sha256": "e45989ef5a724dce65cf644ea2259cbeb4842fed8c36d2f0127663489ec6e592",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-alignment-assessment-cyber-incidents-08": {
+      "quote_sha256": "1086bba54ff8c5cc1e4fa17a66fdda2725a0eea5034cfdfa826cbb09b164f0f8",
+      "text_sha256": "e45989ef5a724dce65cf644ea2259cbeb4842fed8c36d2f0127663489ec6e592",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-alignment-assessment-cyber-incidents-09": {
+      "quote_sha256": "9fda95a400e398744c4e82ea3048f62d47c5a66590ec2bf0fcb730a693fb303c",
+      "text_sha256": "e45989ef5a724dce65cf644ea2259cbeb4842fed8c36d2f0127663489ec6e592",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-alignment-assessment-cyber-incidents-10": {
+      "quote_sha256": "2dec86601e646fd24fe57809f6a6be57fed77f5b9bc140c755754258ab938854",
+      "text_sha256": "e45989ef5a724dce65cf644ea2259cbeb4842fed8c36d2f0127663489ec6e592",
+      "verified": "2026-11-11"
+    }
+  }
+}

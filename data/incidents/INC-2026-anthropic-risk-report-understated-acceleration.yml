@@ -1,0 +1,77 @@
+id: INC-2026-anthropic-risk-report-understated-acceleration
+title: A public risk report understated the acceleration and uncertainty recorded in the private version
+org: Anthropic
+frontier: true
+occurred: 2026-08
+disclosed: 2026-11-05
+summary: >-
+  Anthropic's public August 2026 risk report said leading indicators of AI R&D acceleration had
+  risen by "less than a factor of 2". METR, with the private report, calculates that its figures
+  imply 1.97. The private report called it plausible that AI-attributable acceleration exceeded a
+  factor of 2, and qualified a benchmark score that the public report gave without the
+  qualification. METR thinks it plausible the early-warning threshold had been crossed, though its
+  researchers and Anthropic's staff lean toward not.
+root_cause: >-
+  The public version dropped qualifications the private one carried and described a figure in the
+  direction that favored the conclusion. The authors held the private figures, so this is a gap in
+  disclosure, not in what they knew.
+detected_by: METR, comparing the private and public reports during an engagement at Anthropic
+detection_latency: About three months from the report to METR's review
+automation_involved: unknown
+comprehension_failure: 'no'
+comprehension_note: >-
+  The authors of the private report recorded the higher figures and the uncertainty. The gap is
+  between what the developer knew and what readers were told, not a gap in the authors'
+  understanding. Whether a model drafted the public wording is not stated.
+tasks: [T-eval-reporting, T-eval-determination, T-eval-external]
+risks:
+  - R-eval-reporting-outruns-evidence
+  - R-eval-external-limited-view
+evidence:
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-01
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-02
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-03
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-04
+backtest:
+  - question: Q-eval-reporting-03
+    verdict: would_surface
+    rationale: >-
+      The authors wrote both versions. The honest answer is that the private report calls it
+      plausible that AI-attributable acceleration passed a factor of 2, holds figures that work out
+      to about 1.97, and expects higher scores from later snapshots of Model 2, and that the public
+      report drops all three.
+  - question: Q-eval-reporting-02
+    verdict: might_surface
+    rationale: >-
+      If the reviewer picks the "less than a factor of 2" claim, the honest answer is that it fails
+      at 2, that the private figures sit just under 2 and that the private text calls exceeding 2
+      plausible. It depends on which claim is picked.
+  - question: Q-eval-determination-01
+    verdict: might_surface
+    rationale: >-
+      The honest answer is that the threshold is judged not crossed, that indicators at or above 2
+      would reverse it, and that the report's own figures are just under 2. That shows the margin to
+      a reviewer who already holds the private report and says nothing about the public wording.
+  - question: Q-eval-determination-06
+    verdict: might_surface
+    rationale: >-
+      The honest answer is that the benchmark score comes from an early snapshot of Model 2 and
+      later snapshots are expected to score higher. That raises the dropped qualification inside the
+      determination review without reaching the public text.
+  - question: Q-eval-external-03
+    verdict: might_surface
+    rationale: >-
+      The question is written for an outside party's report. Turned on the risk report itself, the
+      honest answer is that the leading-indicator figures were redacted and a public reader cannot
+      see how close to 2 they are, but a reviewer has to make that turn.
+  - question: Q-eval-reporting-01
+    verdict: would_not_surface
+    rationale: >-
+      The authors could truthfully say they examined the figures themselves, since the private
+      report records them. Understanding was intact and the public wording still understated.
+  - question: Q-eval-external-01
+    verdict: would_not_surface
+    rationale: >-
+      The question has nothing to bite on until an outside review exists, and the records place
+      METR's review of this section after its engagement began on August 12. METR's access to the
+      private report is what later caught the gap.

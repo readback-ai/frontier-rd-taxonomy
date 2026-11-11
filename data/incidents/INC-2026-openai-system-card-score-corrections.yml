@@ -1,0 +1,61 @@
+id: INC-2026-openai-system-card-score-corrections
+title: Biological capability scores in two OpenAI system cards were corrected months after publication
+org: OpenAI
+frontier: true
+occurred: 2026-04
+disclosed: 2026-10-30
+summary: >-
+  The GPT-5.5 system card of April 2026 reported a biological capability score of 0.4% that was
+  corrected to 1.48% on August 19: the figure published as the pass@4 score was the pass@1 score.
+  In the GPT-6 Astra card of September 2026, an outside tester reported on October 30 that its
+  61.6% biological score for Astra had been generated with web search enabled, while the
+  comparison models were evaluated without it.
+root_cause: >-
+  A mislabeled metric in one card and a mismatched evaluation configuration in the other. Neither
+  card says how the error entered.
+detected_by: Not stated for the first. For the second, the external testing organization that produced the score
+detection_latency: About four months for the first correction; about two months for the second
+automation_involved: unknown
+comprehension_failure: unknown
+comprehension_note: >-
+  The cards record the corrections in their change logs without saying who assembled the figures,
+  how the errors were found, or whether the authors had checked the configuration behind each
+  number.
+tasks: [T-eval-reporting, T-eval-dangerous, T-eval-external]
+risks:
+  - R-eval-reporting-outruns-evidence
+  - R-eval-external-limited-view
+evidence:
+  - EV-openai-2026-04-gpt-5-5-system-card-06
+  - EV-openai-2026-09-gpt-6-astra-system-card-09
+backtest:
+  - question: Q-eval-dangerous-07
+    verdict: might_surface
+    rationale: >-
+      For the Astra score the honest answer is that it was taken as SecureBio reported it; for the
+      GPT-5.5 figure the record does not say who checked. That shows unchecked numbers, and the
+      web-search mismatch or the pass@1 label comes out only if someone then inspects the runs.
+  - question: Q-eval-reporting-06
+    verdict: might_surface
+    rationale: >-
+      For the Astra card the honest answer names the August 19 fix of a pass@1 score published as
+      pass@4. It reaches the web-search mismatch only if the team generalizes to checking the
+      configuration behind every score, and it could not have helped the first card.
+  - question: Q-eval-reporting-07
+    verdict: might_surface
+    rationale: >-
+      Restates the incident: its three red flags are these two corrections. For the Astra score the
+      honest answer is that it was printed as the outside tester reported it, which shows nobody at
+      OpenAI had confirmed the settings; for the GPT-5.5 figure the record does not say who checked,
+      and authors who believed the label would have answered pass@4.
+  - question: Q-eval-reporting-04
+    verdict: would_not_surface
+    rationale: >-
+      A named, independent reviewer of the section reads text and tables. Nothing in that review
+      shows which k a figure used or whether an outside tester ran one model with web search on.
+  - question: Q-eval-external-01
+    verdict: would_not_surface
+    rationale: >-
+      OpenAI could state SecureBio's access precisely and the error would stand. The mismatch was in
+      how SecureBio's own runs were configured against the comparators, and SecureBio found it later
+      itself.

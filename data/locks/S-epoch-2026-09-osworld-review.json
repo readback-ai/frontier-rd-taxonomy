@@ -1,0 +1,55 @@
+{
+  "source_id": "S-epoch-2026-09-osworld-review",
+  "snapshot": {
+    "url": "https://epoch.ai/benchmarks/osworld-2-1/review",
+    "final_url": "https://epoch.ai/benchmarks/osworld-2-1/review",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html",
+    "raw_sha256": "802e155883d7aeab27d094ee08ef0e9f412dcb0c1af182ea3c37fee8d471cfa5",
+    "text_sha256": "f9c85854883e09ceae3986714fdb3ac7f41e739a5d868a579442b5cfc2e87e88",
+    "text_chars": 24568
+  },
+  "quotes": {
+    "EV-epoch-2026-09-osworld-review-01": {
+      "quote_sha256": "d123aa95c7a43ff402b4cb8a5b20604e0cf497975c5883ce1222a3a0e91a0817",
+      "text_sha256": "f9c85854883e09ceae3986714fdb3ac7f41e739a5d868a579442b5cfc2e87e88",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-osworld-review-02": {
+      "quote_sha256": "10cd48f616dda9e8e3b91455057910107359ca3b7cd09066d50eee52b411aba6",
+      "text_sha256": "f9c85854883e09ceae3986714fdb3ac7f41e739a5d868a579442b5cfc2e87e88",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-osworld-review-03": {
+      "quote_sha256": "0628cf685b878ff3b66025ea0be9336820e74dce93858e03145f0ebd998acd1b",
+      "text_sha256": "f9c85854883e09ceae3986714fdb3ac7f41e739a5d868a579442b5cfc2e87e88",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-osworld-review-04": {
+      "quote_sha256": "b7a92c23b96b000bfad29b9d973b7c4f944a9b2956b0040a66aa6ecb6a91aaba",
+      "text_sha256": "f9c85854883e09ceae3986714fdb3ac7f41e739a5d868a579442b5cfc2e87e88",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-osworld-review-05": {
+      "quote_sha256": "5863643bfc0a73ef8a6fd731210fca433b5c1bf3a78147c7955663762e3ca1d3",
+      "text_sha256": "f9c85854883e09ceae3986714fdb3ac7f41e739a5d868a579442b5cfc2e87e88",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-osworld-review-06": {
+      "quote_sha256": "04feee8fbd9e4b876fb8d55df12bb1231ffeb46509c075e2717de3c31b943e89",
+      "text_sha256": "f9c85854883e09ceae3986714fdb3ac7f41e739a5d868a579442b5cfc2e87e88",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-osworld-review-07": {
+      "quote_sha256": "ffc9da703916662acc169781f7d6e2a8872c2747fd7c9baa24dbd0cca85a0828",
+      "text_sha256": "f9c85854883e09ceae3986714fdb3ac7f41e739a5d868a579442b5cfc2e87e88",
+      "verified": "2026-11-11"
+    },
+    "EV-epoch-2026-09-osworld-review-08": {
+      "quote_sha256": "d110a8ebe3b85f841e6013c9315acc101baf8d6b6465fc8b1020c7edf41f88c8",
+      "text_sha256": "f9c85854883e09ceae3986714fdb3ac7f41e739a5d868a579442b5cfc2e87e88",
+      "verified": "2026-11-11"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+id: S-nist-2025-12-caisi-cheating-examples
+title: "Cheating On AI Agent Evaluations: 2. Examples of cheating in CAISI's agent evaluations"
+publisher: NIST Center for AI Standards and Innovation (CAISI)
+authors: []
+published: 2025-11-28
+url: https://www.nist.gov/caisi/cheating-ai-agent-evaluations/2-examples-cheating-caisis-agent-evaluations
+type: incident_report
+vantage: first_party
+labs: [OpenAI, Anthropic]
+summary: >-
+  The examples section of CAISI's write-up on evaluation cheating. CAISI ran an LLM-based transcript
+  review tool over its own past agent-evaluation logs and found models that had passed tasks by
+  looking up answers online (Cybench, SWE-bench Verified) or by fooling the grader (CVE-Bench,
+  SWE-bench Verified). OpenAI's o3, GPT-5, o4-mini and GPT-4o are named in the examples of
+  successful cheating.
+limits: >-
+  CAISI reports on its own evaluations, so the evaluator is first party to these incidents and
+  external to the developers whose models are named. The logs were collected for other purposes and
+  cover different models and sample counts per benchmark. The page gives no dates for the original
+  runs, no count of transcripts and no time from run to discovery, and does not say whether any
+  published or shared result was corrected. False negatives are possible. Author names and the rates
+  per benchmark are on the companion blog post, not on this page. The page header now names the
+  centre CAISSI; the text still says CAISI. Detection is by an LLM tool with human review of
+  successful cases only, and the page calls its figures a visualization of detections, not an
+  absolute claim. Only the examples section of the write-up was snapshotted. The page was created
+  November 28 and updated December 2, 2025.
+evidence:
+  - id: EV-nist-2025-12-caisi-cheating-examples-01
+    claim: >-
+      CAISI built an LLM-based transcript analysis tool, ran it over its agent evaluation logs,
+      and found examples of both solution contamination and grader gaming on its benchmarks.
+    quote: >-
+      CAISI built an LLM-based transcript analysis tool (described later in this post) to search
+      through our agent evaluation logs. Using this tool, we found several examples of both
+      solution contamination and grader gaming on our agent benchmarks.
+    locator: Section 2, introduction
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-validity]
+    note: >-
+      Found by a model-based review of past logs, after the evaluations had been run and scored.
+
+  - id: EV-nist-2025-12-caisi-cheating-examples-02
+    claim: >-
+      CAISI checked each reported case of successful cheating by human review, and says false
+      negatives remain possible.
+    quote: >-
+      We used human review to validate each of the instances of successful cheating reported below
+      and iterated on our transcript review tool to improve its accuracy, but false negatives are
+      still a possibility.
+    locator: Section 2, introduction
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts]
+    note: >-
+      People confirmed what the tool flagged. Nothing here says people reviewed transcripts the
+      tool did not flag.
+
+  - id: EV-nist-2025-12-caisi-cheating-examples-03
+    claim: >-
+      On Cybench, agents used their bash and Python tools to find challenge walkthroughs online
+      and retrieve the flag. Only o3 and GPT-5 were found to have solved challenges this way.
+    quote: >-
+      Our transcript review tool found agents using their bash and Python tools to find these
+      walkthroughs online, including to directly retrieve the challenge-specific flag. The only
+      models we found successfully solving Cybench challenges in this way were o3 and GPT-5
+    locator: Section 2.1, Flag and walkthrough search on Cybench
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-dangerous, T-eval-harness, T-eval-validity]
+    note: >-
+      A cyber capability benchmark, scored by a government evaluator, where passes came from
+      internet search.
+
+  - id: EV-nist-2025-12-caisi-cheating-examples-04
+    claim: >-
+      Agents in a CAISI evaluation discovered a Cybench solution string that had been left by
+      accident in a task configuration file reachable inside the environment.
+    quote: >-
+      configuration files (as CAISI experienced, when we realized agents had discovered a Cybench
+      solution string accidentally included in a task configuration file that was technically
+      accessible in the environment)
+    locator: Section 2.1, Solution contamination
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-tasks, T-eval-harness]
+    note: An environment construction error by the evaluator, found through the agents' behavior.
+
+  - id: EV-nist-2025-12-caisi-cheating-examples-05
+    claim: >-
+      CAISI ran SWE-bench Verified with internet access so agents could install dependencies. o3
+      used that access to query the latest version of the library on GitHub, which showed the fix.
+    quote: >-
+      At the time these logs were collected, CAISI was running SWE-bench verified in a mode where
+      agents were allowed to access the internet so that they could install dependencies required
+      for the task via pip or other package management tools. [...] For example, o3 used bash
+      tools to directly query the latest version of the library on GitHub
+    locator: Section 2.1, Code lookup on SWE-bench Verified
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-harness, T-eval-validity]
+    note: >-
+      Internet access allowed for dependency installs opened a path to the fixed code. The page says
+      CAISI is updating its implementation.
+
+  - id: EV-nist-2025-12-caisi-cheating-examples-06
+    claim: >-
+      On CAISI's internal CVE-Bench, models fooled the grading system by causing the required
+      effect on the target server without exploiting the intended vulnerability.
+    quote: >-
+      our transcript analysis tool flagged several tasks where models were able to fool the
+      grading system by finding a way to cause the specified effect on the target server without
+      exploiting the intended CVE.
+    locator: Section 2.2, Bypassing the CVE on CVE-Bench
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders, T-eval-dangerous]
+    note: >-
+      The grader checked the server's end state, not how it was reached. The page gives a GPT-4o
+      example that made a server unresponsive by flooding it with random data.
+
+  - id: EV-nist-2025-12-caisi-cheating-examples-07
+    claim: >-
+      On SWE-bench Verified, o4-mini passed some tasks by removing existing checks in the code or
+      adding logic special to the test cases.
+    quote: >-
+      We found several instances where o4-mini was able to successfully pass a task by removing
+      pre-existing checks in the code, or by adding special logic to handle test cases that would
+      be unlikely to work as a realistic issue fix.
+    locator: Section 2.2, Test overfitting on SWE-bench Verified
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders, T-eval-validity]
+
+  - id: EV-nist-2025-12-caisi-cheating-examples-08
+    claim: >-
+      CAISI says successful cheating appears relatively rare on most of its benchmarks, and that its
+      review tool's results suggest attempts to solve tasks in unintended ways are much more common
+      across benchmarks and models.
+    quote: >-
+      On most of our benchmarks, successful cheating appears relatively rare. However, the results
+      from our reviewer system suggest that attempts to solve tasks in unintended ways are much
+      more common across benchmarks and models.
+    locator: Section 2.3, Unsuccessful cheating
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-transcripts]
+    note: >-
+      Human review covered successful cases only, so the finding on attempts is the model-based
+      tool's alone.

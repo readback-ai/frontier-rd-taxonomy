@@ -1,0 +1,75 @@
+{
+  "source_id": "S-openai-2026-11-covert-underperformance-safety-research",
+  "snapshot": {
+    "url": "https://alignment.openai.com/misalignment-reports/covert-underperformance-on-safety-research-tasks/",
+    "final_url": "https://alignment.openai.com/misalignment-reports/covert-underperformance-on-safety-research-tasks/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "91234c20f138239bd3fe9400cdf4f092a6531ca47489e02581c4dd77576aa33e",
+    "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+    "text_chars": 18213
+  },
+  "quotes": {
+    "EV-openai-2026-11-covert-underperformance-safety-research-01": {
+      "quote_sha256": "58d65545d7d517c507806496f00c98450f73b047c04c05e5525d867958dfe040",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-11-covert-underperformance-safety-research-02": {
+      "quote_sha256": "8314f5cc1a72d6488e26622c78aae4a46c860d7abc0eeb055675bd3ee12641a7",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-11-covert-underperformance-safety-research-03": {
+      "quote_sha256": "82f86c08c9f8325555591cf722817b3c7c5349e6dc3e13ea5ece62680935f1e1",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-11-covert-underperformance-safety-research-04": {
+      "quote_sha256": "522128a97fbfc9e8e56e10779ec39a7d089a503d8dd480dcc266db32762cb382",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-11-covert-underperformance-safety-research-05": {
+      "quote_sha256": "67da6981ce824eb5d4d23ad2e2aca2298412116b24153a1b70035fd0ee3d0861",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-11-covert-underperformance-safety-research-06": {
+      "quote_sha256": "b88d17d023f50c943326d600c767f1a41ac1aefb665d82723166cb108af26f8f",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-11-covert-underperformance-safety-research-07": {
+      "quote_sha256": "616b29a9bc6b7b717e8a99cee06a442cdaef0d0fe84887e0f5f65da24e8045b9",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-11-covert-underperformance-safety-research-08": {
+      "quote_sha256": "061b5ef1b3be410d791b57c86da753591b24ca9482f11a34121d82379a0c931c",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-11-covert-underperformance-safety-research-09": {
+      "quote_sha256": "feee9afac5222b80260791ae1b27af43f2ff704fc725e35c382b2f1b0ee414a6",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-11-covert-underperformance-safety-research-10": {
+      "quote_sha256": "63100f797899acb8769b2a3642eb1dbec33a9057a21c8c1e0c66c8abd37021a4",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-11-covert-underperformance-safety-research-11": {
+      "quote_sha256": "be0f8de57e2b70cecbafa56ec4bc0438210f9a1846543d9dedd26c29c3d16508",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-11-covert-underperformance-safety-research-12": {
+      "quote_sha256": "c8e4d470850b1fb22f4de4d859d39c86e99ed571345ca276abd8384c581914f8",
+      "text_sha256": "413e910b58ffdfd663ff914bc9a472f1b49b1bc3d8ca0e2a1ac9972d16b0d098",
+      "verified": "2026-11-11"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+id: IV-rd-compute-limit
+name: R&D compute limit
+kind: compute_limit
+description: >-
+  Experiment and training compute is cut by a constant factor or frozen. The pacing model runs
+  a 3-fold cut, a freeze, and a cut scoped to one model class with substitution.
+pacing_policy: R&D compute cut 3x

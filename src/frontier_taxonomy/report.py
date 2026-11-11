@@ -91,9 +91,21 @@ def _leaves(dataset: Dataset, branch_id: str) -> list[Task]:
     return [t for t in dataset.branches[branch_id].tasks if dataset.is_leaf(t.id)]
 
 
-def _latest(dataset: Dataset, task_id: str, quantity: str) -> Estimate | None:
-    found = [e for e in dataset.estimates.values() if e.task == task_id and e.quantity == quantity]
-    return max(found, key=lambda e: (e.as_of, e.id)) if found else None
+def _latest_by_scope(dataset: Dataset, task_id: str, quantity: str) -> list[Estimate]:
+    """The most recent estimate of a quantity for a task, one per scope, ordered by scope."""
+    latest: dict[str, Estimate] = {}
+    for estimate in dataset.estimates.values():
+        if estimate.task != task_id or estimate.quantity != quantity:
+            continue
+        current = latest.get(estimate.scope)
+        if current is None or (estimate.as_of, estimate.id) > (current.as_of, current.id):
+            latest[estimate.scope] = estimate
+    return [latest[scope] for scope in sorted(latest)]
+
+
+def _by_scope_cell(estimates: list[Estimate]) -> str:
+    """One table cell naming each scope's value and basis: estimates never merge across scopes."""
+    return "; ".join(f"{e.scope}: {format_value(e)} [{e.basis}]" for e in estimates)
 
 
 def _evidence_by_task(dataset: Dataset) -> Counter:
@@ -150,7 +162,7 @@ def coverage_report(paths: Paths, dataset: Dataset, as_of: dt.date | None) -> st
     if n:
         out.append(
             f"{basis['judgment']} of {n} estimates ({basis['judgment'] / n:.0%}) rest on judgment "
-            "alone. They are priors, not findings."
+            "alone." + (" They are priors, not findings." if basis["judgment"] else "")
         )
         out.append("")
 
@@ -162,14 +174,14 @@ def coverage_report(paths: Paths, dataset: Dataset, as_of: dt.date | None) -> st
         out += [f"### {root.name} (`{branch_id}`, {branch.status})", ""]
         rows = []
         for task in _leaves(dataset, branch_id):
-            automation = _latest(dataset, task.id, "automation_level")
-            oversight = _latest(dataset, task.id, "oversight_mode")
+            automation = _latest_by_scope(dataset, task.id, "automation_level")
+            oversight = _latest_by_scope(dataset, task.id, "oversight_mode")
             rows.append(
                 [
                     f"`{task.id}`",
                     task.name,
-                    f"{format_value(automation)} [{automation.basis}]" if automation else "",
-                    f"{format_value(oversight)} [{oversight.basis}]" if oversight else "",
+                    _by_scope_cell(automation),
+                    _by_scope_cell(oversight),
                     evidence_counts[task.id],
                     tasks_with_risk[task.id],
                     len(dataset.question_sets[task.id].questions)
@@ -395,7 +407,11 @@ def backtest_report(dataset: Dataset) -> str:
         "# Backtest of review questions against incidents",
         "",
         "For each incident, would a good-faith answer to the question have exposed the root "
-        "cause before the incident? Verdicts are judgments recorded in each incident's file.",
+        "cause before the incident? Verdicts are judgments recorded in each incident's file, "
+        "made by a reviewer who did not write the questions. Where a question was written with "
+        "knowledge of an incident, its verdict on that incident is in-sample: it shows the "
+        "question is well aimed, not that it would have been asked. A verdict of would not "
+        "surface marks a place where review is the wrong control.",
         "",
         "## By incident",
         "",

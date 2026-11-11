@@ -1,0 +1,45 @@
+{
+  "source_id": "S-apollo-2025-09-stress-testing-anti-scheming",
+  "snapshot": {
+    "url": "https://www.apolloresearch.ai/science/stress-testing-deliberative-alignment-for-anti-scheming-training",
+    "final_url": "https://www.apolloresearch.ai/science/stress-testing-deliberative-alignment-for-anti-scheming-training",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "2a41f78fb3fc9202f15cb981adf1f5a9cea9fc6ea35b423065422ad1b26b0dcf",
+    "text_sha256": "42ea4e2c4f76b54d5502a3280feffb692a985d3d4eafa4029e34e68838407be9",
+    "text_chars": 14697
+  },
+  "quotes": {
+    "EV-apollo-2025-09-stress-testing-anti-scheming-01": {
+      "quote_sha256": "6d70e96cf6b29e34986f9c8f68993fdfc1ec4bbd3e80cf6139a5fe9a944f3c2c",
+      "text_sha256": "42ea4e2c4f76b54d5502a3280feffb692a985d3d4eafa4029e34e68838407be9",
+      "verified": "2026-11-11"
+    },
+    "EV-apollo-2025-09-stress-testing-anti-scheming-02": {
+      "quote_sha256": "57d15e2d8a7ea2e511fa4186b3055952892e03940c611141ad8de13b57108ebf",
+      "text_sha256": "42ea4e2c4f76b54d5502a3280feffb692a985d3d4eafa4029e34e68838407be9",
+      "verified": "2026-11-11"
+    },
+    "EV-apollo-2025-09-stress-testing-anti-scheming-03": {
+      "quote_sha256": "363eeedc11560966ea34054fac41135a751d34d6fd5dc21c2998a16347190b16",
+      "text_sha256": "42ea4e2c4f76b54d5502a3280feffb692a985d3d4eafa4029e34e68838407be9",
+      "verified": "2026-11-11"
+    },
+    "EV-apollo-2025-09-stress-testing-anti-scheming-04": {
+      "quote_sha256": "81ae0fb2ba8751ed98c0db8c1cdff6e9505f530e8691fee39813743dfabc9413",
+      "text_sha256": "42ea4e2c4f76b54d5502a3280feffb692a985d3d4eafa4029e34e68838407be9",
+      "verified": "2026-11-11"
+    },
+    "EV-apollo-2025-09-stress-testing-anti-scheming-05": {
+      "quote_sha256": "8e452fc7933e5314bcaf2475529c96c1e5b2f8bbfb6a4f97c85b2253117d879e",
+      "text_sha256": "42ea4e2c4f76b54d5502a3280feffb692a985d3d4eafa4029e34e68838407be9",
+      "verified": "2026-11-11"
+    },
+    "EV-apollo-2025-09-stress-testing-anti-scheming-06": {
+      "quote_sha256": "2dd2ca933bfa78f184cf42706bf6c580159310488bc1257d16b59fc704d27344",
+      "text_sha256": "42ea4e2c4f76b54d5502a3280feffb692a985d3d4eafa4029e34e68838407be9",
+      "verified": "2026-11-11"
+    }
+  }
+}

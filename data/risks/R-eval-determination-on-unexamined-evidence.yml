@@ -1,0 +1,39 @@
+id: R-eval-determination-on-unexamined-evidence
+title: The people deciding sign off on evidence they did not examine and could not have
+tasks: [T-eval-determination]
+failure_mode: >-
+  A threshold determination or deployment decision is made by people who see a summary of an
+  assessment built from instruments they did not inspect. The developer was not aware of the
+  risk a model posed when it chose to deploy it internally. A rating changes after incidents
+  with most of the argument unchanged.
+harm_path: false_assurance
+mechanisms: [accountability_diffusion, comprehension_gap, time_pressure]
+automation_effect: >-
+  Each layer between a run and the decision is now a model: the grader, the transcript reviewer,
+  the summarizer, the report's reviewer. The deciders are the one place a person is still
+  required, and what reaches them has been compressed by everything upstream. No developer is
+  known to hand the judgment itself to a model, so the weight on these few people grows as the
+  rest is automated.
+review_catchable: 'yes'
+review_rationale: >-
+  Ask each signer what they examined first-hand, which contrary signals they weighed, and what
+  evidence would have reversed the decision. This is the comprehension audit's home case: an
+  approval without comprehension is what it exists to find.
+severity: critical
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-04-mythos-preview-system-card-01
+  - EV-anthropic-2026-08-risk-report-04
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-10
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-07
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-03
+  - EV-metr-2026-06-gpt-5-6-sol-predeployment-04
+  - EV-metr-2026-05-frontier-risk-report-06
+  - EV-lin-2026-01-cognitive-integrity-threshold-05
+  - EV-openai-2026-04-gpt-5-5-system-card-07
+  - EV-gdm-2025-11-gemini-3-pro-fsf-report-04
+  - EV-gdm-2025-11-gemini-3-pro-fsf-report-08
+  - EV-openai-2026-08-hugging-face-incident-report-04
+  - EV-meta-2026-05-muse-spark-safety-preparedness-report-01
+incidents:
+  - INC-2026-anthropic-mythos-preview-internal-deployment

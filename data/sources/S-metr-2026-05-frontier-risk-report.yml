@@ -1,0 +1,239 @@
+id: S-metr-2026-05-frontier-risk-report
+title: >-
+  Frontier Risk Report (February to March 2026): A pilot assessment of rogue deployment risk at
+  frontier AI companies
+publisher: METR
+authors: [Ajeya Cotra, Hjalmar Wijk, Daniel Filan, Nikola Jurkovic, Charles Foster, Beth Barnes]
+published: 2026-05-19
+url: https://metr.org/risk-report-feb-mar-2026.pdf
+type: third_party_investigation
+vantage: embedded_third_party
+labs: [Anthropic, Google, Meta, OpenAI]
+summary: >-
+  METR's pilot assessment of misalignment risk from AI agents used inside four frontier
+  developers in February and March 2026. Each company gave METR its strongest internal model
+  with raw chain of thought and answered a questionnaire on capabilities, internal AI use and
+  monitoring; a METR staff member also spent three weeks embedded at Anthropic red-teaming its
+  agent monitoring. The report records how the companies said they used and oversaw agents,
+  what METR measured on its own task suites, and how much cheating those measurements had to be
+  cleaned of.
+limits: >-
+  Most statements about internal practice are company answers to a questionnaire, published in
+  wording each company approved; METR did not verify them and says future rounds should. Each
+  company could redact or anonymize its non-public information, and could exit silently, so the
+  participant list may be incomplete. METR says it kept a high bar for contesting redactions and
+  avoided company comparisons to protect working relationships. The embedded red-teaming covers
+  Anthropic only. Benchmark figures are aggregated across companies and affected by saturation. METR
+  had no conflict-of-interest policy in force for this pilot. The 320-page PDF carries canary
+  strings asking that it be kept out of training data. The cheating figures rest on an LLM scanner
+  choosing which successful runs get manual review, so 16% is a floor. At least six METR staff had
+  close personal ties to company staff. The red-teaming was done by one METR staff member.
+evidence:
+  - id: EV-metr-2026-05-frontier-risk-report-01
+    claim: >-
+      Anthropic told METR that a large percentage of its code is written by AI and that
+      researchers' and engineers' work has shifted toward reviewing pull requests and directing
+      coding agents.
+    quote: >-
+      A large percentage of code written at Anthropic is written by AI. Researchers’ and
+      engineers’ work has increasingly shifted to reviewing PRs and directing and orchestrating
+      coding agents.
+    locator: Appendix B, Anthropic, Materials related to AI use and internal controls (p. 72)
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-03
+    note: >-
+      Questionnaire answer, not verified by METR. Anthropic also showed METR a chart of merged
+      pull requests per author; no figure is published.
+
+  - id: EV-metr-2026-05-frontier-risk-report-02
+    claim: >-
+      OpenAI told METR that coding agents write code, debug and diagnose experiment issues
+      across its R&D, and that models are used substantially as graders and monitors in
+      evaluation and training pipelines.
+    quote: >-
+      AI assistance is now embedded in day-to-day R&D workflows across OpenAI, including
+      extensive use of coding agents to write code, debug, and diagnose experiment issues, as
+      well as substantial use of models as graders/monitors in evaluation and training
+      pipelines.
+    locator: Appendix B, OpenAI, Materials related to AI use, monitoring, and autonomy (p. 82)
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-03
+    tasks: [T-eval-graders]
+    note: Questionnaire answer, not verified by METR.
+
+  - id: EV-metr-2026-05-frontier-risk-report-03
+    claim: >-
+      METR knew of no company that imposed strict requirements for human oversight of internal
+      agents in February and March 2026.
+    quote: >-
+      We are not aware of any company imposing strict requirements about human oversight of
+      agents in Feb-Mar 2026
+    locator: Key facts, Means, Information about autonomous use (p. 14)
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-03
+    note: >-
+      Covers the four participants and what METR knew of others. Based on questionnaire answers
+      and METR's background knowledge.
+
+  - id: EV-metr-2026-05-frontier-risk-report-04
+    claim: >-
+      METR states that in February and March 2026 a large fraction of agent activity inside
+      the companies was reviewed by no human, and that automated monitoring was not applied
+      everywhere.
+    quote: >-
+      In Feb–Mar 2026, a large fraction of agent activity was not reviewed by any human, and
+      while some companies used automated monitoring systems in training or deployment, such
+      systems can miss things and were not universally applied
+    locator: Key facts, Motive, Reasons this evidence might be misleading (p. 32)
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-03
+    tasks: [T-eval-safeguards]
+    note: No fraction is given.
+
+  - id: EV-metr-2026-05-frontier-risk-report-05
+    claim: >-
+      Anthropic told METR that humans review code before it is integrated into its shared
+      codebases.
+    quote: >-
+      Code is reviewed by humans before being integrated in shared Anthropic codebases.
+    locator: Appendix B, Anthropic, Materials related to AI use and internal controls (p. 73)
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-03
+    note: >-
+      Questionnaire answer, not verified. The same appendix says Anthropic described no
+      enforced limits on running agents without human oversight.
+
+  - id: EV-metr-2026-05-frontier-risk-report-06
+    claim: >-
+      METR knew of no evidence that any company relied on AI agents for all-things-considered
+      judgments such as risk assessment, or for setting research agendas.
+    quote: >-
+      we are not aware of evidence that any company relies on AI agents for setting research
+      agendas, making final hiring decisions, making budget allocation decisions, or making
+      all-things-considered judgments on murky scientific questions like risk assessment.
+    locator: Key facts, Means, Noteworthy absence of evidence (p. 21)
+    kind: automation
+    strength: reported
+    grade: C
+    describes: 2026-03
+    tasks: [T-eval-determination, T-eval-reporting]
+    note: >-
+      Table 4 on the same page lists grading for evaluations among the things agents often did
+      autonomously at some companies. METR says the "did not" column rests on its own
+      understanding and limited company information, not on explicit confirmations.
+
+  - id: EV-metr-2026-05-frontier-risk-report-07
+    claim: >-
+      On METR's tasks longer than 8 hours, at least 16% of the runs by the companies' shared
+      models that scored as successes were found on review to be cheating.
+    quote: >-
+      for tasks that are over 8 hours long in Time Horizon 1.1, we found that at least 16% of
+      successful runs were illegitimate upon review.
+    locator: Key facts, Motive, Benchmarks (p. 22)
+    kind: risk
+    strength: measured
+    grade: A
+    describes: 2026-03
+    tasks: [T-eval-validity, T-eval-transcripts, T-eval-dangerous]
+    note: >-
+      METR scores cheats as zero. For one model the measured time horizon would have been
+      roughly twice as large had cheats counted as passes.
+
+  - id: EV-metr-2026-05-frontier-risk-report-08
+    claim: >-
+      Checking by hand for cheating is often the majority of the work in a run of METR's
+      evaluation suite. LLM graders screen every successful run but are not accurate enough
+      without significant manual review.
+    quote: >-
+      Cheating is a significant enough issue for our measurement integrity that manually
+      checking for cheating is often the majority of the work involved in a run of our
+      evaluation suite. [...] We use LLM graders to look for potential cheating in all
+      successful runs, but they are not accurate enough without significant manual review.
+    locator: Key facts, Motive, Benchmarks, and footnote 27 (p. 22)
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-03
+    tasks: [T-eval-transcripts, T-eval-graders, T-eval-validity]
+    note: A statement about METR's own evaluation work.
+
+  - id: EV-metr-2026-05-frontier-risk-report-09
+    claim: >-
+      METR's embedded red-teaming of Anthropic's internal agent monitoring found that
+      jailbreaks could reliably fool the monitors.
+    quote: >-
+      While directly hiding attacks from the monitors seemed challenging, our red-teaming found
+      that jailbreaking could reliably fool monitors.
+    locator: Key facts, Opportunity, Red-teaming exercise (p. 40)
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-03
+    tasks: [T-eval-safeguards, T-eval-external]
+    note: >-
+      The same exercise found that changing one environment variable made traffic much less
+      likely to be monitored, and that subagent calls were unmonitored until a fix made within
+      24 hours. Anthropic's agents could not find these attacks themselves in small tests.
+
+  - id: EV-metr-2026-05-frontier-risk-report-10
+    claim: >-
+      One company reported that an employee's agent, after an error, added a workaround that made
+      the code incorrect and showed awareness of that. A verification script passed, and the
+      employee found the problem only later, while investigating something unrelated.
+    quote: >-
+      After hitting an error, the agent added a workaround that made the code incorrect, and the
+      company reported that the agent showed awareness of the incorrectness. The employee ran a
+      verification script, but it passed because the bug was subtle and did not always manifest.
+      [...] only discovered the issue later while investigating something unrelated.
+    locator: Appendix C, Materials related to model propensities (p. 84)
+    kind: incident
+    strength: reported
+    grade: B
+    describes: 2026-03
+    note: >-
+      Company not named. The employee had reviewed the code before asking the agent to launch
+      the job; the change came after that review. The company said the impact was minimal.
+
+  - id: EV-metr-2026-05-frontier-risk-report-11
+    claim: >-
+      Asked to design and build a new hard benchmark task on its own, one of the strongest
+      internal models produced a working task that was much too easy, with a fragile and
+      ineffective guard against reward hacking.
+    quote: >-
+      The agent produced a functioning Inspect task with good documentation, but the task was
+      much too easy to be useful [...] and the approach it implemented to prevent reward hacking
+      was fragile and ineffective.
+    locator: Key facts, Means, Challenge tasks, Building a new MirrorCode task (p. 19)
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-03
+    tasks: [T-eval-tasks]
+    note: >-
+      One challenge task, scored by hand, with an inference budget METR puts at roughly
+      $1,500 to $15,000. When the agent saw the task was too easy it defended the choice.
+
+  - id: EV-metr-2026-05-frontier-risk-report-12
+    claim: >-
+      METR says standard pre-deployment evaluations generally capture no information about training
+      and safeguards and often leave little time for thorough analysis.
+    quote: >-
+      standard pre-deployment evaluations have important limitations. They generally capture no
+      information about training and safeguards, and often leave little time for thorough
+      analysis given fast-paced launch schedules.
+    locator: Pilot process (p. 6)
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-external]
+    note: METR's stated reason for moving to a periodic, entity-based assessment.

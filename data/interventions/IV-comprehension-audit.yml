@@ -1,0 +1,16 @@
+id: IV-comprehension-audit
+name: Comprehension audits
+kind: comprehension_gate
+description: >-
+  Every deployed change must be understood by the accountable people to audit standard, shown
+  by sampled independent audits with development gated on failure. The human time required per
+  change is the task's hours to understand.
+targets:
+  change_types: [training_improvement, dataset_update, system_software_change, monitor_change]
+pacing_policy: Comprehension audits, central
+hours_scale: 1.0
+evidence: [EV-bodkin-2026-10-comprehension-audits-05, EV-bodkin-2026-10-comprehension-audits-07]
+note: >-
+  The pacing model also runs a light variant (hours scale 0.5) and a strict one (2.0). It gates
+  its four change types. Evaluation changes and decisions are not in that model; whether the
+  gate should cover them is the question the evaluation branch raises.

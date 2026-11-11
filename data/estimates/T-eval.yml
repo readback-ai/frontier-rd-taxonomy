@@ -1,0 +1,47 @@
+task: T-eval
+estimates:
+  - id: EST-eval-automation-anthropic-2026-08
+    task: T-eval
+    quantity: automation_level
+    scope: Anthropic
+    as_of: 2026-08
+    value:
+      kind: levels
+      shares: {AL2: 0.08, AL3: 0.66, AL4: 0.26, AL5: 0.0}
+    basis: mixed
+    evidence:
+      - EV-anthropic-2026-09-measuring-pace-01
+      - EV-anthropic-2026-09-measuring-pace-02
+      - EV-anthropic-2026-06-recursive-self-improvement-07
+    reasoning: >-
+      Anthropic's company-wide figure, applied to the evaluation branch unchanged because no
+      breakdown by task area is published: 26% of AI R&D work at AL4, above 90% at AL3 or higher,
+      none at AL5. "Above 90%" is recorded as 92%, with the rest lumped at AL2. Anthropic's task
+      tree has evaluation leaves with person-time weights, so the branch figure exists inside the
+      company. Leaf estimates below replace this where there is task-specific evidence.
+    confidence: low
+    stale_after: 2027-02-01
+
+  - id: EST-eval-automation-gdm-2026-09
+    task: T-eval
+    quantity: automation_level
+    scope: Google DeepMind
+    as_of: 2026-09
+    value:
+      kind: levels
+      shares: {AL3: 0.88, AL4: 0.12}
+    basis: mixed
+    evidence:
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-03
+      - EV-gdm-2026-10-gemini-4-argon-safety-report-01
+    reasoning: >-
+      Google DeepMind reports that 11.9% of production pull requests were fully delegated in
+      September 2026, up from 7.5% in April, and that about 88% still needed multi-turn human
+      steering or human-written code. Fully delegated is read here as AL4 and the rest is lumped
+      at AL3, which overstates it: some of the 88% is AL2 or lower. The figure is for production
+      code company-wide, not for evaluation work, and its unit (pull requests) differs from
+      Anthropic's (person-time), so the two developers' numbers should not be compared directly.
+      Its survey lists evaluation and training environment development as one component of AI
+      R&D with no figure.
+    confidence: low
+    stale_after: 2027-03-01

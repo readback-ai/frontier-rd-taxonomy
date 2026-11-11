@@ -1,0 +1,65 @@
+{
+  "source_id": "S-anthropic-2026-09-fable-5-1-mythos-5-1-system-card",
+  "snapshot": {
+    "url": "https://assets.claude.com/0339e6a7c5c7b87f5c07798616dc32c215d14235.pdf",
+    "final_url": "https://assets.claude.com/0339e6a7c5c7b87f5c07798616dc32c215d14235.pdf",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "b0d59edc7a60eef32a879c13d713cce60c3fefd7e6b5183afdc8b835af3c8c39",
+    "text_sha256": "96e053ede8fa940cd6d00dd82c775382c2fbf6c01e9345cab2fd8b6452c47ad2",
+    "text_chars": 481128
+  },
+  "quotes": {
+    "EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-01": {
+      "quote_sha256": "81914d7dd44d31aff5d77d4f494ab68253188d58758926c9a5f614fb76c63ea5",
+      "text_sha256": "96e053ede8fa940cd6d00dd82c775382c2fbf6c01e9345cab2fd8b6452c47ad2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-02": {
+      "quote_sha256": "837b2dace5420be33dd306d2d4b18fb4a112143e1aa26f832ede640a01dfa6d8",
+      "text_sha256": "96e053ede8fa940cd6d00dd82c775382c2fbf6c01e9345cab2fd8b6452c47ad2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-03": {
+      "quote_sha256": "e00425ac7a6d02f891a33eb005f59e13a4e620e0c736beac9eed34c2d74a7d8f",
+      "text_sha256": "96e053ede8fa940cd6d00dd82c775382c2fbf6c01e9345cab2fd8b6452c47ad2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-04": {
+      "quote_sha256": "fb095db03e5154fd4df00ac3176c30394f702685b7e96e33601ce2100039ce69",
+      "text_sha256": "96e053ede8fa940cd6d00dd82c775382c2fbf6c01e9345cab2fd8b6452c47ad2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-05": {
+      "quote_sha256": "80a7135b64892392422031f9ad09b7f9a71d5d2ab9ed50827b71aee6548469ef",
+      "text_sha256": "96e053ede8fa940cd6d00dd82c775382c2fbf6c01e9345cab2fd8b6452c47ad2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-06": {
+      "quote_sha256": "a66b124b43c2a8efe828a53d78b9d373ec7d77e495fbf463d9aca7310fc9637f",
+      "text_sha256": "96e053ede8fa940cd6d00dd82c775382c2fbf6c01e9345cab2fd8b6452c47ad2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-07": {
+      "quote_sha256": "58bf075780a62608284ae1ba3fd11c621722b9c4fe7681190795756f88745502",
+      "text_sha256": "96e053ede8fa940cd6d00dd82c775382c2fbf6c01e9345cab2fd8b6452c47ad2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-08": {
+      "quote_sha256": "ec9ea1dfbbcb9c954abb292f1936a37e55421a22d399cf06abb5d99146a67a6d",
+      "text_sha256": "96e053ede8fa940cd6d00dd82c775382c2fbf6c01e9345cab2fd8b6452c47ad2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-09": {
+      "quote_sha256": "f0a3eb50da033dbc92700cf82eba733bdaea4462c70053a2bfd1b59f7aa491bc",
+      "text_sha256": "96e053ede8fa940cd6d00dd82c775382c2fbf6c01e9345cab2fd8b6452c47ad2",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-10": {
+      "quote_sha256": "57ed1589d63349f135e4de7b8fbe0702e997f11405a32f2622321cb4d7b44722",
+      "text_sha256": "96e053ede8fa940cd6d00dd82c775382c2fbf6c01e9345cab2fd8b6452c47ad2",
+      "verified": "2026-11-11"
+    }
+  }
+}

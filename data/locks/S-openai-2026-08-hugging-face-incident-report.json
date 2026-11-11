@@ -1,0 +1,80 @@
+{
+  "source_id": "S-openai-2026-08-hugging-face-incident-report",
+  "snapshot": {
+    "url": "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf",
+    "final_url": "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "dd635cf6e5f39f0e1f646f08c36549090d77156ed89cbd3d733ed496648cae9c",
+    "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+    "text_chars": 102630
+  },
+  "quotes": {
+    "EV-openai-2026-08-hugging-face-incident-report-01": {
+      "quote_sha256": "29ae16dd798421141184c59ea5b7ea1bb0ebcaf4193645b0f97e3adaec80d8e8",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-02": {
+      "quote_sha256": "fb97c3564977a200260cda7d3a89178ac969f221dbc4045ea2e7ad8ef055e783",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-03": {
+      "quote_sha256": "839c6bfdfcb3eb9f098d5cabe1f105b3b8c6a258e00b3f8b76c9b3a83a3ef250",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-04": {
+      "quote_sha256": "f6f63bd98f853ac056c49c1f560bf5cf4607eee076871b525183a7d349a19a31",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-05": {
+      "quote_sha256": "4d45882921799f0634feae50539b13a58b3de7a62f94b7eab4f02e5da8c9413b",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-06": {
+      "quote_sha256": "fcc25b24b83f6bbf3fb4959eb62cca4a3e20b67d966b80bf59b49a4b8c668f38",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-07": {
+      "quote_sha256": "c4b24c143e62728de9b14ed2775548614ea9e4cb674c68aa76a030487dabbf32",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-08": {
+      "quote_sha256": "e685d6c145a536d7b064de71e9fb8294a4800b037802c177a0d88ab72d84ba9a",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-09": {
+      "quote_sha256": "735f2c51eb890b5ddb4448e4b3699b79f29bc368c5e69794b160bb2ff501a228",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-10": {
+      "quote_sha256": "8a34678617a52ca19509ca5525186b7c50431447f99b4dc95a3ba0d00fb6a120",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-11": {
+      "quote_sha256": "84cb9a2554b3e130c63921b695d0d9a1f8e9ee275cb2d2aa3a9ed5ed828abcb0",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-12": {
+      "quote_sha256": "895a0c8e9a6d7065ee7e69b8ea6fabebac33ff9342b54eea7607d86cc0c5c7a8",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-08-hugging-face-incident-report-13": {
+      "quote_sha256": "cc0c3f3f175631c026f5ba7f154db1cd1ff5297fce12ce81510ef06b6078dda9",
+      "text_sha256": "6f2a6688c8b18d095e9113aa4a9e8164861683e9e93c9d4ff605d7e0601d7830",
+      "verified": "2026-11-11"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+id: INC-2025-anthropic-serving-bugs-missed-by-evals
+title: Three serving bugs degraded Claude's responses for a month while evaluations showed nothing
+org: Anthropic
+frontier: true
+occurred: 2025-08
+disclosed: 2025-09-17
+summary: >-
+  A routing error, an output corruption and a compiler bug in token sampling intermittently degraded
+  responses between August and early September 2025. Pre-deployment validation and regular
+  evaluations did not show it. Users did, and the investigation opened in late August.
+root_cause: >-
+  The evaluations scored end results, which the model often reached anyway by recovering from
+  isolated mistakes, and Anthropic says it relied too heavily on noisy evaluations. Its remedy is to
+  run evaluations continuously on production systems, which suggests they had not been.
+detected_by: Users
+detection_latency: About three weeks from the first reports to the investigation; about a month from the first bug to its fix
+automation_involved: unknown
+comprehension_failure: partly
+comprehension_note: >-
+  Anthropic says it relied too heavily on noisy evaluations. Engineers also removed a workaround
+  believing the root cause was fixed, when it was masking a deeper bug. The post does not say
+  whether models wrote or reviewed the changes.
+tasks: [T-eval-inloop, T-eval-design]
+risks:
+  - R-eval-inloop-metric-diverges
+  - R-eval-suite-misses-behavior
+evidence:
+  - EV-anthropic-2025-09-postmortem-three-issues-02
+  - EV-anthropic-2025-09-postmortem-three-issues-04
+  - EV-anthropic-2025-09-postmortem-three-issues-05
+  - EV-anthropic-2025-09-postmortem-three-issues-07
+  - EV-anthropic-2025-09-postmortem-three-issues-08
+backtest:
+  - question: Q-eval-inloop-03
+    verdict: would_surface
+    rationale: >-
+      The honest answer was that the regular evaluations did not run continuously on true production
+      systems. That is read from Anthropic's remedy, which says running them there would catch
+      faults such as the routing error, so the verdict fits that bug best.
+  - question: Q-eval-inloop-04
+    verdict: might_surface
+    rationale: >-
+      The question asks directly how an intermittent fault would look, but Anthropic says it relied
+      heavily on these evaluations, so the honest answer may have been that a fault would show as a
+      score drop. The reviewer would have had to ask for a test of that belief.
+  - question: Q-eval-inloop-02
+    verdict: might_surface
+    rationale: >-
+      The honest answer would have listed benchmarks, safety evaluations, spot checks and a canary,
+      and might have added that production routing was not exercised. It depends on staff thinking
+      of the serving path as an untested area.
+  - question: Q-eval-inloop-06
+    verdict: would_not_surface
+    rationale: >-
+      Engineers did spot checks and canary deployments, so they could have answered well. Reading a
+      sample of outputs does not find a fault in about 0.8% of requests that the model often
+      recovers from.
+  - question: Q-eval-design-02
+    verdict: would_not_surface
+    rationale: >-
+      An honest answer would have listed kinds of use the suite does not resemble. A misrouted
+      request or a sampling bug is a serving fault that nobody would have named as a situation the
+      model meets.

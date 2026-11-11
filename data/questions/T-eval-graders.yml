@@ -1,0 +1,101 @@
+task: T-eval-graders
+contribution: >-
+  A model judge and its prompt, a scoring script or a rubric that decides what counts as success.
+questions:
+  - id: Q-eval-graders-01
+    category: what
+    topical_area: implementation_behavior
+    question: >-
+      Describe an output this grader would pass that a careful expert would fail, and one it would
+      fail that the expert would pass.
+    good_answer_shows: >-
+      Specific known failure classes in both directions, with a rough sense of how often each
+      occurs.
+    red_flags:
+      - '"It agrees with us on the examples we looked at."'
+      - No example in either direction.
+    risks: [R-eval-model-grader-unchecked]
+
+  - id: Q-eval-graders-02
+    category: failure
+    topical_area: analysis_of_results
+    question: >-
+      What is the grader's agreement with independent human labels on outputs like the ones it now
+      grades? Who labeled, how many items, and how much do the labelers agree with each other?
+    good_answer_shows: >-
+      An agreement figure on a current sample, the number of items, who labeled blind to the
+      grader, and inter-labeler agreement.
+    red_flags:
+      - Agreement was measured once, on an earlier model's outputs.
+      - Labelers saw the grader's verdict first.
+      - Human labelers agree with each other so little that agreement with them means little.
+    evidence_to_request: The labeled sample and the agreement calculation.
+    risks: [R-eval-model-grader-unchecked]
+
+  - id: Q-eval-graders-03
+    category: dependency
+    topical_area: architecture_design
+    question: >-
+      Is the judge the same model or family as the model it grades? What mistakes would both make,
+      and what would catch those?
+    good_answer_shows: >-
+      Recognition that a shared blind spot is invisible to the judge, and a check that does not
+      share it: human labels, a different developer's model, or a mechanical test.
+    red_flags:
+      - '"It is the strongest model we have, so it is the best judge."'
+      - The only check on the judge is another instance of the same model.
+    risks: [R-eval-model-grader-unchecked]
+
+  - id: Q-eval-graders-04
+    category: provenance
+    topical_area: process
+    question: >-
+      How many of this grader's verdicts has a person read, and how were those chosen?
+    good_answer_shows: >-
+      A number, a sampling rule that includes passes as well as flagged items, and what the
+      reading found.
+    red_flags:
+      - People read only what the grader flagged.
+      - '"We could not verify them all," with no count of what was verified.'
+    risks: [R-eval-model-grader-unchecked, R-eval-transcripts-unread]
+
+  - id: Q-eval-graders-05
+    category: failure
+    topical_area: key_findings
+    question: >-
+      If this grader's metric kept improving while the system under test had stopped doing the
+      task, how long would it take for someone to notice, and how?
+    good_answer_shows: >-
+      A route by which a person meets the underlying outputs on a schedule, independent of the
+      metric.
+    red_flags:
+      - Progress is followed on a dashboard only.
+      - '"The metric would drop."'
+    risks: [R-eval-model-grader-unchecked, R-eval-transcripts-unread]
+
+  - id: Q-eval-graders-06
+    category: why
+    topical_area: process
+    question: >-
+      What changed in the rubric or the pass threshold since the last release, why, and what did
+      the change do to earlier scores?
+    good_answer_shows: >-
+      A record of rubric changes, each with its reason and its effect on comparability.
+    red_flags:
+      - Scores across releases are compared without knowing the grader changed.
+      - The threshold moved after results were seen.
+    risks: [R-eval-saturated-instruments, R-eval-reporting-outruns-evidence]
+
+  - id: Q-eval-graders-07
+    category: side_effects
+    topical_area: implementation_behavior
+    question: >-
+      What does the grader read: the final answer, the whole transcript, the model's reasoning?
+      Can what it reads argue with it?
+    good_answer_shows: >-
+      Knowledge of the grader's inputs, and a test of whether the graded model's own account
+      changes the verdict.
+    red_flags:
+      - The grader reads the subject's reasoning and nobody has tested grading without it.
+      - Nobody is sure what the grader is shown.
+    risks: [R-eval-model-grader-unchecked, R-eval-safeguard-tests-known-cases]

@@ -1,0 +1,38 @@
+id: S-thedecoder-2025-04-openai-safety-tests-pressure
+title: Security testing under pressure as OpenAI accelerates AI development
+publisher: The Decoder
+authors: [Maximilian Schreiner]
+published: 2025-04-11
+url: https://the-decoder.com/openai-accelerates-ai-development-security-tests-come-under-pressure/
+type: press_report
+vantage: secondary
+labs: [OpenAI]
+summary: >-
+  A press summary of the Financial Times report of April 2025 that OpenAI cut pre-release safety
+  testing from months to days. It relays the claims that testers had days for o3 against six
+  months for GPT-4, that resource-heavy misuse tests were run only on older models, and that
+  tests ran on intermediate checkpoints, with the response of OpenAI's head of safety systems.
+limits: >-
+  Secondhand press: a short summary of a Financial Times article that could not be fetched (HTTP
+  403). The underlying sources are unnamed people involved in testing and a former employee; the
+  only named person is OpenAI's Johannes Heidecke. No document is cited. It gives no exact
+  durations, does not say which evaluations were shortened or dropped, and reports no consequence
+  for any release decision. The article is paywalled: the page marks itself as not free to read, and
+  a plain fetch returned the full text. Only what a non-subscriber is shown is used here. Four items
+  that quoted the rest were removed on 2026-11-11.
+evidence:
+  - id: EV-thedecoder-2025-04-openai-safety-tests-pressure-01
+    claim: >-
+      According to the Financial Times as summarized here, testers had days to evaluate o3 where
+      GPT-4 had six months of testing, and people involved reported less thorough testing and
+      insufficient resources.
+    quote: >-
+      While GPT-4 underwent six months of testing, testers now have just days to evaluate the new
+      "o3" model. People involved in the process report less thorough testing and insufficient
+      resources, according to a Financial Times report.
+    locator: Opening paragraphs
+    kind: incident
+    strength: reported
+    grade: C
+    tasks: [T-eval-dangerous, T-eval-determination]
+    note: Unnamed sources, relayed at second hand.

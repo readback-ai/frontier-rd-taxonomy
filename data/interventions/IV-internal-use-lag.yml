@@ -1,0 +1,10 @@
+id: IV-internal-use-lag
+name: Internal-use lag
+kind: internal_use_lag
+description: >-
+  A model may be used for AI R&D only some months after it exists. The pacing model runs 3 and
+  9 months. It slows every turn of the loop and does not depend on any task's attributes.
+pacing_policy: Internal-use lag, 9 months
+note: >-
+  Relevant to the evaluation branch as the window in which pre-deployment assessment happens:
+  a lag turns a schedule-set assessment into one with a fixed minimum time.

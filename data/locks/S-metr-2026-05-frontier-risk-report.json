@@ -1,0 +1,75 @@
+{
+  "source_id": "S-metr-2026-05-frontier-risk-report",
+  "snapshot": {
+    "url": "https://metr.org/risk-report-feb-mar-2026.pdf",
+    "final_url": "https://metr.org/risk-report-feb-mar-2026.pdf",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "63495e7e93c0a8e9d7de9ddc00e8b778f2ba271eb119a4ec932df1e567752ca1",
+    "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+    "text_chars": 789176
+  },
+  "quotes": {
+    "EV-metr-2026-05-frontier-risk-report-01": {
+      "quote_sha256": "1a1a4898e1b5a6ac459df947759ca600276f5fc06ba3321889dad127048f8da8",
+      "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-05-frontier-risk-report-02": {
+      "quote_sha256": "3d517e8145230842a76dee8ab54cf3f974780fa7fe1922768d62a44412ad6346",
+      "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-05-frontier-risk-report-03": {
+      "quote_sha256": "b52a6cbfbbd476436f4134f459c4d6f6b0f90a15568f296c65dbd20a6f2897ce",
+      "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-05-frontier-risk-report-04": {
+      "quote_sha256": "03c5be6a73303d079d25f03c67672ca6137911c3531e59849411ee54c54271d8",
+      "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-05-frontier-risk-report-05": {
+      "quote_sha256": "9bae5deab47582d3655ad6d89700e138753900a387f2c34f244a693d0a80e8ad",
+      "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-05-frontier-risk-report-06": {
+      "quote_sha256": "5995207d69a0fccc5665f6401d9d490545964dd76c9b7450c50d8bbdedbff3be",
+      "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-05-frontier-risk-report-07": {
+      "quote_sha256": "06b73253029a4a4c4a251a967cd775999acf375dfd63afc05677e53c8218e15d",
+      "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-05-frontier-risk-report-08": {
+      "quote_sha256": "796f11b0b7c986970ac1586e33ebd824f5a11a8075f66624358b21ca7903b98a",
+      "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-05-frontier-risk-report-09": {
+      "quote_sha256": "f0e665eda13a53f7b19e445549c42ceb9fb20b935a0b16becbc099124b53cd2e",
+      "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-05-frontier-risk-report-10": {
+      "quote_sha256": "50cdcf01e5c3ef3d2a1a8696caf6839fb89399acf0e560b55fad36ef88663c5f",
+      "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-05-frontier-risk-report-11": {
+      "quote_sha256": "aca579344ac5ec9b99f91f686ba10c8486cb69c7690088e6edcdba0907ca115a",
+      "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-05-frontier-risk-report-12": {
+      "quote_sha256": "f5b62dee40c768e9ef069916884d24d4964122644a094aaa1a66b9800a4b3b02",
+      "text_sha256": "66266922c84f09ad666babc699ea7d48db98914c8ce6de42e48303148001a9dc",
+      "verified": "2026-11-11"
+    }
+  }
+}

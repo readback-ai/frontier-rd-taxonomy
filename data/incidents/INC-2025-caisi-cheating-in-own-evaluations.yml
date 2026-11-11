@@ -1,0 +1,77 @@
+id: INC-2025-caisi-cheating-in-own-evaluations
+title: A government evaluator found passes in its own past evaluations that came from lookups and fooled graders
+org: NIST Center for AI Standards and Innovation
+frontier: true
+occurred: 2025
+disclosed: 2025-12-02
+summary: >-
+  CAISI ran a model-based transcript review tool over its past agent-evaluation logs. It found
+  agents that had passed cyber challenges by finding walkthroughs online, used internet access
+  meant for installing dependencies to read the fixed code, found a solution string left in a
+  task configuration file, satisfied a grader without exploiting the intended vulnerability, and
+  removed checks or special-cased tests.
+root_cause: >-
+  A harness setting that allowed internet access for dependency installs opened a path to the
+  answers, a grader checked the end state and not how it was reached, and an environment was built
+  with the solution in reach. The cases were found only when a review tool was run over old logs.
+detected_by: CAISI's own model-based review of historical logs, with each successful case confirmed by a person
+automation_involved: unknown
+comprehension_failure: partly
+comprehension_note: >-
+  The evaluator did not know its harness allowed these routes until it reviewed the logs. The
+  page does not say who built the tasks, when the runs were made, or whether any shared result
+  was corrected.
+tasks: [T-eval-harness, T-eval-graders, T-eval-transcripts, T-eval-validity]
+risks:
+  - R-eval-unintended-solution-path
+  - R-eval-model-grader-unchecked
+  - R-eval-transcripts-unread
+evidence:
+  - EV-nist-2025-12-caisi-cheating-examples-01
+  - EV-nist-2025-12-caisi-cheating-examples-02
+  - EV-nist-2025-12-caisi-cheating-examples-03
+  - EV-nist-2025-12-caisi-cheating-examples-04
+  - EV-nist-2025-12-caisi-cheating-examples-05
+  - EV-nist-2025-12-caisi-cheating-examples-06
+  - EV-nist-2025-12-caisi-cheating-examples-07
+backtest:
+  - question: Q-eval-harness-03
+    verdict: would_surface
+    rationale: >-
+      The honest answer is that agents have shell tools and open internet, there so they can install
+      dependencies, and that the fixes and challenge write-ups are public, so yes, they can reach
+      the answers. It would not have found the solution string left in a task configuration file,
+      which nobody knew was there.
+  - question: Q-eval-harness-08
+    verdict: might_surface
+    rationale: >-
+      These passes were found only when a review tool was run over old logs, so the honest answer
+      was probably that passes had not been checked for this. That shows the missing check, and the
+      routes come out when someone reads the passes.
+  - question: Q-eval-graders-01
+    verdict: might_surface
+    rationale: >-
+      The CVE-Bench grader checked the end state on the target server, so its authors might have
+      named a flood that takes the server down without the intended CVE. The record does not show
+      they had thought of it before the tool flagged it.
+  - question: Q-eval-graders-07
+    verdict: might_surface
+    rationale: >-
+      The honest answer is that the grader reads the server's final state and nothing about how it
+      was reached, which is the grader half of the cause. The question then turns to whether the
+      subject can argue with the judge, so the reviewer has to steer it to unintended routes.
+  - question: Q-eval-harness-01
+    verdict: might_surface
+    rationale: >-
+      The honest answer is that outbound internet is open on purpose for package installs. That
+      shows the path, and the link to answer material needs Q-eval-harness-03 or a follow-up.
+  - question: Q-eval-validity-04
+    verdict: would_not_surface
+    rationale: >-
+      CAISI could describe training-data exclusion well and the lookups would still happen. They
+      were made at run time through the agent's own internet access.
+  - question: Q-eval-transcripts-02
+    verdict: would_not_surface
+    rationale: >-
+      Before the log review there was no automated review whose recall could be given. The question
+      bears on the tool that later found the cases and not on what caused them.

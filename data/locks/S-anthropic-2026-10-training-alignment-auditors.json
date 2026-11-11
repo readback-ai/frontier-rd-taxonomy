@@ -1,0 +1,45 @@
+{
+  "source_id": "S-anthropic-2026-10-training-alignment-auditors",
+  "snapshot": {
+    "url": "https://alignment.anthropic.com/2026/training-alignment-auditors/",
+    "final_url": "https://alignment.anthropic.com/2026/training-alignment-auditors/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "f7ebae4b76ddc4c508272fa3602a1ff7ac981c87a746b6d5e7b513842b53a958",
+    "text_sha256": "7a0e9cce2fc32065406129d4bbc66d8900857a792b18d4a785d12d974e108fa6",
+    "text_chars": 4187
+  },
+  "quotes": {
+    "EV-anthropic-2026-10-training-alignment-auditors-01": {
+      "quote_sha256": "7c1684092ecad53c709b72f75e4863bd584e0a8a4791d171144776e20c96c241",
+      "text_sha256": "7a0e9cce2fc32065406129d4bbc66d8900857a792b18d4a785d12d974e108fa6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-training-alignment-auditors-02": {
+      "quote_sha256": "55045243a0d5fcabdaac2938e6a2df38fc5b217eba239a61f21fa070044917c1",
+      "text_sha256": "7a0e9cce2fc32065406129d4bbc66d8900857a792b18d4a785d12d974e108fa6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-training-alignment-auditors-03": {
+      "quote_sha256": "09b1aba50edca51af0f6d688292029d5eaf24b0926d806993396ab8733de2732",
+      "text_sha256": "7a0e9cce2fc32065406129d4bbc66d8900857a792b18d4a785d12d974e108fa6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-training-alignment-auditors-04": {
+      "quote_sha256": "06e154937b75af5ab04ce20727f802b7f8db6ae6229c9c666ff5fd7524708350",
+      "text_sha256": "7a0e9cce2fc32065406129d4bbc66d8900857a792b18d4a785d12d974e108fa6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-training-alignment-auditors-05": {
+      "quote_sha256": "7c3e34da35c46dd03b14a4a224f44ecca32b8fd3ad0f20bf45d7f10466ac2ec3",
+      "text_sha256": "7a0e9cce2fc32065406129d4bbc66d8900857a792b18d4a785d12d974e108fa6",
+      "verified": "2026-11-11"
+    },
+    "EV-anthropic-2026-10-training-alignment-auditors-06": {
+      "quote_sha256": "0d08c14ba951e79a9ada88ad6c69897d391f8376354b6c9df58e595b4774f23d",
+      "text_sha256": "7a0e9cce2fc32065406129d4bbc66d8900857a792b18d4a785d12d974e108fa6",
+      "verified": "2026-11-11"
+    }
+  }
+}

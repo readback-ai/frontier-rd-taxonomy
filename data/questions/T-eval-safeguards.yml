@@ -1,0 +1,99 @@
+task: T-eval-safeguards
+contribution: >-
+  A measurement that a monitor, classifier or control catches what it is meant to catch.
+questions:
+  - id: Q-eval-safeguards-01
+    category: what
+    topical_area: analysis_of_results
+    question: >-
+      Where did the test cases come from? Were any built after this version of the control, by
+      someone trying to beat it?
+    good_answer_shows: >-
+      The origin and date of the test set, and at least some cases built against the current
+      control by an independent party.
+    red_flags:
+      - The control was verified against the incidents that prompted it.
+      - The attacks were developed against an earlier monitor.
+    risks: [R-eval-safeguard-tests-known-cases]
+
+  - id: Q-eval-safeguards-02
+    category: failure
+    topical_area: architecture_design
+    question: >-
+      Trace one piece of misbehavior from the action to a person. Which stages of that path were
+      tested, and which were assumed to work?
+    good_answer_shows: >-
+      Each stage named, from first-stage flag through filtering and summarization to human
+      review, with the stages never tested end to end identified.
+    red_flags:
+      - Only the first-stage classifier has a measured recall.
+      - Summarization and human review were not evaluated.
+    risks: [R-eval-safeguard-tests-known-cases]
+
+  - id: Q-eval-safeguards-03
+    category: failure
+    topical_area: implementation_behavior
+    question: >-
+      What does the monitor read? If the monitored model's reasoning argues that the action is
+      fine, what does the monitor do?
+    good_answer_shows: >-
+      A test of the monitor with and without the subject's reasoning, and a design that does not
+      let the subject brief its own monitor.
+    red_flags:
+      - Flag rates differ sharply with the reasoning removed and nobody had measured that before
+        an incident.
+      - The monitor is the same model family as the agent.
+    risks: [R-eval-safeguard-tests-known-cases, R-eval-model-grader-unchecked]
+
+  - id: Q-eval-safeguards-04
+    category: dependency
+    topical_area: key_findings
+    question: >-
+      How many flags a week reach a person, out of how many raised? What happens to the rest, and
+      how do you know that step is right?
+    good_answer_shows: >-
+      The funnel in numbers, and a check on what the automated triage discards.
+    red_flags:
+      - People see tens of cases out of a hundred thousand flags and nothing samples the discards.
+      - Human reviewers dismiss flags as false positives without a second look.
+    risks: [R-eval-transcripts-unread, R-eval-safeguard-tests-known-cases]
+
+  - id: Q-eval-safeguards-05
+    category: why
+    topical_area: analysis_of_results
+    question: >-
+      What misbehavior would this control not catch? How did you find that out?
+    good_answer_shows: >-
+      Known gaps, found by trying, and a statement of what would be needed to close them.
+    red_flags:
+      - '"It blocked every case we tested."'
+      - No red-team has had free rein against it.
+    risks: [R-eval-safeguard-tests-known-cases]
+
+  - id: Q-eval-safeguards-06
+    category: side_effects
+    topical_area: architecture_design
+    question: >-
+      Which agent activity does this control not cover: which platforms, which evaluations, which
+      vendors' environments?
+    good_answer_shows: >-
+      Coverage stated as a boundary, with what lies outside it.
+    red_flags:
+      - Coverage is "100%" of one platform and the others are not mentioned.
+      - Evaluations and partner environments were outside the control until an incident.
+    risks: [R-eval-environment-not-contained, R-eval-safeguard-tests-known-cases]
+
+  - id: Q-eval-safeguards-07
+    category: provenance
+    topical_area: process
+    question: >-
+      Which parts of this safety work did a model do? How would you know if it had done less than it
+      was asked: left something out, reported a blocker that was not there, stalled?
+    good_answer_shows: >-
+      A check on completeness that does not rely on the agent's own report, and a comparison with how
+      the same model does on matched work that is not about safety.
+    red_flags:
+      - The work stalled for days and the cause was assumed to be infrastructure.
+      - Completeness was taken from the agent's summary.
+      - Nobody has compared the model's output on safety work with its output elsewhere.
+    risks: [R-eval-agent-withholds-effort]

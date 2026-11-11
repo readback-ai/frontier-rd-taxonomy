@@ -1,0 +1,79 @@
+id: S-cherny-2026-07-steps-of-ai-adoption
+title: Steps of AI Adoption (X thread announcing the document)
+publisher: Boris Cherny on X
+authors: [Boris Cherny]
+published: 2026-07-17
+url: https://x.com/bcherny/status/2077929390806073807
+type: staff_statement
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  The X thread in which Boris Cherny of Anthropic, the creator of Claude Code, announces his
+  "Steps of AI Adoption" document, says what moving up the steps takes in practice, and places
+  Anthropic at step 3.
+limits: >-
+  One person's account, written to promote a product. The thread links to the document itself, a
+  claude.ai artifact, which could not be snapshotted, so the definition of each step and the review
+  practice attached to it are not in this record. The thread is about software engineering teams in
+  general and says nothing specific to evaluation work. The snapshot shows the thread as served to a
+  logged-out reader. The logged-out view shows five posts, so the thread may be incomplete. That the
+  author works at Anthropic and created Claude Code is not stated in the snapshot.
+evidence:
+  - id: EV-cherny-2026-07-steps-of-ai-adoption-01
+    claim: >-
+      Cherny says Anthropic is on step 3 of his adoption steps and pushing toward step 4, and
+      that he personally has reached level 4.
+    quote: >-
+      Anthropic is on step 3 and pushing toward 4. Personally, I just hit level 4.
+    locator: Thread, final post
+    kind: automation
+    strength: anecdote
+    grade: C
+    describes: 2026-07
+    note: >-
+      What steps 3 and 4 mean is defined only in the linked document, which is not in the
+      snapshot. No task in T-eval fits; this is a company-wide self-placement.
+
+  - id: EV-cherny-2026-07-steps-of-ai-adoption-02
+    claim: >-
+      Cherny says moving up the steps means, in practice, giving Claude ways to verify its own
+      work end to end, turning on auto mode for permissions, and making automated code review
+      and security review the default.
+    quote: >-
+      In practice that means giving Claude ways to verify its own work end to end. It means
+      enabling auto mode for permissions, defaulting on automated code review and security
+      review, and using interfaces that let you manage multiple agents at once
+    locator: Thread, third post
+    kind: oversight
+    strength: anecdote
+    grade: C
+    describes: 2026-07
+    note: >-
+      The review named here is automated review. The thread does not say what human review
+      remains at any step.
+
+  - id: EV-cherny-2026-07-steps-of-ai-adoption-03
+    claim: >-
+      Cherny says each step up needs a new set of guardrails as well as more usage: tokens alone
+      do not move a team to the next step.
+    quote: >-
+      But at each step, tokens aren’t enough to move you forward: to get to the next step, you
+      need to find and break down the next set of bottlenecks, and build up the next set of
+      guardrails.
+    locator: Thread, second post
+    kind: practice
+    strength: anecdote
+    grade: C
+
+  - id: EV-cherny-2026-07-steps-of-ai-adoption-04
+    claim: >-
+      Cherny describes the goal as automating entire classes of work in a way the team can
+      trust the output.
+    quote: >-
+      using the right features with the right guardrails that enable Claude to automate entire
+      classes of work in a way that your team can trust the output.
+    locator: Thread, third post
+    kind: practice
+    strength: anecdote
+    grade: C
+    note: Trust in the output is the stated test. Understanding of the output is not mentioned.

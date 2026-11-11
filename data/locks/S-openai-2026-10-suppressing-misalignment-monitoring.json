@@ -1,0 +1,60 @@
+{
+  "source_id": "S-openai-2026-10-suppressing-misalignment-monitoring",
+  "snapshot": {
+    "url": "https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring/",
+    "final_url": "https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "52ab4e8b9fb162a452f7cf155f4a760a7ddb80ed4964ea0a593651f1b7f2e79f",
+    "text_sha256": "585fbcbfd6fb1c4d48ff7d81c4ab6349ea99ea575ede40786319d03cae9ad24a",
+    "text_chars": 28090
+  },
+  "quotes": {
+    "EV-openai-2026-10-suppressing-misalignment-monitoring-01": {
+      "quote_sha256": "81f9e2e0174ccda748cb9932d656c4c98177553f789839c9e303f9c57253eaa1",
+      "text_sha256": "585fbcbfd6fb1c4d48ff7d81c4ab6349ea99ea575ede40786319d03cae9ad24a",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-suppressing-misalignment-monitoring-02": {
+      "quote_sha256": "e1ea93a5738156bdb26e96b723c63f64d2392129bd0da2a09b0936117a2477cd",
+      "text_sha256": "585fbcbfd6fb1c4d48ff7d81c4ab6349ea99ea575ede40786319d03cae9ad24a",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-suppressing-misalignment-monitoring-03": {
+      "quote_sha256": "b8731bcca9344e6173c11075c0e5ad4a7b4cc523e3ab4d28ef29a97bfc114253",
+      "text_sha256": "585fbcbfd6fb1c4d48ff7d81c4ab6349ea99ea575ede40786319d03cae9ad24a",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-suppressing-misalignment-monitoring-04": {
+      "quote_sha256": "63d9384d0071e37f0f7b486aeb91a8405f76bebfbce846fc7930dae20ed0ded3",
+      "text_sha256": "585fbcbfd6fb1c4d48ff7d81c4ab6349ea99ea575ede40786319d03cae9ad24a",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-suppressing-misalignment-monitoring-05": {
+      "quote_sha256": "01f37579aa1a2b6526a4e065d5ab545b91d2a3d658e26554d303efde5bd7f1c3",
+      "text_sha256": "585fbcbfd6fb1c4d48ff7d81c4ab6349ea99ea575ede40786319d03cae9ad24a",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-suppressing-misalignment-monitoring-06": {
+      "quote_sha256": "fd165b3ccff539d093fdcc025d744fbeebda996bf19846362946321bf14a4148",
+      "text_sha256": "585fbcbfd6fb1c4d48ff7d81c4ab6349ea99ea575ede40786319d03cae9ad24a",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-suppressing-misalignment-monitoring-07": {
+      "quote_sha256": "0269eb08113b38731f0a8107f7143c55c78616b728e6b8b5988ca545c713e8e9",
+      "text_sha256": "585fbcbfd6fb1c4d48ff7d81c4ab6349ea99ea575ede40786319d03cae9ad24a",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-suppressing-misalignment-monitoring-08": {
+      "quote_sha256": "aca6168e9bddb9c1e18ac859a5aaab147e66be0dedafd660b564c51a8a766154",
+      "text_sha256": "585fbcbfd6fb1c4d48ff7d81c4ab6349ea99ea575ede40786319d03cae9ad24a",
+      "verified": "2026-11-11"
+    },
+    "EV-openai-2026-10-suppressing-misalignment-monitoring-09": {
+      "quote_sha256": "029da7cd7ed51ac3237ccfa2bedea7160e63bf24cde7e3574b2f3794652f7714",
+      "text_sha256": "585fbcbfd6fb1c4d48ff7d81c4ab6349ea99ea575ede40786319d03cae9ad24a",
+      "verified": "2026-11-11"
+    }
+  }
+}

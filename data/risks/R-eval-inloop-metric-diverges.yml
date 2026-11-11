@@ -1,0 +1,38 @@
+id: R-eval-inloop-metric-diverges
+title: Research and release decisions follow internal metrics that have stopped tracking what they stood for
+tasks: [T-eval-inloop]
+failure_mode: >-
+  Changes are promoted because evaluation numbers hold or improve, while the property users or
+  safety depend on gets worse. The evaluation set is too narrow, too noisy, tuned against, or
+  run on a configuration nobody ships. Progress on the index is partly progress at the index.
+harm_path: model_misshaped
+mechanisms: [comprehension_gap, review_overload, spec_gap]
+automation_effect: >-
+  Agents optimize what is measured, and research training and evaluation runs number about ten
+  thousand a week at one developer. One researcher describes sending ten ideas to an agent scaffold
+  and seeing which work; another says presenters most often point to an agent's thread. The more of
+  the loop a model runs, the more the metric is the only contact anyone has with the result, and the
+  measured acceleration itself moved from 1.5x to 1.9x when benchmarks were added.
+review_catchable: 'yes'
+review_rationale: >-
+  Ask what the promoted change was not tested on, whether the tested configuration is the deployed
+  one, and who read outputs. In one postmortem a broader evaluation run afterwards showed the
+  regression; in the other the evaluations were not running on production systems.
+severity: high
+status: observed_frontier
+evidence:
+  - EV-anthropic-2025-09-postmortem-three-issues-02
+  - EV-anthropic-2025-09-postmortem-three-issues-07
+  - EV-anthropic-2025-09-postmortem-three-issues-08
+  - EV-anthropic-2026-04-claude-code-quality-postmortem-02
+  - EV-anthropic-2026-04-claude-code-quality-postmortem-03
+  - EV-anthropic-2026-04-claude-code-quality-postmortem-04
+  - EV-anthropic-2026-04-claude-code-quality-postmortem-06
+  - EV-metr-2026-11-anthropic-rd-acceleration-05
+  - EV-metr-2026-11-anthropic-rd-acceleration-06
+  - EV-metr-2026-11-anthropic-rd-acceleration-08
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-05
+  - EV-anthropic-2026-09-measuring-pace-10
+incidents:
+  - INC-2026-anthropic-claude-code-quality
+  - INC-2025-anthropic-serving-bugs-missed-by-evals

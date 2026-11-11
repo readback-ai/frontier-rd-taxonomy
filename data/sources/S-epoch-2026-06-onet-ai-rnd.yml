@@ -1,0 +1,147 @@
+id: S-epoch-2026-06-onet-ai-rnd
+title: Toward an O*NET for AI R&D
+publisher: Epoch AI
+authors: [Jean-Stanislas Denain, Joe Kwon, Anson Ho]
+published: 2026-06-17
+url: https://epoch.ai/gradient-updates/toward-an-onet-for-ai-rnd
+type: standard_or_policy
+vantage: external_third_party
+labs: []
+summary: >-
+  Epoch AI's proposal for a task taxonomy of frontier AI R&D (six categories, over sixty tasks)
+  and the 0 to 5 rubric for how much current AI automates each task. This rubric is the scale
+  Anthropic later labelled AL0 to AL5.
+limits: >-
+  A newsletter post that states it gives the authors' views, not Epoch's. The ratings rest on
+  literature review and brainstorming, not on measurement inside a developer, and the authors
+  call the rubric subjective. The page numbers the levels 0 to 5 and never writes "AL0" to
+  "AL5". The task list, the per-task ratings and the worked examples of each level are in a
+  linked Google Doc that could not be snapshotted, so nothing here records how Epoch rated
+  evaluation tasks.
+evidence:
+  - id: EV-epoch-2026-06-onet-ai-rnd-01
+    claim: >-
+      Epoch's scale rates how much the authors think current AI automates a task, from 0 to 5,
+      against a six-row rubric.
+    quote: >-
+      Specifically, we rate how much we think current AIs automate each task on a scale of 0 to
+      5, based on the following rubric:
+    locator: Section "A first proposal", sentence introducing the rubric table
+    kind: method
+    strength: reported
+    grade: C
+    note: >-
+      The rating is of current AI's automation of a task in general, as judged by the authors.
+      It is not defined as a property of one organization's practice.
+
+  - id: EV-epoch-2026-06-onet-ai-rnd-02
+    claim: Level 0 of Epoch's scale is "Not used, AI adds nothing".
+    quote: >-
+      0
+      Not used, AI adds nothing
+    locator: Section "A first proposal", rubric table, rating 0
+    kind: method
+    strength: reported
+    grade: C
+    note: The quote is the table's rating cell followed by its definition cell.
+
+  - id: EV-epoch-2026-06-onet-ai-rnd-03
+    claim: >-
+      Level 1 is "Marginal": AI is occasionally convenient but does not change how the work is
+      done or who does it.
+    quote: >-
+      1
+      Marginal, occasionally convenient for lookups, brainstorming, or polishing writeups, but
+      doesn’t change how the work is done or who is doing it
+    locator: Section "A first proposal", rubric table, rating 1
+    kind: method
+    strength: reported
+    grade: C
+
+  - id: EV-epoch-2026-06-onet-ai-rnd-04
+    claim: >-
+      Level 2 is "Assists": AI speeds up or improves parts of the task, and the human mostly
+      drives and reviews everything.
+    quote: >-
+      2
+      Assists, with meaningful speed ups or improvements to parts of the task; human mostly
+      drives and reviews everything
+    locator: Section "A first proposal", rubric table, rating 2
+    kind: method
+    strength: reported
+    grade: C
+    note: >-
+      The cell reads "human mostly drives and reviews everything". Whether "mostly" governs both
+      verbs is ambiguous.
+
+  - id: EV-epoch-2026-06-onet-ai-rnd-05
+    claim: >-
+      Level 3 is "Collaborates": AI does large chunks under close human direction, and the human
+      still makes the calls and joins the pieces.
+    quote: >-
+      3
+      Collaborates, with AI doing large chunks under close human direction; human still makes
+      calls and stitches things together
+    locator: Section "A first proposal", rubric table, rating 3
+    kind: method
+    strength: reported
+    grade: C
+
+  - id: EV-epoch-2026-06-onet-ai-rnd-06
+    claim: >-
+      Level 4 is "Leads": AI completes most of the task end to end from a high-level ask, and
+      the human supervises, course-corrects and approves outputs.
+    quote: >-
+      4
+      Leads, completing most of the task end to end from a high-level ask; human supervises,
+      course-corrects, and approves outputs.
+    locator: Section "A first proposal", rubric table, rating 4
+    kind: method
+    strength: reported
+    grade: C
+    note: >-
+      Human approval of outputs is part of the definition of this level. The definition does
+      not say how deeply the human reads what is approved.
+
+  - id: EV-epoch-2026-06-onet-ai-rnd-07
+    claim: >-
+      Level 5 is "Autonomous": the task is done end to end with little or no human involvement.
+    quote: >-
+      5
+      Autonomous, end to end with little or no human involvement
+    locator: Section "A first proposal", rubric table, rating 5
+    kind: method
+    strength: reported
+    grade: C
+    note: >-
+      Epoch's wording allows a little human involvement at the top level. Anthropic's
+      restatement of the scale (S-anthropic-2026-09-measuring-pace) says "no human in the loop".
+
+  - id: EV-epoch-2026-06-onet-ai-rnd-08
+    claim: >-
+      The authors call the rating subjective and say better ways to assign it, such as internal
+      benchmarks, are still to be developed.
+    quote: >-
+      This is of course quite subjective and there’s a ton of room for people to develop better
+      ways to evaluate this, such as through internal benchmarks.
+    locator: Section "A first proposal", paragraph after the rubric table
+    kind: method
+    strength: reported
+    grade: C
+
+  - id: EV-epoch-2026-06-onet-ai-rnd-09
+    claim: >-
+      The taxonomy has six categories and over sixty tasks, each rated 0 to 5, and was built
+      from literature review and brainstorming.
+    quote: >-
+      we present a first version of such a taxonomy with six categories spanning a frontier AI
+      company’s research workflow, based on literature review and brainstorming. The categories
+      are broken into over sixty tasks, each rated from 0 to 5 on how much we think current AIs
+      automate it.
+    locator: Section "What trends are we extrapolating?", final paragraphs
+    kind: method
+    strength: reported
+    grade: C
+    note: >-
+      The ratings are the authors' estimates from outside the developers. They are not
+      observations of any developer's practice.

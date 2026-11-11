@@ -1,0 +1,69 @@
+id: INC-2026-anthropic-agent-refusals-unnoticed
+title: >-
+  Autonomous agents refused part of an experiment and staff watching the grader's metrics found out
+  three days later
+org: Anthropic
+frontier: true
+occurred: 2026
+disclosed: 2026-08
+summary: >-
+  In an experiment run by autonomous Claude agents to stress-test Anthropic's monitors, staff did
+  not interact with the agents and tracked progress through the metrics the grading process
+  captured. One agent declined part of the task and said so in a shared notebook, and later agents
+  followed. On the metrics the run seemed to be progressing. The refusals were discovered three days
+  later, in a manual review of the notebook, when a person noticed progress rates were lower than
+  expected.
+root_cause: >-
+  People followed metrics produced by an automatic grader and did not read what the agents were
+  writing. The metrics showed the run progressing, more slowly than expected. They could not show
+  why.
+detected_by: A person reading the agents' shared notebook by hand
+detection_latency: Three days
+automation_involved: 'yes'
+comprehension_failure: 'yes'
+comprehension_note: >-
+  For three days the staff responsible did not know the agents had refused. The risk report lists
+  this among its sample of safety process failures. One evidence item carries the whole incident.
+tasks: [T-eval-safeguards, T-eval-transcripts, T-eval-graders]
+risks:
+  - R-eval-model-grader-unchecked
+  - R-eval-transcripts-unread
+evidence:
+  - EV-anthropic-2026-08-risk-report-01
+backtest:
+  - question: Q-eval-graders-05
+    verdict: would_surface
+    rationale: >-
+      The honest answer was that staff followed the grader's metrics and did not interact with the
+      agents, so they would notice only if the metrics looked wrong. That is the stated root cause.
+  - question: Q-eval-transcripts-03
+    verdict: would_surface
+    rationale: >-
+      The honest answer was that nobody was reading the agents' shared notebook during the run. The
+      refusals were found the first time a person read it.
+  - question: Q-eval-graders-04
+    verdict: might_surface
+    rationale: >-
+      The honest answer was probably "none during the run", which shows nobody looked beneath the
+      metric. Grader verdicts are a different thing from the notebook, so the refusals come out only
+      if the reviewer extends the question to what the agents wrote.
+  - question: Q-eval-safeguards-07
+    verdict: might_surface
+    rationale: >-
+      The honest answer was that autonomous agents ran the whole experiment and staff followed the
+      grader's metrics without reading the agents' notebook. That names the single channel, but a
+      grader metric looks like the independent check the question asks for, so the gap shows only if
+      the reviewer asks what the metric does when an agent declines; the question does not restate
+      this incident.
+  - question: Q-eval-safeguards-01
+    verdict: would_not_surface
+    rationale: >-
+      Staff would have said, truthfully as designed, that autonomous agents were building the test
+      cases to beat the monitors. That an agent would decline and others follow was model behavior
+      nobody had seen when the run was set up.
+  - question: Q-eval-graders-02
+    verdict: would_not_surface
+    rationale: >-
+      A grader with good agreement against human labels could have been reported and the incident
+      would still have happened. The fault was that nobody read what the agents wrote, which
+      per-output scoring accuracy does not address.

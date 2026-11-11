@@ -1,0 +1,40 @@
+{
+  "source_id": "S-xai-2026-04-grok-4-20-system-card",
+  "snapshot": {
+    "url": "https://data.x.ai/2026-04-07-grok-4-20-model-card.pdf",
+    "final_url": "https://data.x.ai/2026-04-07-grok-4-20-model-card.pdf",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "ea72c27a6b04949d07c828b1dc5971688a79a780e5727eeca1985434d3262760",
+    "text_sha256": "679777a28a5c07a66cf70cc3cbb53bf5916aa88e3d39fc191d88034f5a8828a8",
+    "text_chars": 22744
+  },
+  "quotes": {
+    "EV-xai-2026-04-grok-4-20-system-card-01": {
+      "quote_sha256": "e9f2419fa3c697a62a42a3f9f66c6d3d81ca1ffd04505cf0695c7e60ce74359b",
+      "text_sha256": "679777a28a5c07a66cf70cc3cbb53bf5916aa88e3d39fc191d88034f5a8828a8",
+      "verified": "2026-11-11"
+    },
+    "EV-xai-2026-04-grok-4-20-system-card-02": {
+      "quote_sha256": "18ee935be3acc531853039ebdd1fc3bbd2da24b901491523fd7764e5f9861a6b",
+      "text_sha256": "679777a28a5c07a66cf70cc3cbb53bf5916aa88e3d39fc191d88034f5a8828a8",
+      "verified": "2026-11-11"
+    },
+    "EV-xai-2026-04-grok-4-20-system-card-03": {
+      "quote_sha256": "c0f25dd70241035557164407a4d14b718d186fe6879a6a01391d116f90fe7aff",
+      "text_sha256": "679777a28a5c07a66cf70cc3cbb53bf5916aa88e3d39fc191d88034f5a8828a8",
+      "verified": "2026-11-11"
+    },
+    "EV-xai-2026-04-grok-4-20-system-card-04": {
+      "quote_sha256": "3043fae048b3c3c6562c0c43188d59eb541b641da8abf505d5c6e0881fde62d5",
+      "text_sha256": "679777a28a5c07a66cf70cc3cbb53bf5916aa88e3d39fc191d88034f5a8828a8",
+      "verified": "2026-11-11"
+    },
+    "EV-xai-2026-04-grok-4-20-system-card-05": {
+      "quote_sha256": "d8129c21a5158d515ac3f3c018aa778692f67d097471956dfa3af9a1f1b07b7e",
+      "text_sha256": "679777a28a5c07a66cf70cc3cbb53bf5916aa88e3d39fc191d88034f5a8828a8",
+      "verified": "2026-11-11"
+    }
+  }
+}

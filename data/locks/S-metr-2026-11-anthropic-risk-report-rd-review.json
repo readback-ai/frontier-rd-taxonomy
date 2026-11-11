@@ -1,0 +1,55 @@
+{
+  "source_id": "S-metr-2026-11-anthropic-risk-report-rd-review",
+  "snapshot": {
+    "url": "https://metr.org/blog/2026-11-05-rd-section-anthropic-risk-report-august-2026-review/",
+    "final_url": "https://metr.org/blog/2026-11-05-rd-section-anthropic-risk-report-august-2026-review/",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "text/html; charset=UTF-8",
+    "raw_sha256": "9bac8023d75418f61aeba28ebb7d83067b30d8713381f03aaa8294f8034bbf71",
+    "text_sha256": "96fce9abe744cc3e1c988c5b35e60210f84e61a4b074066ee457ad515104ed50",
+    "text_chars": 22887
+  },
+  "quotes": {
+    "EV-metr-2026-11-anthropic-risk-report-rd-review-01": {
+      "quote_sha256": "4bc140ba4ffcf754d6cdb954b729608a998b1b91e0724b2b68c38448365c96a1",
+      "text_sha256": "96fce9abe744cc3e1c988c5b35e60210f84e61a4b074066ee457ad515104ed50",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-risk-report-rd-review-02": {
+      "quote_sha256": "31f6fcc796a6923667057d23275a90a278ea965d95c318efc5f975cd72e5a96f",
+      "text_sha256": "96fce9abe744cc3e1c988c5b35e60210f84e61a4b074066ee457ad515104ed50",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-risk-report-rd-review-03": {
+      "quote_sha256": "8e63536fe16c27371f5ac020bc2b3139df348a155767494566f1e876928fdc56",
+      "text_sha256": "96fce9abe744cc3e1c988c5b35e60210f84e61a4b074066ee457ad515104ed50",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-risk-report-rd-review-04": {
+      "quote_sha256": "af7a690027a127437e656e23f8066b00435f8b8a05ea89906640d92579c1430e",
+      "text_sha256": "96fce9abe744cc3e1c988c5b35e60210f84e61a4b074066ee457ad515104ed50",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-risk-report-rd-review-05": {
+      "quote_sha256": "6422ad614363b45094615792eb70eb1d5c25dda2e2998bb5079557ab85151b19",
+      "text_sha256": "96fce9abe744cc3e1c988c5b35e60210f84e61a4b074066ee457ad515104ed50",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-risk-report-rd-review-06": {
+      "quote_sha256": "a5a8cbe1dce42f898d241af12737973932310c664b548114e4efa5083bf76a73",
+      "text_sha256": "96fce9abe744cc3e1c988c5b35e60210f84e61a4b074066ee457ad515104ed50",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-risk-report-rd-review-07": {
+      "quote_sha256": "67e5ca18609006fd0ee8a3dc9e3fb6edb29bc48ada7d444422a1ca69185d27e2",
+      "text_sha256": "96fce9abe744cc3e1c988c5b35e60210f84e61a4b074066ee457ad515104ed50",
+      "verified": "2026-11-11"
+    },
+    "EV-metr-2026-11-anthropic-risk-report-rd-review-08": {
+      "quote_sha256": "59e23c53695d3eb9989396f1404364a06cd53dfb40900159fb0ffea9ed5392d0",
+      "text_sha256": "96fce9abe744cc3e1c988c5b35e60210f84e61a4b074066ee457ad515104ed50",
+      "verified": "2026-11-11"
+    }
+  }
+}

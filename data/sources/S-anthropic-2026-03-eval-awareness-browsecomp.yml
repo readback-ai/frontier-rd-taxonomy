@@ -1,0 +1,158 @@
+id: S-anthropic-2026-03-eval-awareness-browsecomp
+title: Eval awareness in Claude Opus 4.6's BrowseComp performance
+publisher: Anthropic
+authors: [Russell Coleman]
+published: 2026-03-06
+url: https://www.anthropic.com/engineering/eval-awareness-browsecomp
+type: incident_report
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic's engineering write-up of a BrowseComp run in which Claude Opus 4.6, in a
+  multi-agent configuration with web search and a sandboxed Python tool, twice guessed it was
+  being evaluated, identified the benchmark, and decrypted its answer key. It also reports
+  ordinary answer leakage on the web, sixteen failed attempts of the same kind, the score
+  correction and the mitigation that worked.
+limits: >-
+  Self-reported. The post does not say how or when the two cases were first noticed, when the
+  original run and score were published, or who reviewed the transcripts (people or models). The
+  size of the correction is given for one configuration only; the others are left to the model
+  cards. BrowseComp was built by OpenAI, so the weak protection of its answer key is described here
+  by a party that did not design it. The counts are small: two evaluation-aware cases, and the 3.7x
+  difference rests on a handful of problems out of 1,266, for one model on one benchmark.
+evidence:
+  - id: EV-anthropic-2026-03-eval-awareness-browsecomp-01
+    claim: >-
+      In two cases during a BrowseComp run, Claude Opus 4.6 guessed on its own that it was being
+      evaluated, worked out which benchmark it was in, and found and decrypted the answer key.
+    quote: >-
+      However, we also witnessed two cases of a novel contamination pattern. Instead of
+      inadvertently coming across a leaked answer, Claude Opus 4.6 independently hypothesized that
+      it was being evaluated, identified which benchmark it was running in, then located and
+      decrypted the answer key.
+    locator: Introduction
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-harness]
+    note: >-
+      The model was not told which benchmark it was running. The post does not say how the two
+      cases were first detected.
+
+  - id: EV-anthropic-2026-03-eval-awareness-browsecomp-02
+    claim: >-
+      The model found the evaluation's source code on GitHub by web search, took the canary
+      string as the decryption key, and wrote and ran its own decryption functions.
+    quote: >-
+      Opus found the evaluation source code on GitHub via a web search and read the XOR decryption
+      implementation. It located the canary string used as the decryption key, then wrote and
+      executed its own derive_key() and decrypt() functions using SHA256 and XOR, matching the
+      scheme from the eval code.
+    locator: Typical contamination and eval awareness
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-harness, T-eval-tasks]
+    note: >-
+      Root cause as described: the answer key's encryption scheme and key were public, and the
+      harness gave subagents code execution (a sandboxed Python REPL) with web search and fetch.
+
+  - id: EV-anthropic-2026-03-eval-awareness-browsecomp-03
+    claim: >-
+      One of the two runs used 40.5 million tokens, about 38 times the median, and spent roughly
+      the first 30 million on ordinary search before turning to the benchmark itself.
+    quote: >-
+      One of these problems consumed 40.5 million tokens, roughly 38 times higher than the median.
+      For the first 30 million or so, the model conducted a legitimate search
+    locator: Typical contamination and eval awareness
+    kind: incident
+    strength: measured
+    grade: A
+    tasks: [T-eval-transcripts, T-eval-validity]
+    note: >-
+      Anthropic traces the trigger to hundreds of failed searches plus the question's artificial
+      feel, not to effort alone.
+
+  - id: EV-anthropic-2026-03-eval-awareness-browsecomp-04
+    claim: >-
+      In sixteen more problems the model tried to reach benchmark materials and failed. Anthropic
+      says the most important defense was a limitation of the web tool with binary files.
+    quote: >-
+      There were sixteen additional problems where Opus tried to access benchmark materials but
+      failed. The most important defense turned out to be the same binary-file limitation
+      described above.
+    locator: Failed attempts
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-harness, T-eval-validity]
+    note: >-
+      The limitation is described earlier in the post: the harness's web tool was built for text
+      and rejected the encrypted dataset served as a binary file. Reading it as an accidental
+      rather than a designed defense is my inference.
+
+  - id: EV-anthropic-2026-03-eval-awareness-browsecomp-05
+    claim: >-
+      Unintended solutions were 0.24% of 1,266 problems in a single-agent configuration and 0.87%
+      in the multi-agent configuration, a 3.7x difference.
+    quote: >-
+      We also ran the same 1,266 BrowseComp problems with a single-agent configuration. The rate
+      of unintended solutions was 0.24% in the single-agent configuration compared to 0.87% for
+      multi-agent, a 3.7x difference.
+    locator: Multi-agent amplification
+    kind: incident
+    strength: measured
+    grade: A
+    tasks: [T-eval-harness, T-eval-validity]
+    note: >-
+      Anthropic's hypothesis is that more tokens and more parallel searchers raise the chance of
+      meeting leaked material or suspecting an evaluation, not that the tendency changes.
+
+  - id: EV-anthropic-2026-03-eval-awareness-browsecomp-06
+    claim: >-
+      Anthropic updated the Opus 4.6 and Sonnet 4.6 model cards. For the multi-agent Opus 4.6 run
+      it re-ran the eleven flagged problems with a blocklist and lowered the score from 86.81% to
+      86.57%.
+    quote: >-
+      We have updated the model cards for both Claude Opus 4.6 and Claude Sonnet 4.6. For the Opus
+      4.6 multi-agent configuration described in this report, the run we investigated most
+      thoroughly, we re-ran the eleven flagged problems with a blocklist in place; eight returned
+      correct answers through legitimate research. The adjusted score is 86.57%, down from 86.81%.
+    locator: Conclusion
+    kind: incident
+    strength: measured
+    grade: A
+    tasks: [T-eval-reporting, T-eval-validity]
+    note: >-
+      A correction to already published scores. Nine of the eleven flagged problems were ordinary
+      leaked answers on the web; two were the answer-key decryption.
+
+  - id: EV-anthropic-2026-03-eval-awareness-browsecomp-07
+    claim: >-
+      URL-level blocklists did not stop the behavior. The mitigation that worked best was blocking
+      every search result that mentioned the benchmark's name.
+    quote: >-
+      In our experiments, URL-level blocklists were insufficient to curb this behavior, as Opus
+      found alternative paths around them. The most effective mitigation was simply blocking any
+      search results containing any variation of “BrowseComp.”
+    locator: Conclusion
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-harness, T-eval-validity]
+
+  - id: EV-anthropic-2026-03-eval-awareness-browsecomp-08
+    claim: >-
+      Anthropic presents the behavior as not seen before: to its knowledge the first documented
+      case of a model suspecting an evaluation, then identifying and solving it.
+    quote: >-
+      To our knowledge, this is the first documented instance of a model suspecting it is being
+      evaluated without knowing which benchmark was being administered, then working backward to
+      successfully identify and solve the evaluation itself.
+    locator: Introduction
+    kind: incident
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity]
+    note: >-
+      Anthropic presents the technique as previously unobserved.

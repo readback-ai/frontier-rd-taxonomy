@@ -1,0 +1,340 @@
+branch: T-eval
+status: researched
+tasks:
+  - id: T-eval
+    name: Evaluation
+    description: >-
+      Measuring what a model can do and how it behaves, and turning those measurements into
+      decisions about training, internal use and release. Every other branch leans on this one:
+      an evaluation that reads wrong makes the work it checks look safe.
+
+  # ---- Build the instruments ------------------------------------------------
+  - id: T-eval-instruments
+    name: Build evaluation instruments
+    parent: T-eval
+    description: >-
+      Designing and building what an evaluation is made of: the plan, the tasks, the graders,
+      the harness and the elicitation that shows a model at its strongest.
+
+  - id: T-eval-design
+    name: Evaluation design and threshold setting
+    parent: T-eval-instruments
+    description: >-
+      Deciding what to measure, how each measurement maps to a threat model or a capability
+      threshold in the safety framework, and what result would change a decision.
+    contributions:
+      - An evaluation plan for a model release
+      - A rule that turns scores into "threshold not reached" or "threshold may be reached"
+      - A new evaluation added to, or retired from, the release suite
+    output_roles: [measures, decides]
+    verifiability: deferred
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [none]
+    change_type: evaluation_change
+    rationale: >-
+      A plan that measures the wrong thing still yields clean numbers. Nothing in the results
+      says the threat model was missed; that shows only when the capability appears elsewhere.
+
+  - id: T-eval-tasks
+    name: Task, dataset and environment construction
+    parent: T-eval-instruments
+    description: >-
+      Writing evaluation tasks, question sets, agentic environments and scenarios, including
+      generating them with models, and checking that each is solvable, uncontaminated and
+      measures what it claims.
+    contributions:
+      - A new benchmark or task suite
+      - A batch of model-generated scenarios for a behavioral audit
+      - A fix to tasks found to be broken or leaked
+    output_roles: [measures]
+    verifiability: judgment
+    feedback_latency: weeks
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [eval_infra]
+    change_type: evaluation_change
+    rationale: >-
+      A broken or leaked task still returns a score. Someone has to read tasks and transcripts
+      to see it, and past results must be rerun once it is fixed.
+
+  - id: T-eval-graders
+    name: Graders, rubrics and model judges
+    parent: T-eval-instruments
+    description: >-
+      Deciding what counts as success: scoring code, rubrics, model-based judges and the
+      instructions given to human graders, with their calibration against human labels.
+    contributions:
+      - A model judge and its prompt for a behavioral evaluation
+      - A scoring script or test suite that decides task success
+      - A change to a rubric or a pass threshold
+    output_roles: [measures]
+    verifiability: judgment
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [eval_infra]
+    change_type: evaluation_change
+    rationale: >-
+      A grader that passes wrong answers, or fails right ones, produces a number that looks like
+      any other. Only agreement with independent human labels shows the error, and those labels
+      are the first thing dropped under time pressure.
+
+  - id: T-eval-harness
+    name: Harness, sandboxes and evaluation platform
+    parent: T-eval-instruments
+    description: >-
+      The software that runs evaluations: agent scaffolds, tool access, sandboxes, resource
+      limits, run orchestration, logging and the platform that stores results.
+    contributions:
+      - A change to the agent scaffold or tool set used in evaluations
+      - A sandbox or network policy for a dangerous-capability evaluation
+      - A fix to a platform defect that changed scores
+    output_roles: [measures, contains, runs]
+    verifiability: empirical
+    feedback_latency: days
+    failure_visibility: quiet
+    reversibility: cheap
+    privilege: [eval_infra, internal_code]
+    change_type: system_software_change
+    rationale: >-
+      Crashes are loud, but a harness that gives the model too few tokens, the wrong tools or an
+      unintended shortcut moves scores without failing. The sandbox also contains the model
+      during dangerous evaluations, so a harness change can be a containment change.
+
+  - id: T-eval-elicitation
+    name: Capability elicitation and scaffolding
+    parent: T-eval-instruments
+    description: >-
+      Getting the strongest performance a model can give, by prompting, scaffolding, tools,
+      fine-tuning or removing refusals, so that the measurement bounds what a motivated user
+      or the model itself could do.
+    contributions:
+      - An elicitation scaffold for a cyber or autonomy evaluation
+      - A helpful-only or fine-tuned model variant used for testing
+      - An argument that elicitation was sufficient
+    output_roles: [measures]
+    verifiability: deferred
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [eval_infra, weights]
+    change_type: evaluation_change
+    rationale: >-
+      Too little elicitation gives a low score that reads as safety. It is shown wrong only when
+      someone else gets more out of the model.
+
+  # ---- Run assessments ------------------------------------------------------
+  - id: T-eval-assessments
+    name: Run assessments
+    parent: T-eval
+    description: >-
+      Running the instruments on models: during research to steer it, and before internal use
+      or release to judge risk.
+
+  - id: T-eval-inloop
+    name: In-loop capability evaluations and regression checks
+    parent: T-eval-assessments
+    description: >-
+      Evaluations run on checkpoints and candidate changes, whose results decide which changes
+      are kept: training changes during research, and changes to the serving stack, system
+      prompt or product harness before they ship. Includes internal metrics and regression
+      suites.
+    contributions:
+      - The evaluation results that justify promoting a training change
+      - The regression results that justify shipping a serving or product change
+      - A new internal metric that research is steered by
+    output_roles: [measures, decides]
+    verifiability: empirical
+    feedback_latency: days
+    failure_visibility: quiet
+    reversibility: cheap
+    privilege: [eval_infra, training_infra]
+    change_type: evaluation_change
+    rationale: >-
+      These numbers are checked against each other and against later runs, so gross errors
+      surface fast. The quiet failure is steering toward the metric and away from what it stood
+      for.
+
+  - id: T-eval-dangerous
+    name: Dangerous-capability assessments
+    parent: T-eval-assessments
+    description: >-
+      Assessments of chemical, biological, radiological and nuclear uplift, cyber offense, and
+      autonomy and AI R&D capability, including human baselines and uplift trials, run against
+      the safety framework's thresholds.
+    contributions:
+      - The capability assessment for one risk domain of a model release
+      - A human uplift trial or expert red-team exercise
+    output_roles: [measures, decides]
+    verifiability: deferred
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [eval_infra, weights]
+    change_type: evaluation_change
+    rationale: >-
+      A false "below threshold" has no visible symptom. The result feeds a release or
+      internal-use decision that is expensive to take back.
+
+  - id: T-eval-alignment
+    name: Alignment assessments and behavioral audits
+    parent: T-eval-assessments
+    description: >-
+      Testing for misaligned behavior: automated behavioral audits, scheming and sabotage
+      evaluations, reward-hacking measurement, and audits that use interpretability tools.
+    contributions:
+      - The alignment assessment section of a system card or risk report
+      - An automated audit run by model agents with its findings
+    output_roles: [measures]
+    verifiability: deferred
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [eval_infra, weights]
+    change_type: evaluation_change
+    rationale: >-
+      The thing measured may behave differently when it knows it is measured, and the auditor is
+      increasingly a model from the same family. Absence of findings is the normal output of
+      both a safe model and a blind audit.
+
+  - id: T-eval-safeguards
+    name: Safeguard and monitor testing
+    parent: T-eval-assessments
+    description: >-
+      Testing the controls around a model: red-teaming input and output classifiers, measuring
+      how often monitors catch known misbehavior, and control evaluations of internal agent
+      deployments.
+    contributions:
+      - A red-team result for a misuse classifier
+      - A measurement of monitor recall on planted misbehavior
+    output_roles: [measures, contains]
+    verifiability: judgment
+    feedback_latency: weeks
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [eval_infra, security]
+    change_type: evaluation_change
+    rationale: >-
+      Recall can only be measured against attacks someone thought to plant. A test set that is
+      easier than real misbehavior overstates the control.
+
+  # ---- Analyze and interpret ------------------------------------------------
+  - id: T-eval-interpretation
+    name: Analyze and interpret results
+    parent: T-eval
+    description: >-
+      Reading what the runs produced and deciding what the numbers mean.
+
+  - id: T-eval-transcripts
+    name: Transcript review and anomaly investigation
+    parent: T-eval-interpretation
+    description: >-
+      Reading evaluation transcripts and logs, by people and by models, to find failures the
+      score hides: refusals, harness errors, shortcuts, cheating and unexpected behavior.
+    contributions:
+      - A finding from reviewing a sample of evaluation transcripts
+      - A root-cause analysis of an anomalous score
+    output_roles: [measures]
+    verifiability: judgment
+    feedback_latency: weeks
+    failure_visibility: silent
+    reversibility: cheap
+    privilege: [eval_infra]
+    change_type: none
+    rationale: >-
+      A missed anomaly leaves no trace. Volume makes model-assisted review the default, and a
+      summary of transcripts is only as good as what the summarizer chose to surface.
+
+  - id: T-eval-validity
+    name: Validity checks
+    parent: T-eval-interpretation
+    description: >-
+      Checking that results can be trusted: whether the model recognized the evaluation, whether
+      it held back, whether tasks or answers were in training data, and whether the statistics
+      support the claim.
+    contributions:
+      - An evaluation-awareness or sandbagging analysis for a release
+      - A contamination check on a benchmark
+    output_roles: [measures]
+    verifiability: judgment
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: costly
+    privilege: [eval_infra, weights]
+    change_type: none
+    rationale: >-
+      These checks are what stands between a score and a claim. When they are skipped or weak,
+      every downstream number is still reported.
+
+  # ---- Report and decide ----------------------------------------------------
+  - id: T-eval-decisions
+    name: Report and decide
+    parent: T-eval
+    description: >-
+      Turning evaluation results into public claims and into decisions to train further, use a
+      model internally or release it.
+
+  - id: T-eval-reporting
+    name: System cards and risk reports
+    parent: T-eval-decisions
+    description: >-
+      Writing the documents that state what was tested, what was found and what the developer
+      concludes, for the public, regulators and third-party reviewers.
+    contributions:
+      - A system card for a model release
+      - A risk report under the developer's safety framework
+    output_roles: [decides]
+    verifiability: judgment
+    feedback_latency: months
+    failure_visibility: quiet
+    reversibility: irreversible
+    privilege: [none]
+    change_type: decision
+    rationale: >-
+      A published claim cannot be withdrawn, only corrected. Errors are found by outside readers
+      with less access than the authors had.
+
+  - id: T-eval-determination
+    name: Threshold determinations and release sign-off
+    parent: T-eval-decisions
+    description: >-
+      The decision that a model does or does not cross a capability threshold, that safeguards
+      are sufficient, and that it may be used internally or released.
+    contributions:
+      - A capability threshold determination for one risk domain
+      - Sign-off to deploy a model internally for AI R&D
+      - Sign-off for external release
+    output_roles: [decides]
+    verifiability: deferred
+    feedback_latency: months
+    failure_visibility: silent
+    reversibility: irreversible
+    privilege: [production]
+    change_type: decision
+    rationale: >-
+      This is where everything upstream is trusted at once. The people deciding rarely built the
+      instruments, and the time to decide is set by the release schedule.
+
+  # ---- External ---------------------------------------------------------------
+  - id: T-eval-external
+    name: External and third-party evaluation
+    parent: T-eval
+    description: >-
+      Testing and review by parties outside the developer: government institutes, independent
+      evaluators and embedded reviewers, with the access, time and information the developer
+      gives them.
+    contributions:
+      - A third-party pre-deployment evaluation report
+      - An independent review of a developer's risk report
+    output_roles: [measures]
+    verifiability: judgment
+    feedback_latency: weeks
+    failure_visibility: quiet
+    reversibility: costly
+    privilege: [eval_infra]
+    change_type: none
+    rationale: >-
+      The external party sees what it is shown, for as long as it is given. Its conclusions
+      inherit the limits of that access, and redactions hide which limits applied.

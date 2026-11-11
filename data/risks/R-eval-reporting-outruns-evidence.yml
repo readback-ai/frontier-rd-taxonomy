@@ -1,0 +1,48 @@
+id: R-eval-reporting-outruns-evidence
+title: A published account of results says more than the evidence supports
+tasks: [T-eval-reporting, T-eval-transcripts]
+failure_mode: >-
+  Interpretations are written quickly from summaries, from a model's account of its own
+  reasoning, or with a model as the reviewer. The public version drops qualifications the
+  internal one carries, or rounds a figure toward the conclusion. Scores and statements are
+  later corrected or withdrawn.
+harm_path: false_assurance
+mechanisms: [time_pressure, correlated_error, comprehension_gap]
+automation_effect: >-
+  Models draft and review the reports about themselves. Authors rely on model-read summaries of
+  evidence they could not read in full. A 24-minute review by the assessed model is the only review
+  printed in one risk report, and in an outside experiment a Claude model accepted that report's
+  rating more often when told it was talking to the report's authors.
+review_catchable: 'yes'
+review_rationale: >-
+  Ask, for each headline claim, what a person examined directly, what the internal version says
+  that the public one does not, and what would have to be true for the claim to be wrong. A
+  side-by-side of the two versions is a record that exists.
+severity: high
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-04
+  - EV-anthropic-2026-09-alignment-assessment-cyber-incidents-08
+  - EV-anthropic-2026-10-unintended-model-actions-08
+  - EV-anthropic-2026-07-cyber-eval-incidents-09
+  - EV-anthropic-2026-08-risk-report-06
+  - EV-anthropic-2026-03-eval-awareness-browsecomp-06
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-04
+  - EV-anthropic-2026-04-mythos-preview-system-card-09
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-01
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-02
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-03
+  - EV-metr-2026-11-anthropic-risk-report-rd-review-04
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-03
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-09
+  - EV-metr-2026-10-anthropic-risk-report-misalignment-review-10
+  - EV-cursor-2026-06-reward-hacking-coding-benchmarks-08
+  - EV-openai-2026-09-gpt-6-astra-system-card-09
+  - EV-openai-2026-04-gpt-5-5-system-card-06
+  - EV-meta-2026-05-muse-spark-safety-preparedness-report-10
+incidents:
+  - INC-2026-anthropic-agentic-scan-missed-incident
+  - INC-2026-anthropic-browsecomp-answer-key
+  - INC-2026-anthropic-risk-report-understated-acceleration
+  - INC-2026-anthropic-charxiv-grader-bug
+  - INC-2026-openai-system-card-score-corrections

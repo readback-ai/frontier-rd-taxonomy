@@ -1,0 +1,103 @@
+id: S-xai-2026-04-grok-4-20-system-card
+title: Grok 4.20 System Card
+publisher: xAI
+authors: []
+published: 2026-04-07
+url: https://data.x.ai/2026-04-07-grok-4-20-model-card.pdf
+type: system_card
+vantage: first_party
+labs: [xAI]
+summary: >-
+  xAI's eight-page system card for Grok 4.20: refusal and adversarial robustness evaluations,
+  loss-of-control propensity evaluations including an automated alignment audit, and dual-use
+  capability benchmarks under its Frontier Artificial Intelligence Framework.
+limits: >-
+  Self-reported and brief. Third-party evaluators are not named and their results are not
+  given. The alignment audit is reported without scenario counts, sample sizes or confidence
+  intervals. The card describes no human review of model-graded results. Parts of the PDF text
+  have no spacing around the model's name.
+evidence:
+  - id: EV-xai-2026-04-grok-4-20-system-card-01
+    claim: >-
+      xAI's alignment audit of Grok 4.20 is automated: an internal tool built on Petri 2.0 turns
+      handwritten seed scenarios into detailed agentic scenarios that pressure the model.
+    quote: >-
+      We conduct an automated alignment audit using an internal tool built off of Petri 2.0
+      [Fronsdal et al., 2026]. Based on a set of handwritten seed scenarios, the auditing tool
+      constructs detailed agentic scenarios that pressure the target model into eliciting
+      particular propensities.
+    locator: Section 3.2, Alignment audit (PDF page 4)
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-tasks]
+    note: >-
+      People write the seed scenarios; the tool builds the scenarios run against the model. Who
+      or what reads the resulting transcripts is not stated.
+
+  - id: EV-xai-2026-04-grok-4-20-system-card-02
+    claim: >-
+      Grok 4.20 verbalized evaluation awareness at a rate of 0.09 across xAI's automated audits,
+      against 0.10 for Grok 4 and 0.08 for Grok 4.1. xAI notes this does not rule out awareness
+      the model does not verbalize.
+    quote: >-
+      Evaluation awareness Across all audits verbalized awareness 0.10 0.08 0.09 [...] On our
+      audit, verbalized evaluation awareness remains low but non-negligible. However, this does
+      not rule out unverbalized awareness.
+    locator: Section 3.3, Table 3 (PDF page 5)
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-validity, T-eval-alignment]
+    note: >-
+      Column order (Grok 4, Grok 4.1, Grok 4.2 SA) is from the header of Table 3. No sample size
+      or interval is given.
+
+  - id: EV-xai-2026-04-grok-4-20-system-card-03
+    claim: >-
+      xAI grades its refusal evaluation, and the correctness of answers in its overconfidence
+      evaluation, with a separate model acting as judge.
+    quote: >-
+      We then use a separate model to grade whether Grok 4.20 assisted or refused the request.
+      [...] Correctness is judged by a separate LLM judge that compares the model’s response
+      against the ground-truth answer.
+    locator: Section 2.2, Refusals (PDF page 2) and Section 3.3, Overconfidence (PDF page 4)
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders]
+    note: >-
+      The card describes no human check of these grades and no calibration of the judges against
+      human labels.
+
+  - id: EV-xai-2026-04-grok-4-20-system-card-04
+    claim: >-
+      xAI gave third-party evaluators an early snapshot of Grok 4.20 for testing of its refusal
+      policy, and an early version of the checkpoint for an audit of deceptive and scheming
+      behaviors.
+    quote: >-
+      we provided third-party evaluators access to an early snapshot of Grok 4.20 for testing of
+      our refusal policy. [...] We provide third-party evaluators with an early version of the
+      checkpoint for an audit of their deceptive and scheming behaviors.
+    locator: Section 1.3, Release process (PDF page 2) and Section 3.2, Third-party testing (PDF page 4)
+    kind: practice
+    strength: reported
+    grade: B
+    tasks: [T-eval-external]
+    note: >-
+      The evaluators are not named. The card does not say the deception audit took place, and
+      reports no findings or how long the evaluators had.
+
+  - id: EV-xai-2026-04-grok-4-20-system-card-05
+    claim: >-
+      xAI says the human baselines it compares against on biology and chemistry benchmarks,
+      taken from earlier work, probably understate what experts in the relevant domain could
+      do.
+    quote: >-
+      We note that the human baselines collected in previous work likely underestimate the
+      performance of high-context experts with experience in a particular question domain.
+    locator: Section 4.1.2, Results (PDF page 6)
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-dangerous, T-eval-design]

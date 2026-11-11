@@ -1,0 +1,102 @@
+task: T-eval-design
+contribution: >-
+  The evaluation plan for a model release: which evaluations run, what each is evidence of, and
+  what result would change the decision.
+questions:
+  - id: Q-eval-design-01
+    category: what
+    topical_area: architecture_design
+    question: >-
+      Take one threat model this plan covers. Walk from a concrete way the model could cause that
+      harm to the evaluation that would show it, and say what that evaluation observes.
+    good_answer_shows: >-
+      A traced path from a harm to a named evaluation and to what moves its score, and a plain
+      statement of the paths that have no evaluation.
+    red_flags:
+      - Evaluations are listed by name with no account of what each would detect.
+      - '"It is the suite we ran last release."'
+    evidence_to_request: The mapping from threat models to evaluations, dated, with an owner.
+    risks: [R-eval-suite-misses-behavior]
+
+  - id: Q-eval-design-02
+    category: failure
+    topical_area: architecture_design
+    question: >-
+      Which situations could this model meet in internal use or deployment that nothing in the
+      suite resembles? When did a person last compare the suite with how the model is used?
+    good_answer_shows: >-
+      Specific absent situations, such as long multi-agent runs or tasks with mixed signs of
+      simulation and reality, and a date and a name for the last comparison.
+    red_flags:
+      - Coverage is described by the number of evaluations.
+      - Nobody owns the comparison.
+      - '"We would add a test if something came up."'
+    risks: [R-eval-suite-misses-behavior]
+
+  - id: Q-eval-design-03
+    category: why
+    topical_area: process
+    question: >-
+      For each evaluation that feeds a threshold decision: what result would have changed the
+      decision, and has the evaluation ever produced such a result on any model?
+    good_answer_shows: >-
+      A decision rule written before the runs, and an honest list of evaluations that could not
+      have changed the outcome.
+    red_flags:
+      - '"A worse score would have meant the grader was broken."'
+      - The rule for reading the score was settled after the score was known.
+    evidence_to_request: The pre-run statement of what each result would mean.
+    risks: [R-eval-saturated-instruments]
+
+  - id: Q-eval-design-04
+    category: dependency
+    topical_area: process
+    question: >-
+      Which evaluations in this plan are saturated or have outgrown their grading? What stands in
+      for them as evidence, and who judged that adequate?
+    good_answer_shows: >-
+      The saturated evaluations named, the substitute evidence named, and a person who accepted
+      the substitution with reasons.
+    red_flags:
+      - Saturated evaluations are still reported in the results table without comment.
+      - The substitute is "expert judgment" with no record of whose or on what.
+    risks: [R-eval-saturated-instruments]
+
+  - id: Q-eval-design-05
+    category: why
+    topical_area: process
+    question: What was left out of this plan for lack of time, and who accepted that?
+    good_answer_shows: >-
+      A list of what was cut, the risk each cut leaves open, and a named decision.
+    red_flags:
+      - '"Nothing was cut," when the plan is shorter than the last one.'
+      - The schedule is given as the reason and nobody is named as having accepted the gap.
+    risks: [R-eval-assessment-compressed]
+
+  - id: Q-eval-design-06
+    category: provenance
+    topical_area: process
+    question: >-
+      Which parts of this plan were proposed by a model? For those, what did a person check
+      before adopting them?
+    good_answer_shows: >-
+      The boundary between what people designed and what a model drafted, and a check on the
+      model's part that went beyond reading its rationale.
+    red_flags:
+      - '"The agent proposed it and it looked reasonable."'
+      - Nobody can say which parts a model wrote.
+    risks: [R-eval-suite-misses-behavior]
+
+  - id: Q-eval-design-07
+    category: side_effects
+    topical_area: architecture_design
+    question: >-
+      Besides measuring, what does running this plan do? Which runs give the model tools, network
+      access or weakened safeguards, and in whose environment?
+    good_answer_shows: >-
+      Knowledge of which evaluations are themselves hazardous operations, where they run and
+      under whose controls.
+    red_flags:
+      - Evaluations are treated as read-only.
+      - '"The vendor handles that."'
+    risks: [R-eval-environment-not-contained]

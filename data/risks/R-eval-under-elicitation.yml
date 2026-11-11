@@ -1,0 +1,28 @@
+id: R-eval-under-elicitation
+title: A capability assessment understates what the model can do
+tasks: [T-eval-elicitation, T-eval-dangerous, T-eval-harness]
+failure_mode: >-
+  The model is tested with a weaker scaffold, fewer resources, an earlier snapshot or more
+  restrictions than a motivated user or the model itself would have. A harness limit silently
+  caps performance. The low score is read as a ceiling.
+harm_path: false_assurance
+mechanisms: [time_pressure, comprehension_gap, spec_gap]
+automation_effect: >-
+  Elicitation is skilled, slow work and the testing window is short and fixed by the release
+  schedule. As agents run the evaluations, a limit in the harness binds without anyone seeing a
+  transcript end on it. The fastest improvement between model generations is in what agents do
+  with long horizons and many tools, which is the part a fixed harness measures worst.
+review_catchable: partly
+review_rationale: >-
+  A reviewer can ask what was tried, which limits bound, which snapshot was tested and how much
+  time went in. That exposes thin elicitation and a mismatched snapshot. It cannot show how far
+  a better-resourced effort would have got.
+severity: high
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-04-mythos-preview-system-card-10
+  - EV-metr-2026-06-gpt-5-6-sol-predeployment-01
+  - EV-ukaisi-2026-08-cyber-testing-incident-report-09
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-09
+  - EV-openai-2026-08-hugging-face-incident-report-02
+  - EV-gdm-2025-11-gemini-3-pro-fsf-report-06

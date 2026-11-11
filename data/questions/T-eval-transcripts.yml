@@ -1,0 +1,84 @@
+task: T-eval-transcripts
+contribution: >-
+  A finding, or a finding of nothing, from reviewing evaluation transcripts and logs.
+questions:
+  - id: Q-eval-transcripts-01
+    category: what
+    topical_area: process
+    question: >-
+      How was the set of transcripts chosen, and what review did each get: a person, a model, a
+      keyword filter?
+    good_answer_shows: >-
+      The population, the sample, and the kind of review each part received, in numbers.
+    red_flags:
+      - '"We reviewed the runs," with no account of how.'
+      - The review was a model search and is described as a review.
+    risks: [R-eval-transcripts-unread]
+
+  - id: Q-eval-transcripts-02
+    category: failure
+    topical_area: analysis_of_results
+    question: >-
+      What is the recall of the automated review? How was it measured, and on what?
+    good_answer_shows: >-
+      A recall estimate from planted or independently known cases, and what it was not tested
+      on.
+    red_flags:
+      - Recall was not measured before the result was reported.
+      - The only test cases are the ones the review itself found.
+    evidence_to_request: The test of the review method against known cases.
+    risks: [R-eval-transcripts-unread, R-eval-model-grader-unchecked]
+
+  - id: Q-eval-transcripts-03
+    category: provenance
+    topical_area: process
+    question: >-
+      How many transcripts did a person read end to end? What did they find that the automated
+      review had not?
+    good_answer_shows: >-
+      A count, a selection rule that includes unflagged transcripts, and an example either way.
+    red_flags:
+      - People read only what a model escalated.
+      - The last thing a person found by hand was found by accident.
+    risks: [R-eval-transcripts-unread]
+
+  - id: Q-eval-transcripts-04
+    category: failure
+    topical_area: key_findings
+    question: >-
+      Describe something that could be sitting in the unread transcripts and would matter. What
+      would have to happen for anyone to find it?
+    good_answer_shows: >-
+      A concrete candidate, such as a model acting outside the sandbox months ago, and the
+      routine that would surface it without an outside prompt.
+    red_flags:
+      - Discovery would depend on another organization's disclosure or a user complaint.
+      - '"The score would show it."'
+    risks: [R-eval-transcripts-unread]
+
+  - id: Q-eval-transcripts-05
+    category: dependency
+    topical_area: analysis_of_results
+    question: >-
+      Where the finding depends on what the model said it was thinking, what else supports it?
+    good_answer_shows: >-
+      Claims about the model's beliefs or intent separated from claims about its actions, with
+      independent support for the former or a caveat.
+    red_flags:
+      - The model's stated reasoning is quoted as what it believed.
+      - Reviewers disagreed about the reading and the write-up gives one view.
+    risks: [R-eval-reporting-outruns-evidence]
+
+  - id: Q-eval-transcripts-06
+    category: why
+    topical_area: process
+    question: >-
+      Why was this review method chosen over a slower one, and what did that choice cost in
+      completeness?
+    good_answer_shows: >-
+      The tradeoff stated, with the gap it leaves and a plan to close it.
+    red_flags:
+      - Speed of disclosure or of release set the method and the result was reported without the
+        caveat.
+      - Nobody estimated what the faster method would miss.
+    risks: [R-eval-transcripts-unread, R-eval-reporting-outruns-evidence]

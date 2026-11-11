@@ -1,0 +1,101 @@
+task: T-eval-alignment
+contribution: >-
+  The alignment assessment of a model, including an automated behavioral audit and its findings.
+questions:
+  - id: Q-eval-alignment-01
+    category: what
+    topical_area: architecture_design
+    question: >-
+      Who or what conducted the audit sessions, who judged them, and how are those models related
+      to the model audited?
+    good_answer_shows: >-
+      The investigator and judge models named, their relation to the subject, and what people
+      contributed: scenario seeds, review, adjudication.
+    red_flags:
+      - The auditor and judge are the subject's immediate predecessor and that is not seen as a
+        limit.
+      - Nobody can say which parts people did.
+    risks: [R-eval-audit-blind, R-eval-model-grader-unchecked]
+
+  - id: Q-eval-alignment-02
+    category: failure
+    topical_area: key_findings
+    question: >-
+      What has this audit been shown to miss? Describe the last time it was run on a model with a
+      known problem.
+    good_answer_shows: >-
+      A stress test on a deliberately flawed model, with what the audit caught, what it missed and
+      how many such tests exist.
+    red_flags:
+      - The audit has never been run on a model known to be misaligned.
+      - A miss on a test model is described as fixed by newer tooling, with one data point.
+    evidence_to_request: Results of stress tests of the audit itself.
+    risks: [R-eval-audit-blind]
+
+  - id: Q-eval-alignment-03
+    category: failure
+    topical_area: analysis_of_results
+    question: >-
+      How realistic are the scenarios to the model? How was that measured, and what do you
+      conclude from the cases where the model could tell?
+    good_answer_shows: >-
+      A measurement of how often the model treats scenarios as tests, by more than its stated
+      reasoning, and a conclusion that is weaker where it could tell.
+    red_flags:
+      - Realism is asserted.
+      - Clean behavior in detectably artificial scenarios is counted as evidence of alignment.
+    risks: [R-eval-awareness]
+
+  - id: Q-eval-alignment-04
+    category: what
+    topical_area: architecture_design
+    question: >-
+      Which kinds of behavior does the audit not exercise at all: long trajectories, many agents
+      working together, real stakes?
+    good_answer_shows: >-
+      A stated list of blind spots that matches what the team says internally.
+    red_flags:
+      - The published list of blind spots is shorter than the internal one.
+      - Recent incidents were found by outside evaluators in settings the audit does not cover.
+    risks: [R-eval-suite-misses-behavior, R-eval-audit-blind]
+
+  - id: Q-eval-alignment-05
+    category: provenance
+    topical_area: analysis_of_results
+    question: >-
+      Of the transcripts generated, how many did a person read, how were they selected, and what
+      did model-assisted review surface that people then confirmed?
+    good_answer_shows: >-
+      Counts at each stage, a selection rule that is not only "what the model flagged", and
+      examples of human confirmation or rejection.
+    red_flags:
+      - People reviewed clusters or summaries produced by a model.
+      - Hundreds read against tens of thousands generated, selected by the system under question.
+    risks: [R-eval-transcripts-unread, R-eval-audit-blind]
+
+  - id: Q-eval-alignment-06
+    category: why
+    topical_area: process
+    question: >-
+      What finding would have stopped or delayed deployment? Was that written down before the
+      audit ran?
+    good_answer_shows: >-
+      Criteria set in advance, and an example of a finding that changed a decision.
+    red_flags:
+      - No finding has ever delayed an internal deployment.
+      - Severity is judged after the fact by the team that wants to ship.
+    risks: [R-eval-determination-on-unexamined-evidence, R-eval-assessment-compressed]
+
+  - id: Q-eval-alignment-07
+    category: dependency
+    topical_area: key_findings
+    question: >-
+      Which conclusions rest on the model's own account of its reasoning? How would they change if
+      that account were unreliable?
+    good_answer_shows: >-
+      The conclusions that depend on verbalized reasoning marked as such, with other evidence
+      where it exists.
+    red_flags:
+      - What the model "believed" is reported from what it said.
+      - The team disagrees about what the evidence shows and the report does not say so.
+    risks: [R-eval-reporting-outruns-evidence, R-eval-awareness]

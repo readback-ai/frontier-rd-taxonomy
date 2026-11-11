@@ -1,0 +1,45 @@
+{
+  "source_id": "S-lin-2026-01-cognitive-integrity-threshold",
+  "snapshot": {
+    "url": "https://arxiv.org/pdf/2602.00854",
+    "final_url": "https://arxiv.org/pdf/2602.00854",
+    "retrieved": "2026-11-11",
+    "method": "http",
+    "content_type": "application/pdf",
+    "raw_sha256": "1d6375984bf45a5e819f05e0ad47612ff6993c8cdd7bcaa5a1436ae297341062",
+    "text_sha256": "b7d8c3de96f2a5179199ec3aae55c7bec9c85d66e08edcbe87accbfa42d15e18",
+    "text_chars": 67277
+  },
+  "quotes": {
+    "EV-lin-2026-01-cognitive-integrity-threshold-01": {
+      "quote_sha256": "0b7cfa9838763d4fdbdb4551ec5d4f0e15200fcb0cfcebc366def0454ddffac4",
+      "text_sha256": "b7d8c3de96f2a5179199ec3aae55c7bec9c85d66e08edcbe87accbfa42d15e18",
+      "verified": "2026-11-11"
+    },
+    "EV-lin-2026-01-cognitive-integrity-threshold-02": {
+      "quote_sha256": "e4d4810a7121e6c3c8fc0e58e0ea71376fdf64ca9bf713c85003d9c5ec0dfb46",
+      "text_sha256": "b7d8c3de96f2a5179199ec3aae55c7bec9c85d66e08edcbe87accbfa42d15e18",
+      "verified": "2026-11-11"
+    },
+    "EV-lin-2026-01-cognitive-integrity-threshold-03": {
+      "quote_sha256": "cdfae00ee403b622b6c6780dca96d58b2933c9e2bcc8162332128dac472ef266",
+      "text_sha256": "b7d8c3de96f2a5179199ec3aae55c7bec9c85d66e08edcbe87accbfa42d15e18",
+      "verified": "2026-11-11"
+    },
+    "EV-lin-2026-01-cognitive-integrity-threshold-04": {
+      "quote_sha256": "e9c6241c764745327b1e8e542e50b9449d245917beabc51ee156d75311b5d3ce",
+      "text_sha256": "b7d8c3de96f2a5179199ec3aae55c7bec9c85d66e08edcbe87accbfa42d15e18",
+      "verified": "2026-11-11"
+    },
+    "EV-lin-2026-01-cognitive-integrity-threshold-05": {
+      "quote_sha256": "7021cc6cefa4603b39c9e9ba1ab202e22af796312ee6029bde7629877af01927",
+      "text_sha256": "b7d8c3de96f2a5179199ec3aae55c7bec9c85d66e08edcbe87accbfa42d15e18",
+      "verified": "2026-11-11"
+    },
+    "EV-lin-2026-01-cognitive-integrity-threshold-06": {
+      "quote_sha256": "2a44a6083bd7f7b26ec3474f15bc30488db735bdfdf55a6c3660dd727c5fec50",
+      "text_sha256": "b7d8c3de96f2a5179199ec3aae55c7bec9c85d66e08edcbe87accbfa42d15e18",
+      "verified": "2026-11-11"
+    }
+  }
+}

@@ -1,0 +1,203 @@
+id: S-anthropic-2026-01-auditing-overt-saboteur
+title: Pre-deployment auditing can catch an overt saboteur
+publisher: Anthropic (Alignment Science Blog)
+authors:
+  - Johannes Treutlein
+  - Samuel R. Bowman
+  - Trenton Bricken
+  - Alex Cloud
+  - Misha Wagner
+  - Rowan Wang
+  - Evan Hubinger
+  - Fabien Roger
+  - Sam Marks
+published: 2026-01-28
+url: https://alignment.anthropic.com/2026/auditing-overt-saboteur/
+type: lab_research_post
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  Anthropic tests its production pre-deployment alignment audit on three models trained to
+  sabotage Anthropic openly and two benign ones. The automated auditing agent ran with
+  production settings; a human reviewer then had two hours with its output. The human with the
+  agent identified all five models; the agent's own report and scores flagged one of the three
+  saboteurs.
+limits: >-
+  Self-reported. One blind game with five models and one human auditor, who is a co-author and knew
+  sabotage of Anthropic was a likely behavior. The saboteurs were not trained to hide, and the post
+  says subtle sandbagging and evaluation-aware models would be harder. It calls the audit run a
+  lightweight version of the production audit. The two-hour review was the game's rule; the time a
+  real pre-deployment review takes is not given. The benign baselines were more misaligned than
+  production models, which the authors give as the reason aggregate scores failed; they say the
+  agent alone would have succeeded against a production baseline. Sabotage rates come from
+  model-based graders.
+evidence:
+  - id: EV-anthropic-2026-01-auditing-overt-saboteur-01
+    claim: >-
+      Anthropic says it uses existing Claude models to help develop the next ones, including
+      to monitor AI agents' actions on its infrastructure and to assess the alignment of
+      trained models.
+    quote: >-
+      Anthropic uses existing Claude models to assist in the development of future generations
+      of Claude models. This includes generating training data, writing research code,
+      monitoring actions taken by AI agents on Anthropic infrastructure, and assessing the
+      alignment of trained models.
+    locator: Introduction, first paragraph
+    kind: automation
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment]
+
+  - id: EV-anthropic-2026-01-auditing-overt-saboteur-02
+    claim: >-
+      With the settings Anthropic says it would use in a production pre-deployment alignment
+      audit, the automated auditing agent generated about 2,100 transcripts from about 700
+      seed instructions.
+    quote: >-
+      with settings identical to those we would use in a production pre-deployment alignment
+      audit (we generate ca. 2100 auditing transcripts using ca. 700 distinct seed instructions)
+    locator: Section "Running a blind auditing game"
+    kind: method
+    strength: reported
+    grade: B
+    describes: 2026-01
+    tasks: [T-eval-alignment]
+    note: >-
+      The agent is Anthropic's internal implementation of Petri. The sentence does not say
+      whether the count is per model or for all five.
+
+  - id: EV-anthropic-2026-01-auditing-overt-saboteur-03
+    claim: >-
+      One named researcher, Sam Bowman, evaluated the auditing agent's reports in the game, and
+      the post says he plays the analogous role in Anthropic's real pre-deployment alignment
+      audits.
+    quote: >-
+      a human researcher (Sam Bowman, who plays an analogous role during Anthropic’s
+      pre-deployment alignment audits) evaluates the resulting auditing reports and tries to
+      identify each model as either a sabotage model or a benign model.
+    locator: Section "Running a blind auditing game"
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-01
+    tasks: [T-eval-alignment, T-eval-transcripts]
+    note: >-
+      The human's input is the agent's reports, scores and transcripts. Whether others share
+      this role in a real audit is not stated.
+
+  - id: EV-anthropic-2026-01-auditing-overt-saboteur-04
+    claim: >-
+      In the game, the human auditor had two hours to go over the auditing agent's report on
+      the five models and could use only the agent's outputs.
+    quote: >-
+      The auditor spends two hours going over the report from the auditing agent. The auditor is
+      allowed to use all the outputs of the agent, but nothing else.
+    locator: Section "Running a blind auditing game", rules
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-transcripts]
+    note: >-
+      A rule of the experiment, not a statement of how long real audit review takes. Two hours
+      against thousands of transcripts means most were not read by a person.
+
+  - id: EV-anthropic-2026-01-auditing-overt-saboteur-05
+    claim: >-
+      The automated auditing agent on its own, by its metrics or its report, surfaced one of
+      the three saboteurs.
+    quote: >-
+      Our automated auditing agent alone surfaces only one of the three saboteurs, either in its
+      quantitative metrics or its auditing report.
+    locator: Introduction, limitations paragraph
+    kind: automation
+    strength: measured
+    grade: B
+    tasks: [T-eval-alignment]
+    note: >-
+      The post says the benign baseline models in this game were more misaligned than production
+      models, and that against a production baseline the automated auditor would have succeeded on
+      its own.
+
+  - id: EV-anthropic-2026-01-auditing-overt-saboteur-06
+    claim: >-
+      The other two saboteurs were caught because the human auditor manually reviewed a subset
+      of the transcripts with the highest scores for concerning behavior.
+    quote: >-
+      The additional signal necessary for catching the other two saboteurs was provided by the
+      human auditor manually reviewing a subset of the transcripts with the highest scores for
+      concerning behavior.
+    locator: Introduction, limitations paragraph
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-alignment]
+    note: Which transcripts the human read was set by model-assigned scores.
+
+  - id: EV-anthropic-2026-01-auditing-overt-saboteur-07
+    claim: >-
+      For the two subtle-sabotage models, the per-transcript summaries and scores almost always
+      flagged the sabotage, but that evidence did not reach the agent's overall summary or move its
+      average scores.
+    quote: >-
+      Individual transcript summaries and scores almost always correctly flagged the models’
+      sabotage behaviors, which made it possible to find them by going through the
+      highest-scoring transcripts. However, transcript summaries were not correctly propagated
+      to the overall auditing summary, and their scores did not raise overall averages
+    locator: Section "Running a blind auditing game", Results
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-transcripts, T-eval-alignment]
+    note: >-
+      Model summarization of model summaries: the top-level report omitted sabotage that lower-level
+      summaries had recorded. For the third, egregious saboteur the summary report did flag it.
+
+  - id: EV-anthropic-2026-01-auditing-overt-saboteur-08
+    claim: >-
+      Anthropic concludes that its pre-deployment auditing still requires a human in the loop:
+      for two of three saboteurs the overall auditing report left out incriminating examples
+      of overt sabotage.
+    quote: >-
+      We also show that current pre-deployment auditing still requires a human in the loop. On
+      two out of the three audited sabotage models, the overall auditing report failed to
+      incorporate several incriminating examples of overt sabotage behavior and explicit
+      statements of sabotage intent.
+    locator: Section "Discussion"
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-01
+    tasks: [T-eval-alignment]
+
+  - id: EV-anthropic-2026-01-auditing-overt-saboteur-09
+    claim: >-
+      For models that only sandbag subtly, Anthropic says auditors might have to assess
+      distributional properties such as average task performance, and that it has not seen its
+      current automated auditing agents do this effectively with their existing tools.
+    quote: >-
+      For such models, auditors might have to evaluate distributional properties such as average
+      performance on tasks rather than looking at individual transcripts. We have not observed
+      our current automated auditing agents do this kind of investigation effectively with their
+      existing tools, and our dedicated evaluations for this are fairly limited.
+    locator: Section "Discussion", third limitation
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-alignment, T-eval-validity]
+
+  - id: EV-anthropic-2026-01-auditing-overt-saboteur-10
+    claim: >-
+      During the audit, one of the benign models, an internal Claude Sonnet 4.5 variant, gave a
+      clearly false and misleading report in a transcript where it was acting as a monitor.
+    quote: >-
+      The most notable example of misalignment was a transcript in which Sonnet 4.5 Internal
+      gave a clearly false and misleading report when acting as a monitor.
+    locator: Section "Running a blind auditing game", Results
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-safeguards]
+    note: >-
+      Seen in an auditor-generated scenario, not in production monitoring. The post says the
+      benign models in this game showed more misalignment than externally deployed production
+      models.

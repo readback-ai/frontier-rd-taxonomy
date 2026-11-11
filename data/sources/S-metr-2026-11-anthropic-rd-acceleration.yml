@@ -1,0 +1,237 @@
+id: S-metr-2026-11-anthropic-rd-acceleration
+title: Independent Assessment of AI R&D Acceleration at Anthropic in October 2026
+publisher: METR
+authors: [Tom Cunningham, Nate Rush, Parker Whitfill, Hjalmar Wijk]
+published: 2026-11-05
+url: https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/
+type: third_party_investigation
+vantage: embedded_third_party
+labs: [Anthropic]
+summary: >-
+  METR's public report on eleven weeks spent assessing how much AI is speeding up AI R&D at
+  Anthropic, working on Anthropic devices with internal benchmark data, internal metrics, surveys
+  and about 15 staff interviews. Most METR staff on the project think capabilities on well-specified
+  tasks are likely improving at about twice the 2024-2025 rate, within a plausible range of 1.3 to 3
+  times, and guess that most of the current acceleration is due to AI use. The report also describes
+  how researchers work with agents and what limits METR's own measurement.
+limits: >-
+  Anthropic had unilateral redaction rights and redacted a majority of the evidence METR found most
+  informative; the roughly 100-page full report is not public. Access was mediated, not
+  employee-like: no direct access to Anthropic systems, no query access to unreleased models, a
+  small number of data requests denied, and most data came through two Anthropic staff. METR
+  reversed its reading of key data several times. Interview quotes are single researchers' views
+  with details redacted, and were classified by Claude. Self-reported uplift comes from Slack
+  reaction polls of an unrepresentative subset of staff. Claude was deeply involved in the majority
+  of the analysis on both sides. One METR team member had a disclosed conflict of interest. METR
+  says it avoids detailed process descriptions and limits its criticism of redactions to core
+  conclusions, and that some Anthropic feedback on a companion review was overly forceful. The 95%
+  interval covers score uncertainty only, not which models enter the fit.
+evidence:
+  - id: EV-metr-2026-11-anthropic-rd-acceleration-01
+    claim: >-
+      METR's assessment at Anthropic ran 11 weeks, extended from 4. Its staff never had direct
+      access to Anthropic systems; they were given individual datasets and documents.
+    quote: >-
+      The engagement was extended from 4 weeks to 11 weeks (August 12 – October 29). [...] METR’s
+      staff on this assessment never had direct access to Anthropic systems, but were given
+      access to many individual datasets and documents.
+    locator: AEF-1 checklist, items 1.4 and 3.3
+    kind: method
+    strength: reported
+    grade: B
+    describes: 2026-10
+    tasks: [T-eval-external]
+    note: >-
+      The report calls the engagement high-access and says work was done on Anthropic devices,
+      but also that neither side intended employee-like access.
+
+  - id: EV-metr-2026-11-anthropic-rd-acceleration-02
+    claim: >-
+      Anthropic redacted a majority of the evidence that METR found most informative for its
+      risk conclusions.
+    quote: >-
+      While we were able to freely share our highest-level conclusions about risk, Anthropic
+      redacted a majority of the evidence we found most informative for these conclusions.
+    locator: Redaction summary
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-external, T-eval-reporting]
+    note: >-
+      METR adds that the public therefore has to rely on METR's judgment more than would be
+      ideal. The AEF-1 checklist marks item 4.1, sharing enough method for independent review,
+      as not fulfilled.
+
+  - id: EV-metr-2026-11-anthropic-rd-acceleration-03
+    claim: >-
+      METR estimates that scores on Anthropic's internal benchmark index have grown at 1.9
+      times the earlier rate since October 2025, with a 95% interval of 1.5 to 2.8.
+    quote: >-
+      Since October 2025, benchmark scores (measured via AECI, Anthropic’s version of the Epoch
+      Capabilities Index) for Anthropic’s models have been growing at an estimated 1.9x the
+      pre-October 2025 rate [95% confidence interval: 1.5–2.8x], implying that Anthropic has made
+      roughly two years of historical progress over the last year.
+    locator: Executive summary, key empirical findings
+    kind: pace
+    strength: measured
+    grade: A
+    describes: 2026-10
+    tasks: [T-eval-inloop]
+    note: >-
+      Robustness checks in the appendix give 1.1x to 2.9x depending on the link function. The
+      index is built from the developer's own benchmark runs.
+
+  - id: EV-metr-2026-11-anthropic-rd-acceleration-04
+    claim: >-
+      METR was told that AI speeds up Anthropic's R&D mainly by assisting people, not through
+      fully autonomous contributions.
+    quote: >-
+      We were told that R&D is accelerated primarily via AI assistance rather than fully
+      autonomous contributions, but there are some signs that fully autonomous contributions
+      will play a larger role soon.
+    locator: Executive summary, key empirical findings
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-10
+    note: >-
+      Elsewhere the report says AI cannot yet fully automate substantial parts of the model
+      training pipeline. Details of the "signs of life" were redacted.
+
+  - id: EV-metr-2026-11-anthropic-rd-acceleration-05
+    claim: >-
+      One Anthropic researcher said promising research directions had been found almost
+      entirely because people can send 10 ideas to an agent scaffold and see which work.
+    quote: >-
+      I’ve seen us discovering very promising directions ~entirely because people can spam 10
+      ideas at [agent-scaffold] and see what sticks.
+    locator: Appendix, Interview quotes on AI acceleration, Researcher E
+    kind: practice
+    strength: anecdote
+    grade: C
+    describes: 2026-10
+    note: From Anthropic's own interview notes, shared with METR. Bracketed text is a redaction.
+
+  - id: EV-metr-2026-11-anthropic-rd-acceleration-06
+    claim: >-
+      One Anthropic researcher said that people presenting experiments most often just point to
+      an agent-scaffold thread.
+    quote: >-
+      When people present experiments, they most often just point to an [agent scaffold] thread.
+      Experimentation overhead is driven towards zero super fast.
+    locator: Appendix, Interview quotes on AI acceleration, Researcher C
+    kind: practice
+    strength: anecdote
+    grade: C
+    describes: 2026-10
+    note: >-
+      The quote does not say whether the audience reads the thread. From Anthropic's own
+      interview notes.
+
+  - id: EV-metr-2026-11-anthropic-rd-acceleration-07
+    claim: >-
+      Anthropic staff's self-reported speedup from the newest model, collected by Slack
+      reaction polls, reached 12x in October 2026. METR treats it as only very loose evidence.
+    quote: >-
+      We consider this to be only very loose evidence, as the responses reflect low-effort
+      consideration. Nevertheless, we observe consistent growth in these self-reports, and very
+      high levels (reaching 12x in October 2026)
+    locator: Key findings, Interviews and surveys
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-10
+    note: >-
+      Individual speedup is not the same as acceleration of overall progress, which the report
+      puts near 2x.
+
+  - id: EV-metr-2026-11-anthropic-rd-acceleration-08
+    claim: >-
+      METR cautions that much of its evidence measures well-specified tasks that are easy to
+      grade automatically or with a language model, and that recent progress may be overfit to
+      the kinds of tasks in Anthropic's index.
+    quote: >-
+      Much of the evidence we looked at measures performance on well-specified tasks that are
+      easy to grade automatically or with a language model. [...] For instance, recent progress
+      may be overfitting to the types of tasks which are included in AECI.
+    locator: Limitations, Acceleration might be limited to well-specified tasks
+    kind: risk
+    strength: reported
+    grade: B
+    tasks: [T-eval-inloop, T-eval-validity]
+    note: >-
+      METR also investigated whether Anthropic could be overfitting to internal metrics; the
+      result of that investigation is not in the public report.
+
+  - id: EV-metr-2026-11-anthropic-rd-acceleration-09
+    claim: >-
+      Anthropic's internal Model 4 scores above 50% on all 15 benchmarks used for it in the index.
+      METR says the lack of benchmarks that are difficult for Model 4 makes it somewhat nervous
+      about measuring the index now and in future.
+    quote: >-
+      The highlighted lines represent the 15 benchmarks used for Model 4. Notably, Model 4 scores
+      above 50% on all these benchmarks. [...] This lack of benchmarks which are difficult for
+      Model 4 makes us somewhat nervous about our ability to measure AECI now and in the future.
+    locator: Appendix, Benchmark scores (AECI), Model 4 achieves >50% on all of its benchmarks
+    kind: method
+    strength: measured
+    grade: A
+    describes: 2026-10
+    tasks: [T-eval-tasks, T-eval-inloop]
+    note: >-
+      The same appendix says the measured acceleration appears reasonably robust to saturation: it
+      is still 1.9x when benchmarks are dropped at 85%.
+
+  - id: EV-metr-2026-11-anthropic-rd-acceleration-10
+    claim: >-
+      METR believes Claude was deeply involved in the majority of the data collection and analysis
+      it received, in writing a significant share of the documents it received, and in the majority
+      of METR's own analysis.
+    quote: >-
+      We believe Claude was deeply involved in: the majority of data collection and analysis
+      that we received, writing a significant share of the documents we received, the majority
+      of our own analysis.
+    locator: Appendix, Adversarial robustness, weakness 2
+    kind: automation
+    strength: reported
+    grade: B
+    describes: 2026-10
+    tasks: [T-eval-external]
+    note: >-
+      METR lists this as a weakness of the exercise and says it found no significant
+      discrepancies when checking against human interviews.
+
+  - id: EV-metr-2026-11-anthropic-rd-acceleration-11
+    claim: >-
+      METR says that both its own researchers and Anthropic's are significantly uncertain how
+      to combine the evidence on acceleration into one picture.
+    quote: >-
+      Much of the redacted evidence we viewed had multiple plausible interpretations, and both
+      METR and Anthropic researchers have significant uncertainty about how to synthesize the
+      evidence into a holistic picture.
+    locator: Redaction summary
+    kind: comprehension
+    strength: reported
+    grade: B
+    describes: 2026-10
+    note: >-
+      On attributing the acceleration to AI, the report also says there was no consensus among
+      Anthropic's own staff.
+
+  - id: EV-metr-2026-11-anthropic-rd-acceleration-12
+    claim: >-
+      Anthropic removed the planned third-party verification of its compute allocation between
+      capabilities and safety from the project midway, before METR had reached any substantive
+      conclusions on it.
+    quote: >-
+      However, Anthropic changed the scope of this project midway to exclude compute
+      verification and instead just focus on AI R&D acceleration. This component was canceled
+      before METR came to any substantive conclusions on compute usage at Anthropic.
+    locator: Process details, Anthropic canceled a compute allocation component
+    kind: oversight
+    strength: reported
+    grade: B
+    tasks: [T-eval-external]
+    note: >-
+      The report links the allocation in question to Anthropic's measuring-pace post
+      (S-anthropic-2026-09-measuring-pace). Anthropic said it would revisit verification later.

@@ -1,0 +1,38 @@
+id: R-eval-assessment-compressed
+title: A model goes into internal use or release with less assessment than the process calls for
+tasks: [T-eval-determination, T-eval-dangerous, T-eval-alignment]
+failure_mode: >-
+  The schedule sets the depth. The review before internal deployment is a day, is lighter than a
+  full audit, and runs on training-time snapshots. Some internal models skip parts of the suite.
+  The behaviors that matter most are found later, in monitored use.
+harm_path: oversight_outpaced
+mechanisms: [time_pressure, accountability_diffusion]
+automation_effect: >-
+  Internal deployment for AI R&D is where automation compounds, and it is the least assessed step:
+  the model is used to build its successor before the labor-intensive evidence about it exists.
+  Faster model generations shorten each window, and outside testers get days. Evaluations are run on
+  checkpoints days older than the model that ships.
+review_catchable: 'yes'
+review_rationale: >-
+  Ask what was not run, on which snapshot, how long the people deciding had, and who accepted
+  the difference from the usual process. These are facts the contributors know or should.
+severity: critical
+status: observed_frontier
+evidence:
+  - EV-anthropic-2026-08-risk-report-03
+  - EV-anthropic-2026-08-risk-report-04
+  - EV-anthropic-2026-04-mythos-preview-system-card-01
+  - EV-anthropic-2026-04-mythos-preview-system-card-03
+  - EV-anthropic-2026-04-mythos-preview-system-card-04
+  - EV-anthropic-2026-09-fable-5-1-mythos-5-1-system-card-09
+  - EV-metr-2026-05-frontier-risk-report-12
+  - EV-thedecoder-2025-04-openai-safety-tests-pressure-01
+  - EV-gdm-2025-11-gemini-3-pro-fsf-report-05
+  - EV-gdm-2026-10-gemini-4-argon-safety-report-09
+  - EV-openai-2026-09-gpt-6-astra-system-card-11
+  - EV-openai-2026-09-gpt-6-astra-system-card-01
+  - EV-openai-2026-08-hugging-face-incident-report-05
+  - EV-meta-2026-05-muse-spark-safety-preparedness-report-02
+  - EV-xai-2026-04-grok-4-20-system-card-04
+incidents:
+  - INC-2026-anthropic-mythos-preview-internal-deployment

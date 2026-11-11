@@ -1,0 +1,149 @@
+id: S-anthropic-2026-06-recursive-self-improvement
+title: When AI builds itself
+publisher: Anthropic
+authors: [Marina Favaro, Jack Clark]
+published: 2026-06
+url: https://www.anthropic.com/institute/recursive-self-improvement
+type: lab_measurement_report
+vantage: first_party
+labs: [Anthropic]
+summary: >-
+  The Anthropic Institute's account of how much of Anthropic's AI development Claude now does,
+  with internal figures on Claude-authored code, session success rates and model-judged
+  research decisions, anonymous staff quotes, and statements that human code review has become
+  a bottleneck.
+limits: >-
+  Self-reported, written to make an argument, with no method appendix. The page carries no
+  publication date; press coverage dates it to June 4, 2026, and the page notes an update on
+  2026-09-18. Session success and research-judgment results are scored by a Claude judge.
+  Staff quotes are anonymous, taken from internal discussions with permission, and described
+  as individual views as of May 2026. Nothing is broken down by task area, so no figure is
+  specific to evaluation work.
+evidence:
+  - id: EV-anthropic-2026-06-recursive-self-improvement-01
+    claim: >-
+      Anthropic says human code review has already become a bottleneck as more code moves
+      through the organization.
+    quote: >-
+      Anthropic has already encountered one signature of Amdahl’s law: as we’ve begun to push
+      more code around the organization, human code review has become a new bottleneck.
+    locator: Possible futures, AI labs continue to see compounding efficiency gains
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-05
+    tasks: [T-eval]
+    note: Whole-company statement. Nothing is said about review of evaluation code specifically.
+
+  - id: EV-anthropic-2026-06-recursive-self-improvement-02
+    claim: >-
+      Anthropic expects humans to stop writing code and only review it once code quality
+      reaches parity, and says human review becomes the bottleneck to AI development if it
+      cannot keep up with generation.
+    quote: >-
+      Once human- and AI-authored code quality reach parity, humans will stop writing code
+      entirely, and shift to only reviewing it. But if they can’t review code as quickly as
+      Claude can generate it, human review will become the bottleneck to AI development.
+    locator: What might the future of work at Anthropic look like?
+    kind: oversight
+    strength: reported
+    grade: C
+    note: A forecast, not a measurement. No T-eval task is specific to it.
+
+  - id: EV-anthropic-2026-06-recursive-self-improvement-03
+    claim: >-
+      Proposed changes to Anthropic's codebase are read by an automated Claude reviewer before
+      merge.
+    quote: >-
+      Proposed changes to our codebase are now read by an automated Claude reviewer that looks
+      for bugs, security flaws, and other defects before it can merge.
+    locator: The code that Claude writes is "good" and improving
+    kind: oversight
+    strength: reported
+    grade: B
+    describes: 2026-05
+    tasks: [T-eval]
+    note: >-
+      Applies to the whole codebase, which would include evaluation platform code; the page
+      does not say so. It does not say what human review remains alongside the model reviewer.
+
+  - id: EV-anthropic-2026-06-recursive-self-improvement-04
+    claim: >-
+      An Anthropic employee says that on days when things break they do not understand why and
+      no longer know what they have been working on.
+    quote: >-
+      But then there are days where everything breaks and I don't understand why and I realize
+      I have no idea what I’ve been up to anymore.
+    locator: What might the future of work at Anthropic look like?, staff quote
+    kind: comprehension
+    strength: anecdote
+    grade: C
+    describes: 2026-05
+    note: Anonymous, one person. The role and the kind of work are not given.
+
+  - id: EV-anthropic-2026-06-recursive-self-improvement-05
+    claim: >-
+      The success rate Anthropic reports for Claude's internal coding sessions is assigned by a
+      Claude judge.
+    quote: >-
+      Session success is determined by a Claude judge; a session is deemed successful if the
+      Claude Code agent clearly succeeded at the user’s tasks without requiring corrections.
+    locator: The code that Claude writes is "good" and improving, chart note
+    kind: method
+    strength: reported
+    grade: B
+    tasks: [T-eval-graders]
+    note: No agreement rate between the judge and human raters is given on this page.
+
+  - id: EV-anthropic-2026-06-recursive-self-improvement-06
+    claim: >-
+      On 129 moments from real research sessions where the human's next step had room for
+      improvement, a Claude judge preferred Opus 4.5's proposed next step 51% of the time and
+      Mythos Preview's 64% of the time.
+    quote: >-
+      Because we deliberately picked moments (n=129) where we know the human’s choice had room
+      for improvement [...] our best model in November 2025 (Opus 4.5) beat the human choice
+      51% of the time; in April 2026 (Mythos Preview), this grew to 64%.
+    locator: Claude is getting better at steering research sessions towards research findings
+    kind: method
+    strength: measured
+    grade: A
+    tasks: [T-eval-graders, T-eval-dangerous]
+    note: >-
+      A capability measurement of research judgment whose grader is a Claude instance shown how
+      the session ended. Footnote 8 reports a judge-bias check on 127 other moments.
+
+  - id: EV-anthropic-2026-06-recursive-self-improvement-07
+    claim: >-
+      As of May 2026 more than 80% of the code merged into Anthropic's codebase was authored by
+      Claude.
+    quote: >-
+      As of May 2026, more than 80% of the code we merge into Anthropic’s codebase was authored
+      by Claude.
+    locator: Evidence from within Anthropic, Claude writes a significant proportion of Anthropic's code
+    kind: automation
+    strength: measured
+    grade: A
+    describes: 2026-05
+    tasks: [T-eval]
+    note: >-
+      Whole-company figure by lines merged to production, from an attribution pipeline the
+      footnotes say has gaps. No breakdown for evaluation code.
+
+  - id: EV-anthropic-2026-06-recursive-self-improvement-08
+    claim: >-
+      Anthropic notes that benchmarks often saturate below 100% because of errors in their
+      questions and answers, such as ambiguous statements and unsolvable questions.
+    quote: >-
+      benchmarks often saturate below 100%
+      due to errors in the question and answer sets like ambiguous problem statements and
+      unsolvable questions.
+    locator: Footnote 2
+    kind: risk
+    strength: reported
+    grade: C
+    tasks: [T-eval-tasks]
+    note: >-
+      A general remark about public benchmarks, not a statement about Anthropic's own evaluations.
+      The sentence adds that this holds especially as benchmarks move to more open-ended formats and
+      harder tasks.
