@@ -1,6 +1,6 @@
 # How pacing mechanisms change the takeoff of automated AI R&D
 
-Research briefing with a runnable model. Draft of 2026-11-11, calibrated to public data as of 2026-11-10. The comprehension gate was rebuilt on 2026-11-10 to count deployed changes by type, and results from the earlier gate are withdrawn. On 2026-11-11 Model B gained a link from comprehension to human research judgment, and the probability of each milestone by date was computed under two taste models. Sections dated 2026-11-11 use the link. Earlier sections do not. On 2026-11-12 research judgment was split into crisp and fuzzy tasks in four further taste models.
+Research briefing with a runnable model. Draft of 2026-11-11, calibrated to public data as of 2026-11-10. The comprehension gate was rebuilt on 2026-11-10 to count deployed changes by type, and results from the earlier gate are withdrawn. On 2026-11-11 Model B gained a link from comprehension to human research judgment, and the probability of each milestone by date was computed under two taste models. Sections dated 2026-11-11 use the link. Earlier sections do not. On 2026-11-12 research judgment was split into crisp and fuzzy tasks in four further taste models, and two developers' data on real internal use were read into Model B.
 
 ## Bottom line
 
@@ -24,6 +24,9 @@ Research briefing with a runnable model. Draft of 2026-11-11, calibrated to publ
 18. **Research judgment was split into crisp and fuzzy tasks.** Added 2026-11-12: a fuzzy task is one without clear evaluation criteria, for which human judgment is systematically flawed (Bowkis et al. 2026). Everything else counts as crisp. AI judgment improves 3 or 2.1 SD per year of 2025 progress on crisp tasks and 1 or 0.5 SD on fuzzy tasks. Crisp work has a weight of 65% and substitutes poorly for fuzzy work (elasticity 0.25). On the example trajectory the share of effort on fuzzy tasks rises from 35% in January 2027 to over 90% by July 2028.
 19. **The rate on fuzzy tasks decides the dates and what audits do.** Across sampled trajectories with fuzzy tasks at +1 SD, median TED-AI with no pacing is December 2028 or May 2029, central audits delay it by 3 to 5 months and a 3-month lag by 5. With fuzzy tasks at +0.5 SD, median TED-AI is in 2038, almost half the trajectories do not reach it before 2040, and central audits delay it by 18 to 22 months on the trajectories that do, against 13 to 14 for a 9-month lag. Lowering the crisp rate from 3 to 2.1 SD moves the medians by 1 to 6 months.
 20. **Two unmeasured inputs move the result as much as the fuzzy rate does.** On the example trajectory with fuzzy tasks at +0.5 SD, TED-AI with no pacing is October 2029 at a crisp weight of 80%, February 2034 at 65% and July 2039 at 50%. A substitution of 0.5 instead of 0.25 brings it to April 2030. The source of the definition says capabilities research is mostly crisp, which puts 65% at the low end.
+21. **Real research is handed over to AI more slowly than benchmarks suggest.** Added 2026-11-12: at OpenAI and at Google DeepMind, agents finish a real task with no human intervention 80% of the time only when it would take a person about 15 minutes, against 186 minutes on METR's benchmark. Google DeepMind's fully delegated pull requests rose from 7.5% to 11.9% between April and September 2026, 4 to 8 times slower than Anthropic's share of AI-led work, and it reports no significant acceleration of its own progress.
+22. **Read into Model B, that delays the milestones by months to years.** On the example trajectory with supervision fitted to Google DeepMind's delegation, TED-AI moves from November 2027 to May 2028 with one taste at +3 SD, and from July 2028 to February 2030 with crisp and fuzzy tasks at +3 and +1 SD. Model A no longer runs away before 2028. A share of work that needs a person, starting at 15% and falling as AI judgment on fuzzy tasks rises, matters only where that judgment is slow.
+23. **Audits delay less where people are already in the loop.** With slower handover the delay from central audits to TED-AI falls from 8 months to 1 with fuzzy tasks at +1 SD, and from 57 months to about 24 at +0.5 SD. A 3-month lag still delays it by 4 to 8 months. These are single-trajectory results.
 
 ## Notes on the sources
 
@@ -704,6 +707,99 @@ TED-AI:
 
 Median dates and median paired delays are computed separately, so a scenario's median date can move by more or less than its median delay. Paired delays to TED-AI cover only the trajectories that reach it before 2040 with no pacing.
 
+## What the labs' own usage data change
+
+Added 2026-11-12. The link from comprehension to judgment is on. These are single-trajectory results. Sampled results follow when their runs finish.
+
+Benchmarks measure what a model can do on set tasks. Two developers have now published how their agents do on real internal work, and Ramez Naam has argued from OpenAI's figures that real research is an order of magnitude harder than benchmarks suggest. This section reads those reports into Model B.
+
+### What the reports show
+
+| Source | 80% of the time | Half the time |
+|---|---|---|
+| OpenAI, January to July 2026 pooled | 15 min | 4.0 h |
+| OpenAI, each month from March to July | 9 to 22 min | |
+| Google DeepMind, Gemini 4 Argon | 11 min | 1.4 h |
+| METR benchmark, Claude Mythos Preview, as the AI Futures Model takes it | 186 min | |
+
+- **Two labs agree.** Agents finish a real task with no human intervention 80% of the time only when the task would take a person about a quarter of an hour. METR's benchmark puts the same figure for Claude Mythos Preview at 186 minutes, 12 times longer.
+- **The 80% figure did not move at OpenAI from March to July.** The task length finished half the time did grow, from about 1.5 hours in January to between 4 and 14 hours from March on. Success improved on long tasks and stayed between 80% and 91% on the shortest.
+- **A share of the shortest tasks still needs a person.** Under 15 minutes, 14% of OpenAI's tasks and 18% of Google DeepMind's needed an intervention or failed.
+- **Google DeepMind finds no significant end-to-end acceleration.** Its own capability index rose 0.091 points a month before April 2026 and 0.118 after, and "we do not observe a statistically significant difference". Its model "solves only around half of the challenges" in its internal ML R&D evaluation.
+- **Code is written by AI long before it is handed over.** At Google DeepMind the share of production pull requests with over 75% of code written by AI rose from 44% in April 2026 to 91% in September. The share that is "fully delegated" rose from 7.5% to 11.9%, and "about 88% of pull requests still require iterative multi-turn human steering or human code authorship".
+
+How fast work is handed over, on the scale the supervision schedule is fitted on:
+
+| Series | First value | Last value | Change in log-odds per month |
+|---|---|---|---|
+| Anthropic, share of work that AI leads | 1.0% in Mar 2026 | 26.0% in Aug 2026 | +0.70 |
+| Anthropic, the same without March | 12.0% in May 2026 | 26.0% in Aug 2026 | +0.34 |
+| Google DeepMind, fully delegated pull requests (under 3 human turns) | 7.5% in Apr 2026 | 11.9% in Sep 2026 | +0.09 |
+| Google DeepMind, over 98% AI-written with under 10 human turns, or better | 18.8% in Apr 2026 | 46.3% in Sep 2026 | +0.26 |
+
+### What does not change: the benchmark horizon is not an input
+
+The AI Futures code in use anchors coding automation on measured coding uplift and its growth. It does not use the benchmark horizon. Sampled trajectories are identical with a present horizon of 186 minutes or 15. The gap between benchmark and real work therefore enters through supervision, below, and through the pace the trajectories are filtered on.
+
+### Two changes
+
+- **Slower handover.** The supervision schedule is the share of work at each automation level, with a fixed human time per level. Earlier sections fit it to Anthropic's share of work that AI leads. Here it is fitted to Google DeepMind's fully delegated pull requests, taken as AI-led work, with pull requests over 75% AI-written taken as level 3 or above. That series moves 4 to 8 times slower than Anthropic's. Counting pull requests with under 10 human turns as AI-led gives a slope close to Anthropic's without its March point, so the reading of the tiers decides the result. The data are production code, and the report expects experimental code to move faster.
+- **A residue that needs a person.** 15% of work needs a person on the reference date however short the task. That share is taken to be the part of real work that turns on judgment the AI lacks. It falls with the share of researchers whose judgment is still better than the AI's, on fuzzy tasks where research is split into classes, and it has no fixed floor. Work in the residue is AI-led with a person supervising.
+
+Neither change moves the start: both leave the pace on Nov 1, 2026 as calibrated.
+
+### Model A
+
+| Supervision fitted to | Capability of the superhuman AI researcher reached | Pace in January 2028 | Labor uplift in January 2028 |
+|---|---|---|---|
+| Anthropic's automation levels | Jul 2027 | off scale | off scale |
+| Google DeepMind's fully delegated pull requests | Feb 2028 | 1.3x | 11x |
+
+Model A has no research-judgment term, so only the slower handover applies. With it the loop does not run away before 2028.
+
+### Model B, AI Futures' example trajectory, no pacing
+
+| Taste model | Earlier sections: researcher-level AI | Earlier sections: TED-AI | Slower handover: TED-AI | Residue: TED-AI | Both: researcher-level AI | Both: TED-AI |
+|---|---|---|---|---|---|---|
+| One taste, +3 SD | Sep 2027 | Nov 2027 | May 2028 | Nov 2027 | Jan 2028 | May 2028 |
+| One taste, +1 SD | Apr 2029 | Sep 2030 | Feb 2034 | Sep 2031 | Aug 2031 | Feb 2034 |
+| Crisp +3, fuzzy +1 SD | Feb 2028 | Jul 2028 | Feb 2030 | Mar 2029 | Nov 2028 | Feb 2030 |
+| Crisp +3, fuzzy +0.5 SD | Nov 2028 | Feb 2034 | Jul 2037 | Jun 2037 | Aug 2030 | Oct 2037 |
+| Crisp +2.1, fuzzy +1 SD | May 2028 | Nov 2028 | Sep 2030 | Aug 2029 | Jun 2029 | Sep 2030 |
+| Crisp +2.1, fuzzy +0.5 SD | Mar 2029 | Jun 2034 | Nov 2037 | Oct 2037 | Apr 2031 | Mar 2038 |
+
+### Model B, what pacing then does
+
+| Taste model | Earlier sections: central audits delay TED-AI | Slower handover | Residue | Both | Both: 3-month lag delays TED-AI |
+|---|---|---|---|---|---|
+| One taste, +3 SD | +1 mo | +0 mo | +1 mo | +0 mo | +4 mo |
+| One taste, +1 SD | +32 mo | +7 mo | +24 mo | +7 mo | +7 mo |
+| Crisp +3, fuzzy +1 SD | +8 mo | +1 mo | +4 mo | +1 mo | +6 mo |
+| Crisp +3, fuzzy +0.5 SD | +57 mo | +24 mo | +25 mo | +22 mo | +5 mo |
+| Crisp +2.1, fuzzy +1 SD | +10 mo | +2 mo | +5 mo | +2 mo | +6 mo |
+| Crisp +2.1, fuzzy +0.5 SD | +58 mo | +24 mo | +25 mo | past 2039 | +5 mo |
+
+The full table, with delays to the superhuman AI researcher, is `results/tables_real_research.md`.
+
+What the tables show:
+
+- **Slower handover delays everything by months to years.** With one taste improving 3 SD a year, TED-AI moves from November 2027 to May 2028. With crisp and fuzzy tasks at +3 and +1 SD it moves from July 2028 to February 2030.
+- **The residue matters only where fuzzy judgment is slow.** At +3 SD a year it changes nothing, because AI judgment passes people within a year. With fuzzy tasks at +1 SD it delays TED-AI by 8 to 9 months, and at +0.5 SD by more than three years.
+- **The two changes overlap.** Together they do little more than the slower handover alone. Both keep people in the loop, and one loop is enough to bind.
+- **Audits delay less when people are already in the loop.** With one taste at +1 SD, the delay from central audits to TED-AI falls from 32 months to 7. With fuzzy tasks at +0.5 SD it falls from 57 months to about 24. Where AI labor grows more slowly, deployed changes outgrow people's time to understand them later and by less.
+- **A 3-month lag is unaffected.** It delays TED-AI by 4 to 8 months in every row.
+
+### The taste benchmark
+
+Anthropic's TASTE benchmark asks a model which of two AI safety research proposals experienced researchers preferred. Researchers agree with the labels 77% of the time. The best model, Fable 5, scores 60%, and "almost all models perform within 2 standard deviations of chance". Naam plots the 18 models against the Epoch Capabilities Index and finds no trend.
+
+- **The scatter is sampling noise.** The models spread 5.3 points around a fitted line, and sampling noise on 92 pairs is 5.2 points.
+- **The trend cannot separate rates.** The fitted slope is +0.11 points per index point, with a 95% interval from -0.6 to +0.8. That covers no improvement, and it covers a gain of 12 points per year of 2025 progress.
+- **It is evidence on the level.** In July 2026 frontier models could not beat chance on one kind of fuzzy task. That is consistent with the -3.5 SD this briefing starts fuzzy judgment at, and with improvement that has not yet reached the point of signal.
+- **It will separate the two fuzzy rates.** On the example trajectory fuzzy judgment reaches -2 SD in July 2027 at +1 SD a year and in January 2028 at +0.5 SD. Where on that scale the benchmark starts to show signal is not known.
+
+The rates on fuzzy tasks stay at +1 and +0.5 SD a year.
+
 ## What the results imply
 
 **Audits do not buy time before researcher-level AI.** That capability is under two baseline-years away and the pace is already near 2 times. The gate costs little until deployed changes outgrow what people can understand, and that happens only weeks before. If the goal is calendar time before that point, the lag is the tool: 3 months of lag buys 2 to 3 months, and 9 buys 6 to 7.
@@ -715,6 +811,8 @@ Median dates and median paired delays are computed separately, so a scenario's m
 **Whether audits buy calendar time is a bet on slow growth in AI research judgment.** With judgment improving 3 SD per year of 2025 progress, central audits buy a month before TED-AI. At 1 SD they buy a median of 8 months before researcher-level AI and 14 before TED-AI, about what a 9-month lag buys, and the two together buy 30 months before TED-AI. The slope is the least-measured input in the AI Futures Model, and the reports from inside the labs point to less AI judgment than its filtered trajectories assume.
 
 **Splitting crisp from fuzzy work makes audits a timeline tool only where fuzzy judgment is slow.** With fuzzy tasks improving 1 SD a year, AI judgment far ahead on crisp tasks carries the lab to researcher-level AI while its judgment on fuzzy tasks is near the median researcher, and central audits buy a median of 3 to 5 months before TED-AI, no more than a 3-month lag. With fuzzy tasks improving 0.5 SD a year they buy 18 to 22 months, more than a 9-month lag, and the unpaced date itself moves out by nine years. The weight of crisp work and the substitution move the result as much as the fuzzy rate does, and neither has been measured.
+
+**Slower handover of real work and comprehension audits act on the same margin.** Both keep people in the loop. Where the labs' own data on delegation hold the handover back, the milestones arrive months to years later with no pacing at all, and audits add less: on the example trajectory their delay to TED-AI falls from 8 months to 1 with fuzzy tasks at +1 SD. A lag keeps its effect. The timeline case for audits is therefore strongest in worlds where handover is fast and fuzzy judgment is slow. Their case as a check on whether people understand what they deploy does not depend on the timeline.
 
 **Audits bind when the lab would otherwise stop understanding its work.** While AI judgment is far below the researchers', an unpaced lab keeps understanding what it deploys because its progress depends on it, and audits cost it under 1% of research effort. Once AI judgment passes most researchers the unpaced lab lets that understanding go within months and deploys thousands of changes per researcher-year. That is when audits start to cost the lab pace. The rule holds a lab to a practice it follows while the practice pays, past the point where it stops paying.
 
@@ -801,6 +899,8 @@ Four readings:
 - **The two taste models share a starting level that AI Futures itself doubts.** -3.5 SD in September 2026 comes from one author's August parameters. The same update gives another author's median as -1.5 SD and calls -3.5 "strange" given the measured pace. A higher starting level brings every date forward under both slopes.
 - **With taste that low, the measured pace has to come from coding, and half the kept trajectories have coding fully automated before Nov 1, 2026.** Anthropic reports no work at its top automation level as of August 2026. The tables split the results on this.
 - **The weight of crisp work and the substitution between crisp and fuzzy work have no measurement behind them.** The weight rests on three anchors that separate well-defined work from the rest, which is wider than the fuzzy class as defined, so 65% is at the low end. The substitution of 0.25 is a judgment. Together they set how far judgment on crisp tasks can make up for judgment on fuzzy ones: 4.1 times at the central values, 2.5 times with crisp work at a weight of 50%, 8.5 times at 80%, 2.9 times at a substitution of 0 and several hundred times at 0.83.
+- **How fast real work is handed over is measured differently at each lab, and the reading decides the result.** Anthropic reports automation levels across R&D work, Google DeepMind reports human turns on production pull requests, and OpenAI reports interventions by task length. Counting only Google DeepMind's fully delegated pull requests as AI-led gives a handover 4 to 8 times slower than Anthropic's. Counting those with under 10 human turns gives about the same rate. The pace that sampled trajectories are filtered on, 1.5 to 2 times, comes from METR's reading of Anthropic's index alone, and Google DeepMind reports no significant acceleration on its own index.
+- **The residue rule is an assumption.** That 15% of work needs a person today is measured on short tasks at two labs. That this share falls with the share of researchers still ahead of the AI on fuzzy tasks is a choice with no data behind it.
 - **The gate assumes a lab that complies and optimizes within the rule.** Audit sampling error, failed audits and the pauses they trigger are not modeled. One row lets the lab keep only 75% of deployed changes understood.
 - **The pace of 1.2 for May 2026 is AI Futures' rough guess.** It sets the steepness of Model A's uplift curve.
 - **Human time per automation level is assumed.** The values 0.50, 0.12 and 0.04 fit two self-report points and nothing else. The 7-month lag for unsupervised work is AI Futures' assumption on little data.
@@ -882,6 +982,7 @@ Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results 
 | `montecarlo_taste.py` | Probability of each milestone by date under four taste models, with the link from comprehension to judgment. About two hours on 4 cores. `--only kept` reruns just the kept trajectories and `--models` picks taste models |
 | `link_effect.py` | What the link changes on the example trajectory |
 | `split_effect.py` | What the split into crisp and fuzzy tasks does on the example trajectory, and how it moves with its three unmeasured inputs |
+| `real_research_effect.py` | What two developers' data on real internal use change on the example trajectory: slower handover of work, and a share of work that needs a person |
 | `test_pacing_model.py` | Twenty-four checks, including that the adapter reproduces the AI Futures Model's own dates. The three that need the AI Futures checkout skip without `AIFM_PATH` |
 | `requirements.txt` | The library versions the committed results were generated with |
 | `data/` | OpenAI chart data with provenance |
@@ -893,6 +994,9 @@ Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results 
 - Ajeya Cotra, "AI is dramatically accelerating AI research right now", Planned Obsolescence, Nov 6, 2026. https://www.planned-obsolescence.org/p/ai-is-dramatically-accelerating-ai
 - Eli Lifland, Brendan Halstead, Daniel Kokotajlo, Romeo Dean and others, "Q3.5 Timelines Update", AI Futures Project, Nov 10, 2026. https://blog.aifutures.org/p/q35-timelines-update-looks-like-the
 - Aleksandr Bowkis, Marie Davidsen Buhl, Jacob Pfau and Geoffrey Irving, "Automated alignment is harder than you think", arXiv:2605.06390, May 7, 2026. https://arxiv.org/abs/2605.06390
+- Google DeepMind, "Gemini 4 Argon Safety & Security Report", October 2026, section 3.4.2. https://storage.googleapis.com/deepmind-media/gemini/gemini_4_safety_report.pdf
+- Ramez Naam, "Where's the 'intelligence explosion'?", Noahpinion, 2026. https://www.noahpinion.blog/p/wheres-the-intelligence-explosion
+- Anthropic Fellows Program, "TASTE: Can AI Models Judge AI Safety Research Proposals?", 2026. https://alignment.anthropic.com/2026/taste/
 - AI Futures Project, AI Futures Model code, commit `1c40ecd`, Sep 9, 2026. https://github.com/AI-Futures-Project/aifm-public
 - Eli Lifland, Brendan Halstead, Romeo Dean and Thomas Larsen, "How to Pace the US Frontier", AI Futures Project, Aug 5, 2026. https://blog.aifutures.org/p/how-to-pace-the-us-frontier
 - Anthropic, "Measurements for understanding the pace of AI development inside frontier labs", Sep 2026. https://www.anthropic.com/institute/measuring-pace-of-ai-development
