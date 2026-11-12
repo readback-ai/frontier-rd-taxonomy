@@ -8,7 +8,7 @@ from dataclasses import replace
 
 from pacing_model import (Policy, build_a, calibrate_a, deployment, first_crossing, free_deployment,
                           gate, gate_from_calibration, lab_choice, link_from_calibration, load_calibration,
-                          standard_policies, value_at)
+                          power_mean, standard_policies, value_at)
 
 CAL = load_calibration()
 
@@ -179,6 +179,54 @@ def test_link_costs_less_when_few_researchers_are_ahead_of_ai():
     everyone = lab_choice(1e-3, cobb, REF, GATE, None, 1.5, 1.2, LINK, people_share=1.0)
     few = lab_choice(1e-3, cobb, REF, GATE, None, 1.5, 1.2, LINK, people_share=0.1)
     assert few["effort"] >= everyone["effort"] and few["understood"] >= everyone["understood"]
+
+
+def test_power_mean_is_pulled_toward_the_weakest_class():
+    shares = [0.7, 0.3]
+    assert math.isclose(float(power_mean([2.0, 2.0], shares, -0.5)), 2.0)
+    assert math.isclose(float(power_mean([4.0, 1.0], shares, 0.0)), 4.0**0.7)
+    means = [float(power_mean([100.0, 1.0], shares, r)) for r in (0.0, -0.5, -1.0, -3.0)]
+    assert all(b < a for a, b in zip(means, means[1:]))
+    # With one class free, judgment tops out at a fixed multiple of the other class.
+    assert math.isclose(float(power_mean([1e30, 1.0], shares, -0.5)), 0.3 ** (1.0 / -0.5), rel_tol=1e-6)
+
+
+def test_task_classes_that_move_together_change_nothing():
+    one = lab_choice(1e-3, cobb, REF, GATE, None, 1.5, 1.2, LINK, people_share=0.4)
+    two = lab_choice(1e-3, cobb, REF, GATE, None, [1.5, 1.5], [1.2, 1.2], LINK, people_share=0.4,
+                     class_shares=[0.7, 0.3], class_r=-0.5)
+    for key in ("effort", "understood", "labor", "taste"):
+        assert math.isclose(one[key], two[key], rel_tol=1e-12), key
+
+
+def test_lab_keeps_understanding_for_the_class_where_people_still_lead():
+    # AI matches people on crisp tasks and is far behind on fuzzy ones. People's judgment
+    # still pays on the fuzzy class, so the lab keeps understanding what it deploys.
+    crisp_only = lab_choice(1e-3, cobb, REF, GATE, None, 2.0, 2.0, LINK)
+    split = lab_choice(1e-3, cobb, REF, GATE, None, [2.0, 1.0], [2.0, 0.2], LINK,
+                       class_shares=[0.7, 0.3], class_r=-0.5)
+    assert crisp_only["understood"] < 1e-6
+    assert split["understood"] > 0.3
+
+
+def test_adapter_task_classes_reduce_to_one_taste_and_shift_effort_to_fuzzy_work():
+    from aifm_adapter import DEFAULT_AIFM_PATH
+    if not Path(DEFAULT_AIFM_PATH).exists():
+        print("skipped: AIFM checkout not found")
+        return
+    from link_effect import example
+    from montecarlo_taste import taste_models
+    models = {m.name: m for m in taste_models(CAL)}
+    single = example(CAL, models["baseline"])
+    same = example(CAL, replace(models["split_1"], fuzzy=models["split_1"].crisp))
+    for name in ("SAR", "TED-AI"):
+        assert abs(single.levels[name] - same.levels[name]) < 1e-6, name
+    split = example(CAL, models["split_1"])
+    assert single.levels["SAR"] < split.levels["SAR"] < example(CAL, models["slow"]).levels["SAR"]
+    early, late = split.capability_at(split.t_ref), split.levels["TED-AI"]
+    share = lambda cap: split.effort_shares(split.class_tastes(cap)[1])[1]
+    assert math.isclose(share(early), 1.0 - CAL["taste_split"]["crisp_share"], abs_tol=0.01)
+    assert share(late) > 0.6
 
 
 def test_adapter_link_matches_aifm_pace_at_the_reference_date():

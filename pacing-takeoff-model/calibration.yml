@@ -121,6 +121,24 @@ taste_models:                    # AI Futures 2026-11-10, "Research taste linear
   slope_baseline: 3.0            # SD per year of 2025 progress, Kokotajlo's median
   slope_slow: 1.0                # low end of Eli Lifland's 80% interval of 1 to 6.25
 
+taste_split:                     # Research split into two classes of task. ASSUMPTIONS except crisp_share's anchor.
+  # Crisp tasks have success that is fast and cheap to verify. Fuzzy tasks do not. AI judgment
+  # improves at a different rate in each class. Both classes start at taste_models.level_sd.
+  crisp_share: 0.7               # share of research effort on crisp work while judgment is equal in both classes.
+                                 # Anchor: OpenAI 2026-09-06, growth in agent output tokens per researcher-day,
+                                 # Jan to Aug 2026, by phase (sums of the categories under `openai` above):
+                                 # build 32%, run 28%, decide 0.6%, design 2%, analyze 8%, communicate 28%.
+                                 # Build and run are 60%. Decide, design and analyze are 11%. Communicate is
+                                 # mostly technical help and review and is left unassigned; without it crisp is 84%.
+                                 # Agent output overstates the crisp share of human effort. Epoch's 2024
+                                 # interviews with eight researchers say hypotheses and planning take little
+                                 # time within a project (read from a search summary, not the report).
+  substitution: 0.5              # elasticity of substitution between crisp and fuzzy work. Below 1 they are
+                                 # complements, so effort shifts to fuzzy work as crisp work gets cheap. No data.
+                                 # One AI Futures author's task-continuum variant uses 0.67 to 0.83.
+  crisp_slope: 3.0               # SD per year of 2025 progress
+  fuzzy_slopes: [1.0, 0.5]
+
 other_mechanisms:                # AI Futures, How to pace the US frontier (2026-08-05)
   internal_use_lag_months: 9     # "trained at least X months earlier, perhaps 9"
   internal_use_lag_months_short: 3   # a shorter lag, for comparison. Not an AI Futures figure.

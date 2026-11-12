@@ -224,6 +224,23 @@ def link_from_calibration(cal: dict, **overrides) -> Link:
     return Link(**base)
 
 
+def power_mean(values, weights, r: float):
+    """Weighted power mean along the first axis, with exponent r. r = 0 is the geometric mean.
+
+    This is the judgment of a lab whose research needs several classes of task, when it
+    spreads its experiments across the classes to best effect. With an elasticity of
+    substitution sigma between the classes, r = sigma - 1. For sigma below 1 the classes
+    are complements: the mean is pulled toward the weakest class, and the share of effort
+    that goes to class k, weights_k * values_k ** r / sum, rises as that class falls behind.
+    """
+    v = np.maximum(np.asarray(values, dtype=float), 1e-300)
+    w = np.asarray(weights, dtype=float)
+    w = (w / w.sum()).reshape((-1,) + (1,) * (v.ndim - 1))
+    if abs(r) < 1e-9:
+        return np.exp((w * np.log(v)).sum(axis=0))
+    return (w * v ** r).sum(axis=0) ** (1.0 / r)
+
+
 _USE_FINE = np.concatenate([np.geomspace(1e-5, 0.1, 80), np.linspace(0.1, 1.0, 301)[1:]])
 _SPLIT = (1.0, 0.75, 0.5, 0.25)         # share of hours tried for required time before top-ups
 
@@ -253,8 +270,8 @@ def _concave_fill(budget: np.ndarray, cost: np.ndarray, weight: np.ndarray, cap:
 
 
 def lab_choice(tau: float, capacity_of_labor, labor_ref: float, changes: Gate, rule: Gate | None,
-               taste_people: float, taste_ai: float, link: Link, hours_mult: float = 1.0,
-               people_share: float = 1.0) -> dict:
+               taste_people, taste_ai, link: Link, hours_mult: float = 1.0,
+               people_share: float = 1.0, class_shares=None, class_r: float = 0.0) -> dict:
     """Research effort when human judgment depends on comprehension.
 
     tau: human time per unit of work spent directing AI.
@@ -283,6 +300,12 @@ def lab_choice(tau: float, capacity_of_labor, labor_ref: float, changes: Gate, r
     people_share: the share of researchers whose judgment is better than the AI's. Only
     they gain anything from understanding beyond what a rule requires, so only they
     spend the extra hours, each on their own share of the lab's changes.
+
+    With several classes of research task, taste_people and taste_ai are sequences with
+    one entry per class, class_shares the classes' effort shares at equal judgment, and
+    class_r the power-mean exponent (see power_mean). A person who understands a change
+    applies their judgment to it in every class, so one understood share serves all
+    classes, and the lab's judgment is the power mean of the per-class blends.
     """
     g = rule if rule is not None else changes
     if g.coverage != 1.0:
@@ -304,7 +327,9 @@ def lab_choice(tau: float, capacity_of_labor, labor_ref: float, changes: Gate, r
         need = np.array([t.hours for t in g.types]) * g.hours_scale * hours_mult
     credit = np.minimum(need / judge, 1.0)
     top = np.maximum(judge - need, 0.0)
-    gain = max(taste_people - taste_ai, 0.0)
+    taste_ai = np.atleast_1d(np.asarray(taste_ai, dtype=float))
+    gain = np.maximum(np.atleast_1d(np.asarray(taste_people, dtype=float)) - taste_ai, 0.0)
+    class_shares = np.ones(len(taste_ai)) if class_shares is None else np.asarray(class_shares, dtype=float)
     share = min(max(people_share, 1e-9), 1.0)
     ratio = labor / labor_ref
     best = None
@@ -330,7 +355,7 @@ def lab_choice(tau: float, capacity_of_labor, labor_ref: float, changes: Gate, r
         # Across the whole lab: researchers behind the AI add nothing beyond what a rule requires.
         understood_lab = (weight[:, None] * (credit[:, None] + share * topped)).sum(axis=0)
         kept = np.prod(q ** (beta * weight[:, None]), axis=0)
-        taste = taste_ai + gain * understood
+        taste = power_mean(taste_ai[:, None] + gain[:, None] * understood[None, :], class_shares, class_r)
         value = capacity * kept * taste
         i = int(np.argmax(value))
         if best is None or value[i] > best["effort"]:

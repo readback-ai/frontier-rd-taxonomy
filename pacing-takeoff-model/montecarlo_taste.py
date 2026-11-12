@@ -1,16 +1,21 @@
 """Probability of a superhuman AI researcher and of TED-AI by date, by pacing scenario,
-under two models of how fast AI research judgment ("research taste") improves.
+under four models of how fast AI research judgment ("research taste") improves.
 
-Both taste models start from AI Futures' base case in "Research taste linear
+All four start from AI Futures' base case in "Research taste linear
 extrapolation" (2026-11-10): AI research taste of -3.5 SD on Sep 25, 2026.
 
-    baseline   +3 SD per year of 2025 progress (AI Futures' base case)
-    slow       +1 SD per year of 2025 progress
+    baseline    +3 SD per year of 2025 progress (AI Futures' base case)
+    slow        +1 SD per year of 2025 progress
+    split_1     research split into crisp tasks at +3 SD and fuzzy tasks at +1 SD
+    split_0.5   crisp tasks at +3 SD and fuzzy tasks at +0.5 SD
+
+In the split models the two classes are complements (calibration.yml,
+taste_split), so effort shifts to fuzzy work as crisp work gets cheap.
 
 Every other parameter is drawn with AI Futures' own sampler and August 2026
 configuration. A draw is kept if its pace of progress on Nov 1, 2026 is in the
 band METR measured. With taste that low on the reference date, AI judgment adds
-nothing to the pace by then, so the same draws are kept under both taste models
+nothing to the pace by then, so the same draws are kept under every taste model
 and the pace has to come from coding.
 
 Each kept trajectory runs under every pacing scenario with the link from
@@ -18,12 +23,11 @@ comprehension to human judgment switched on (pacing_model.lab_choice), and
 under two scenarios with the link off for comparison.
 
 Usage:
-    python montecarlo_taste.py --samples 8000        # about an hour on 4 cores
+    python montecarlo_taste.py --samples 10000       # about two hours on 4 cores
+    python montecarlo_taste.py --samples 10000 --only kept --models split_1,split_0.5
     python montecarlo_taste.py --replot              # rebuild tables and figures from the CSV
 
-Writes results/model_b_taste.csv, results/tables_taste.md,
-results/fig5_probability_by_date_gates.png and
-results/fig6_probability_by_date_other.png.
+Writes results/model_b_taste.csv, results/tables_taste.md and figures 5, 6, 8 and 9.
 """
 from __future__ import annotations
 
@@ -34,6 +38,7 @@ import logging
 import math
 import multiprocessing as mp
 import time
+from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
@@ -55,9 +60,56 @@ SLOPE = "ai_research_taste_slope"
 _STATE = {}
 
 
-def taste_models(cal: dict) -> dict[str, float]:
-    t = cal["taste_models"]
-    return {"baseline": float(t["slope_baseline"]), "slow": float(t["slope_slow"])}
+@dataclass(frozen=True)
+class TasteModel:
+    name: str                 # key in the CSV
+    crisp: float              # SD per year of 2025 progress. The only slope when `fuzzy` is None
+    fuzzy: float | None       # slope of the fuzzy class, or None for a single taste
+    years: tuple              # dates for the probability columns
+    until: float              # right edge of the figure panel
+
+    @property
+    def short(self) -> str:
+        return f"{self.crisp:+g} SD" if self.fuzzy is None else f"Crisp {self.crisp:+g}, fuzzy {self.fuzzy:+g} SD"
+
+    @property
+    def panel(self) -> str:
+        return (f"taste {self.crisp:+g} SD a year" if self.fuzzy is None
+                else f"crisp {self.crisp:+g} SD, fuzzy {self.fuzzy:+g} SD a year")
+
+    @property
+    def heading(self) -> str:
+        return (f"Taste improves {self.crisp:+g} SD per year of 2025 progress" if self.fuzzy is None else
+                f"Crisp tasks improve {self.crisp:+g} SD and fuzzy tasks {self.fuzzy:+g} SD per year of 2025 progress")
+
+
+def taste_models(cal: dict) -> list[TasteModel]:
+    t, sp = cal["taste_models"], cal["taste_split"]
+    out = [TasteModel("baseline", float(t["slope_baseline"]), None, (2028.0, 2029.0, 2030.0), 2031.0),
+           TasteModel("slow", float(t["slope_slow"]), None, (2029.0, 2031.0, 2035.0), T_END)]
+    span = {1.0: ((2028.0, 2029.0, 2031.0), 2033.0), 0.5: ((2029.0, 2031.0, 2035.0), T_END)}
+    for fuzzy in sp["fuzzy_slopes"]:
+        years, until = span.get(float(fuzzy), ((2029.0, 2031.0, 2035.0), T_END))
+        out.append(TasteModel(f"split_{fuzzy:g}", float(sp["crisp_slope"]), float(fuzzy), years, until))
+    return out
+
+
+def build(params: dict, first: Aifm, model: TasteModel, cal: dict, aifm_path: Path, share: float | None = None,
+          substitution: float | None = None, crisp_level: float | None = None) -> Aifm:
+    """The model under `model`. `first` is the same draw run with negligible taste."""
+    t, sp, t_ref = cal["taste_models"], cal["taste_split"], cal["reference_date"]
+    m = pinned(params, first, model.crisp, t["level_sd"], t["date"], aifm_path, t_ref)
+    if model.fuzzy is not None:
+        # The crisp class keeps the schedule AIFM holds for the single taste. The fuzzy class
+        # passes through the same level on the date and climbs at fuzzy / crisp of the rate.
+        at = m.capability_at(t["date"])
+        level, slope = m.taste_sd(at), m.params.ai_research_taste_slope
+        share = sp["crisp_share"] if share is None else share
+        m.set_taste_classes(
+            [dict(share=share, slope=slope, at=at, level=level if crisp_level is None else crisp_level),
+             dict(share=1.0 - share, slope=slope * model.fuzzy / model.crisp, at=at, level=level)],
+            sp["substitution"] if substitution is None else substitution)
+    return m
 
 
 def pinned(params: dict, first: Aifm, slope_per_2025_year: float, level_sd: float, date: float,
@@ -78,13 +130,14 @@ def pinned(params: dict, first: Aifm, slope_per_2025_year: float, level_sd: floa
     return Aifm(dict(params, **{SLOPE: slope_input, TASTE_AT_AC: at_ac}), aifm_path, t_ref, horizon=2030.0)
 
 
-def _init(aifm_path, band, supervision):
+def _init(aifm_path, band, supervision, models):
     import warnings
     warnings.filterwarnings("ignore")     # AIFM overflows harmlessly on extreme draws
     np.seterr(all="ignore")
     logging.disable(logging.WARNING)
     cal = pm.load_calibration()
     _STATE.update(path=aifm_path, band=band, supervision=supervision, cal=cal,
+                  models=[m for m in taste_models(cal) if m.name in models],
                   policies={p.name: p for p in pm.standard_policies(cal)})
 
 
@@ -103,9 +156,9 @@ def _work(job):
         return index, pace, []
     rows = []
     try:
-        for name, slope in taste_models(cal).items():
-            m = pinned(params, first, slope, spec["level_sd"], spec["date"], _STATE["path"], t_ref)
-            common = dict(sample=index, pace_nov_2026=m.base_pace(t_ref), taste_model=name,
+        for model in _STATE["models"]:
+            m = build(params, first, model, cal, _STATE["path"])
+            common = dict(sample=index, pace_nov_2026=m.base_pace(t_ref), taste_model=model.name,
                           taste_sd_on_date=m.taste_sd(m.capability_at(spec["date"])),
                           slope_per_2025_year=m.params.ai_research_taste_slope * m.rate0,
                           ac_date=m.milestones.get("AC", (float("nan"),))[0])
@@ -167,7 +220,9 @@ def _days(xs) -> str:
 
 def markdown(rows, meta) -> str:
     cal = pm.load_calibration()
-    spec = cal["taste_models"]
+    spec, sp = cal["taste_models"], cal["taste_split"]
+    present = {r["taste_model"] for r in rows}
+    models = [m for m in taste_models(cal) if m.name in present]
     out = ["# Probability of each milestone by date, by taste model and pacing scenario", "",
            "Written by `montecarlo_taste.py`. Do not edit by hand.", "",
            f"{meta['kept']} of {meta['drawn']} sampled trajectories ({meta['kept'] / meta['drawn']:.1%}) had a pace "
@@ -175,38 +230,41 @@ def markdown(rows, meta) -> str:
            "contribute, and are kept. Parameters other than taste are drawn from AI Futures' August 2026 "
            f"distribution for {meta['forecaster'].title()}, seed {meta['seed']}. "
            f"Median pace of the kept trajectories: {meta['median_pace']:.2f}x. "
-           f"Both taste models put AI research taste at {spec['level_sd']:+g} SD on {pm.fmt_date(spec['date'])}. "
+           f"Every taste model puts AI research taste at {spec['level_sd']:+g} SD on {pm.fmt_date(spec['date'])}, "
+           "in both classes of task where there are two. In the split models crisp tasks take "
+           f"{sp['crisp_share']:.0%} of research effort while judgment is equal across the classes, and the "
+           f"elasticity of substitution between the classes is {sp['substitution']:g}. "
            "Pacing starts Jan 1, 2027. Delays are paired: each trajectory under a scenario against the same "
            f"trajectory with no pacing. A milestone not reached by the end of {T_END - 1:.0f} counts as later "
            "than that. The link from comprehension to human judgment is on except where a table says otherwise.",
            ""]
-    years = {"baseline": (2028.0, 2029.0, 2030.0), "slow": (2029.0, 2031.0, 2035.0)}
     milestones = (("sar", "Superhuman AI researcher"), ("ted_ai", "TED-AI"))
-    models = taste_models(cal)
-    head = " | ".join(f"{slope:+g} SD: median {label}" + (f" | {slope:+g} SD: median delay" if True else "")
-                      for slope in models.values() for label in ("superhuman AI researcher", "TED-AI"))
-    out += ["## Summary", "", f"| Scenario | {head} |", "|---|" + "---|" * (4 * len(models))]
-    for name in SCENARIOS:
-        cells = []
-        for model in models:
-            base = select(rows, model, 1, "No pacing")
-            got = select(rows, model, 1, name)
-            for key, _ in milestones:
+    lower = lambda key, label: label[0].lower() + label[1:] if key == "sar" else label
+    out += ["## Summary", ""]
+    for key, label in milestones:
+        out += [f"### {label}: median date and median delay", "",
+                "| Scenario | " + " | ".join(f"{m.short}: median date | {m.short}: median delay" for m in models) + " |",
+                "|---|" + "---|" * (2 * len(models))]
+        for name in SCENARIOS:
+            cells = []
+            for m in models:
+                base = select(rows, m.name, 1, "No pacing")
+                got = select(rows, m.name, 1, name)
                 cells.append(date_text(quantile([r[key] for r in got.values()], 0.5)))
                 cells.append("" if name == "No pacing" else delay_text(quantile(delays(got, base, key), 0.5)))
-        out.append(f"| {name} | " + " | ".join(cells) + " |")
-    out.append("")
-    for model, slope in taste_models(cal).items():
-        base = select(rows, model, 1, "No pacing")
-        out += [f"## Taste improves {slope:+g} SD per year of 2025 progress ({model})", ""]
+            out.append(f"| {name} | " + " | ".join(cells) + " |")
+        out.append("")
+    for model in models:
+        base = select(rows, model.name, 1, "No pacing")
+        out += [f"## {model.heading} ({model.name})", ""]
         for key, label in milestones:
-            ys = years[model]
+            ys = model.years
             out += [f"### {label}", "",
                     "| Scenario | Median date | Middle half of trajectories | "
                     + " | ".join(f"By start of {y:.0f}" for y in ys) + " | Median delay | Delay, upper quartile |",
                     "|---|---|---|" + "---|" * len(ys) + "---|---|"]
             for name in SCENARIOS:
-                got = select(rows, model, 1, name)
+                got = select(rows, model.name, 1, name)
                 v = [r[key] for r in got.values()]
                 d = delays(got, base, key)
                 first = name == "No pacing"
@@ -217,17 +275,17 @@ def markdown(rows, meta) -> str:
                            + ("" if first else delay_text(quantile(d, 0.75))) + " |")
             out.append("")
         # What the link changes
-        off = select(rows, model, 0, "No pacing")
-        audit_on = select(rows, model, 1, "Comprehension audits, central")
-        audit_off = select(rows, model, 0, "Comprehension audits, central")
+        off = select(rows, model.name, 0, "No pacing")
+        audit_on = select(rows, model.name, 1, "Comprehension audits, central")
+        audit_off = select(rows, model.name, 0, "Comprehension audits, central")
         out += ["### What the link from comprehension to judgment changes", "",
                 "| | Link off | Link on |", "|---|---|---|"]
         for key, label in milestones:
-            out.append(f"| No pacing: median date of {label[0].lower() + label[1:] if key == 'sar' else label} | "
+            out.append(f"| No pacing: median date of {lower(key, label)} | "
                        f"{date_text(quantile([r[key] for r in off.values()], 0.5))} | "
                        f"{date_text(quantile([r[key] for r in base.values()], 0.5))} |")
         for key, label in milestones:
-            out.append(f"| Central audits: median delay to {label[0].lower() + label[1:] if key == 'sar' else label} | "
+            out.append(f"| Central audits: median delay to {lower(key, label)} | "
                        f"{delay_text(quantile(delays(audit_off, off, key), 0.5))} | "
                        f"{delay_text(quantile(delays(audit_on, base, key), 0.5))} |")
         shift = {key: [base[k][key] - off[k][key] for k in base] for key, _ in milestones}
@@ -239,7 +297,7 @@ def markdown(rows, meta) -> str:
                 "| Automated coder | Trajectories | No pacing: median superhuman AI researcher | No pacing: median "
                 "TED-AI | Central audits: median delay to superhuman AI researcher | Central audits: median delay "
                 "to TED-AI | 3-month lag: median delay to TED-AI |", "|---|---|---|---|---|---|---|"]
-        lag3 = select(rows, model, 1, "Internal-use lag, 3 months")
+        lag3 = select(rows, model.name, 1, "Internal-use lag, 3 months")
         for label, keys in (("Before Nov 1, 2026", early), ("Nov 1, 2026 or later", set(base) - early)):
             if not keys:
                 continue
@@ -295,18 +353,18 @@ def _curve(values, lo: float, hi: float):
     return x, y
 
 
-def figure(rows, meta, styles: dict, path: Path, title: str) -> None:
+def figure(rows, meta, styles: dict, path: Path, title: str, models: list[TasteModel]) -> None:
+    """One row of panels per taste model: superhuman AI researcher on the left, TED-AI on the right."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     from matplotlib.lines import Line2D
     cal = pm.load_calibration()
     plt.rcParams["font.family"] = "DejaVu Sans"
-    models = taste_models(cal)
-    span = {"baseline": (2027.0, 2031.0), "slow": (2027.0, T_END)}
-    fig, axes = plt.subplots(2, 2, figsize=(11.5, 8.2), facecolor=SURFACE)
-    for i, (model, slope) in enumerate(models.items()):
-        lo, hi = span[model]
+    fig, axes = plt.subplots(len(models), 2, figsize=(11.5, 0.6 + 3.8 * len(models)), facecolor=SURFACE,
+                             squeeze=False)
+    for i, model in enumerate(models):
+        lo, hi = 2027.0, model.until
         for j, (key, label) in enumerate((("sar", "Superhuman AI researcher"), ("ted_ai", "TED-AI"))):
             ax = axes[i, j]
             ax.set_facecolor(SURFACE)
@@ -318,7 +376,7 @@ def figure(rows, meta, styles: dict, path: Path, title: str) -> None:
             ax.grid(True, axis="y", color=GRID, linewidth=0.8)
             ax.set_axisbelow(True)
             for name, (color, dash) in styles.items():
-                got = select(rows, model, 1, name)
+                got = select(rows, model.name, 1, name)
                 x, y = _curve([r[key] for r in got.values()], lo, hi)
                 ax.step(x, y, where="post", color=color, linestyle=dash, linewidth=2.0,
                         zorder=3 if name == "No pacing" else 2)
@@ -329,28 +387,43 @@ def figure(rows, meta, styles: dict, path: Path, title: str) -> None:
             ax.set_xticklabels([str(int(y)) for y in years])
             ax.set_yticks([0.0, 0.25, 0.5, 0.75, 1.0])
             ax.set_yticklabels(["0%", "25%", "50%", "75%", "100%"] if j == 0 else [""] * 5)
-            ax.set_title(f"{label}, taste {slope:+g} SD a year", loc="left", fontsize=10.5, color=INK, pad=8)
+            ax.set_title(f"{label}, {model.panel}", loc="left", fontsize=10.5, color=INK, pad=8)
     handles = [Line2D([0], [0], color=c, linestyle=d, linewidth=2.2) for c, d in styles.values()]
-    fig.legend(handles, [SHORT.get(n, n) for n in styles], loc="lower center", ncol=len(styles) if len(styles) <= 5 else 4,
+    fig.legend(handles, [SHORT.get(n, n) for n in styles], loc="lower center",
+               ncol=len(styles) if len(styles) <= 5 else 4,
                frameon=False, fontsize=9.5, labelcolor=INK, handlelength=3.2, columnspacing=2.2)
     fig.suptitle(title, x=0.045, y=0.985, ha="left", fontsize=13, color=INK)
+    ends = ", ".join(f"{word} row ends {m.until:.0f}" for word, m in zip(("top", "bottom"), models))
+    split = any(m.fuzzy is not None for m in models)
+    classes = (f" Crisp tasks take {cal['taste_split']['crisp_share']:.0%} of research effort at first; crisp and "
+               "fuzzy work are complements." if split else "")
     fig.text(0.045, 0.94,
              f"Share of {meta['kept']} sampled AI Futures Model trajectories that have reached each milestone "
              f"by the date shown. Pace {meta['band'][0]:g}x to {meta['band'][1]:g}x on Nov 1, 2026.\n"
              f"AI research taste {cal['taste_models']['level_sd']:+g} SD in Sep 2026, improving per year of 2025 "
-             "progress as each panel says. Pacing starts Jan 1, 2027. Top row ends 2031, bottom row 2040.",
+             f"progress as each panel says.{classes}\nPacing starts Jan 1, 2027. {ends[0].upper() + ends[1:]}.",
              fontsize=9, color=INK2, va="top")
-    fig.tight_layout(rect=(0.02, 0.085 if len(styles) > 5 else 0.055, 1.0, 0.91), h_pad=2.0)
+    fig.tight_layout(rect=(0.02, 0.085 if len(styles) > 5 else 0.055, 1.0, 0.895), h_pad=2.0)
     fig.savefig(path, dpi=200, facecolor=SURFACE)
     plt.close(fig)
 
 
 def report(rows, meta) -> None:
     (OUT / "tables_taste.md").write_text(markdown(rows, meta))
-    figure(rows, meta, STYLE_GATES, OUT / "fig5_probability_by_date_gates.png",
-           "Probability of each milestone by date: sign-off and comprehension audits")
-    figure(rows, meta, STYLE_OTHER, OUT / "fig6_probability_by_date_other.png",
-           "Probability of each milestone by date: lags, compute cuts and combinations")
+    present = {r["taste_model"] for r in rows}
+    models = [m for m in taste_models(pm.load_calibration()) if m.name in present]
+    single = [m for m in models if m.fuzzy is None]
+    split = [m for m in models if m.fuzzy is not None]
+    gates = "Probability of each milestone by date: sign-off and comprehension audits"
+    other = "Probability of each milestone by date: lags, compute cuts and combinations"
+    if single:
+        figure(rows, meta, STYLE_GATES, OUT / "fig5_probability_by_date_gates.png", gates, single)
+        figure(rows, meta, STYLE_OTHER, OUT / "fig6_probability_by_date_other.png", other, single)
+    if split:
+        figure(rows, meta, STYLE_GATES, OUT / "fig8_probability_by_date_gates_split.png",
+               gates + ", crisp and fuzzy tasks", split)
+        figure(rows, meta, STYLE_OTHER, OUT / "fig9_probability_by_date_other_split.png",
+               other + ", crisp and fuzzy tasks", split)
 
 
 def load() -> tuple[list[dict], dict]:
@@ -376,6 +449,8 @@ def main() -> None:
     ap.add_argument("--supervision", default="anthropic")
     ap.add_argument("--aifm-path", default=str(DEFAULT_AIFM_PATH))
     ap.add_argument("--workers", type=int, default=mp.cpu_count())
+    ap.add_argument("--models", default="", help="comma-separated taste models to run; default is all. With "
+                                                 "--only kept, results for the other models are kept from the CSV")
     ap.add_argument("--only", default="",
                     help="'kept' reruns just the trajectories in the existing CSV, skipping the pace filter "
                          "over all draws. Same results as a full run, in less time")
@@ -389,25 +464,29 @@ def main() -> None:
     t0 = time.time()
     samples = draw_samples(path, args.forecaster, args.samples, args.seed)
     print(f"[{time.time() - t0:5.0f}s] drew {len(samples)} parameter sets", flush=True)
-    jobs, drawn = list(enumerate(samples)), None
+    every = [m.name for m in taste_models(pm.load_calibration())]
+    models = [x.strip() for x in args.models.split(",") if x.strip()] or every
+    jobs, drawn, carried = list(enumerate(samples)), None, []
     if args.only == "kept":
         old_rows, old_meta = load()
         wanted, drawn = {r["sample"] for r in old_rows}, old_meta["drawn"]
         jobs = [j for j in jobs if j[0] in wanted]
+        carried = [r for r in old_rows if r["taste_model"] not in models]
     rows, paces = [], []
-    per = len(taste_models(pm.load_calibration())) * (len(SCENARIOS) + len(UNLINKED))
-    with mp.Pool(args.workers, initializer=_init, initargs=(path, band, args.supervision)) as pool:
+    per = len(models) * (len(SCENARIOS) + len(UNLINKED))
+    with mp.Pool(args.workers, initializer=_init, initargs=(path, band, args.supervision, models)) as pool:
         for done, (index, pace, got) in enumerate(pool.imap_unordered(_work, jobs, chunksize=2), 1):
             paces.append(pace)
             rows.extend(got)
             if done % (10 if drawn else 200) == 0 or done == len(jobs):
                 print(f"[{time.time() - t0:5.0f}s] {done} run, {len(rows) // per} kept", flush=True)
+    rows += carried
     order = {name: i for i, name in enumerate(SCENARIOS)}
-    rows.sort(key=lambda r: (r["sample"], r["taste_model"], -r["link"], order[r["scenario"]]))
+    rows.sort(key=lambda r: (r["sample"], every.index(r["taste_model"]), -r["link"], order[r["scenario"]]))
     valid = [p for p in paces if p == p]
     kept = sorted({r["sample"] for r in rows})
     kept_pace = [r["pace_nov_2026"] for r in rows
-                 if r["taste_model"] == "baseline" and r["link"] == 1 and r["scenario"] == "No pacing"]
+                 if r["taste_model"] == rows[0]["taste_model"] and r["link"] == 1 and r["scenario"] == "No pacing"]
     meta = dict(drawn=drawn or len(valid), kept=len(kept), band=band, forecaster=args.forecaster, seed=args.seed,
                 median_pace=float(np.median(kept_pace)) if kept_pace else float("nan"))
     with open(OUT / "model_b_taste.csv", "w", newline="") as f:

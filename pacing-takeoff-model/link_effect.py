@@ -1,8 +1,8 @@
 """What the link from comprehension to human judgment changes, on one trajectory.
 
-Runs AI Futures' Nov 10 example trajectory under the two taste models in
-calibration.yml (taste -3.5 SD in Sep 2026, improving +3 or +1 SD per year of
-2025 progress), with the link off and on.
+Runs AI Futures' Nov 10 example trajectory under each taste model in
+calibration.yml (taste -3.5 SD in Sep 2026, then a single slope or separate
+slopes for crisp and fuzzy tasks), with the link off and on.
 
 Writes results/tables_link.md and results/fig7_understanding_with_no_pacing.png.
 """
@@ -12,20 +12,22 @@ import numpy as np
 
 import pacing_model as pm
 from aifm_adapter import DEFAULT_AIFM_PATH, ELI_AUG_2026, Q35_EXAMPLE, Aifm
-from montecarlo_taste import INK, INK2, GRID, SURFACE, TASTE_AT_AC, pinned, taste_models
+from montecarlo_taste import GRID, INK, INK2, SURFACE, TASTE_AT_AC, TasteModel, build, taste_models
 
 OUT = pm.HERE / "results"
 T_END = 2040.0
 SCENARIOS = ["No pacing", "Human sign-off, no comprehension standard", "Comprehension audits, light",
              "Comprehension audits, central", "Comprehension audits, strict", "Internal-use lag, 3 months"]
-PATH_DATES = {"baseline": (2027.0, 2027.25, 2027.5, 2027.67), "slow": (2027.0, 2027.5, 2028.0, 2028.5, 2029.0)}
+PATH_DATES = {"baseline": (2027.0, 2027.25, 2027.5, 2027.67), "slow": (2027.0, 2027.5, 2028.0, 2028.5, 2029.0),
+              "split_1": (2027.0, 2027.5, 2027.75, 2028.0, 2028.2),
+              "split_0.5": (2027.0, 2027.5, 2028.0, 2028.5, 2029.0)}
 
 
-def example(cal: dict, slope: float) -> Aifm:
+def example(cal: dict, model: TasteModel, **split) -> Aifm:
+    """AI Futures' example trajectory under `model`. `split` overrides the task-class settings."""
     params = dict(ELI_AUG_2026, **Q35_EXAMPLE)
-    spec = cal["taste_models"]
     first = Aifm(dict(params, **{TASTE_AT_AC: -30.0}), DEFAULT_AIFM_PATH, cal["reference_date"], horizon=2030.0)
-    m = pinned(params, first, slope, spec["level_sd"], spec["date"], DEFAULT_AIFM_PATH, cal["reference_date"])
+    m = build(params, first, model, cal, DEFAULT_AIFM_PATH, **split)
     m.fit_supervision("anthropic", cal)
     return m
 
@@ -57,10 +59,11 @@ def main() -> None:
            f"{cal['taste_models']['level_sd']:+g} SD on {pm.fmt_date(cal['taste_models']['date'])}. "
            "Pacing starts Jan 1, 2027.", ""]
     paths = {}
-    for model, slope in taste_models(cal).items():
-        m = example(cal, slope)
+    for spec in taste_models(cal):
+        model = spec.name
+        m = example(cal, spec)
         m._cal = cal
-        out += [f"## Taste improves {slope:+g} SD per year of 2025 progress ({model})", "",
+        out += [f"## {spec.heading} ({model})", "",
                 f"Pace on Nov 1, 2026: {m.base_pace(cal['reference_date']):.2f}x. Automated coder: "
                 f"{date(m.milestones['AC'][0])}.", "",
                 "| Scenario | Link off: superhuman AI researcher | Link off: TED-AI | Link on: superhuman AI "
@@ -85,7 +88,7 @@ def main() -> None:
                 "judgment with full understanding | Pace | Pace with the link off |",
                 "|---|---|---|---|---|---|---|---|"]
         _, run, run_off = paths[model]
-        for when in PATH_DATES[model]:
+        for when in PATH_DATES.get(model, PATH_DATES["slow"]):
             if when > min(run["t"][-1], run_off["t"][-1]):
                 continue
             cap = at(run, "progress", when)
@@ -115,7 +118,8 @@ def figure(cal: dict, paths: dict) -> None:
     import matplotlib.pyplot as plt
     plt.rcParams["font.family"] = "DejaVu Sans"
     colors = {"baseline": "#2a78d6", "slow": "#eb6834"}
-    slopes = taste_models(cal)
+    slopes = {m.name: m.crisp for m in taste_models(cal) if m.fuzzy is None}
+    paths = {name: v for name, v in paths.items() if name in slopes}
     fig, ax = plt.subplots(figsize=(9.6, 4.6), facecolor=SURFACE)
     ax.set_facecolor(SURFACE)
     for side in ("top", "right", "left"):

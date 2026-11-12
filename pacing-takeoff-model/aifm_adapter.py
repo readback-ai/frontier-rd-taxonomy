@@ -20,17 +20,21 @@ from __future__ import annotations
 
 import logging
 import math
+import os
 import sys
 from pathlib import Path
 
 from dataclasses import replace
 
 import numpy as np
+from scipy.optimize import brentq
 
 from pacing_model import (Link, Policy, Supervision, first_crossing, fit_supervision, free_deployment, gate,
-                          gate_from_calibration, lab_choice, link_from_calibration, value_at)
+                          gate_from_calibration, lab_choice, link_from_calibration, power_mean, value_at)
 
-DEFAULT_AIFM_PATH = Path("/home/user/ai-futures-project/aifm-public")
+# Where the AI Futures Project's public code is checked out. Set AIFM_PATH, or pass a path
+# to the scripts that take --aifm-path.
+DEFAULT_AIFM_PATH = Path(os.environ.get("AIFM_PATH", "~/aifm-public")).expanduser()
 
 # The public code (2026-09-09) ships August 2026 parameter presets. AI Futures'
 # 2026-11-10 update reports that those presets gave under 4% to the pace METR
@@ -128,13 +132,16 @@ class Aifm:
         # of AI research taste, so each progress level follows from the parameters. Reading the
         # level off AIFM's trajectory at the reported date is unreliable when progress is
         # explosive: the trajectory can climb tens of orders of magnitude between two grid points.
-        self.milestones, self.levels = {}, {}
+        self.milestones, self.levels, self.targets = {}, {}, {}
+        self.classes, self.class_r = None, 0.0     # research task classes, set by set_taste_classes
         p = self.params
         for key, name in (("AC", "AC"), ("SAR-level-experiment-selection-skill", "SAR"),
                           ("TED-AI", "TED-AI"), ("ASI", "ASI")):
             record = r["milestones"].get(key, {})
             when = record.get("time")
             level = None
+            if record.get("metric") == "ai_research_taste_sd":
+                self.targets[name] = (float(record["target"]), bool(record.get("requires_ac")))
             if record.get("metric") == "ai_research_taste_sd" and p.ai_research_taste_slope > 0:
                 level = p.progress_at_aa + (record["target"] - p.ai_research_taste_at_coding_automation_anchor_sd) \
                     / p.ai_research_taste_slope
@@ -161,15 +168,60 @@ class Aifm:
             today = self.link.time_today * self.people_share(self.capability_at(self.t_ref))
             self.link = replace(self.link, time_today=today)
 
+    # ---- research task classes --------------------------------------------
+    def set_taste_classes(self, classes: list[dict], substitution: float) -> None:
+        """Split research into classes of task whose AI judgment improves at different rates.
+
+        classes: one dict per class with `share` (share of research effort on the class when
+        judgment is equal across classes), `slope` (SD of AI judgment per unit of progress),
+        `level` (SD at progress `at`). substitution: elasticity of substitution between the
+        classes. Below 1 they are complements and the slowest class comes to dominate effort.
+
+        The lab's judgment is the power mean of the classes' judgment (pacing_model.power_mean).
+        A milestone AIFM defines as a level of AI research taste is reached when the judgment
+        of an AI-only lab, the power mean of AI judgment across classes, reaches that level.
+        """
+        self.classes, self.class_r = [dict(c) for c in classes], substitution - 1.0
+        td = self.params.taste_distribution
+        shares = [c["share"] for c in self.classes]
+        own = lambda c, sd: c["at"] + (sd - c["level"]) / c["slope"]      # progress where a class reaches sd
+        for name, (target, needs_ac) in self.targets.items():
+            want = float(td.get_taste_at_sd(target))
+            lo, hi = (f(own(c, target) for c in self.classes) for f in (min, max))
+            miss = lambda cap: float(power_mean(self.class_tastes(cap)[0], shares, self.class_r)) - want
+            level = hi if hi - lo < 1e-9 or miss(hi) <= 0.0 else lo if miss(lo) >= 0.0 else brentq(miss, lo, hi)
+            self.levels[name] = float(max(level, self.params.progress_at_aa) if needs_ac else level)
+            self.milestones.pop(name, None)       # AIFM's own date no longer applies
+
+    def class_sds(self, cap: float) -> np.ndarray:
+        return np.array([c["level"] + c["slope"] * (cap - c["at"]) for c in self.classes])
+
+    def class_tastes(self, cap: float) -> tuple[np.ndarray, np.ndarray]:
+        """(AI judgment, judgment with people) for each class, at capability `cap`."""
+        td = self.params.taste_distribution
+        ai = np.asarray(td.get_taste_at_sd(self.class_sds(cap)), dtype=float)
+        return ai, np.asarray(self.pr.compute_aggregate_research_taste(ai, td), dtype=float)
+
+    def effort_shares(self, tastes) -> np.ndarray:
+        """Share of research effort on each class, given the lab's judgment in each."""
+        w = np.array([c["share"] for c in self.classes]) * np.maximum(np.asarray(tastes, float), 1e-300) ** self.class_r
+        return w / w.sum()
+
     def taste_sd(self, cap: float) -> float:
-        """AI research judgment in standard deviations of the lab's researchers."""
+        """AI research judgment in standard deviations of the lab's researchers. With task
+        classes, the level that matches the judgment of an AI-only lab."""
         p = self.params
+        if self.classes:
+            ai = power_mean(self.class_tastes(cap)[0], [c["share"] for c in self.classes], self.class_r)
+            return float(p.taste_distribution.get_sd_of_taste(float(ai)))
         return float(p.ai_research_taste_slope * (cap - p.progress_at_aa)
                      + p.ai_research_taste_at_coding_automation_anchor_sd)
 
     def people_share(self, cap: float) -> float:
-        """Share of researchers whose research judgment is better than the AI's."""
-        return 0.5 * math.erfc(self.taste_sd(cap) / math.sqrt(2.0))
+        """Share of researchers whose research judgment is better than the AI's. With task
+        classes, better in at least one class."""
+        sd = float(self.class_sds(cap).min()) if self.classes else self.taste_sd(cap)
+        return 0.5 * math.erfc(sd / math.sqrt(2.0))
 
     # ---- calibrated history ----------------------------------------------
     def capability_at(self, date: float) -> float:
@@ -203,8 +255,16 @@ class Aifm:
             supervised: bool, cap_start: float | None):
         p, pr = self.params, self.pr
         H, C, X, X_unpaced, tc = self._inputs(t, pol)
-        taste_ai = float(pr.compute_ai_research_taste(cap, p))
-        taste = pr.compute_aggregate_research_taste(taste_ai, p.taste_distribution)
+        shares = None
+        if self.classes:
+            shares = [c["share"] for c in self.classes]
+            ai_k, people_k = self.class_tastes(cap)
+            taste_ai = float(power_mean(ai_k, shares, self.class_r))
+            taste = float(power_mean(people_k, shares, self.class_r))
+        else:
+            taste_ai = float(pr.compute_ai_research_taste(cap, p))
+            taste = pr.compute_aggregate_research_taste(taste_ai, p.taste_distribution)
+            ai_k, people_k = taste_ai, taste
         L_opt = p.automation_model.coding_labor_optimal_ces(
             H, C, float(math.log(self.cfg.BASE_FOR_SOFTWARE_LOM) * cap), p)
         coding = float(L_opt ** p.parallel_penalty * p.coding_labor_normalization)
@@ -233,9 +293,9 @@ class Aifm:
             # Measured labor uplift already includes the time people spend understanding
             # what they deploy today, so directing alone is that much more productive.
             out = lab_choice(tau * (1.0 - self.link.time_today), lambda labor: effort_of_labor(labor) / taste,
-                             self.labor_ref, self.changes, spec, taste, taste_ai, self.link,
+                             self.labor_ref, self.changes, spec, people_k, ai_k, self.link,
                              spec.hours_multiplier(cap, cap_start) if spec is not None else 1.0,
-                             self.people_share(cap))
+                             self.people_share(cap), shares, self.class_r)
             F, theta, labor, kept = out["effort"], out["theta"], out["labor"], out["kept"]
             comp, deployed, experiments = out["comprehension_share"], out["deployed"], out["experiments"]
             understood, understood_lab, taste_used = out["understood"], out["understood_lab"], out["taste"]
