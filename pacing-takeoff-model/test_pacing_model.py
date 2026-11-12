@@ -320,3 +320,44 @@ def test_adapter_reproduces_aifm_milestones():
     for name, (when, _) in m.milestones.items():
         got = s[f"t_{name.lower().replace('-', '_')}"]
         assert abs(got - when) < 0.02, (name, got, when)
+
+
+def test_work_that_needs_a_person_shrinks_as_ai_judgment_rises():
+    need_aifm()
+    from aifm_adapter import ELI_AUG_2026, Q35_EXAMPLE, Aifm
+
+    m = Aifm(
+        dict(ELI_AUG_2026, **Q35_EXAMPLE, ai_research_taste_at_coding_automation_anchor_sd=-3.0)
+    )
+    m.fit_supervision("anthropic", CAL)
+    m.use_calibration(CAL)
+    cap = m.capability_at(m.t_ref)
+    assert m.needs_a_person(cap) == 0.0
+    free = m.summarize(m.simulate(Policy(), t_end=2029.0))
+    m.use_calibration(CAL, residue=True)
+    today = CAL["real_research"]["residue_today"]
+    assert abs(m.needs_a_person(cap) - today) < 1e-9
+    # Half of researchers are ahead of an AI whose judgment is at the median.
+    median = cap - m.taste_sd(cap) / m.params.ai_research_taste_slope
+    assert abs(m.needs_a_person(median) - 0.5 * today / m.people_share(cap)) < 1e-6
+    assert m.needs_a_person(median + 3.0) < 0.05 * today
+    held = m.summarize(m.simulate(Policy(), t_end=2029.0))
+    assert held["t_sar"] >= free["t_sar"] - 1e-6
+    # The start is unchanged: almost no work runs unsupervised on the reference date.
+    start = m.simulate(Policy(), t_end=m.t_ref + 0.02)
+    assert abs(start["pace"][0] / m.base_pace(m.t_ref) - 1.0) < 0.01
+
+
+def test_delegation_at_google_deepmind_is_slower_than_at_anthropic():
+    a, _ = build_a(CAL, supervision="anthropic")
+    g, _ = build_a(CAL, supervision="gdm")
+    assert 0.0 < g.supervision.k < a.supervision.k / 3.0
+    # Both schedules start from the human time that measured labor uplift implies today.
+    cap = a.uplift_cap  # same calibrated model either way
+    for m in (a, g):
+        hist = m.simulate(t_end=m.t_ref + 0.02, supervised_from=1e9)
+        cap_ref = float(np.interp(m.t_ref, hist["t"], hist["Y"]))
+        assert abs(m.supervision.h(cap_ref) * cap(cap_ref) - 1.0) < 1e-6
+    # A moving ceiling on unsupervised work only ever adds human time.
+    far = cap_ref + 3.0
+    assert a.supervision.h(far, 0.85) > a.supervision.h(far) >= 0.0

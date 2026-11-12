@@ -1,0 +1,12 @@
+# Google DeepMind, "Gemini 4 Argon Safety & Security Report" (October 2026), section 3.4.2.3, Figure 3.15,
+# "The fraction of AI-written code has increased steadily in the last 6 months". Share of production pull requests
+# at Google DeepMind by how much of the code AI wrote. Experimental code is not included. Values are as printed on
+# the chart. The two September values with no printed label are blank; together they are 5.6%.
+# The report's text calls the first column "fully delegated pull requests".
+month,decimal_year,ai_100pct_under_3_human_turns,ai_over_98pct_under_10_human_turns,ai_over_75pct,ai_over_50pct,ai_over_0pct,ai_0pct
+2026-04,2026.29,0.075,0.113,0.255,0.220,0.207,0.131
+2026-05,2026.37,0.085,0.165,0.335,0.171,0.162,0.082
+2026-06,2026.46,0.106,0.226,0.363,0.119,0.119,0.068
+2026-07,2026.54,0.107,0.272,0.421,0.070,0.069,0.061
+2026-08,2026.62,0.101,0.319,0.454,0.038,0.040,0.049
+2026-09,2026.71,0.119,0.344,0.450,,,0.031

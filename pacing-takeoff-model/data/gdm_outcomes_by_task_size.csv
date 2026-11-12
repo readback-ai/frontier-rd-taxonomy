@@ -1,0 +1,14 @@
+# Google DeepMind, "Gemini 4 Argon Safety & Security Report" (October 2026), section 3.4.2.3, Figure 3.16,
+# "Zero-shot task success vs human intervention by task size in internal use". A stratified random sample of 1389
+# Gemini 4 Argon trajectories from internal use. Gemini Flash 3.8 estimated how long each task would take an
+# unassisted Google engineer and classified the outcome. Trajectories with no clear task, an infrastructure or quota
+# error, or no user follow-up are omitted. Shares and counts are as printed on the chart. The printed counts sum
+# to 993. hours_mid is the geometric midpoint of the bucket, taking a day as 24 hours and a week as 168 hours;
+# 0.15 for under 15 minutes and 240 (ten days) for over a week are conventions, as in the OpenAI files.
+bucket,hours_mid,n,success_no_intervention,human_intervention,failure_or_ambiguous
+<15m,0.15,114,0.82,0.09,0.09
+15m-1h,0.5,277,0.67,0.24,0.09
+1-4h,2.0,253,0.44,0.43,0.13
+4h-1d,9.8,133,0.28,0.59,0.13
+1d-1w,63.5,157,0.38,0.50,0.12
+>1w,240,59,0.13,0.83,0.04

@@ -209,9 +209,15 @@ class Aifm:
         self.labor_ref = float(np.interp(t_ref, b["t"], b["coding_mult"]))
         self.changes = None  # deployed-change counts, set by use_calibration
         self.link = None  # the comprehension-to-judgment link, set by use_calibration
+        self.residue = 0.0  # share of work that needs a person today, set by use_calibration
 
-    def use_calibration(self, cal: dict, link: bool | Link = False) -> None:
+    def use_calibration(
+        self, cal: dict, link: bool | Link = False, residue: bool | float = False
+    ) -> None:
         self.changes = gate_from_calibration(cal)
+        self.residue = (
+            float(cal["real_research"]["residue_today"]) if residue is True else float(residue)
+        )
         self.link = link_from_calibration(cal) if link is True else (link or None)
         if self.link is not None:
             # Today only researchers whose judgment beats the AI's need to keep up.
@@ -293,6 +299,16 @@ class Aifm:
         sd = float(self.class_sds(cap).min()) if self.classes else self.taste_sd(cap)
         return 0.5 * math.erfc(sd / math.sqrt(2.0))
 
+    def needs_a_person(self, cap: float) -> float:
+        """Share of work that cannot run unsupervised because it turns on a judgment call the
+        AI gets wrong. It starts at the share the labs measure on their shortest tasks and
+        falls in step with the share of researchers whose judgment is still better than the
+        AI's, on fuzzy tasks where there are task classes."""
+        if self.residue <= 0.0:
+            return 0.0
+        today = self.people_share(self.capability_at(self.t_ref))
+        return self.residue * min(1.0, self.people_share(cap) / today)
+
     # ---- calibrated history ----------------------------------------------
     def capability_at(self, date: float) -> float:
         return float(np.interp(date, self.base["t"], self.base["progress"]))
@@ -364,7 +380,8 @@ class Aifm:
         mult = coding / human  # serial coding labor multiplier
         tau = 1.0 / mult
         if supervised and self.supervision.kind != "none":
-            tau = max(tau, self.supervision.h(cap))
+            ceiling = 1.0 - self.needs_a_person(cap) if self.residue > 0.0 else None
+            tau = max(tau, self.supervision.h(cap, ceiling))
         effort_human = float(
             pr.compute_research_effort(
                 X_unpaced,

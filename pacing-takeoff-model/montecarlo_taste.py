@@ -187,7 +187,7 @@ def pinned(
     )
 
 
-def _init(aifm_path, band, supervision, models, split=None):
+def _init(aifm_path, band, supervision, models, split=None, residue=False):
     import warnings
 
     warnings.filterwarnings("ignore")  # AIFM overflows harmlessly on extreme draws
@@ -198,6 +198,7 @@ def _init(aifm_path, band, supervision, models, split=None):
         path=aifm_path,
         band=band,
         supervision=supervision,
+        residue=residue,
         cal=cal,
         models=[m for m in taste_models(cal) if m.name in models],
         split=dict(split or {}),
@@ -232,7 +233,7 @@ def _work(job):
             )
             m.fit_supervision(_STATE["supervision"], cal)
             for link, names in ((True, SCENARIOS), (False, UNLINKED)):
-                m.use_calibration(cal, link=link)
+                m.use_calibration(cal, link=link, residue=_STATE["residue"])
                 for scenario in names:
                     run = m.simulate(
                         _STATE["policies"][scenario], t_end=T_END, step=0.006, stop_at="TED-AI"
@@ -307,6 +308,22 @@ def _subset(by_sample: dict, keys) -> dict:
     return {k: by_sample[k] for k in keys}
 
 
+def real_research_note(meta: dict) -> str:
+    """What a run changed to follow the labs' own usage data (calibration.yml, real_research)."""
+    out = ""
+    if meta.get("supervision") == "gdm":
+        out += (
+            " The supervision schedule is fitted to Google DeepMind's share of fully delegated "
+            "pull requests."
+        )
+    if meta.get("residue"):
+        out += (
+            f" {meta['residue']:.0%} of work needs a person on Nov 1, 2026, and that share falls "
+            "with the share of researchers whose judgment is still better than the AI's."
+        )
+    return out
+
+
 def markdown(rows, meta) -> str:
     cal = pm.load_calibration()
     spec, sp = cal["taste_models"], cal["taste_split"]
@@ -337,7 +354,7 @@ def markdown(rows, meta) -> str:
         f"trajectory with no pacing. A milestone not reached by the end of {T_END - 1:.0f} counts "
         "as later "
         "than that. The link from comprehension to human judgment is on except where a table says "
-        "otherwise.",
+        "otherwise." + real_research_note(meta),
         "",
     ]
     milestones = (("sar", "Superhuman AI researcher"), ("ted_ai", "TED-AI"))
@@ -658,7 +675,14 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=20261110)
     ap.add_argument("--pace-low", type=float, default=1.5)
     ap.add_argument("--pace-high", type=float, default=2.0)
-    ap.add_argument("--supervision", default="anthropic")
+    ap.add_argument(
+        "--supervision", default="anthropic", help="'anthropic' or 'gdm' (calibration.yml)"
+    )
+    ap.add_argument(
+        "--residue",
+        action="store_true",
+        help="a share of work needs a person and falls as AI judgment rises (real_research)",
+    )
     ap.add_argument("--aifm-path", default=str(DEFAULT_AIFM_PATH))
     ap.add_argument("--workers", type=int, default=mp.cpu_count())
     ap.add_argument(
@@ -687,8 +711,9 @@ def main() -> None:
         split["share"] = args.crisp_share
     if args.substitution is not None:
         split["substitution"] = args.substitution
-    if split and not tag:
-        ap.error("an override of the split inputs needs --tag, so the main results stay intact")
+    changed = split or args.residue or args.supervision != "anthropic"
+    if changed and not tag:
+        ap.error("an override of the inputs needs --tag, so the main results stay intact")
     path, band = Path(args.aifm_path), (args.pace_low, args.pace_high)
     OUT.mkdir(exist_ok=True)
     t0 = time.time()
@@ -708,7 +733,9 @@ def main() -> None:
     rows, paces = [], []
     per = len(models) * (len(SCENARIOS) + len(UNLINKED))
     with mp.Pool(
-        args.workers, initializer=_init, initargs=(path, band, args.supervision, models, split)
+        args.workers,
+        initializer=_init,
+        initargs=(path, band, args.supervision, models, split, args.residue),
     ) as pool:
         for done, (_index, pace, got) in enumerate(
             pool.imap_unordered(_work, jobs, chunksize=2), 1
@@ -739,6 +766,10 @@ def main() -> None:
         seed=args.seed,
         median_pace=float(np.median(kept_pace)) if kept_pace else float("nan"),
     )
+    if args.supervision != "anthropic":
+        meta["supervision"] = args.supervision
+    if args.residue:
+        meta["residue"] = pm.load_calibration()["real_research"]["residue_today"]
     if "share" in split:
         meta["crisp_share"] = split["share"]
     if "substitution" in split:

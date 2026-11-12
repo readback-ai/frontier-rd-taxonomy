@@ -485,6 +485,8 @@ class Supervision:
                         capability fitted to Anthropic's Automation Index, with
                         fixed human time per level. Unsupervised work (AL5)
                         lags AI-led work (AL4).
+    kind = "gdm":       the same schedule fitted to Google DeepMind's share of fully
+                        delegated pull requests. It is stored with kind "anthropic".
     kind = "openai":    human time per unit of work halves each time the task
                         length that agents complete with zero interventions
                         doubles. That horizon is fitted to OpenAI's monthly
@@ -517,22 +519,25 @@ class Supervision:
     # Labor uplift is output per human hour, so the two are the same quantity today.
     scale: float = 1.0
 
-    def shares(self, cap):
+    def shares(self, cap, al5_ceiling: float | None = None):
+        ceiling = self.al5_ceiling if al5_ceiling is None else al5_ceiling
         s3 = logistic(self.k * (cap - self.mid4 + self.lead3))
         s4 = logistic(self.k * (cap - self.mid4))
-        s5 = self.al5_ceiling * logistic(self.k * (cap - self.mid4 - self.lag5))
+        s5 = ceiling * logistic(self.k * (cap - self.mid4 - self.lag5))
         return s3, s4, s5
 
-    def raw(self, cap: float) -> float:
+    def raw(self, cap: float, al5_ceiling: float | None = None) -> float:
         if self.kind == "anthropic":
-            s3, s4, s5 = self.shares(cap)
+            s3, s4, s5 = self.shares(cap, al5_ceiling)
             return float(self.h2 * (1 - s3) + self.h3 * (s3 - s4) + self.h4 * (s4 - s5))
         if self.kind in ("openai", "openai_runtime"):
             return float(self.h_ref * 2.0 ** (-(cap - self.cap_ref) / self.halving))
         return 0.0
 
-    def h(self, cap: float) -> float:
-        return self.scale * self.raw(cap)
+    def h(self, cap: float, al5_ceiling: float | None = None) -> float:
+        """Human time per unit of work. `al5_ceiling` overrides the largest share of work that
+        can run unsupervised, for a ceiling that moves with capability."""
+        return self.scale * self.raw(cap, al5_ceiling)
 
 
 def read_data(name: str) -> list[dict]:
@@ -599,7 +604,23 @@ def fit_supervision(
         )
     idx = cal["anthropic_automation_index"]
     ht = cal["human_time_per_unit_work"]
-    pts = idx["al4_share"]
+    pts, al3_plus = idx["al4_share"], idx["al3_plus_share_aug_2026"]
+    if kind == "gdm":
+        # Google DeepMind's pull requests, read on the same levels: fully delegated ones are
+        # AI-led work (AL4), and those with over 75% of the code written by AI are AL3 or above.
+        rows = read_data("gdm_pull_requests_by_ai_share.csv")
+        pts = [
+            dict(date=float(r["decimal_year"]), share=float(r["ai_100pct_under_3_human_turns"]))
+            for r in rows
+        ]
+        al3_plus = sum(
+            float(rows[-1][c])
+            for c in (
+                "ai_100pct_under_3_human_turns",
+                "ai_over_98pct_under_10_human_turns",
+                "ai_over_75pct",
+            )
+        )
     x = np.array([cap_at(p["date"]) for p in pts])
     y = np.array([logit(p["share"]) for p in pts])
     k, b = np.polyfit(x, y, 1)  # logit(share) = k * cap + b
@@ -608,7 +629,7 @@ def fit_supervision(
     cap_per_year = (cap_at(d_last) - cap_at(d_first)) / (d_last - d_first)
     lag_months = idx["al5_lag_behind_al4_months"] if al5_lag_months is None else al5_lag_months
     # AL3+ share is known at one date; assume the same slope and solve its offset.
-    lead3 = logit(idx["al3_plus_share_aug_2026"]) / k - (cap_at(d_last) - mid4)
+    lead3 = logit(al3_plus) / k - (cap_at(d_last) - mid4)
     sup = Supervision(
         "anthropic",
         k=float(k),

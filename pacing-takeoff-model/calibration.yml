@@ -82,6 +82,52 @@ openai:                          # OpenAI, Research acceleration: The view insid
     other_model_classes_change: 0.172
     share_of_decline_offset: 0.85
 
+google_deepmind:                 # Gemini 4 Argon Safety & Security Report (October 2026), section 3.4.2
+  # Text figures are quoted from the report. Chart figures are in data/ with their provenance.
+  gci_points_per_month_before_apr_2026: 0.091   # 95% interval 0.071 to 0.108. GCI is its internal capability index
+  gci_points_per_month_after_apr_2026: 0.118    # 95% interval 0.053 to 0.171. "we do not observe a statistically
+                                                # significant difference". With internal models: 0.097 and 0.107.
+  fully_delegated_pull_requests_apr_2026: 0.075   # text: "increased from 7.5% in April to 11.9% in September 2026"
+  fully_delegated_pull_requests_sep_2026: 0.119
+  pull_requests_needing_human_steering: 0.88     # text: "about 88% of pull requests still require iterative
+                                                 # multi-turn human steering or human code authorship"
+  ml_rd_eval_solved: 0.5                         # text: "solves only around half of the challenges" in its GRB evaluation
+  outcomes_by_task_size: data/gdm_outcomes_by_task_size.csv       # Figure 3.16
+  pull_requests_by_ai_share: data/gdm_pull_requests_by_ai_share.csv   # Figure 3.15
+
+taste_eval:                      # Anthropic Fellows Program, TASTE (alignment.anthropic.com/2026/taste/)
+  pairs: 92
+  researcher_agreement: 0.77     # estimated agreement of a researcher with the benchmark's labels
+  best_model: 0.60               # Fable 5. "almost all models perform within 2 standard deviations of chance"
+  by_model: data/taste_by_model.csv   # read from Ramez Naam's chart of the paper's Table 3 against ECI
+  # Derived here: a straight-line fit across the 18 models gives +0.11 points per ECI point, 95% interval -0.6 to
+  # +0.8. The scatter around the line (5.3 points) equals sampling noise on 92 pairs (5.2 points). The benchmark
+  # shows the level of AI judgment on one kind of fuzzy task (at chance in July 2026) and cannot yet show a rate.
+
+real_research:                   # What the labs' own usage data say that benchmarks do not. Model B only.
+  # Task length that agents finish with no human intervention 80% of the time, on the labs' own research and
+  # engineering work: OpenAI, January to July 2026 pooled, 15 minutes, and 9 to 22 minutes in each month from March
+  # to July with no trend (data/openai_*.csv); Google DeepMind, Gemini 4 Argon, 11 minutes
+  # (data/gdm_outcomes_by_task_size.csv). Both by log-linear interpolation between buckets. METR's benchmark
+  # horizon for Claude Mythos Preview is 186 minutes at 80%. Ramez Naam, "Where's the intelligence explosion?"
+  # (noahpinion.blog, 2026) makes the comparison: "roughly 15 minutes".
+  # The benchmark horizon does not enter Model B. The AI Futures code in use anchors coding automation on measured
+  # coding uplift (ac_anchor_mode "uplift-solved"), and its sampled trajectories are identical with a present
+  # horizon of 186 or 15 minutes. The usage data enter through the two inputs below.
+  # 1. How fast work is handed over. The supervision schedule can be fitted to Google DeepMind's share of fully
+  #    delegated pull requests (supervision kind "gdm") in place of Anthropic's share of AI-led work. ASSUMPTION:
+  #    a pull request with all code AI-written and under 3 human turns is AI-led work (AL4), and one with over 75%
+  #    of code AI-written is AL3 or above. Counting pull requests with under 10 human turns as AI-led gives a
+  #    slope close to Anthropic's. The data are production code; the report expects experimental code to move faster.
+  delegation: gdm
+  # 2. Share of work that needs a person however short the task. Under 15 minutes, 14% of OpenAI's tasks and 18%
+  #    of Google DeepMind's needed an intervention or failed. ASSUMPTION, decided by the PI on 2026-11-12: this
+  #    share is the part of real work that turns on judgment the AI lacks, so it falls as AI judgment on fuzzy
+  #    tasks rises and has no fixed floor. The model scales it by the share of researchers whose judgment on fuzzy
+  #    tasks is still better than the AI's. Work in this share is AI-led with a person supervising
+  #    (human_time_per_unit_work.al4).
+  residue_today: 0.15
+
 comprehension_gate:              # ASSUMPTIONS throughout, to be measured in a pilot
   researcher_hours_per_year: 2000
   deployed_share_of_experiments_today: 0.05   # one in twenty experiments ends in a deployed change.

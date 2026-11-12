@@ -1,0 +1,26 @@
+# Anthropic Fellows Program, "TASTE: Can AI Models Judge AI Safety Research Proposals?"
+# (alignment.anthropic.com/2026/taste/, 2026): share of 92 pairs of AI safety research proposals on which a model's
+# preference matches experienced researchers' labels. Chance is 50%. Estimated agreement of a researcher with the
+# labels is 77%. The page states one model value, Fable 5 at 60%, and that per-model intervals are about 10 points
+# either way. All values here were read by eye, to about one point of accuracy and half a point of ECI, from Ramez
+# Naam's chart of the paper's Table 3 against the Epoch Capabilities Index as of 2026-11-12, in "Where's the
+# intelligence explosion?" (noahpinion.blog). Models released November 2025 to July 2026.
+model,eci,taste_accuracy
+Opus 4.5,152.0,0.54
+Sonnet 4.6,153.0,0.56
+GLM 5.2,153.0,0.46
+Qwen3.7-Max,154.5,0.52
+Muse Spark 1.1,154.9,0.51
+Grok 4.5,155.0,0.58
+Gemini 3.5 Flash,155.3,0.56
+Gemini 3.1 Pro,156.2,0.41
+Opus 4.6,156.3,0.45
+GPT-5.6 Luna,156.7,0.48
+Sonnet 5,157.0,0.52
+Opus 4.7,157.5,0.49
+Kimi K3,158.6,0.59
+Opus 4.8,160.0,0.55
+GPT-5.6 Terra,160.7,0.48
+GPT-5.6 Sol,163.0,0.48
+Fable 5,164.1,0.60
+Opus 5,164.7,0.51
