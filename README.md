@@ -17,6 +17,7 @@ This repository is private and unreleased under Readback's tiered disclosure pol
 | `data/incidents/` | Documented incidents with a comprehension-failure field, backtested against the questions |
 | `data/interventions/`, `data/crosswalks/` | Pacing interventions; mappings to developers' own task categories |
 | `reports/` | Generated. Start with [reports/coverage.md](reports/coverage.md) |
+| `pacing-takeoff-model/` | The pacing and takeoff model: two published models of AI R&D acceleration with a gate on deployed changes, and how comprehension audits, lags and compute limits move the dates. Its [README](pacing-takeoff-model/README.md) is the briefing. Its `results/` are generated |
 | `docs/codebook.md` | Every scale and category |
 | `.agents/skills/` | The agent workflows: sweep sources, verify evidence, research a branch, draft questions, monthly sweep |
 
@@ -70,7 +71,7 @@ Details: [spec.md](spec.md) section 6.
 
 | Repository | Relation |
 |---|---|
-| `readback-ops` | Holds the pacing and takeoff model (`research/pacing-takeoff-model`) that reads `reports/gate-inputs.yml`, and the deliverables this work serves |
+| `readback-ops` | Holds the deliverables this work serves. The pacing and takeoff model moved from there to `pacing-takeoff-model/` on 2026-11-12 |
 | `readback-skills` | `quiz-me` supplies the question categories; question packs ship back there |
 | `comprehension-analysis` | Source of the oversight vocabulary and metrics |
 | `ai-rd-analysis` | Public-repository evidence, used here as analog only |

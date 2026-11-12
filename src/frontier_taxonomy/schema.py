@@ -512,7 +512,7 @@ class Intervention(Record):
     kind: InterventionKind
     description: Text
     targets: Targets = Targets()
-    pacing_policy: str | None = None  # the policy's name in the readback-ops pacing model
+    pacing_policy: str | None = None  # the policy's name in pacing-takeoff-model/pacing_model.py
     hours_scale: float | None = None  # multiplies hours_to_understand on targeted changes
     evidence: list[EvidenceId] = []
     note: str | None = None

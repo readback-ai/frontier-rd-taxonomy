@@ -10,7 +10,7 @@ Maintain, as updatable records with code and agent instructions:
 2. For each task, the safety risks it can give rise to, and how growing automation raises them.
 3. Design-review questions that surface a lack of human comprehension in each area.
 4. Evidence on how automated each task is, what humans still do, and its share of work and of progress.
-5. Bottom-up inputs for the pacing model in `readback-ops/research/pacing-takeoff-model`, so that its gate on deployed changes rests on sourced numbers where they exist and on labeled judgment where they do not.
+5. Bottom-up inputs for the pacing model in `pacing-takeoff-model/`, so that its gate on deployed changes rests on sourced numbers where they exist and on labeled judgment where they do not.
 
 It serves these deliverables in `readback-ops/strategy/deliverables.md`: E2 (RSI-metrics schema and gap analysis), E4 (precursor registry: the incident library carries its comprehension-failure field), E5 (automation tracker paired with oversight capacity), A1 (safety-case review series: where a case relies on staff understanding) and P2 (comprehension-audit standard: the question sets are audit agenda templates).
 
@@ -80,7 +80,7 @@ Enforced by `taxo validate`, which CI runs.
 
 ## 7. Pacing interface
 
-The pacing model in `readback-ops` is top-down: two published models of AI R&D acceleration with a gate on deployed changes. Its gate inputs are assumptions (its README, "Where the inputs are weak or disputed"). This repository does not duplicate that model. It supplies the gate's inputs bottom-up:
+The pacing model in `pacing-takeoff-model/` is top-down: two published models of AI R&D acceleration with a gate on deployed changes. Its gate inputs are assumptions (its README, "Where the inputs are weak or disputed"). The records and reports here do not duplicate that model, and it does not read `reports/gate-inputs.yml` yet. The taxonomy supplies the gate's inputs bottom-up:
 
 - `taxo gate-inputs` writes `reports/gate-inputs.yml`: for each change type, the count per researcher-year, hours to understand one, elasticity to AI labor and share of progress, combined from leaf-task estimates, each cell with its basis and estimate ids. Counts and shares add across tasks; hours and elasticities are averaged by count.
 - It also reports the share of a researcher-year needed to understand everything deployed, by change type, sampled from the ranges. The pacing model's figure for all types is 15%.
@@ -110,9 +110,12 @@ Decided 2026-11-11 (PI, in session):
 - **D2 Open-source evidence is analog only.** Public repositories lag frontier practice. They supply examples and never grade above D. `ai-rd-analysis` results enter as `open_source_analog` sources.
 - **D3 Evidence priority.** Incident reports, risk reports, system cards and third-party investigations come first, found by literature review and agent search.
 
+Decided 2026-11-12 (PI, in session):
+
+- **D4 The pacing model lives here.** It moved from `readback-ops/research/pacing-takeoff-model` to `pacing-takeoff-model/`. This replaces the build's default that it stay in `readback-ops`. Bottom-up still feeds top-down: the taxonomy supplies the model's gate inputs and does not reimplement it.
+
 Taken as defaults by the build, for the PI to confirm or change:
 
-- **D4 Bottom-up feeds top-down.** The pacing model stays in `readback-ops`. This repository supplies its gate inputs and does not reimplement it.
 - **D5 Question structure.** Categories follow `quiz-me` (what, why, failure, dependency, side effects) and topical areas follow the audit paper's Table 4. A sixth category, `provenance`, is added. `readback-skills` asks that changes to question wording be agreed first, so `provenance` is a proposal until confirmed.
 - **D6 Two added change types.** `evaluation_change` and `decision`, beside the pacing model's four.
 - **D7 Private repository, all rights reserved,** under the tiered disclosure policy (`readback-ops/decisions/0002`). A ranked map of where frontier oversight is thinnest has capability-uplift and Goodhart exposure. Nothing here is released without the policy's review.
@@ -135,3 +138,5 @@ Open:
 8. **M1 exit is partly met.** Three leaves have no estimate of automation or oversight (`T-eval-elicitation`, `T-eval-dangerous`, `T-eval-safeguards`) and four more lack one of the two, because no source supports one; `taxo validate` lists them as warnings. The PI has not yet been asked the slice's questions.
 9. **Question wording the backtest found wanting.** The wording is unchanged so that the recorded verdicts apply to the questions as written. Proposed changes, each needing a fresh backtest: `Q-eval-tasks-02` accepts a reference solution as proof a task is solvable; `Q-eval-tasks-06` and `Q-eval-validity-04` treat public answers as a training-data risk and miss lookup at run time; `Q-eval-graders-02` and `-04` are worded for model judges and miss test suites; the transcript set assumes a review exists; `Q-eval-harness-01` and `-02` assume isolation was intended; `Q-eval-alignment-02` and `Q-eval-determination-03` measure against past practice; `Q-eval-harness-09` lists controls only and misses side effects on scoring and limits; `Q-eval-reporting-07` bundles three questions and has to be put to the outside tester when the number is theirs; `Q-eval-safeguards-07` is satisfied by a grader metric, which in one incident was the weak channel. `T-eval-external` mixes three relationships and may need splitting.
 10. **Where review is the wrong control.** In 10 of 22 incidents no question was judged to surface the root cause: code bugs in graders and harnesses, score configuration errors, model behavior nobody had seen, trade-offs the team had already accepted, and behavior that left no trace in reasoning or monitor flags. These need a measurement or an enforcement mechanism. The risk register does not yet name the alternative control per risk.
+11. **What the pacing model's move leaves undone.** Three things, each the PI's call. Disclosure: its briefing was written in `readback-ops` to be publishable, and here it falls under D7 unless the PI says otherwise. Sources: `S-readback-2026-11-pacing-takeoff-briefing` and `S-readback-2026-11-pacing-calibration` cite the files at their old address on a `readback-ops` working branch; they need a new address and a fresh snapshot through the tool, and the briefing has changed since it was snapshotted. Vocabulary: the briefing keeps the wording it was written in, which departs from the glossary in four places listed at the top of its README.
+12. **Crisp and fuzzy tasks.** The pacing model now splits research judgment into crisp tasks, where success is fast and cheap to verify, and fuzzy tasks, and takes crisp work as 70% of research effort on one developer's breakdown of agent output. The task tree's `verifiability` and `feedback_latency` attributes with `labor_share` could supply that share bottom-up. Which attribute values count as crisp is not decided.

@@ -289,6 +289,19 @@ def test_adapter_task_classes_reduce_to_one_taste_and_shift_effort_to_fuzzy_work
     assert share(late) > 0.6
 
 
+def test_intervention_records_name_policies_the_model_has():
+    import yaml
+
+    records = sorted(
+        (Path(__file__).resolve().parent.parent / "data" / "interventions").glob("*.yml")
+    )
+    assert records
+    names = {p.name for p in standard_policies(CAL)}
+    for record in records:
+        policy = yaml.safe_load(record.read_text()).get("pacing_policy")
+        assert policy is None or policy in names, (record.name, policy)
+
+
 def test_adapter_link_matches_aifm_pace_at_the_reference_date():
     need_aifm()
     from aifm_adapter import ELI_AUG_2026, Q35_EXAMPLE, Aifm

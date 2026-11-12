@@ -1,6 +1,8 @@
 # How pacing mechanisms change the takeoff of automated AI R&D
 
-Research briefing with a runnable model. Draft of 2026-11-11, calibrated to public data as of 2026-11-10. The comprehension gate was rebuilt on 2026-11-10 to count deployed changes by type, and results from the earlier gate are withdrawn. On 2026-11-11 Model B gained a link from comprehension to human research judgment, and the probability of each milestone by date was computed under two taste models. Sections dated 2026-11-11 use the link. Earlier sections do not.
+Research briefing with a runnable model. Draft of 2026-11-11, calibrated to public data as of 2026-11-10. The comprehension gate was rebuilt on 2026-11-10 to count deployed changes by type, and results from the earlier gate are withdrawn. On 2026-11-11 Model B gained a link from comprehension to human research judgment, and the probability of each milestone by date was computed under two taste models. Sections dated 2026-11-11 use the link. Earlier sections do not. On 2026-11-12 research judgment was split into crisp and fuzzy tasks in two further taste models.
+
+Moved here from `readback-ops` on 2026-11-12. The briefing keeps the wording it was written in, which departs from `GLOSSARY.md` in four places. "Research judgment" and "taste" mean the AI Futures Model's research taste, where the glossary's judgment is an estimate with no evidence behind it. "Assumption" marks what the glossary calls a judgment. "Supervision" is the glossary's oversight. "Understand" means comprehend to the audit standard.
 
 ## Bottom line
 
@@ -569,47 +571,58 @@ One published series could anchor today's load and has not been checked: time en
 
 ## Reproduce
 
+Run from the repository root.
+
 ```bash
-python3 -m venv .venv && .venv/bin/pip install numpy scipy pyyaml matplotlib
+make setup
 ```
 
 ```bash
-git clone --depth 1 https://github.com/AI-Futures-Project/aifm-public /path/to/aifm-public
+git clone --depth 1 https://github.com/AI-Futures-Project/aifm-public ~/aifm-public
 ```
 
 ```bash
-.venv/bin/python run_all.py --aifm-path /path/to/aifm-public
+export AIFM_PATH=~/aifm-public
 ```
 
 ```bash
-.venv/bin/python test_pacing_model.py
+uv run python pacing-takeoff-model/run_all.py
 ```
 
 ```bash
-.venv/bin/python montecarlo_b.py --samples 4000 --aifm-path /path/to/aifm-public
+uv run pytest pacing-takeoff-model
 ```
 
 ```bash
-.venv/bin/python montecarlo_taste.py --samples 10000 --aifm-path /path/to/aifm-public
+uv run python pacing-takeoff-model/montecarlo_b.py --samples 4000
 ```
 
 ```bash
-.venv/bin/python link_effect.py
+uv run python pacing-takeoff-model/montecarlo_taste.py --samples 10000
 ```
 
-Model A alone runs with `--skip-aifm`. Results were generated with Python 3.13, numpy 2.5.4, scipy 1.18.1 and AI Futures Model commit `1c40ecd`.
+```bash
+uv run python pacing-takeoff-model/link_effect.py
+```
+
+```bash
+uv run python pacing-takeoff-model/split_effect.py
+```
+
+Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results were generated with numpy 2.5.4, scipy 1.18.1 and matplotlib 3.11.2, the versions in `uv.lock`, and AI Futures Model commit `1c40ecd`. AI Futures notes that seeded draws from its sampler can differ between CPUs, so the kept trajectories may differ on another machine.
 
 | File | Contents |
 |---|---|
 | `calibration.yml` | Every input with its source. Assumptions and secondary sources are marked. |
-| `pacing_model.py` | The gate, the link from comprehension to judgment, the supervision fits, the policies and Model A |
+| `pacing_model.py` | The gate, the link from comprehension to judgment, the task-class aggregate, the supervision fits, the policies and Model A |
 | `aifm_adapter.py` | Model B: runs the AI Futures code with the same gate and policies |
 | `run_all.py` | Runs all scenarios and the sensitivity table, writes `results/` |
 | `montecarlo_b.py` | Samples AI Futures' parameter distribution, keeps trajectories near METR's pace, runs each under every scenario. About 20 minutes on 4 cores |
 | `judgment_sensitivity.py` | Varies research judgment and data-driven progress on the example trajectory, and splits the Monte Carlo by research judgment and by pace |
-| `montecarlo_taste.py` | Probability of each milestone by date under two taste models, with the link from comprehension to judgment. About an hour on 4 cores. `--only kept` reruns just the kept trajectories |
+| `montecarlo_taste.py` | Probability of each milestone by date under four taste models, with the link from comprehension to judgment. About two hours on 4 cores. `--only kept` reruns just the kept trajectories and `--models` picks taste models |
 | `link_effect.py` | What the link changes on the example trajectory |
-| `test_pacing_model.py` | Twenty checks, including that the adapter reproduces the AI Futures Model's own dates |
+| `split_effect.py` | What the split into crisp and fuzzy tasks does on the example trajectory, and how it moves with its three unmeasured inputs |
+| `test_pacing_model.py` | Twenty-five checks, including that the adapter reproduces the AI Futures Model's own dates. The three that need the AI Futures checkout skip without `AIFM_PATH` |
 | `data/` | OpenAI chart data with provenance |
 | `results/` | Generated tables (`tables.md`, CSV) and figures. Do not edit by hand. |
 

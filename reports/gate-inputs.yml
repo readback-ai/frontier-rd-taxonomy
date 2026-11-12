@@ -1,6 +1,6 @@
 generated_by: taxo gate-inputs (do not edit by hand)
 scope: frontier
-note: Bottom-up counterpart of comprehension_gate.change_types in the readback-ops pacing model's calibration.yml.
+note: Bottom-up counterpart of comprehension_gate.change_types in pacing-takeoff-model/calibration.yml.
   low and high are 10th and 90th percentiles. basis is the weakest basis among the estimates combined
   into the cell.
 change_types: {}
