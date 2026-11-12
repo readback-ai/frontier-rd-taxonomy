@@ -1,6 +1,6 @@
 # How pacing mechanisms change the takeoff of automated AI R&D
 
-Research briefing with a runnable model. Draft of 2026-11-11, calibrated to public data as of 2026-11-10. The comprehension gate was rebuilt on 2026-11-10 to count deployed changes by type, and results from the earlier gate are withdrawn. On 2026-11-11 Model B gained a link from comprehension to human research judgment, and the probability of each milestone by date was computed under two taste models. Sections dated 2026-11-11 use the link. Earlier sections do not. On 2026-11-12 research judgment was split into crisp and fuzzy tasks in two further taste models.
+Research briefing with a runnable model. Draft of 2026-11-11, calibrated to public data as of 2026-11-10. The comprehension gate was rebuilt on 2026-11-10 to count deployed changes by type, and results from the earlier gate are withdrawn. On 2026-11-11 Model B gained a link from comprehension to human research judgment, and the probability of each milestone by date was computed under two taste models. Sections dated 2026-11-11 use the link. Earlier sections do not. On 2026-11-12 research judgment was split into crisp and fuzzy tasks in four further taste models.
 
 ## Bottom line
 
@@ -21,9 +21,9 @@ Research briefing with a runnable model. Draft of 2026-11-11, calibrated to publ
 15. **In the slow case audits move the odds by tens of points.** The chance of researcher-level AI before 2029 falls from 36% with no pacing to 12% under central audits, and the chance of TED-AI before 2031 from 41% to 24%. In the fast case the chance of TED-AI before 2028 falls from 75% to 66% under central audits and to 38% under a 3-month lag.
 16. **Audits cost a lab that already understands its work almost nothing at the start.** Researchers are taken to spend 14% of their time understanding deployed changes today, with that time already inside measured uplift. Central audits then cost 0.6% of research effort on the first day, against the 6% to 10% in item 8.
 17. **A dating error on explosive sampled trajectories was fixed on 2026-11-11.** Medians in items 6, 10 and 11 moved by up to two months. No conclusion changed. The Monte Carlo section describes the error.
-18. **Research judgment was split into crisp and fuzzy tasks.** Added 2026-11-12: AI judgment improves 3 SD per year of 2025 progress on crisp tasks, which have clear evaluation criteria, and 1 SD or 0.5 SD on fuzzy tasks. Crisp work is taken as 70% of research effort today and the two classes as complements. On the example trajectory the share of effort on fuzzy tasks rises from 30% to 60% by January 2028, and to 92% a year later where fuzzy judgment improves at 0.5 SD.
-19. **At those inputs the split sits closer to the fast case.** With no pacing the median date of researcher-level AI is October 2027 or January 2028 and of TED-AI May 2028 or May 2031. Central audits delay TED-AI by a median of 2 or 5 months, and a 3-month lag by 5 or 4.
-20. **Two unmeasured inputs decide what the split does.** With crisp work at 85% of effort, or with crisp work standing in for fuzzy work more readily, the split behaves like the fast case. With crisp work at 50% and fuzzy judgment improving 0.5 SD a year, TED-AI on the example trajectory moves to August 2034 and the audit delay to 60 months.
+18. **Research judgment was split into crisp and fuzzy tasks.** Added 2026-11-12: a fuzzy task is one without clear evaluation criteria, for which human judgment is systematically flawed (Bowkis et al. 2026). Everything else counts as crisp. AI judgment improves 3 or 2.1 SD per year of 2025 progress on crisp tasks and 1 or 0.5 SD on fuzzy tasks. Crisp work has a weight of 65% and substitutes poorly for fuzzy work (elasticity 0.25). On the example trajectory the share of effort on fuzzy tasks rises from 35% in January 2027 to over 90% by July 2028.
+19. **The rate on fuzzy tasks decides the dates and what audits do.** Across sampled trajectories with fuzzy tasks at +1 SD, median TED-AI with no pacing is December 2028 or May 2029, central audits delay it by 3 to 5 months and a 3-month lag by 5. With fuzzy tasks at +0.5 SD, median TED-AI is in 2038, almost half the trajectories do not reach it before 2040, and central audits delay it by 18 to 22 months on the trajectories that do, against 13 to 14 for a 9-month lag. Lowering the crisp rate from 3 to 2.1 SD moves the medians by 1 to 6 months.
+20. **Two unmeasured inputs move the result as much as the fuzzy rate does.** On the example trajectory with fuzzy tasks at +0.5 SD, TED-AI with no pacing is October 2029 at a crisp weight of 80%, February 2034 at 65% and July 2039 at 50%. A substitution of 0.5 instead of 0.25 brings it to April 2030. The source of the definition says capabilities research is mostly crisp, which puts 65% at the low end.
 
 ## Notes on the sources
 
@@ -394,35 +394,35 @@ Every other parameter is drawn from AI Futures' August 2026 distribution for Kok
 
 ![Probability of each milestone by date: lags, compute cuts and combinations](results/fig6_probability_by_date_other.png)
 
-Median date and median delay under each taste model. The two models with crisp and fuzzy tasks are described in the next section. Superhuman AI researcher:
+Median date and median delay under each taste model. Superhuman AI researcher:
 
-| Scenario | +3 SD: median date | +3 SD: median delay | +1 SD: median date | +1 SD: median delay | Crisp +3, fuzzy +1 SD: median date | Crisp +3, fuzzy +1 SD: median delay | Crisp +3, fuzzy +0.5 SD: median date | Crisp +3, fuzzy +0.5 SD: median delay |
-|---|---|---|---|---|---|---|---|---|
-| No pacing | Jul 2027 |  | Jun 2029 |  | Oct 2027 |  | Jan 2028 |  |
-| Human sign-off, no comprehension standard | Jul 2027 | +0 mo | Aug 2029 | +1 mo | Oct 2027 | +0 mo | Mar 2028 | +0 mo |
-| Comprehension audits, light | Jul 2027 | +0 mo | Apr 2030 | +4 mo | Nov 2027 | +0 mo | Mar 2028 | +1 mo |
-| Comprehension audits, central | Jul 2027 | +0 mo | Aug 2030 | +8 mo | Nov 2027 | +1 mo | Apr 2028 | +1 mo |
-| Comprehension audits, strict | Aug 2027 | +1 mo | Jan 2031 | +13 mo | Jan 2028 | +2 mo | Jun 2028 | +3 mo |
-| Internal-use lag, 3 months | Oct 2027 | +3 mo | Oct 2029 | +4 mo | Feb 2028 | +4 mo | Aug 2028 | +4 mo |
-| Internal-use lag, 9 months | Mar 2028 | +8 mo | May 2030 | +11 mo | Sep 2028 | +10 mo | Mar 2029 | +11 mo |
-| R&D compute cut 3x | Nov 2027 | +4 mo | May 2030 | +12 mo | Apr 2028 | +5 mo | Aug 2028 | +7 mo |
-| Comprehension audits (central) + 3-month lag | Nov 2027 | +4 mo | Oct 2030 | +11 mo | Mar 2028 | +5 mo | Aug 2028 | +5 mo |
-| Comprehension audits (central) + 9-month lag | Mar 2028 | +8 mo | Mar 2031 | +18 mo | Sep 2028 | +10 mo | Apr 2029 | +11 mo |
+| Scenario | +3 SD: median date | +3 SD: median delay | +1 SD: median date | +1 SD: median delay |
+|---|---|---|---|---|
+| No pacing | Jul 2027 |  | Jun 2029 |  |
+| Human sign-off, no comprehension standard | Jul 2027 | +0 mo | Aug 2029 | +1 mo |
+| Comprehension audits, light | Jul 2027 | +0 mo | Apr 2030 | +4 mo |
+| Comprehension audits, central | Jul 2027 | +0 mo | Aug 2030 | +8 mo |
+| Comprehension audits, strict | Aug 2027 | +1 mo | Jan 2031 | +13 mo |
+| Internal-use lag, 3 months | Oct 2027 | +3 mo | Oct 2029 | +4 mo |
+| Internal-use lag, 9 months | Mar 2028 | +8 mo | May 2030 | +11 mo |
+| R&D compute cut 3x | Nov 2027 | +4 mo | May 2030 | +12 mo |
+| Comprehension audits (central) + 3-month lag | Nov 2027 | +4 mo | Oct 2030 | +11 mo |
+| Comprehension audits (central) + 9-month lag | Mar 2028 | +8 mo | Mar 2031 | +18 mo |
 
 TED-AI:
 
-| Scenario | +3 SD: median date | +3 SD: median delay | +1 SD: median date | +1 SD: median delay | Crisp +3, fuzzy +1 SD: median date | Crisp +3, fuzzy +1 SD: median delay | Crisp +3, fuzzy +0.5 SD: median date | Crisp +3, fuzzy +0.5 SD: median delay |
-|---|---|---|---|---|---|---|---|---|
-| No pacing | Sep 2027 |  | Aug 2032 |  | May 2028 |  | May 2031 |  |
-| Human sign-off, no comprehension standard | Sep 2027 | +0 mo | Dec 2032 | +2 mo | Jun 2028 | +0 mo | Nov 2031 | +0 mo |
-| Comprehension audits, light | Oct 2027 | +0 mo | Feb 2034 | +9 mo | Aug 2028 | +1 mo | Feb 2032 | +3 mo |
-| Comprehension audits, central | Oct 2027 | +1 mo | Oct 2034 | +14 mo | Sep 2028 | +2 mo | Jun 2032 | +5 mo |
-| Comprehension audits, strict | Nov 2027 | +2 mo | Jul 2035 | +21 mo | Dec 2028 | +4 mo | Jan 2033 | +9 mo |
-| Internal-use lag, 3 months | Feb 2028 | +5 mo | Mar 2033 | +4 mo | Oct 2028 | +5 mo | Nov 2031 | +4 mo |
-| Internal-use lag, 9 months | Sep 2028 | +11 mo | Nov 2033 | +13 mo | Jun 2029 | +13 mo | May 2032 | +12 mo |
-| R&D compute cut 3x | Feb 2028 | +5 mo | Apr 2034 | +16 mo | Jan 2029 | +7 mo | Jul 2032 | +10 mo |
-| Comprehension audits (central) + 3-month lag | Mar 2028 | +5 mo | Jan 2035 | +19 mo | Feb 2029 | +7 mo | Jul 2032 | +10 mo |
-| Comprehension audits (central) + 9-month lag | Sep 2028 | +11 mo | Apr 2035 | +30 mo | Sep 2029 | +15 mo | Jan 2033 | +17 mo |
+| Scenario | +3 SD: median date | +3 SD: median delay | +1 SD: median date | +1 SD: median delay |
+|---|---|---|---|---|
+| No pacing | Sep 2027 |  | Aug 2032 |  |
+| Human sign-off, no comprehension standard | Sep 2027 | +0 mo | Dec 2032 | +2 mo |
+| Comprehension audits, light | Oct 2027 | +0 mo | Feb 2034 | +9 mo |
+| Comprehension audits, central | Oct 2027 | +1 mo | Oct 2034 | +14 mo |
+| Comprehension audits, strict | Nov 2027 | +2 mo | Jul 2035 | +21 mo |
+| Internal-use lag, 3 months | Feb 2028 | +5 mo | Mar 2033 | +4 mo |
+| Internal-use lag, 9 months | Sep 2028 | +11 mo | Nov 2033 | +13 mo |
+| R&D compute cut 3x | Feb 2028 | +5 mo | Apr 2034 | +16 mo |
+| Comprehension audits (central) + 3-month lag | Mar 2028 | +5 mo | Jan 2035 | +19 mo |
+| Comprehension audits (central) + 9-month lag | Sep 2028 | +11 mo | Apr 2035 | +30 mo |
 
 Probability of each milestone before the start of the year shown:
 
@@ -482,7 +482,7 @@ The classes follow Bowkis, Buhl, Pfau and Irving (2026), who place research task
 
 The definition gives the reason for the slow rate. On these tasks "human approval does not indicate correctness", so training on human feedback does not teach them, and the two other routes the paper names, generalisation from easier tasks and scalable oversight, are unproven.
 
-AI judgment improves 3 SD per year of 2025 progress on crisp tasks. On fuzzy tasks it improves 1 SD in one model and 0.5 SD in the other. Both classes start at -3.5 SD in September 2026.
+AI judgment improves 3 SD or 2.1 SD per year of 2025 progress on crisp tasks, and 1 SD or 0.5 SD on fuzzy tasks, which gives four taste models. Both classes start at -3.5 SD in September 2026.
 
 ### How the classes combine
 
@@ -491,10 +491,10 @@ lab judgment = ( crisp_share * crisp_judgment^r + fuzzy_share * fuzzy_judgment^r
 r = substitution - 1
 ```
 
-- **The lab spreads its experiments across the two classes to get the most research from them.** `crisp_share` is the share of effort on crisp work while judgment is equal in both classes.
+- **The lab spreads its experiments across the two classes to get the most research from them.** `crisp_share` is the weight of crisp work, which is also its share of effort while judgment is equal in both classes.
 - **Substitution is how far crisp work can stand in for fuzzy work.** Below 1 the classes are complements. As crisp work gets cheap, effort moves to fuzzy work and fuzzy judgment comes to set the pace. This is how crisp progress reaches diminishing returns in the model.
-- **Crisp work that costs nothing still leaves a ceiling.** The lab's judgment tops out at `fuzzy_share ^ (-1 / (1 - substitution))` times its judgment on fuzzy tasks. At the central values that is 11 times, or 5.4 SD.
-- **Milestones use the same combination.** A milestone that the AI Futures Model defines as a level of research taste is reached when an AI-only lab's judgment across both classes reaches that level. At the central values the superhuman AI researcher arrives with AI judgment far past the best researcher on crisp tasks and at or below the median researcher on fuzzy ones.
+- **Crisp work that costs nothing still leaves a ceiling.** The lab's judgment tops out at `fuzzy_share ^ (-1 / (1 - substitution))` times its judgment on fuzzy tasks. At the central values that is 4.1 times, or 3.1 SD on the example trajectory's researcher distribution.
+- **Milestones use the same combination.** A milestone that the AI Futures Model defines as a level of research taste is reached when an AI-only lab's judgment across both classes reaches that level. The superhuman AI researcher therefore arrives with AI judgment far past the best researcher on crisp tasks and near the median researcher on fuzzy ones.
 - **People stay useful for longer.** A person who understands a change applies judgment to it in both classes, and people stay ahead of the AI on fuzzy tasks after it passes them on crisp ones.
 
 With equal rates in the two classes the split reproduces the single-taste model exactly, which a test checks.
@@ -503,98 +503,206 @@ With equal rates in the two classes the split reproduces the single-taste model 
 
 | Input | Value | Basis |
 |---|---|---|
-| Crisp share of research effort today | 70% | Anchored on OpenAI's breakdown of agent output, below. Tested at 50% and 85% |
-| Substitution between crisp and fuzzy work | 0.5 | No data. Tested at 0.25 and 0.83 |
-| Rate on crisp tasks | +3 SD per year of 2025 progress | AI Futures' base case |
+| Weight of crisp work | 65% | Three anchors, below. None measures this quantity. Tested at 50% and 80% |
+| Substitution between crisp and fuzzy work | 0.25 | The judgment that crisp work stands in for fuzzy work poorly. No data. Tested at 0, 0.5 and 0.83 |
+| Rate on crisp tasks | +3 SD and +2.1 SD per year of 2025 progress | AI Futures' base case, and the median slope it reports after filtering its trajectories on the pace in May and November 2026 |
 | Rate on fuzzy tasks | +1 SD and +0.5 SD | The low end of the AI Futures update's 80% interval, and half of it. Neither is a measurement |
 | Level in September 2026 | -3.5 SD in both classes | AI Futures' base case. A row below starts crisp tasks at -1.5 SD |
 
-What the sources say about the share:
+What the sources say about the weight of crisp work:
 
-- **OpenAI sorted its researchers' agent output into the six phases of Epoch's taxonomy.** Of the growth in output tokens per researcher-day from January to August 2026, build was 32% and run 28%. Decide was 0.6%, design 2% and analyze 8%. Communicate, which is mostly technical help and review, was 28%. These are sums of the 18 categories in `calibration.yml`.
-- **Counting build and run as crisp gives 60%.** Leaving the communicate phase out gives 84%. The 70% used here sits between.
-- **The figure overstates the crisp share of people's effort.** It measures where agent use grew, and crisp work is what gets handed to agents.
-- **OpenAI states the direction.** "As automation progresses, the tasks which are least automatable will take on a larger share of researcher effort and will become the important bottlenecks to future progress."
-- **Anthropic describes the same gap.** "In research, Claude can already match or outperform skilled humans at executing a well-specified experiment. However, large performance gaps persist when it comes to Claude exercising judgement in choosing goals in both engineering and research."
-- **No source measures effort or progress by how verifiable the work is.** The task tree here records `verifiability` and `feedback_latency` for each leaf task and could supply the share bottom-up once more branches are built (`spec.md`, open item 12).
+- **Scientists rate ideation first in importance, and it is the smallest in hours.** Anthropic surveyed 528 scientists in 2026 and asked them to split 100 points across four activities by importance for producing an important research result. Ideation and hypothesis generation got 35.6, data gathering 23.6, data analysis 23.3, and writing and communication 17.5. The same report puts ideation at 7.1% of researcher time. Taking ideation as the fuzzy class gives crisp work a weight of 64%. The respondents are "researchers primarily in the life and health sciences who are active adopters of AI", so for AI research this is an analogy.
+- **AI researchers in 2024 put well-defined implementation at half or more of their hours.** Epoch AI interviewed eight. Six predicted that automating well-defined experiments or debugging would have "a substantial effect on their work, such as automating half or more of their current work-hours". One said "60% of my time would be automated". Three put it at "hours or days in a multi-month project". Epoch's summary is that planning and hypothesis creation "are quick, to the extent that they have their own dedicated time", while engineering and debugging are time-consuming.
+- **Hours understate what fuzzy work is worth.** Epoch records one participant's caveat that "the overall impact might be much greater (or less) than an estimate of researcher work hours might suggest". Anthropic's respondents give ideation five times the weight in importance that it has in hours.
+- **OpenAI's agent output is 60% build and run.** OpenAI sorted its researchers' agent output into the six phases of Epoch's taxonomy. Of the growth in output tokens per researcher-day from January to August 2026, build was 32% and run 28%. Decide was 0.6%, design 2% and analyze 8%. Communicate, which is mostly technical help and review, was 28%. These are sums of the 18 categories in `calibration.yml`. The figure overstates the crisp share of people's effort, because crisp work is what gets handed to agents.
+- **Verifiable tasks are where AI is rated most capable and used most.** Anthropic's report: "Tasks are particularly suitable for RL when success is easy to verify, when many examples can be simulated in a computing environment, and when feedback can be delivered quickly". A task's AI capability score correlates 0.78 with that suitability. A language model assigned the capability scores.
+- **The paper behind the definition says capabilities research is mostly crisp.** "Fuzzy tasks are particularly prevalent in alignment research compared to capabilities research", because in capabilities research "the properties that are being targeted are generally easy to measure, resulting in tight feedback loops". It names one hard-to-supervise fuzzy task that capabilities research shares: "steering a body of research and allocating resources efficiently between research directions". It gives no share.
+- **The definition is narrower than the anchors.** The three anchors separate well-defined work from the rest. The rest includes fuzzy work that people judge reliably, which belongs in the fast class. Read against the definition, 65% is at the low end for the weight of crisp work, and the 80% row below is as defensible as the central one.
+- **The labs state the direction.** OpenAI: "As automation progresses, the tasks which are least automatable will take on a larger share of researcher effort and will become the important bottlenecks to future progress." Anthropic: "In research, Claude can already match or outperform skilled humans at executing a well-specified experiment. However, large performance gaps persist when it comes to Claude exercising judgement in choosing goals in both engineering and research."
+
+The 65% used here is the importance-based figure. It sits inside the range of the other two anchors.
 
 ### On one trajectory
 
-AI Futures' example trajectory with no pacing. Fuzzy tasks at +1 SD:
+AI Futures' example trajectory at the central inputs:
+
+| Rates (SD per year of 2025 progress) | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
+|---|---|---|---|---|---|
+| Crisp +3, fuzzy +1 | Feb 2028 | Jul 2028 | +1 mo | +8 mo | +8 mo |
+| Crisp +3, fuzzy +0.5 | Nov 2028 | Feb 2034 | +6 mo | +57 mo | +5 mo |
+| Crisp +2.1, fuzzy +1 | May 2028 | Nov 2028 | +2 mo | +10 mo | +8 mo |
+| Crisp +2.1, fuzzy +0.5 | Mar 2029 | Jun 2034 | +8 mo | +58 mo | +5 mo |
+
+Where the effort goes with no pacing, crisp tasks at +3 SD and fuzzy tasks at +1 SD:
 
 | Date | AI judgment, crisp tasks | AI judgment, fuzzy tasks | Judgment of an AI-only lab | Share of research effort on fuzzy tasks | Share of deployed value that a person understands | Pace |
 |---|---|---|---|---|---|---|
-| Jan 2027 | -2.2 SD | -3.1 SD | -2.5 SD | 30% | 100% | 1.7x |
-| Jul 2027 | +0.7 SD | -2.1 SD | -0.4 SD | 33% | 88% | 2.4x |
-| Jan 2028 | +6.9 SD | -0.0 SD | +3.5 SD | 60% | 12% | 7.5x |
+| Jan 2027 | -2.2 SD | -3.1 SD | -2.6 SD | 35% | 100% | 1.7x |
+| Jul 2027 | +0.7 SD | -2.1 SD | -0.7 SD | 40% | 91% | 2.4x |
+| Jan 2028 | +6.1 SD | -0.3 SD | +2.2 SD | 75% | 23% | 5.3x |
+| Jul 2028 | +17.7 SD | +3.6 SD | +7.1 SD | 93% | 0% | 9.0x |
 
 Fuzzy tasks at +0.5 SD:
 
 | Date | AI judgment, crisp tasks | AI judgment, fuzzy tasks | Judgment of an AI-only lab | Share of research effort on fuzzy tasks | Share of deployed value that a person understands | Pace |
 |---|---|---|---|---|---|---|
-| Jan 2027 | -2.2 SD | -3.3 SD | -2.6 SD | 30% | 100% | 1.7x |
-| Jul 2027 | +0.7 SD | -2.8 SD | -0.7 SD | 33% | 92% | 2.4x |
-| Jan 2028 | +6.5 SD | -1.8 SD | +2.0 SD | 60% | 45% | 5.8x |
-| Jul 2028 | +16.1 SD | -0.2 SD | +5.0 SD | 85% | 4% | 6.1x |
-| Jan 2029 | +23.5 SD | +1.0 SD | +6.8 SD | 92% | 1% | 4.0x |
+| Jan 2027 | -2.2 SD | -3.3 SD | -2.6 SD | 35% | 100% | 1.7x |
+| Jul 2027 | +0.7 SD | -2.8 SD | -1.1 SD | 40% | 93% | 2.4x |
+| Jan 2028 | +5.8 SD | -2.0 SD | +0.7 SD | 74% | 59% | 4.4x |
+| Jul 2028 | +12.3 SD | -0.9 SD | +2.2 SD | 93% | 11% | 4.1x |
+| Jan 2029 | +18.0 SD | +0.1 SD | +3.3 SD | 97% | 3% | 3.3x |
+| Jan 2030 | +25.5 SD | +1.3 SD | +4.8 SD | 99% | 0% | 2.0x |
 
-The share of effort on fuzzy tasks rises from 30% to 60% by January 2028 in both cases, and to 92% a year later where fuzzy judgment improves at +0.5 SD. Effort shares use the lab's judgment with its people fully informed.
+Effort shares use the lab's judgment with its people fully informed.
 
-The same trajectory with each unmeasured input moved. Fuzzy tasks at +1 SD:
+The same trajectory with each unmeasured input moved. Crisp tasks at +3 SD and fuzzy tasks at +1 SD:
 
 | Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
-| Central: crisp share 70%, substitution 0.5 | Dec 2027 | Mar 2028 | +1 mo | +4 mo | +7 mo |
-| Crisp share 50% | Mar 2028 | Sep 2028 | +2 mo | +9 mo | +8 mo |
-| Crisp share 85% | Oct 2027 | Jan 2028 | +0 mo | +2 mo | +6 mo |
-| Substitution 0.25 (crisp stands in for fuzzy less) | Jan 2028 | Jun 2028 | +1 mo | +6 mo | +8 mo |
-| Substitution 0.83 (one AI Futures author's light bottleneck) | Nov 2027 | Feb 2028 | +0 mo | +2 mo | +6 mo |
-| Crisp judgment starts at -1.5 SD | Sep 2027 | Jan 2028 | +0 mo | +3 mo | +7 mo |
+| Central: crisp share 65%, substitution 0.25 | Feb 2028 | Jul 2028 | +1 mo | +8 mo | +8 mo |
+| Crisp share 50% | May 2028 | Dec 2028 | +3 mo | +13 mo | +8 mo |
+| Crisp share 80% | Nov 2027 | Mar 2028 | +0 mo | +4 mo | +7 mo |
+| Substitution 0 (fixed proportions) | Mar 2028 | Oct 2028 | +2 mo | +11 mo | +8 mo |
+| Substitution 0.5 | Jan 2028 | May 2028 | +1 mo | +5 mo | +7 mo |
+| Substitution 0.83 (one AI Futures author's light bottleneck) | Dec 2027 | Feb 2028 | +0 mo | +3 mo | +7 mo |
+| Crisp judgment starts at -1.5 SD | Dec 2027 | May 2028 | +1 mo | +7 mo | +8 mo |
 
 Fuzzy tasks at +0.5 SD:
 
 | Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
-| Central: crisp share 70%, substitution 0.5 | Mar 2028 | May 2029 | +1 mo | +18 mo | +8 mo |
-| Crisp share 50% | Feb 2029 | Aug 2034 | +8 mo | +60 mo | +5 mo |
-| Crisp share 85% | Nov 2027 | Mar 2028 | +0 mo | +3 mo | +7 mo |
-| Substitution 0.25 (crisp stands in for fuzzy less) | Jul 2028 | Jun 2032 | +3 mo | +47 mo | +6 mo |
-| Substitution 0.83 (one AI Futures author's light bottleneck) | Dec 2027 | Mar 2028 | +0 mo | +3 mo | +7 mo |
-| Crisp judgment starts at -1.5 SD | Dec 2027 | Mar 2029 | +1 mo | +17 mo | +7 mo |
+| Central: crisp share 65%, substitution 0.25 | Nov 2028 | Feb 2034 | +6 mo | +57 mo | +5 mo |
+| Crisp share 50% | Mar 2030 | Jul 2039 | +20 mo | past 2039 | +3 mo |
+| Crisp share 80% | Feb 2028 | Oct 2029 | +1 mo | +23 mo | +7 mo |
+| Substitution 0 (fixed proportions) | Aug 2029 | Nov 2037 | +15 mo | past 2039 | +4 mo |
+| Substitution 0.5 | Apr 2028 | Apr 2030 | +2 mo | +28 mo | +7 mo |
+| Substitution 0.83 (one AI Futures author's light bottleneck) | Jan 2028 | May 2028 | +1 mo | +4 mo | +7 mo |
+| Crisp judgment starts at -1.5 SD | Sep 2028 | Jan 2034 | +6 mo | +57 mo | +5 mo |
 
-- **The share and the substitution decide whether fuzzy tasks matter at all.** With crisp work at 85% of effort, or substitution at 0.83, both split models land within a few months of the +3 SD model: TED-AI by March 2028 and an audit delay of 2 to 3 months.
-- **Where fuzzy tasks do matter, the result moves by years.** At +0.5 SD on fuzzy tasks, a crisp share of 50% puts TED-AI in August 2034 and the audit delay at 60 months. Substitution of 0.25 puts them at June 2032 and 47 months.
-- **Starting crisp judgment 2 SD higher changes little.** It brings the superhuman AI researcher forward by three months and leaves the audit delay within a month.
+The tables for crisp tasks at +2.1 SD are in `results/tables_split.md`.
+
+What the single trajectory shows:
+
+- **The rate on fuzzy tasks sets the dates.** Halving it from +1 SD to +0.5 SD moves TED-AI with no pacing from July 2028 to February 2034. Lowering the rate on crisp tasks from +3 SD to +2.1 SD moves it by four months.
+- **Effort moves to fuzzy tasks within a year.** With crisp tasks at +3 SD the share of effort on fuzzy tasks rises from 35% in January 2027 to about 75% in January 2028 and 93% in July 2028.
+- **Where fuzzy judgment is slow the pace peaks and falls.** With fuzzy tasks at +0.5 SD the pace reaches 4.4 times in January 2028 and is 2.0 times in January 2030.
+- **Central audits match a 3-month lag with fuzzy tasks at +1 SD and far exceed it at +0.5 SD.** They delay TED-AI by 8 to 10 months against the lag's 8, and by 57 to 58 months against the lag's 5.
+- **The weight of crisp work and the substitution still decide the result.** With fuzzy tasks at +0.5 SD and crisp at +3 SD, TED-AI with no pacing is October 2029 at a crisp weight of 80%, February 2034 at 65% and July 2039 at 50%. A substitution of 0.5 brings it to April 2030 and 0.83 to May 2028.
+- **A head start on crisp tasks changes little.** Starting crisp judgment at -1.5 SD moves the dates by up to three months.
+- **The link from comprehension to judgment matters more here than with one taste.** On this trajectory it delays the superhuman AI researcher with no pacing by about 24 days with fuzzy tasks at +1 SD and about 100 days at +0.5 SD (`results/tables_link.md`).
 
 ### Across sampled trajectories
 
-The same 96 trajectories as in the previous section, under the two split models at the central inputs. The median dates and delays are the last four columns of the two tables there. Probability of each milestone before the start of the year shown, with crisp tasks at +3 SD throughout:
+The same 96 trajectories as in the previous section. Superhuman AI researcher, median date and median delay:
 
-| Scenario | Fuzzy +1 SD: superhuman AI researcher by 2028 | Fuzzy +1 SD: TED-AI by 2028 | Fuzzy +1 SD: TED-AI by 2029 | Fuzzy +1 SD: TED-AI by 2031 | Fuzzy +0.5 SD: superhuman AI researcher by 2029 | Fuzzy +0.5 SD: TED-AI by 2029 | Fuzzy +0.5 SD: TED-AI by 2031 | Fuzzy +0.5 SD: TED-AI by 2035 |
+| Scenario | Crisp +3, fuzzy +1 SD: median date | Crisp +3, fuzzy +1 SD: median delay | Crisp +3, fuzzy +0.5 SD: median date | Crisp +3, fuzzy +0.5 SD: median delay | Crisp +2.1, fuzzy +1 SD: median date | Crisp +2.1, fuzzy +1 SD: median delay | Crisp +2.1, fuzzy +0.5 SD: median date | Crisp +2.1, fuzzy +0.5 SD: median delay |
 |---|---|---|---|---|---|---|---|---|
-| No pacing | 64% | 39% | 65% | 85% | 73% | 42% | 48% | 67% |
-| Human sign-off, no comprehension standard | 64% | 35% | 65% | 84% | 73% | 39% | 43% | 65% |
-| Comprehension audits, light | 64% | 31% | 60% | 83% | 73% | 35% | 43% | 62% |
-| Comprehension audits, central | 60% | 29% | 58% | 83% | 72% | 32% | 43% | 61% |
-| Comprehension audits, strict | 49% | 23% | 54% | 83% | 69% | 26% | 42% | 61% |
-| Internal-use lag, 3 months | 29% | 10% | 52% | 84% | 67% | 30% | 46% | 66% |
-| Internal-use lag, 9 months | 0% | 0% | 28% | 81% | 42% | 14% | 43% | 64% |
-| R&D compute cut 3x | 34% | 22% | 49% | 78% | 57% | 30% | 43% | 60% |
-| Comprehension audits (central) + 3-month lag | 22% | 6% | 49% | 83% | 67% | 24% | 42% | 61% |
-| Comprehension audits (central) + 9-month lag | 0% | 0% | 27% | 76% | 36% | 8% | 38% | 61% |
+| No pacing | Dec 2027 |  | Feb 2029 |  | Mar 2028 |  | Aug 2029 |  |
+| Human sign-off, no comprehension standard | Dec 2027 | +0 mo | Jun 2029 | +0 mo | Apr 2028 | +0 mo | Feb 2030 | +1 mo |
+| Comprehension audits, light | Jan 2028 | +1 mo | Dec 2029 | +2 mo | Jun 2028 | +1 mo | Sep 2030 | +3 mo |
+| Comprehension audits, central | Feb 2028 | +1 mo | Mar 2030 | +3 mo | Jul 2028 | +2 mo | Dec 2030 | +5 mo |
+| Comprehension audits, strict | Mar 2028 | +3 mo | Jul 2030 | +7 mo | Sep 2028 | +4 mo | May 2031 | +11 mo |
+| Internal-use lag, 3 months | Apr 2028 | +4 mo | Jun 2029 | +4 mo | Jul 2028 | +4 mo | Nov 2029 | +3 mo |
+| Internal-use lag, 9 months | Nov 2028 | +10 mo | Feb 2030 | +10 mo | Feb 2029 | +11 mo | Sep 2030 | +10 mo |
+| R&D compute cut 3x | Jun 2028 | +6 mo | Jan 2030 | +10 mo | Oct 2028 | +7 mo | Oct 2030 | +13 mo |
+| Comprehension audits (central) + 3-month lag | May 2028 | +5 mo | Apr 2030 | +7 mo | Oct 2028 | +6 mo | Feb 2031 | +8 mo |
+| Comprehension audits (central) + 9-month lag | Dec 2028 | +11 mo | Jul 2030 | +12 mo | Mar 2029 | +12 mo | Jul 2031 | +15 mo |
 
-![Probability of each milestone by date, crisp and fuzzy tasks: sign-off and comprehension audits](results/fig8_probability_by_date_gates_split.png)
+TED-AI:
 
-![Probability of each milestone by date, crisp and fuzzy tasks: lags, compute cuts and combinations](results/fig9_probability_by_date_other_split.png)
+| Scenario | Crisp +3, fuzzy +1 SD: median date | Crisp +3, fuzzy +1 SD: median delay | Crisp +3, fuzzy +0.5 SD: median date | Crisp +3, fuzzy +0.5 SD: median delay | Crisp +2.1, fuzzy +1 SD: median date | Crisp +2.1, fuzzy +1 SD: median delay | Crisp +2.1, fuzzy +0.5 SD: median date | Crisp +2.1, fuzzy +0.5 SD: median delay |
+|---|---|---|---|---|---|---|---|---|
+| No pacing | Dec 2028 |  | May 2038 |  | May 2029 |  | Jun 2038 |  |
+| Human sign-off, no comprehension standard | Jan 2029 | +0 mo | Apr 2039 | +3 mo | Jun 2029 | +0 mo | Apr 2039 | +4 mo |
+| Comprehension audits, light | May 2029 | +2 mo | after 2039 | +12 mo | Jan 2030 | +3 mo | after 2039 | +16 mo |
+| Comprehension audits, central | Aug 2029 | +3 mo | after 2039 | +18 mo | Mar 2030 | +5 mo | after 2039 | +22 mo |
+| Comprehension audits, strict | Dec 2029 | +6 mo | after 2039 | +26 mo | Jun 2030 | +8 mo | after 2039 | +32 mo |
+| Internal-use lag, 3 months | Jun 2029 | +5 mo | Jul 2038 | +5 mo | Oct 2029 | +5 mo | Sep 2038 | +5 mo |
+| Internal-use lag, 9 months | Feb 2030 | +14 mo | Dec 2038 | +13 mo | Aug 2030 | +14 mo | Jan 2039 | +14 mo |
+| R&D compute cut 3x | Aug 2029 | +9 mo | after 2039 | +11 mo | Apr 2030 | +11 mo | after 2039 | +12 mo |
+| Comprehension audits (central) + 3-month lag | Feb 2030 | +9 mo | after 2039 | +22 mo | Aug 2030 | +10 mo | after 2039 | +26 mo |
+| Comprehension audits (central) + 9-month lag | Aug 2030 | +17 mo | after 2039 | +25 mo | Apr 2031 | +18 mo | after 2039 | +33 mo |
 
-- **At these inputs the split models sit closer to the fast case than the slow one.** With no pacing the median superhuman AI researcher arrives in October 2027 with fuzzy tasks at +1 SD and in January 2028 at +0.5 SD, against July 2027 for a single taste at +3 SD and June 2029 at +1 SD. Median TED-AI is May 2028 and May 2031, against September 2027 and August 2032.
-- **Audits barely move the superhuman AI researcher and move TED-AI by months.** Central audits delay the superhuman AI researcher by a median of 1 month in both split models. They delay TED-AI by 2 months with fuzzy tasks at +1 SD and by 5 months at +0.5 SD. Strict audits delay TED-AI by 4 and 9 months.
-- **The spread widens as fuzzy tasks slow.** With fuzzy tasks at +0.5 SD the middle half of no-pacing TED-AI dates runs from March 2028 to November 2036, and 18% of trajectories do not reach TED-AI before 2040. Central audits delay TED-AI by six months or more in 47% of trajectories and by a year or more in 28%. At +1 SD they do so in 19% and 11%.
-- **A 3-month lag does about as much as central audits at the median.** It delays TED-AI by 5 months with fuzzy tasks at +1 SD and by 4 months at +0.5 SD. Central audits delay TED-AI by more than the lag does in 24% and 47% of trajectories.
-- **The link matters more here and still moves dates by about a month.** It moves the no-pacing dates by a median of 14 days for the superhuman AI researcher and 9 for TED-AI with fuzzy tasks at +1 SD, and by 29 and 32 days at +0.5 SD.
-- **These medians hold at the central inputs only.** On one trajectory the audit delay to TED-AI runs from 3 months to 60 as the crisp share and the substitution change. Neither has been measured.
+Probability of each milestone before the start of the year shown, crisp tasks at +3 SD:
 
-Median dates and median paired delays are computed separately. A scenario's median date can sit two months after the no-pacing median while its median delay rounds to zero. Paired delays to TED-AI cover the trajectories that reach it before 2040 with no pacing: 93 with fuzzy tasks at +1 SD and 79 at +0.5 SD.
+| Scenario | Crisp +3, fuzzy +1 SD: superhuman AI researcher by 2029 | Crisp +3, fuzzy +1 SD: TED-AI by 2029 | Crisp +3, fuzzy +1 SD: TED-AI by 2031 | Crisp +3, fuzzy +1 SD: TED-AI by 2035 | Crisp +3, fuzzy +0.5 SD: superhuman AI researcher by 2029 | Crisp +3, fuzzy +0.5 SD: TED-AI by 2029 | Crisp +3, fuzzy +0.5 SD: TED-AI by 2031 | Crisp +3, fuzzy +0.5 SD: TED-AI by 2035 |
+|---|---|---|---|---|---|---|---|---|
+| No pacing | 88% | 53% | 75% | 91% | 47% | 17% | 38% | 44% |
+| Human sign-off, no comprehension standard | 88% | 50% | 75% | 91% | 39% | 15% | 33% | 44% |
+| Comprehension audits, light | 88% | 44% | 70% | 89% | 36% | 11% | 24% | 41% |
+| Comprehension audits, central | 85% | 43% | 70% | 86% | 33% | 9% | 23% | 41% |
+| Comprehension audits, strict | 79% | 39% | 67% | 86% | 28% | 4% | 22% | 41% |
+| Internal-use lag, 3 months | 81% | 45% | 73% | 90% | 36% | 14% | 34% | 44% |
+| Internal-use lag, 9 months | 59% | 20% | 59% | 90% | 15% | 2% | 26% | 44% |
+| R&D compute cut 3x | 66% | 43% | 61% | 86% | 32% | 10% | 31% | 43% |
+| Comprehension audits (central) + 3-month lag | 78% | 34% | 67% | 86% | 27% | 5% | 22% | 41% |
+| Comprehension audits (central) + 9-month lag | 58% | 15% | 55% | 86% | 8% | 2% | 20% | 40% |
+
+Crisp tasks at +2.1 SD:
+
+| Scenario | Crisp +2.1, fuzzy +1 SD: superhuman AI researcher by 2029 | Crisp +2.1, fuzzy +1 SD: TED-AI by 2029 | Crisp +2.1, fuzzy +1 SD: TED-AI by 2031 | Crisp +2.1, fuzzy +1 SD: TED-AI by 2035 | Crisp +2.1, fuzzy +0.5 SD: superhuman AI researcher by 2029 | Crisp +2.1, fuzzy +0.5 SD: TED-AI by 2029 | Crisp +2.1, fuzzy +0.5 SD: TED-AI by 2031 | Crisp +2.1, fuzzy +0.5 SD: TED-AI by 2035 |
+|---|---|---|---|---|---|---|---|---|
+| No pacing | 74% | 45% | 69% | 86% | 42% | 11% | 34% | 43% |
+| Human sign-off, no comprehension standard | 73% | 43% | 68% | 85% | 36% | 7% | 32% | 43% |
+| Comprehension audits, light | 71% | 33% | 64% | 83% | 27% | 4% | 23% | 40% |
+| Comprehension audits, central | 69% | 32% | 60% | 83% | 23% | 4% | 19% | 39% |
+| Comprehension audits, strict | 62% | 26% | 57% | 83% | 16% | 2% | 11% | 38% |
+| Internal-use lag, 3 months | 65% | 35% | 62% | 85% | 24% | 6% | 32% | 43% |
+| Internal-use lag, 9 months | 34% | 8% | 54% | 84% | 6% | 2% | 23% | 43% |
+| R&D compute cut 3x | 58% | 33% | 56% | 82% | 19% | 5% | 26% | 42% |
+| Comprehension audits (central) + 3-month lag | 59% | 24% | 55% | 83% | 12% | 2% | 16% | 39% |
+| Comprehension audits (central) + 9-month lag | 25% | 4% | 48% | 83% | 3% | 0% | 9% | 38% |
+
+![Probability of each milestone by date, crisp tasks at +3 SD: sign-off and comprehension audits](results/fig8_probability_by_date_gates_split.png)
+
+![Probability of each milestone by date, crisp tasks at +3 SD: lags, compute cuts and combinations](results/fig9_probability_by_date_other_split.png)
+
+![Probability of each milestone by date, crisp tasks at +2.1 SD: sign-off and comprehension audits](results/fig10_probability_by_date_gates_split_crisp_2.1.png)
+
+![Probability of each milestone by date, crisp tasks at +2.1 SD: lags, compute cuts and combinations](results/fig11_probability_by_date_other_split_crisp_2.1.png)
+
+What the sampled trajectories show:
+
+- **Median dates with no pacing.** The superhuman AI researcher arrives in December 2027 or March 2028 with fuzzy tasks at +1 SD, and in February or August 2029 at +0.5 SD. TED-AI arrives in December 2028 or May 2029 at +1 SD, and in May or June 2038 at +0.5 SD.
+- **With fuzzy tasks at +0.5 SD almost half the trajectories do not reach TED-AI before 2040.** With no pacing 44% reach it before 2035. The median date sits at the edge of the horizon. Delays to TED-AI in those two models are measured on the trajectories that arrive, which are the faster ones, so they understate the delay.
+- **Central audits delay TED-AI by a median of 3 to 5 months with fuzzy tasks at +1 SD and 18 to 22 months at +0.5 SD.** They delay the superhuman AI researcher by 1 to 2 months and 3 to 5.
+- **A 3-month lag delays TED-AI by 5 months in all four models, and a 9-month lag by 13 to 14.** Central audits do no more than the 3-month lag with fuzzy tasks at +1 SD and more than the 9-month lag at +0.5 SD.
+- **Audits move the odds most where fuzzy judgment is slow.** With crisp at +3 SD and fuzzy at +0.5 SD, the chance of the superhuman AI researcher before 2029 falls from 47% to 33% under central audits, and the chance of TED-AI before 2031 from 38% to 23%. With fuzzy at +1 SD the chance of TED-AI before 2029 falls from 53% to 43% under central audits, to 45% under a 3-month lag and to 20% under a 9-month lag.
+- **The crisp rate matters little beside the fuzzy rate.** Lowering crisp from +3 SD to +2.1 SD moves the median superhuman AI researcher by 3 to 6 months and median TED-AI by 5 months or 1. Halving the fuzzy rate moves median TED-AI by nine years.
+- **The example trajectory overstates the audit delay at +1 SD.** It shows 8 to 10 months to TED-AI where the sampled median is 3 to 5.
+- **The link moves the no-pacing dates by weeks.** Paired across trajectories, it delays the superhuman AI researcher by a median of 18 to 19 days with fuzzy tasks at +1 SD and 53 to 62 days at +0.5 SD.
+
+For comparison, the same trajectories at a crisp weight of 70% and a substitution of 0.5, the inputs this section first used. Superhuman AI researcher:
+
+| Scenario | Crisp +3, fuzzy +1 SD: median date | Crisp +3, fuzzy +1 SD: median delay | Crisp +3, fuzzy +0.5 SD: median date | Crisp +3, fuzzy +0.5 SD: median delay |
+|---|---|---|---|---|
+| No pacing | Oct 2027 |  | Jan 2028 |  |
+| Human sign-off, no comprehension standard | Oct 2027 | +0 mo | Mar 2028 | +0 mo |
+| Comprehension audits, light | Nov 2027 | +0 mo | Mar 2028 | +1 mo |
+| Comprehension audits, central | Nov 2027 | +1 mo | Apr 2028 | +1 mo |
+| Comprehension audits, strict | Jan 2028 | +2 mo | Jun 2028 | +3 mo |
+| Internal-use lag, 3 months | Feb 2028 | +4 mo | Aug 2028 | +4 mo |
+| Internal-use lag, 9 months | Sep 2028 | +10 mo | Mar 2029 | +11 mo |
+| R&D compute cut 3x | Apr 2028 | +5 mo | Aug 2028 | +7 mo |
+| Comprehension audits (central) + 3-month lag | Mar 2028 | +5 mo | Aug 2028 | +5 mo |
+| Comprehension audits (central) + 9-month lag | Sep 2028 | +10 mo | Apr 2029 | +11 mo |
+
+TED-AI:
+
+| Scenario | Crisp +3, fuzzy +1 SD: median date | Crisp +3, fuzzy +1 SD: median delay | Crisp +3, fuzzy +0.5 SD: median date | Crisp +3, fuzzy +0.5 SD: median delay |
+|---|---|---|---|---|
+| No pacing | May 2028 |  | May 2031 |  |
+| Human sign-off, no comprehension standard | Jun 2028 | +0 mo | Nov 2031 | +0 mo |
+| Comprehension audits, light | Aug 2028 | +1 mo | Feb 2032 | +3 mo |
+| Comprehension audits, central | Sep 2028 | +2 mo | Jun 2032 | +5 mo |
+| Comprehension audits, strict | Dec 2028 | +4 mo | Jan 2033 | +9 mo |
+| Internal-use lag, 3 months | Oct 2028 | +5 mo | Nov 2031 | +4 mo |
+| Internal-use lag, 9 months | Jun 2029 | +13 mo | May 2032 | +12 mo |
+| R&D compute cut 3x | Jan 2029 | +7 mo | Jul 2032 | +10 mo |
+| Comprehension audits (central) + 3-month lag | Feb 2029 | +7 mo | Jul 2032 | +10 mo |
+| Comprehension audits (central) + 9-month lag | Sep 2029 | +15 mo | Jan 2033 | +17 mo |
+
+Median dates and median paired delays are computed separately, so a scenario's median date can move by more or less than its median delay. Paired delays to TED-AI cover only the trajectories that reach it before 2040 with no pacing.
 
 ## What the results imply
 
@@ -606,7 +714,7 @@ Median dates and median paired delays are computed separately. A scenario's medi
 
 **Whether audits buy calendar time is a bet on slow growth in AI research judgment.** With judgment improving 3 SD per year of 2025 progress, central audits buy a month before TED-AI. At 1 SD they buy a median of 8 months before researcher-level AI and 14 before TED-AI, about what a 9-month lag buys, and the two together buy 30 months before TED-AI. The slope is the least-measured input in the AI Futures Model, and the reports from inside the labs point to less AI judgment than its filtered trajectories assume.
 
-**Splitting crisp from fuzzy work does not by itself make audits a timeline tool.** At the central inputs, AI judgment far ahead on crisp tasks carries the lab to researcher-level AI while its judgment on fuzzy tasks is at or below the median researcher, and central audits buy 2 to 5 months before TED-AI. The audit delay reaches years only where fuzzy tasks take half of research effort or crisp work substitutes for them poorly. The crisp share and the substitution move the result as much as the rate on fuzzy tasks does.
+**Splitting crisp from fuzzy work makes audits a timeline tool only where fuzzy judgment is slow.** With fuzzy tasks improving 1 SD a year, AI judgment far ahead on crisp tasks carries the lab to researcher-level AI while its judgment on fuzzy tasks is near the median researcher, and central audits buy a median of 3 to 5 months before TED-AI, no more than a 3-month lag. With fuzzy tasks improving 0.5 SD a year they buy 18 to 22 months, more than a 9-month lag, and the unpaced date itself moves out by nine years. The weight of crisp work and the substitution move the result as much as the fuzzy rate does, and neither has been measured.
 
 **Audits bind when the lab would otherwise stop understanding its work.** While AI judgment is far below the researchers', an unpaced lab keeps understanding what it deploys because its progress depends on it, and audits cost it under 1% of research effort. Once AI judgment passes most researchers the unpaced lab lets that understanding go within months and deploys thousands of changes per researcher-year. That is when audits start to cost the lab pace. The rule holds a lab to a practice it follows while the practice pays, past the point where it stops paying.
 
@@ -692,7 +800,7 @@ Four readings:
 - **The link from comprehension to judgment is a rule written for this briefing.** No one has measured how much research judgment a researcher keeps over work they do not understand. The model sets it to none, lets understanding pay off at once, and assumes the lab acts on its full value. It also assumes each researcher's judgment applies to an equal share of the lab's work, as the AI Futures Model does.
 - **The two taste models share a starting level that AI Futures itself doubts.** -3.5 SD in September 2026 comes from one author's August parameters. The same update gives another author's median as -1.5 SD and calls -3.5 "strange" given the measured pace. A higher starting level brings every date forward under both slopes.
 - **With taste that low, the measured pace has to come from coding, and half the kept trajectories have coding fully automated before Nov 1, 2026.** Anthropic reports no work at its top automation level as of August 2026. The tables split the results on this.
-- **The crisp share and the substitution between crisp and fuzzy work have no measurement behind them.** The share is anchored on one developer's agent output, which overstates it. The substitution is a choice. Together they set how far judgment on crisp tasks can make up for judgment on fuzzy ones: 11 times at the central values, 4 times with crisp work at 50% of effort, and over a thousand times at a substitution of 0.83.
+- **The weight of crisp work and the substitution between crisp and fuzzy work have no measurement behind them.** The weight rests on three anchors that separate well-defined work from the rest, which is wider than the fuzzy class as defined, so 65% is at the low end. The substitution of 0.25 is a judgment. Together they set how far judgment on crisp tasks can make up for judgment on fuzzy ones: 4.1 times at the central values, 2.5 times with crisp work at a weight of 50%, 8.5 times at 80%, 2.9 times at a substitution of 0 and several hundred times at 0.83.
 - **The gate assumes a lab that complies and optimizes within the rule.** Audit sampling error, failed audits and the pauses they trigger are not modeled. One row lets the lab keep only 75% of deployed changes understood.
 - **The pace of 1.2 for May 2026 is AI Futures' rough guess.** It sets the steepness of Model A's uplift curve.
 - **Human time per automation level is assumed.** The values 0.50, 0.12 and 0.04 fit two self-report points and nothing else. The 7-month lag for unsupervised work is AI Futures' assumption on little data.
