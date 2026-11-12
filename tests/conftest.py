@@ -9,6 +9,7 @@ import pytest
 import yaml
 
 from frontier_taxonomy.config import Paths
+from frontier_taxonomy.schema import CANARY
 from frontier_taxonomy.snapshot import write_snapshot
 
 PAGE = """<html><body><h1>Risk report</h1>
@@ -135,6 +136,7 @@ RISK = {
 }
 
 QUESTIONS = {
+    "canary": CANARY,
     "task": "T-x-graders",
     "contribution": "A new model judge.",
     "questions": [

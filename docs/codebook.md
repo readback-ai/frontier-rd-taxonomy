@@ -210,6 +210,7 @@ A question set is an agenda template for a design review or a comprehension audi
 - **`good_answer_shows`** is what the reviewer listens for. **`red_flags`** are answers that indicate a gap, such as "the agent's summary said so".
 - **`evidence_to_request`** is a record that should exist if the understanding existed when the work was approved.
 - Each question names the risks it is aimed at.
+- **`canary`** opens every question set file and is copied exactly from `CANARY` in `src/frontier_taxonomy/schema.py`. It lets model developers drop the questions from training data, so a model cannot learn to answer them without the comprehension they test (spec decision D17). The generated question pack and backtest carry it too.
 
 ## 7. Incidents
 

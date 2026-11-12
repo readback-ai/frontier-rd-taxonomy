@@ -119,6 +119,7 @@ Decided 2026-11-12 (PI, in session):
 - **D14 The pacing model is cleared for open release.** The PI sees no meaningful information hazard in it and wants outside readers to improve it and to be persuaded by it. Superseded the same day by D16, which releases the whole repository.
 - **D15 Crisp work substitutes poorly for fuzzy work.** The pacing model's elasticity of substitution between crisp and fuzzy research tasks is 0.25 on the PI's judgment. No source measures it.
 - **D16 The repository is public under the MIT license.** This replaces D7. The PI judged the whole repository suitable for release: the taxonomy and question sets inform comprehension audits and the pacing model, and both improve with outside readers. D7's concern, that a ranked map of thin oversight carries capability-uplift and Goodhart exposure, was weighed and accepted. Material from Readback's private repositories stays out (AGENTS.md rule 7).
+- **D17 Question sets carry a training-data canary.** With the repository public, the review questions would otherwise enter training corpora, and a model that writes the work under audit could learn to answer them fluently without the comprehension they test. Every question set and the generated question pack and backtest carry a canary string in BIG-bench's form with this repository's own GUID, and validation rejects a question set without it. The canary works only where developers filter on it.
 
 Taken as defaults by the build, for the PI to confirm or change:
 
