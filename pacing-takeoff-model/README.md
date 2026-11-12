@@ -714,7 +714,11 @@ One published series could anchor today's load and has not been checked: time en
 
 ## Reproduce
 
-Run from this directory.
+The model is part of [readback-ai/frontier-rd-taxonomy](https://github.com/readback-ai/frontier-rd-taxonomy), under the MIT license. Run from this directory.
+
+```bash
+git clone https://github.com/readback-ai/frontier-rd-taxonomy && cd frontier-rd-taxonomy/pacing-takeoff-model
+```
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt

@@ -1,8 +1,13 @@
 # frontier-rd-taxonomy
 
-A maintained map of the tasks in frontier AI development: how automated each is, how much people check and understand the work, what can go wrong for safety, the review questions that expose a lack of comprehension, and bottom-up inputs for Readback's pacing model. What it does and what is decided is in [spec.md](spec.md).
+Readback Labs' open research on how frontier AI research and development works and how fast it could speed up. It has two parts that feed each other.
 
-This repository is private and unreleased under Readback's tiered disclosure policy; see [LICENSE](LICENSE). Agents and people working here start with [AGENTS.md](AGENTS.md).
+1. **How AI R&D works, to inform comprehension audits.** A maintained map of the tasks in frontier AI development: how automated each is, how much people check and understand the work, what can go wrong for safety as automation grows, and the review questions that expose a lack of comprehension, backtested against documented incidents. The question sets are templates for comprehension audits.
+2. **How pacing changes the takeoff.** A runnable model, on two published models of AI R&D acceleration, of how comprehension audits, internal-use lags, compute limits and sign-off move the dates of automated AI research milestones. The task map supplies its inputs where evidence exists. The briefing is [pacing-takeoff-model/README.md](pacing-takeoff-model/README.md).
+
+What the system does and what is decided is in [spec.md](spec.md). Agents and people working here start with [AGENTS.md](AGENTS.md).
+
+The repository is public under the [MIT license](LICENSE). We want readers to check the evidence, find errors and improve the models. Open an issue for a disputed number, a missing source or a flaw in a model, and a pull request for a fix. Pull requests that change a reported number follow the readback rule in [AGENTS.md](AGENTS.md).
 
 ## What is in it
 
@@ -68,6 +73,8 @@ uv run taxo verify-quotes S-anthropic-2026-09-measuring-pace
 Details: [spec.md](spec.md) section 6.
 
 ## Related repositories
+
+These are Readback's own repositories and are private. References to them in the spec and records name where an input came from.
 
 | Repository | Relation |
 |---|---|

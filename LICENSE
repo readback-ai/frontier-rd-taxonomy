@@ -1,20 +1,21 @@
-Copyright (c) 2026 Readback Labs, Inc. All rights reserved.
+MIT License
 
-This repository is private and unreleased. No license is granted to any
-person to use, copy, modify, or distribute this software or its
-accompanying materials, except as follows:
+Copyright (c) 2026 Readback Labs, Inc.
 
-1. Contributors who have signed the Readback Labs Individual Contributor
-   Assignment Agreement may use and modify the contents for the purpose
-   of contributing to this repository, and hold the license back to
-   their own Contributions that the Agreement grants them.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-2. Access to this repository does not grant any other right. Do not
-   copy, share, or publish any part of it outside Readback Labs.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-Readback Labs intends to release some or all of this software under an
-open-source license in the future. Until a LICENSE file naming such a
-license is committed to this repository, no such release has occurred.
-
-Contributor Agreement: see legal/CONTRIBUTOR_AGREEMENT.md in
-readback-ai/comprehension-analysis.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
