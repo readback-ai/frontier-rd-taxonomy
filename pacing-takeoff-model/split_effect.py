@@ -12,7 +12,6 @@ Writes results/tables_split.md.
 from __future__ import annotations
 
 import numpy as np
-
 import pacing_model as pm
 from link_effect import T_END, at, date, example, months
 from montecarlo_taste import taste_models
@@ -33,7 +32,8 @@ def row(label: str, m, policies: dict) -> str:
     lag, _ = run(m, policies[LAG3])
     return (
         f"| {label} | {date(free['t_sar'])} | {date(free['t_ted_ai'])} | "
-        f"{months(free['t_sar'], audit['t_sar'])} | {months(free['t_ted_ai'], audit['t_ted_ai'])} | "
+        f"{months(free['t_sar'], audit['t_sar'])} | {months(free['t_ted_ai'], audit['t_ted_ai'])} "
+        "| "
         f"{months(free['t_ted_ai'], lag['t_ted_ai'])} |"
     )
 
@@ -48,7 +48,8 @@ def main() -> None:
         "Written by `split_effect.py`. Do not edit by hand.",
         "",
         "AI Futures' Nov 10 example trajectory. AI research taste is "
-        f"{cal['taste_models']['level_sd']:+g} SD on {pm.fmt_date(cal['taste_models']['date'])} in both "
+        f"{cal['taste_models']['level_sd']:+g} SD on {pm.fmt_date(cal['taste_models']['date'])} in "
+        "both "
         "classes unless a row says otherwise. The link from comprehension to human judgment is on. "
         "Pacing starts Jan 1, 2027.",
         "",
@@ -61,8 +62,10 @@ def main() -> None:
         out += [
             "### No pacing: where the effort goes",
             "",
-            "| Date | AI judgment, crisp tasks | AI judgment, fuzzy tasks | Judgment of an AI-only lab | "
-            "Share of research effort on fuzzy tasks | Share of deployed value that a person understands | "
+            "| Date | AI judgment, crisp tasks | AI judgment, fuzzy tasks | Judgment of an AI-only "
+            "lab | "
+            "Share of research effort on fuzzy tasks | Share of deployed value that a person "
+            "understands | "
             "Pace |",
             "|---|---|---|---|---|---|---|",
         ]
@@ -83,16 +86,25 @@ def main() -> None:
             "",
             "### Varying the inputs with no measurement behind them",
             "",
-            "| Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to "
-            "superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |",
+            "| Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: "
+            "delay to "
+            "superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to "
+            "TED-AI |",
             "|---|---|---|---|---|---|",
         ]
         cases = [
-            (f"Central: crisp share {sp['crisp_share']:.0%}, substitution {sp['substitution']:g}", {}),
+            (
+                f"Central: crisp share {sp['crisp_share']:.0%}, substitution "
+                f"{sp['substitution']:g}",
+                {},
+            ),
             ("Crisp share 50%", dict(share=0.5)),
             ("Crisp share 85%", dict(share=0.85)),
             ("Substitution 0.25 (crisp stands in for fuzzy less)", dict(substitution=0.25)),
-            ("Substitution 0.83 (one AI Futures author's light bottleneck)", dict(substitution=0.83)),
+            (
+                "Substitution 0.83 (one AI Futures author's light bottleneck)",
+                dict(substitution=0.83),
+            ),
             ("Crisp judgment starts at -1.5 SD", dict(crisp_level=-1.5)),
         ]
         for label, override in cases:
@@ -104,8 +116,10 @@ def main() -> None:
         sigma = float(central.params.taste_distribution.sigma)
         out += [
             "",
-            f"With crisp work free, the lab's judgment is at most {ceiling:.1f} times its judgment on fuzzy "
-            f"tasks, which is {np.log(ceiling) / sigma:.1f} SD on this trajectory's researcher distribution.",
+            f"With crisp work free, the lab's judgment is at most {ceiling:.1f} times its judgment "
+            "on fuzzy "
+            f"tasks, which is {np.log(ceiling) / sigma:.1f} SD on this trajectory's researcher "
+            "distribution.",
             "",
         ]
     (OUT / "tables_split.md").write_text("\n".join(out))

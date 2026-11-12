@@ -16,21 +16,32 @@ same component functions with three additions:
 With no additions the re-integration reproduces AIFM's own milestone dates,
 which test_pacing_model.py checks.
 """
+
 from __future__ import annotations
 
 import logging
 import math
 import os
 import sys
+from dataclasses import replace
 from pathlib import Path
 
-from dataclasses import replace
-
 import numpy as np
+from pacing_model import (
+    Link,
+    Policy,
+    Supervision,
+    first_crossing,
+    fit_supervision,
+    free_deployment,
+    gate,
+    gate_from_calibration,
+    lab_choice,
+    link_from_calibration,
+    power_mean,
+    value_at,
+)
 from scipy.optimize import brentq
-
-from pacing_model import (Link, Policy, Supervision, first_crossing, fit_supervision, free_deployment, gate,
-                          gate_from_calibration, lab_choice, link_from_calibration, power_mean, value_at)
 
 # Where the AI Futures Project's public code is checked out. Set AIFM_PATH, or pass a path
 # to the scripts that take --aifm-path.
@@ -43,52 +54,84 @@ DEFAULT_AIFM_PATH = Path(os.environ.get("AIFM_PATH", "~/aifm-public")).expanduse
 # the five changes in Q35_EXAMPLE. That example is Model B's base case.
 # Source for the preset: constants/parameters.ts, 'eli-08-16-26'.
 ELI_AUG_2026 = dict(
-    taste_schedule_type="SDs per progress-year", present_doubling_time=0.37488146126475763,
-    ac_time_horizon_minutes=7.176091259055681, doubling_difficulty_growth_factor=0.92,
-    rho_coding_labor=-2.0, rho_experiment_capacity=-0.155, alpha_experiment_capacity=0.809,
-    direct_input_exp_cap_ces_params=False, r_software=2.4,
-    software_progress_rate_at_reference_year=1.0, coding_labor_normalization=1.0,
-    experiment_compute_exponent=0.655, parallel_penalty=0.5,
-    automation_fraction_at_coding_automation_anchor=1.0, automation_interp_type="logistic",
-    automation_logistic_asymptote=1.1, ai_research_taste_at_coding_automation_anchor_sd=0.5,
-    ai_research_taste_slope=2.1, present_day=2026.578082, present_horizon=186.0,
-    horizon_extrapolation_type="decaying doubling time", ac_anchor_mode="uplift-solved",
-    horizon_reference_date=2026.269178, revenue_reference_date=2026.374429,
-    eci_reference_date=2026.524658, present_revenue=4.7e10, present_revenue_growth_rate=5.0,
-    revenue_required_for_ac=7e12, serial_uplift_at_reference_date=1.7,
-    excess_uplift_doubling_time=6.500769185258003, uplift_reference_date=2026.578082,
-    eci_at_present_day=162.0, eci_growth_rate=15.0, eci_required_for_ac=250.0,
-    inf_labor_asymptote=15.142135623730951, inf_compute_asymptote=1001.0,
-    labor_anchor_exp_cap=1.6, inv_compute_anchor_exp_cap=2.794435844492636, gap_years=0.7,
-    coding_automation_efficiency_slope=3.0, max_serial_coding_labor_multiplier=1e8,
-    median_to_top_taste_multiplier=3.698147512646408, top_percentile=0.999, taste_limit=8.0,
-    taste_limit_smoothing=0.5, strat_ai_m2b=2.0, ted_ai_m2b=1.4966629547095764,
+    taste_schedule_type="SDs per progress-year",
+    present_doubling_time=0.37488146126475763,
+    ac_time_horizon_minutes=7.176091259055681,
+    doubling_difficulty_growth_factor=0.92,
+    rho_coding_labor=-2.0,
+    rho_experiment_capacity=-0.155,
+    alpha_experiment_capacity=0.809,
+    direct_input_exp_cap_ces_params=False,
+    r_software=2.4,
+    software_progress_rate_at_reference_year=1.0,
+    coding_labor_normalization=1.0,
+    experiment_compute_exponent=0.655,
+    parallel_penalty=0.5,
+    automation_fraction_at_coding_automation_anchor=1.0,
+    automation_interp_type="logistic",
+    automation_logistic_asymptote=1.1,
+    ai_research_taste_at_coding_automation_anchor_sd=0.5,
+    ai_research_taste_slope=2.1,
+    present_day=2026.578082,
+    present_horizon=186.0,
+    horizon_extrapolation_type="decaying doubling time",
+    ac_anchor_mode="uplift-solved",
+    horizon_reference_date=2026.269178,
+    revenue_reference_date=2026.374429,
+    eci_reference_date=2026.524658,
+    present_revenue=4.7e10,
+    present_revenue_growth_rate=5.0,
+    revenue_required_for_ac=7e12,
+    serial_uplift_at_reference_date=1.7,
+    excess_uplift_doubling_time=6.500769185258003,
+    uplift_reference_date=2026.578082,
+    eci_at_present_day=162.0,
+    eci_growth_rate=15.0,
+    eci_required_for_ac=250.0,
+    inf_labor_asymptote=15.142135623730951,
+    inf_compute_asymptote=1001.0,
+    labor_anchor_exp_cap=1.6,
+    inv_compute_anchor_exp_cap=2.794435844492636,
+    gap_years=0.7,
+    coding_automation_efficiency_slope=3.0,
+    max_serial_coding_labor_multiplier=1e8,
+    median_to_top_taste_multiplier=3.698147512646408,
+    top_percentile=0.999,
+    taste_limit=8.0,
+    taste_limit_smoothing=0.5,
+    strat_ai_m2b=2.0,
+    ted_ai_m2b=1.4966629547095764,
     optimal_ces_eta_init=0.05,
 )
 Q35_EXAMPLE = dict(
-    serial_uplift_at_reference_date=7.052322627593112,   # Aug 2026 coding uplift
-    excess_uplift_doubling_time=3.0130366136756046,      # months
-    rho_coding_labor=-0.5,                               # coding labor substitutability, -2 -> -0.5
-    inf_labor_asymptote=60.0,                            # infinite coding labor asymptote, 15 -> 60
-    inv_compute_anchor_exp_cap=1.5,                      # slowdown from 10x less experiment compute, 2.8 -> 1.5
+    serial_uplift_at_reference_date=7.052322627593112,  # Aug 2026 coding uplift
+    excess_uplift_doubling_time=3.0130366136756046,  # months
+    rho_coding_labor=-0.5,  # coding labor substitutability, -2 -> -0.5
+    inf_labor_asymptote=60.0,  # infinite coding labor asymptote, 15 -> 60
+    inv_compute_anchor_exp_cap=1.5,  # slowdown from 10x less experiment compute, 2.8 -> 1.5
 )
 # Earlier base for this briefing: the repository defaults (Daniel Kokotajlo's
 # August medians) with the same hypothesis and a tuned uplift doubling time.
 METR_CONDITIONED = {k: v for k, v in Q35_EXAMPLE.items() if k != "excess_uplift_doubling_time"}
 
 
-def published_example(aifm_path: Path | str | None = None, t_ref: float = 2026.83) -> "Aifm":
+def published_example(aifm_path: Path | str | None = None, t_ref: float = 2026.83) -> Aifm:
     """AI Futures' 2026-11-10 example trajectory, run on the public code."""
     return Aifm(dict(ELI_AUG_2026, **Q35_EXAMPLE), aifm_path or DEFAULT_AIFM_PATH, t_ref)
 
 
 class Aifm:
-    def __init__(self, overrides: dict | None = None, aifm_path: Path | str = DEFAULT_AIFM_PATH,
-                 t_ref: float = 2026.83, horizon: float = 2040.0):
+    def __init__(
+        self,
+        overrides: dict | None = None,
+        aifm_path: Path | str = DEFAULT_AIFM_PATH,
+        t_ref: float = 2026.83,
+        horizon: float = 2040.0,
+    ):
         aifm_path = Path(aifm_path)
         if str(aifm_path) not in sys.path:
             sys.path.insert(0, str(aifm_path))
-        logging.disable(logging.WARNING)      # AIFM logs every calibration step
+        logging.disable(logging.WARNING)  # AIFM logs every calibration step
         import progress_model.integration as integ
         from progress_model import Parameters, ProgressModel, load_time_series_data
         from progress_model import config as cfg
@@ -133,18 +176,25 @@ class Aifm:
         # level off AIFM's trajectory at the reported date is unreliable when progress is
         # explosive: the trajectory can climb tens of orders of magnitude between two grid points.
         self.milestones, self.levels, self.targets = {}, {}, {}
-        self.classes, self.class_r = None, 0.0     # research task classes, set by set_taste_classes
+        self.classes, self.class_r = None, 0.0  # research task classes, set by set_taste_classes
         p = self.params
-        for key, name in (("AC", "AC"), ("SAR-level-experiment-selection-skill", "SAR"),
-                          ("TED-AI", "TED-AI"), ("ASI", "ASI")):
+        for key, name in (
+            ("AC", "AC"),
+            ("SAR-level-experiment-selection-skill", "SAR"),
+            ("TED-AI", "TED-AI"),
+            ("ASI", "ASI"),
+        ):
             record = r["milestones"].get(key, {})
             when = record.get("time")
             level = None
             if record.get("metric") == "ai_research_taste_sd":
                 self.targets[name] = (float(record["target"]), bool(record.get("requires_ac")))
             if record.get("metric") == "ai_research_taste_sd" and p.ai_research_taste_slope > 0:
-                level = p.progress_at_aa + (record["target"] - p.ai_research_taste_at_coding_automation_anchor_sd) \
+                level = (
+                    p.progress_at_aa
+                    + (record["target"] - p.ai_research_taste_at_coding_automation_anchor_sd)
                     / p.ai_research_taste_slope
+                )
                 if record.get("requires_ac"):
                     level = max(level, p.progress_at_aa)
             elif record.get("metric") == "progress":
@@ -157,8 +207,8 @@ class Aifm:
                     self.milestones[name] = (float(when), float(level))
         self.supervision = Supervision("none")
         self.labor_ref = float(np.interp(t_ref, b["t"], b["coding_mult"]))
-        self.changes = None          # deployed-change counts, set by use_calibration
-        self.link = None             # the comprehension-to-judgment link, set by use_calibration
+        self.changes = None  # deployed-change counts, set by use_calibration
+        self.link = None  # the comprehension-to-judgment link, set by use_calibration
 
     def use_calibration(self, cal: dict, link: bool | Link = False) -> None:
         self.changes = gate_from_calibration(cal)
@@ -184,14 +234,27 @@ class Aifm:
         self.classes, self.class_r = [dict(c) for c in classes], substitution - 1.0
         td = self.params.taste_distribution
         shares = [c["share"] for c in self.classes]
-        own = lambda c, sd: c["at"] + (sd - c["level"]) / c["slope"]      # progress where a class reaches sd
+
+        def own(c, sd):
+            """Progress at which class `c` alone reaches `sd`."""
+            return c["at"] + (sd - c["level"]) / c["slope"]
+
+        def ai_only(cap):
+            return float(power_mean(self.class_tastes(cap)[0], shares, self.class_r))
+
         for name, (target, needs_ac) in self.targets.items():
             want = float(td.get_taste_at_sd(target))
+            # The lab reaches the target no sooner than its fastest class and no later than
+            # its slowest, so the level lies between the two classes' own levels.
             lo, hi = (f(own(c, target) for c in self.classes) for f in (min, max))
-            miss = lambda cap: float(power_mean(self.class_tastes(cap)[0], shares, self.class_r)) - want
-            level = hi if hi - lo < 1e-9 or miss(hi) <= 0.0 else lo if miss(lo) >= 0.0 else brentq(miss, lo, hi)
+            if hi - lo < 1e-9 or ai_only(hi) <= want:
+                level = hi
+            elif ai_only(lo) >= want:
+                level = lo
+            else:
+                level = brentq(lambda cap, want=want: ai_only(cap) - want, lo, hi)
             self.levels[name] = float(max(level, self.params.progress_at_aa) if needs_ac else level)
-            self.milestones.pop(name, None)       # AIFM's own date no longer applies
+            self.milestones.pop(name, None)  # AIFM's own date no longer applies
 
     def class_sds(self, cap: float) -> np.ndarray:
         return np.array([c["level"] + c["slope"] * (cap - c["at"]) for c in self.classes])
@@ -204,7 +267,10 @@ class Aifm:
 
     def effort_shares(self, tastes) -> np.ndarray:
         """Share of research effort on each class, given the lab's judgment in each."""
-        w = np.array([c["share"] for c in self.classes]) * np.maximum(np.asarray(tastes, float), 1e-300) ** self.class_r
+        w = (
+            np.array([c["share"] for c in self.classes])
+            * np.maximum(np.asarray(tastes, float), 1e-300) ** self.class_r
+        )
         return w / w.sum()
 
     def taste_sd(self, cap: float) -> float:
@@ -212,10 +278,14 @@ class Aifm:
         classes, the level that matches the judgment of an AI-only lab."""
         p = self.params
         if self.classes:
-            ai = power_mean(self.class_tastes(cap)[0], [c["share"] for c in self.classes], self.class_r)
+            ai = power_mean(
+                self.class_tastes(cap)[0], [c["share"] for c in self.classes], self.class_r
+            )
             return float(p.taste_distribution.get_sd_of_taste(float(ai)))
-        return float(p.ai_research_taste_slope * (cap - p.progress_at_aa)
-                     + p.ai_research_taste_at_coding_automation_anchor_sd)
+        return float(
+            p.ai_research_taste_slope * (cap - p.progress_at_aa)
+            + p.ai_research_taste_at_coding_automation_anchor_sd
+        )
 
     def people_share(self, cap: float) -> float:
         """Share of researchers whose research judgment is better than the AI's. With task
@@ -232,8 +302,9 @@ class Aifm:
 
     def fit_supervision(self, kind: str, cal: dict, **kw) -> None:
         uplift_ref = float(np.interp(self.t_ref, self.base["t"], self.base["coding_mult"]))
-        self.supervision = fit_supervision(kind, self.capability_at, self.capability_at(self.t_ref),
-                                           uplift_ref, cal, **kw)
+        self.supervision = fit_supervision(
+            kind, self.capability_at, self.capability_at(self.t_ref), uplift_ref, cal, **kw
+        )
 
     # ---- one evaluation of the right-hand side ---------------------------
     def _inputs(self, t: float, pol: Policy):
@@ -245,14 +316,24 @@ class Aifm:
         C = math.exp(np.interp(look, d.time, d.log_inference_H100e))
         X = math.exp(np.interp(look, d.time, d.log_experiment_H100e))
         X_unpaced = math.exp(np.interp(t, d.time, d.log_experiment_H100e))
-        tc = np.interp(look, d.time, d.log10_training_H100e) + math.log10(self.cfg.FLOP_PER_H100E_YEAR)
+        tc = np.interp(look, d.time, d.log10_training_H100e) + math.log10(
+            self.cfg.FLOP_PER_H100E_YEAR
+        )
         if pol.compute_cut != 1.0 and t >= pol.start:
             C, X = C / pol.compute_cut, X / pol.compute_cut
             tc -= math.log10(pol.compute_cut)
         return H, C, X, X_unpaced, tc
 
-    def rhs(self, t: float, logE: float, RS: float, cap: float, pol: Policy,
-            supervised: bool, cap_start: float | None):
+    def rhs(
+        self,
+        t: float,
+        logE: float,
+        RS: float,
+        cap: float,
+        pol: Policy,
+        supervised: bool,
+        cap_start: float | None,
+    ):
         p, pr = self.params, self.pr
         H, C, X, X_unpaced, tc = self._inputs(t, pol)
         shares = None
@@ -266,23 +347,50 @@ class Aifm:
             taste = pr.compute_aggregate_research_taste(taste_ai, p.taste_distribution)
             ai_k, people_k = taste_ai, taste
         L_opt = p.automation_model.coding_labor_optimal_ces(
-            H, C, float(math.log(self.cfg.BASE_FOR_SOFTWARE_LOM) * cap), p)
-        coding = float(L_opt ** p.parallel_penalty * p.coding_labor_normalization)
-        human = float(self._human_labor(None, C, H, p.rho_coding_labor, p.parallel_penalty,
-                                        p.coding_labor_normalization, human_only=True))
-        mult = coding / human                      # serial coding labor multiplier
+            H, C, float(math.log(self.cfg.BASE_FOR_SOFTWARE_LOM) * cap), p
+        )
+        coding = float(L_opt**p.parallel_penalty * p.coding_labor_normalization)
+        human = float(
+            self._human_labor(
+                None,
+                C,
+                H,
+                p.rho_coding_labor,
+                p.parallel_penalty,
+                p.coding_labor_normalization,
+                human_only=True,
+            )
+        )
+        mult = coding / human  # serial coding labor multiplier
         tau = 1.0 / mult
         if supervised and self.supervision.kind != "none":
             tau = max(tau, self.supervision.h(cap))
-        effort_human = float(pr.compute_research_effort(
-            X_unpaced, human, p.alpha_experiment_capacity, p.rho_experiment_capacity,
-            p.experiment_compute_exponent, 1.0))
+        effort_human = float(
+            pr.compute_research_effort(
+                X_unpaced,
+                human,
+                p.alpha_experiment_capacity,
+                p.rho_experiment_capacity,
+                p.experiment_compute_exponent,
+                1.0,
+            )
+        )
 
         def effort_of_labor(labor):
             labor = np.asarray(labor, float)
-            return np.asarray(pr.compute_research_effort(
-                np.full_like(labor, X), human * labor, p.alpha_experiment_capacity,
-                p.rho_experiment_capacity, p.experiment_compute_exponent, taste)) / effort_human
+            return (
+                np.asarray(
+                    pr.compute_research_effort(
+                        np.full_like(labor, X),
+                        human * labor,
+                        p.alpha_experiment_capacity,
+                        p.rho_experiment_capacity,
+                        p.experiment_compute_exponent,
+                        taste,
+                    )
+                )
+                / effort_human
+            )
 
         active = t >= pol.start
         free_labor = 1.0 / tau
@@ -292,17 +400,41 @@ class Aifm:
         if self.link is not None:
             # Measured labor uplift already includes the time people spend understanding
             # what they deploy today, so directing alone is that much more productive.
-            out = lab_choice(tau * (1.0 - self.link.time_today), lambda labor: effort_of_labor(labor) / taste,
-                             self.labor_ref, self.changes, spec, people_k, ai_k, self.link,
-                             spec.hours_multiplier(cap, cap_start) if spec is not None else 1.0,
-                             self.people_share(cap), shares, self.class_r)
+            out = lab_choice(
+                tau * (1.0 - self.link.time_today),
+                lambda labor: effort_of_labor(labor) / taste,
+                self.labor_ref,
+                self.changes,
+                spec,
+                people_k,
+                ai_k,
+                self.link,
+                spec.hours_multiplier(cap, cap_start) if spec is not None else 1.0,
+                self.people_share(cap),
+                shares,
+                self.class_r,
+            )
             F, theta, labor, kept = out["effort"], out["theta"], out["labor"], out["kept"]
-            comp, deployed, experiments = out["comprehension_share"], out["deployed"], out["experiments"]
-            understood, understood_lab, taste_used = out["understood"], out["understood_lab"], out["taste"]
+            comp, deployed, experiments = (
+                out["comprehension_share"],
+                out["deployed"],
+                out["experiments"],
+            )
+            understood, understood_lab, taste_used = (
+                out["understood"],
+                out["understood_lab"],
+                out["taste"],
+            )
         elif spec is not None:
-            out = gate(tau, effort_of_labor, self.labor_ref, spec, spec.hours_multiplier(cap, cap_start))
+            out = gate(
+                tau, effort_of_labor, self.labor_ref, spec, spec.hours_multiplier(cap, cap_start)
+            )
             F, theta, labor, kept = out["effort"], out["theta"], out["labor"], out["kept"]
-            comp, deployed, experiments = out["comprehension_share"], out["deployed"], out["experiments"]
+            comp, deployed, experiments = (
+                out["comprehension_share"],
+                out["deployed"],
+                out["experiments"],
+            )
         else:
             F, theta, labor, kept, comp = F_free, 1.0, free_labor, 1.0, 0.0
             deployed = experiments = float("nan")
@@ -313,16 +445,39 @@ class Aifm:
         RE = effort_human * F
         se = p.r_software * math.log10(max(RS, 1e-300) / self.RS_0)
         dlogE = 10.0 ** (tc + se - logE) / math.log(10.0)
-        return dlogE, RE, dict(rd_uplift=F, labor=labor, coding_mult=mult, tau=tau, theta=theta,
-                               kept=kept, taste=taste_used, taste_people=taste, taste_ai=taste_ai,
-                               understood=understood, understood_lab=understood_lab, rd_free=F_free,
-                               comprehension_share=comp,
-                               deployed=deployed, experiments=experiments)
+        return (
+            dlogE,
+            RE,
+            dict(
+                rd_uplift=F,
+                labor=labor,
+                coding_mult=mult,
+                tau=tau,
+                theta=theta,
+                kept=kept,
+                taste=taste_used,
+                taste_people=taste,
+                taste_ai=taste_ai,
+                understood=understood,
+                understood_lab=understood_lab,
+                rd_free=F_free,
+                comprehension_share=comp,
+                deployed=deployed,
+                experiments=experiments,
+            ),
+        )
 
     # ---- forward integration from the reference date ---------------------
-    def simulate(self, policy: Policy | None = None, t_end: float = 2032.0,
-                 supervised: bool = True, max_pace: float = 1e6,
-                 step: float = 0.004, stop_after_asi: float = 1.0, stop_at: str | None = None) -> dict:
+    def simulate(
+        self,
+        policy: Policy | None = None,
+        t_end: float = 2032.0,
+        supervised: bool = True,
+        max_pace: float = 1e6,
+        step: float = 0.004,
+        stop_after_asi: float = 1.0,
+        stop_at: str | None = None,
+    ) -> dict:
         """Integrate from t_ref. Stops at t_end, when pace passes max_pace, or once
         progress is `stop_after_asi` orders of magnitude past AIFM's ASI level. With
         `stop_at` naming a milestone, stops just past that milestone instead."""
@@ -348,25 +503,66 @@ class Aifm:
                 cap_start = logE
             d1, r1, info = self.rhs(t, logE, RS, cap_for(t, logE), pol, supervised, cap_start)
             pace = d1 / self.rate0
-            rows.append((t, logE, pace, info["rd_uplift"], info["labor"], info["coding_mult"],
-                         info["tau"], info["theta"], info["kept"], info["rd_free"],
-                         info["comprehension_share"], info["deployed"], info["experiments"],
-                         info["understood"], info["taste"], info["taste_people"], info["taste_ai"],
-                         info["understood_lab"]))
+            rows.append(
+                (
+                    t,
+                    logE,
+                    pace,
+                    info["rd_uplift"],
+                    info["labor"],
+                    info["coding_mult"],
+                    info["tau"],
+                    info["theta"],
+                    info["kept"],
+                    info["rd_free"],
+                    info["comprehension_share"],
+                    info["deployed"],
+                    info["experiments"],
+                    info["understood"],
+                    info["taste"],
+                    info["taste_people"],
+                    info["taste_ai"],
+                    info["understood_lab"],
+                )
+            )
             if pace > max_pace or logE > ceiling:
                 break
             dt = min(step, step / max(pace, 1e-9))
             # Heun's method
-            d2, r2, _ = self.rhs(t + dt, logE + d1 * dt, RS + r1 * dt,
-                                 cap_for(t + dt, logE + d1 * dt), pol, supervised, cap_start)
+            d2, r2, _ = self.rhs(
+                t + dt,
+                logE + d1 * dt,
+                RS + r1 * dt,
+                cap_for(t + dt, logE + d1 * dt),
+                pol,
+                supervised,
+                cap_start,
+            )
             hist_t.append(t)
             hist_E.append(logE)
             logE += 0.5 * (d1 + d2) * dt
             RS += 0.5 * (r1 + r2) * dt
             t += dt
-        cols = ["t", "progress", "pace", "rd_uplift", "labor", "coding_mult", "tau", "theta", "kept",
-                "rd_free", "comprehension_share", "deployed", "experiments", "understood", "taste",
-                "taste_people", "taste_ai", "understood_lab"]
+        cols = [
+            "t",
+            "progress",
+            "pace",
+            "rd_uplift",
+            "labor",
+            "coding_mult",
+            "tau",
+            "theta",
+            "kept",
+            "rd_free",
+            "comprehension_share",
+            "deployed",
+            "experiments",
+            "understood",
+            "taste",
+            "taste_people",
+            "taste_ai",
+            "understood_lab",
+        ]
         out = {c: np.array([r[i] for r in rows]) for i, c in enumerate(cols)}
         out["policy"] = pol
         out["stopped_on_pace"] = bool(out["pace"][-1] > max_pace)
@@ -387,21 +583,26 @@ class Aifm:
         for name, level in self.levels.items():
             when = first_crossing(t, run["progress"], level)
             if when != when and run.get("stopped_on_pace"):
-                when = float(t[-1])      # at a pace past the cap the rest takes hours
+                when = float(t[-1])  # at a pace past the cap the rest takes hours
             s[f"t_{name.lower().replace('-', '_')}"] = when
         return s
 
 
-def conditioned_on_pace(target: float, t_ref: float = 2026.83, base: dict | None = None,
-                        aifm_path: Path | str = DEFAULT_AIFM_PATH) -> tuple[Aifm, dict]:
+def conditioned_on_pace(
+    target: float,
+    t_ref: float = 2026.83,
+    base: dict | None = None,
+    aifm_path: Path | str = DEFAULT_AIFM_PATH,
+) -> tuple[Aifm, dict]:
     """Tune the uplift doubling time so AIFM's pace on t_ref equals `target`."""
     from scipy.optimize import brentq
+
     base = dict(METR_CONDITIONED if base is None else base)
 
     def miss(months):
         try:
             m = Aifm(dict(base, excess_uplift_doubling_time=months), aifm_path, t_ref)
-        except ValueError:          # AIFM cannot fit a schedule this steep
+        except ValueError:  # AIFM cannot fit a schedule this steep
             return 10.0
         return m.base_pace(t_ref) - target
 
