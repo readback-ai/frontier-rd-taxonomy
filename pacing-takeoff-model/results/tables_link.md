@@ -68,3 +68,68 @@ With no pacing the link moves the superhuman AI researcher by +39 days and TED-A
 | 0.5x | Mar 2029 | Sep 2030 | +12 mo | +32 mo |
 | 1x | Apr 2029 | Sep 2030 | +11 mo | +32 mo |
 | 2x | Apr 2029 | Sep 2030 | +12 mo | +32 mo |
+
+## Crisp tasks improve +3 SD and fuzzy tasks +1 SD per year of 2025 progress (split_1)
+
+Pace on Nov 1, 2026: 1.55x. Automated coder: Dec 2026.
+
+| Scenario | Link off: superhuman AI researcher | Link off: TED-AI | Link on: superhuman AI researcher | Link on: TED-AI | Link on: delay to superhuman AI researcher | Link on: delay to TED-AI |
+|---|---|---|---|---|---|---|
+| No pacing | Dec 2027 | Mar 2028 | Dec 2027 | Mar 2028 | +0 mo | +0 mo |
+| Human sign-off, no comprehension standard | Dec 2027 | Mar 2028 | Dec 2027 | Apr 2028 | +0 mo | +0 mo |
+| Comprehension audits, light | Dec 2027 | Jun 2028 | Dec 2027 | Jun 2028 | +0 mo | +2 mo |
+| Comprehension audits, central | Jan 2028 | Jul 2028 | Jan 2028 | Jul 2028 | +1 mo | +4 mo |
+| Comprehension audits, strict | Feb 2028 | Oct 2028 | Feb 2028 | Oct 2028 | +2 mo | +7 mo |
+| Internal-use lag, 3 months | Apr 2028 | Oct 2028 | Apr 2028 | Nov 2028 | +4 mo | +7 mo |
+
+With no pacing the link moves the superhuman AI researcher by +17 days and TED-AI by +19 days.
+
+### No pacing, link on: what the lab understands
+
+| Date | AI research taste | Researchers with better judgment than the AI | Share of deployed value that a person understands | Researcher time spent understanding | Lab judgment against judgment with full understanding | Pace | Pace with the link off |
+|---|---|---|---|---|---|---|---|
+| Jan 2027 | -2.5 SD | 100% | 100% | 16% | 100% | 1.7x | 1.7x |
+| Jul 2027 | -0.4 SD | 98% | 88% | 30% | 97% | 2.4x | 2.5x |
+| Oct 2027 | +1.1 SD | 91% | 61% | 34% | 92% | 3.8x | 4.5x |
+| Jan 2028 | +3.5 SD | 51% | 12% | 10% | 90% | 7.5x | 9.1x |
+
+### Depth of understanding that judgment needs
+
+| Hours to understand a change well enough to judge the next step, against the central audit standard | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI |
+|---|---|---|---|---|
+| 0.5x | Dec 2027 | Mar 2028 | +1 mo | +4 mo |
+| 1x | Dec 2027 | Mar 2028 | +1 mo | +4 mo |
+| 2x | Dec 2027 | Apr 2028 | +1 mo | +4 mo |
+
+## Crisp tasks improve +3 SD and fuzzy tasks +0.5 SD per year of 2025 progress (split_0.5)
+
+Pace on Nov 1, 2026: 1.55x. Automated coder: Dec 2026.
+
+| Scenario | Link off: superhuman AI researcher | Link off: TED-AI | Link on: superhuman AI researcher | Link on: TED-AI | Link on: delay to superhuman AI researcher | Link on: delay to TED-AI |
+|---|---|---|---|---|---|---|
+| No pacing | Jan 2028 | Mar 2029 | Mar 2028 | May 2029 | +0 mo | +0 mo |
+| Human sign-off, no comprehension standard | Jan 2028 | Jul 2029 | Mar 2028 | Oct 2029 | +0 mo | +4 mo |
+| Comprehension audits, light | Mar 2028 | May 2030 | Mar 2028 | Jul 2030 | +1 mo | +13 mo |
+| Comprehension audits, central | Apr 2028 | Dec 2030 | Apr 2028 | Nov 2030 | +1 mo | +18 mo |
+| Comprehension audits, strict | Jun 2028 | Aug 2031 | Jun 2028 | Jul 2031 | +3 mo | +26 mo |
+| Internal-use lag, 3 months | Jun 2028 | Oct 2029 | Jul 2028 | Jan 2030 | +5 mo | +8 mo |
+
+With no pacing the link moves the superhuman AI researcher by +40 days and TED-AI by +67 days.
+
+### No pacing, link on: what the lab understands
+
+| Date | AI research taste | Researchers with better judgment than the AI | Share of deployed value that a person understands | Researcher time spent understanding | Lab judgment against judgment with full understanding | Pace | Pace with the link off |
+|---|---|---|---|---|---|---|---|
+| Jan 2027 | -2.6 SD | 100% | 100% | 16% | 100% | 1.7x | 1.7x |
+| Jul 2027 | -0.7 SD | 100% | 92% | 32% | 98% | 2.4x | 2.5x |
+| Jan 2028 | +2.0 SD | 97% | 45% | 55% | 78% | 5.8x | 8.3x |
+| Jul 2028 | +5.0 SD | 59% | 4% | 11% | 80% | 6.1x | 5.3x |
+| Jan 2029 | +6.8 SD | 16% | 1% | 1% | 96% | 4.0x | 3.3x |
+
+### Depth of understanding that judgment needs
+
+| Hours to understand a change well enough to judge the next step, against the central audit standard | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI |
+|---|---|---|---|---|
+| 0.5x | Feb 2028 | May 2029 | +2 mo | +18 mo |
+| 1x | Mar 2028 | May 2029 | +1 mo | +18 mo |
+| 2x | Mar 2028 | Jun 2029 | +2 mo | +20 mo |

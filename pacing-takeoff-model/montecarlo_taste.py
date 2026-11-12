@@ -551,9 +551,8 @@ def figure(rows, meta, styles: dict, path: Path, title: str, models: list[TasteM
     )
     split = any(m.fuzzy is not None for m in models)
     classes = (
-        f" Crisp tasks take {cal['taste_split']['crisp_share']:.0%} of research effort at first; "
-        "crisp and "
-        "fuzzy work are complements."
+        f" Crisp tasks take {cal['taste_split']['crisp_share']:.0%} of research effort at first, "
+        "and crisp and fuzzy work are complements."
         if split
         else ""
     )
@@ -561,12 +560,11 @@ def figure(rows, meta, styles: dict, path: Path, title: str, models: list[TasteM
         0.045,
         0.94,
         f"Share of {meta['kept']} sampled AI Futures Model trajectories that have reached each "
-        "milestone "
-        f"by the date shown. Pace {meta['band'][0]:g}x to {meta['band'][1]:g}x on Nov 1, 2026.\n"
+        f"milestone by the date shown. Pace {meta['band'][0]:g}x to {meta['band'][1]:g}x on "
+        "Nov 1, 2026.\n"
         f"AI research taste {cal['taste_models']['level_sd']:+g} SD in Sep 2026, improving per "
-        "year of 2025 "
-        f"progress as each panel says.{classes}\nPacing starts Jan 1, 2027. "
-        f"{ends[0].upper() + ends[1:]}.",
+        "year of 2025 progress as each panel says.\n"
+        f"Pacing starts Jan 1, 2027. {ends[0].upper() + ends[1:]}.{classes}",
         fontsize=9,
         color=INK2,
         va="top",
