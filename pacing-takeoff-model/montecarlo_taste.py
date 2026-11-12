@@ -644,13 +644,28 @@ def report(rows, meta, tag: str = "") -> None:
 FLOATS = ("pace_nov_2026", "taste_sd_on_date", "slope_per_2025_year", "ac_date", "sar", "ted_ai")
 
 
-def load(tag: str = "") -> tuple[list[dict], dict]:
-    with open(OUT / f"model_b_taste{tag}.csv") as f:
+def read_rows(path: Path) -> list[dict]:
+    with open(path) as f:
         rows = list(csv.DictReader(f))
     for r in rows:
         r["sample"], r["link"] = int(r["sample"]), int(r["link"])
         for k in FLOATS:
             r[k] = float(r[k])
+    return rows
+
+
+def checkpoint(path: Path, rows: list[dict]) -> None:
+    """Append finished trajectories, so a run that is cut short can pick up where it stopped."""
+    new = not path.exists()
+    with open(path, "a", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        if new:
+            w.writeheader()
+        w.writerows(rows)
+
+
+def load(tag: str = "") -> tuple[list[dict], dict]:
+    rows = read_rows(OUT / f"model_b_taste{tag}.csv")
     with open(OUT / f"model_b_taste{tag}_meta.json") as f:
         meta = json.load(f)
     meta["band"] = tuple(meta["band"])
@@ -701,6 +716,11 @@ def main() -> None:
     ap.add_argument("--substitution", type=float, help="override taste_split.substitution")
     ap.add_argument("--tag", default="", help="suffix for output files; needed with an override")
     ap.add_argument("--replot", action="store_true", help="rebuild tables and figures from the CSV")
+    ap.add_argument(
+        "--checkpoint",
+        type=Path,
+        help="CSV to append finished trajectories to. A rerun skips the trajectories in it",
+    )
     args = ap.parse_args()
     tag = f"_{args.tag}" if args.tag else ""
     if args.replot:
@@ -732,6 +752,17 @@ def main() -> None:
         )
     rows, paces = [], []
     per = len(models) * (len(SCENARIOS) + len(UNLINKED))
+    if args.checkpoint and args.checkpoint.exists():
+        earlier = read_rows(args.checkpoint)
+        count = {}
+        for r in earlier:
+            count[r["sample"]] = count.get(r["sample"], 0) + 1
+        whole = {k for k, n in count.items() if n == per}
+        rows = [r for r in earlier if r["sample"] in whole]
+        jobs = [j for j in jobs if j[0] not in whole]
+        print(
+            f"[{time.time() - t0:5.0f}s] {len(whole)} trajectories from the checkpoint", flush=True
+        )
     with mp.Pool(
         args.workers,
         initializer=_init,
@@ -742,6 +773,8 @@ def main() -> None:
         ):
             paces.append(pace)
             rows.extend(got)
+            if args.checkpoint and got:
+                checkpoint(args.checkpoint, got)
             if done % (10 if drawn else 200) == 0 or done == len(jobs):
                 print(f"[{time.time() - t0:5.0f}s] {done} run, {len(rows) // per} kept", flush=True)
     rows += carried

@@ -361,3 +361,26 @@ def test_delegation_at_google_deepmind_is_slower_than_at_anthropic():
     # A moving ceiling on unsupervised work only ever adds human time.
     far = cap_ref + 3.0
     assert a.supervision.h(far, 0.85) > a.supervision.h(far) >= 0.0
+
+
+def test_sampled_run_checkpoint_round_trips(tmp_path):
+    from montecarlo_taste import checkpoint, read_rows
+
+    row = dict(
+        sample=7,
+        pace_nov_2026=1.7,
+        taste_model="baseline",
+        taste_sd_on_date=-3.5,
+        slope_per_2025_year=3.0,
+        ac_date=2027.1,
+        link=1,
+        scenario="No pacing",
+        sar=2027.5,
+        ted_ai=float("nan"),
+    )
+    path = tmp_path / "partial.csv"
+    checkpoint(path, [row])
+    checkpoint(path, [dict(row, sample=8)])
+    back = read_rows(path)
+    assert [r["sample"] for r in back] == [7, 8]
+    assert back[0]["sar"] == 2027.5 and math.isnan(back[0]["ted_ai"])
