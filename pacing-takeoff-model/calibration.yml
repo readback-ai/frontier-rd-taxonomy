@@ -114,19 +114,19 @@ real_research:                   # What the labs' own usage data say that benchm
   # The benchmark horizon does not enter Model B. The AI Futures code in use anchors coding automation on measured
   # coding uplift (ac_anchor_mode "uplift-solved"), and its sampled trajectories are identical with a present
   # horizon of 186 or 15 minutes. The usage data enter through the two inputs below.
-  # 1. How fast work is handed over. The supervision schedule can be fitted to Google DeepMind's share of fully
-  #    delegated pull requests (supervision kind "gdm") in place of Anthropic's share of AI-led work. ASSUMPTION:
-  #    a pull request with all code AI-written and under 3 human turns is AI-led work (AL4), and one with over 75%
-  #    of code AI-written is AL3 or above. Counting pull requests with under 10 human turns as AI-led gives a
-  #    slope close to Anthropic's. The data are production code; the report expects experimental code to move faster.
-  delegation: gdm
-  # 2. Share of work that needs a person however short the task. Under 15 minutes, 14% of OpenAI's tasks and 18%
-  #    of Google DeepMind's needed an intervention or failed. ASSUMPTION, decided by the PI on 2026-11-12: this
-  #    share is the part of real work that turns on judgment the AI lacks, so it falls as AI judgment on fuzzy
-  #    tasks rises and has no fixed floor. The model scales it by the share of researchers whose judgment on fuzzy
-  #    tasks is still better than the AI's. Work in this share is AI-led with a person supervising
-  #    (human_time_per_unit_work.al4).
-  residue_today: 0.15
+  # 1. Share of work that needs a person however short the task. Under 15 minutes, 14% of OpenAI's tasks needed an
+  #    intervention or failed, January to July 2026 pooled (9% to 20% in each month from March). Google DeepMind's
+  #    figure for Gemini 4 Argon is 18%. ASSUMPTION, decided by the PI on 2026-11-12: this share is the part of
+  #    real work that turns on judgment the AI lacks, so it falls as AI judgment on fuzzy tasks rises and has no
+  #    fixed floor. The model scales it by the share of researchers whose judgment on fuzzy tasks is still better
+  #    than the AI's. Work in this share is AI-led with a person supervising (human_time_per_unit_work.al4).
+  residue_today: 0.14
+  # 2. Sensitivity only: how fast work is handed over. The supervision schedule can be fitted to Google DeepMind's
+  #    share of fully delegated pull requests (supervision kind "gdm") in place of Anthropic's share of AI-led
+  #    work. The PI does not anchor on this series: Google DeepMind's models were behind the frontier for most of
+  #    the months it covers, and it is production code only. ASSUMPTION in the fit: a pull request with all code
+  #    AI-written and under 3 human turns is AI-led work (AL4), and one with over 75% of code AI-written is AL3 or
+  #    above. Counting pull requests with under 10 human turns as AI-led gives a slope close to Anthropic's.
 
 comprehension_gate:              # ASSUMPTIONS throughout, to be measured in a pilot
   researcher_hours_per_year: 2000

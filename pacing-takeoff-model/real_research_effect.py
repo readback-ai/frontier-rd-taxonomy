@@ -1,14 +1,14 @@
 """What the labs' own usage data change, on one trajectory.
 
 Two developers report how their agents do on real internal work, which benchmarks do not
-show. This script reads those reports the way the rest of the model reads Anthropic's
-automation levels, and runs AI Futures' Nov 10 example trajectory with two changes
-(calibration.yml, real_research):
+show. This script runs AI Futures' Nov 10 example trajectory with one change
+(calibration.yml, real_research) and one sensitivity:
 
-  delegation  the supervision schedule is fitted to Google DeepMind's share of fully
-              delegated pull requests in place of Anthropic's share of AI-led work
-  residue     a share of work needs a person however short the task, and that share falls
-              as AI judgment rises (on fuzzy tasks, where research is split into classes)
+  residue      a share of work needs a person however short the task, and that share falls
+               as AI judgment rises (on fuzzy tasks, where research is split into classes)
+  sensitivity  the supervision schedule fitted to Google DeepMind's share of fully delegated
+               pull requests in place of Anthropic's share of AI-led work. The briefing does
+               not anchor on that series.
 
 Writes results/tables_real_research.md.
 """
@@ -23,10 +23,13 @@ from montecarlo_taste import taste_models
 OUT = pm.HERE / "results"
 CENTRAL, LAG3 = "Comprehension audits, central", "Internal-use lag, 3 months"
 CASES = (
-    ("Anthropic's automation levels, no residue (as in earlier sections)", "anthropic", False),
-    ("Delegation as Google DeepMind measures it", "gdm", False),
+    ("Earlier sections: Anthropic's automation levels, no residue", "anthropic", False),
     ("Work that needs a person, tied to AI judgment", "anthropic", True),
-    ("Both", "gdm", True),
+    (
+        "Sensitivity: handover as slow as Google DeepMind's delegation, with the residue",
+        "gdm",
+        True,
+    ),
 )
 
 
@@ -109,7 +112,7 @@ def data_tables(cal: dict) -> list[str]:
     out += [
         "",
         "The model's supervision schedule is a logistic in capability fitted to the first "
-        "series. The delegation rows below fit it to the third.",
+        "series. The sensitivity rows below fit it to the third.",
         "",
     ]
     return out
@@ -125,7 +128,7 @@ def model_a(cal: dict) -> list[str]:
     ]
     for label, kind in (
         ("Anthropic's automation levels", "anthropic"),
-        ("Google DeepMind's fully delegated pull requests", "gdm"),
+        ("Sensitivity: Google DeepMind's fully delegated pull requests", "gdm"),
     ):
         m, _ = pm.build_a(cal, supervision=kind)
         s = pm.summarize_a(m, m.simulate(t_end=2040.0))
