@@ -94,13 +94,14 @@ def main() -> None:
         ]
         cases = [
             (
-                f"Central: crisp share {sp['crisp_share']:.0%}, substitution "
-                f"{sp['substitution']:g}",
+                f"Central: crisp share {sp['crisp_share']:.0%}, "
+                f"substitution {sp['substitution']:g}",
                 {},
             ),
             ("Crisp share 50%", dict(share=0.5)),
-            ("Crisp share 85%", dict(share=0.85)),
-            ("Substitution 0.25 (crisp stands in for fuzzy less)", dict(substitution=0.25)),
+            ("Crisp share 80%", dict(share=0.8)),
+            ("Substitution 0 (fixed proportions)", dict(substitution=0.0)),
+            ("Substitution 0.5", dict(substitution=0.5)),
             (
                 "Substitution 0.83 (one AI Futures author's light bottleneck)",
                 dict(substitution=0.83),

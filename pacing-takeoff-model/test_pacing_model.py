@@ -275,10 +275,10 @@ def test_adapter_task_classes_reduce_to_one_taste_and_shift_effort_to_fuzzy_work
 
     models = {m.name: m for m in taste_models(CAL)}
     single = example(CAL, models["baseline"])
-    same = example(CAL, replace(models["split_1"], fuzzy=models["split_1"].crisp))
+    same = example(CAL, replace(models["split_3_1"], fuzzy=models["split_3_1"].crisp))
     for name in ("SAR", "TED-AI"):
         assert abs(single.levels[name] - same.levels[name]) < 1e-6, name
-    split = example(CAL, models["split_1"])
+    split = example(CAL, models["split_3_1"])
     assert single.levels["SAR"] < split.levels["SAR"] < example(CAL, models["slow"]).levels["SAR"]
     early, late = split.capability_at(split.t_ref), split.levels["TED-AI"]
 
@@ -287,19 +287,6 @@ def test_adapter_task_classes_reduce_to_one_taste_and_shift_effort_to_fuzzy_work
 
     assert math.isclose(share(early), 1.0 - CAL["taste_split"]["crisp_share"], abs_tol=0.01)
     assert share(late) > 0.6
-
-
-def test_intervention_records_name_policies_the_model_has():
-    import yaml
-
-    records = sorted(
-        (Path(__file__).resolve().parent.parent / "data" / "interventions").glob("*.yml")
-    )
-    assert records
-    names = {p.name for p in standard_policies(CAL)}
-    for record in records:
-        policy = yaml.safe_load(record.read_text()).get("pacing_policy")
-        assert policy is None or policy in names, (record.name, policy)
 
 
 def test_adapter_link_matches_aifm_pace_at_the_reference_date():

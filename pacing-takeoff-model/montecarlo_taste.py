@@ -6,8 +6,8 @@ extrapolation" (2026-11-10): AI research taste of -3.5 SD on Sep 25, 2026.
 
     baseline    +3 SD per year of 2025 progress (AI Futures' base case)
     slow        +1 SD per year of 2025 progress
-    split_1     research split into crisp tasks at +3 SD and fuzzy tasks at +1 SD
-    split_0.5   crisp tasks at +3 SD and fuzzy tasks at +0.5 SD
+    split_C_F   research split into crisp tasks at +C SD and fuzzy tasks at +F SD,
+                for C in 3 and 2.1 and F in 1 and 0.5
 
 In the split models the two classes are complements (calibration.yml,
 taste_split), so effort shifts to fuzzy work as crisp work gets cheap.
@@ -23,11 +23,14 @@ comprehension to human judgment switched on (pacing_model.lab_choice), and
 under two scenarios with the link off for comparison.
 
 Usage:
-    python montecarlo_taste.py --samples 10000       # about two hours on 4 cores
-    python montecarlo_taste.py --samples 10000 --only kept --models split_1,split_0.5
+    python montecarlo_taste.py --samples 10000       # several hours on 4 cores
+    python montecarlo_taste.py --samples 10000 --only kept --models split_3_1,split_3_0.5
     python montecarlo_taste.py --replot              # rebuild tables and figures from the CSV
+    python montecarlo_taste.py --samples 10000 --only kept --models split_3_1,split_3_0.5 \\
+        --crisp-share 0.7 --substitution 0.5 --tag share0.7_sub0.5
 
-Writes results/model_b_taste.csv, results/tables_taste.md and figures 5, 6, 8 and 9.
+Writes results/model_b_taste.csv, results/tables_taste.md and figures 5, 6 and 8 to 11. A
+tagged run writes results/model_b_taste_<tag>.csv and results/tables_taste_<tag>.md only.
 """
 
 from __future__ import annotations
@@ -107,12 +110,17 @@ def taste_models(cal: dict) -> list[TasteModel]:
         TasteModel("baseline", float(t["slope_baseline"]), None, (2028.0, 2029.0, 2030.0), 2031.0),
         TasteModel("slow", float(t["slope_slow"]), None, (2029.0, 2031.0, 2035.0), T_END),
     ]
-    span = {1.0: ((2028.0, 2029.0, 2031.0), 2033.0), 0.5: ((2029.0, 2031.0, 2035.0), T_END)}
-    for fuzzy in sp["fuzzy_slopes"]:
-        years, until = span.get(float(fuzzy), ((2029.0, 2031.0, 2035.0), T_END))
-        out.append(
-            TasteModel(f"split_{fuzzy:g}", float(sp["crisp_slope"]), float(fuzzy), years, until)
-        )
+    for crisp in sp["crisp_slopes"]:
+        for fuzzy in sp["fuzzy_slopes"]:
+            out.append(
+                TasteModel(
+                    f"split_{crisp:g}_{fuzzy:g}",
+                    float(crisp),
+                    float(fuzzy),
+                    (2029.0, 2031.0, 2035.0),
+                    T_END,
+                )
+            )
     return out
 
 
@@ -179,7 +187,7 @@ def pinned(
     )
 
 
-def _init(aifm_path, band, supervision, models):
+def _init(aifm_path, band, supervision, models, split=None):
     import warnings
 
     warnings.filterwarnings("ignore")  # AIFM overflows harmlessly on extreme draws
@@ -192,6 +200,7 @@ def _init(aifm_path, band, supervision, models):
         supervision=supervision,
         cal=cal,
         models=[m for m in taste_models(cal) if m.name in models],
+        split=dict(split or {}),
         policies={p.name: p for p in pm.standard_policies(cal)},
     )
 
@@ -212,7 +221,7 @@ def _work(job):
     rows = []
     try:
         for model in _STATE["models"]:
-            m = build(params, first, model, cal, _STATE["path"])
+            m = build(params, first, model, cal, _STATE["path"], **_STATE["split"])
             common = dict(
                 sample=index,
                 pace_nov_2026=m.base_pace(t_ref),
@@ -319,9 +328,10 @@ def markdown(rows, meta) -> str:
         f"Every taste model puts AI research taste at {spec['level_sd']:+g} SD on "
         f"{pm.fmt_date(spec['date'])}, "
         "in both classes of task where there are two. In the split models crisp tasks take "
-        f"{sp['crisp_share']:.0%} of research effort while judgment is equal across the classes, "
-        "and the "
-        f"elasticity of substitution between the classes is {sp['substitution']:g}. "
+        f"{meta.get('crisp_share', sp['crisp_share']):.0%} of research effort while judgment is "
+        "equal across the classes, and the "
+        "elasticity of substitution between the classes is "
+        f"{meta.get('substitution', sp['substitution']):g}. "
         "Pacing starts Jan 1, 2027. Delays are paired: each trajectory under a scenario against "
         "the same "
         f"trajectory with no pacing. A milestone not reached by the end of {T_END - 1:.0f} counts "
@@ -332,26 +342,35 @@ def markdown(rows, meta) -> str:
     ]
     milestones = (("sar", "Superhuman AI researcher"), ("ted_ai", "TED-AI"))
     out += ["## Summary", ""]
+    groups = [
+        ("one taste", [m for m in models if m.fuzzy is None]),
+        ("crisp and fuzzy tasks", [m for m in models if m.fuzzy is not None]),
+    ]
     for key, label in milestones:
-        out += [
-            f"### {label}: median date and median delay",
-            "",
-            "| Scenario | "
-            + " | ".join(f"{m.short}: median date | {m.short}: median delay" for m in models)
-            + " |",
-            "|---|" + "---|" * (2 * len(models)),
-        ]
-        for name in SCENARIOS:
-            cells = []
-            for m in models:
-                base = select(rows, m.name, 1, "No pacing")
-                got = select(rows, m.name, 1, name)
-                cells.append(date_text(quantile([r[key] for r in got.values()], 0.5)))
-                cells.append(
-                    "" if name == "No pacing" else delay_text(quantile(delays(got, base, key), 0.5))
-                )
-            out.append(f"| {name} | " + " | ".join(cells) + " |")
-        out.append("")
+        for group, members in groups:
+            if not members:
+                continue
+            out += [
+                f"### {label}, {group}: median date and median delay",
+                "",
+                "| Scenario | "
+                + " | ".join(f"{m.short}: median date | {m.short}: median delay" for m in members)
+                + " |",
+                "|---|" + "---|" * (2 * len(members)),
+            ]
+            for name in SCENARIOS:
+                cells = []
+                for m in members:
+                    base = select(rows, m.name, 1, "No pacing")
+                    got = select(rows, m.name, 1, name)
+                    cells.append(date_text(quantile([r[key] for r in got.values()], 0.5)))
+                    cells.append(
+                        ""
+                        if name == "No pacing"
+                        else delay_text(quantile(delays(got, base, key), 0.5))
+                    )
+                out.append(f"| {name} | " + " | ".join(cells) + " |")
+            out.append("")
     for model in models:
         base = select(rows, model.name, 1, "No pacing")
         out += [f"## {model.heading} ({model.name})", ""]
@@ -551,8 +570,8 @@ def figure(rows, meta, styles: dict, path: Path, title: str, models: list[TasteM
     )
     split = any(m.fuzzy is not None for m in models)
     classes = (
-        f" Crisp tasks take {cal['taste_split']['crisp_share']:.0%} of research effort at first, "
-        "and crisp and fuzzy work are complements."
+        f" Crisp tasks take {meta.get('crisp_share', cal['taste_split']['crisp_share']):.0%} of "
+        "research effort at first, and crisp and fuzzy work are complements."
         if split
         else ""
     )
@@ -574,54 +593,62 @@ def figure(rows, meta, styles: dict, path: Path, title: str, models: list[TasteM
     plt.close(fig)
 
 
-def report(rows, meta) -> None:
-    (OUT / "tables_taste.md").write_text(markdown(rows, meta))
+def report(rows, meta, tag: str = "") -> None:
+    """Write the tables, and for an untagged run the figures."""
+    (OUT / f"tables_taste{tag}.md").write_text(markdown(rows, meta))
+    if tag:
+        return
     present = {r["taste_model"] for r in rows}
     models = [m for m in taste_models(pm.load_calibration()) if m.name in present]
-    single = [m for m in models if m.fuzzy is None]
-    split = [m for m in models if m.fuzzy is not None]
     gates = "Probability of each milestone by date: sign-off and comprehension audits"
     other = "Probability of each milestone by date: lags, compute cuts and combinations"
+    single = [m for m in models if m.fuzzy is None]
     if single:
         figure(rows, meta, STYLE_GATES, OUT / "fig5_probability_by_date_gates.png", gates, single)
         figure(rows, meta, STYLE_OTHER, OUT / "fig6_probability_by_date_other.png", other, single)
-    if split:
-        figure(
-            rows,
-            meta,
-            STYLE_GATES,
-            OUT / "fig8_probability_by_date_gates_split.png",
-            gates + ", crisp and fuzzy tasks",
-            split,
-        )
-        figure(
-            rows,
-            meta,
-            STYLE_OTHER,
-            OUT / "fig9_probability_by_date_other_split.png",
-            other + ", crisp and fuzzy tasks",
-            split,
-        )
+    # One pair of figures per rate on crisp tasks: figures 8 and 9, then 10 and 11.
+    crisp_rates = sorted({m.crisp for m in models if m.fuzzy is not None}, reverse=True)
+    for number, crisp in zip((8, 10), crisp_rates, strict=False):
+        members = [m for m in models if m.fuzzy is not None and m.crisp == crisp]
+        suffix = "" if number == 8 else f"_crisp_{crisp:g}"
+        for offset, (styles, kind, title) in enumerate(
+            ((STYLE_GATES, "gates", gates), (STYLE_OTHER, "other", other))
+        ):
+            figure(
+                rows,
+                meta,
+                styles,
+                OUT / f"fig{number + offset}_probability_by_date_{kind}_split{suffix}.png",
+                title + ", crisp and fuzzy tasks",
+                members,
+            )
 
 
-def load() -> tuple[list[dict], dict]:
-    with open(OUT / "model_b_taste.csv") as f:
+FLOATS = ("pace_nov_2026", "taste_sd_on_date", "slope_per_2025_year", "ac_date", "sar", "ted_ai")
+
+
+def load(tag: str = "") -> tuple[list[dict], dict]:
+    with open(OUT / f"model_b_taste{tag}.csv") as f:
         rows = list(csv.DictReader(f))
     for r in rows:
         r["sample"], r["link"] = int(r["sample"]), int(r["link"])
-        for k in (
-            "pace_nov_2026",
-            "taste_sd_on_date",
-            "slope_per_2025_year",
-            "ac_date",
-            "sar",
-            "ted_ai",
-        ):
+        for k in FLOATS:
             r[k] = float(r[k])
-    with open(OUT / "model_b_taste_meta.json") as f:
+    with open(OUT / f"model_b_taste{tag}_meta.json") as f:
         meta = json.load(f)
     meta["band"] = tuple(meta["band"])
     return rows, meta
+
+
+def save(rows, meta, tag: str = "") -> None:
+    with open(OUT / f"model_b_taste{tag}.csv", "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        w.writeheader()
+        for r in rows:
+            w.writerow({k: (f"{v:.4f}" if isinstance(v, float) else v) for k, v in r.items()})
+    with open(OUT / f"model_b_taste{tag}_meta.json", "w") as f:
+        json.dump(meta, f, indent=1)
+    report(rows, meta, tag)
 
 
 def main() -> None:
@@ -646,11 +673,22 @@ def main() -> None:
         help="'kept' reruns just the trajectories in the existing CSV, skipping the pace filter "
         "over all draws. Same results as a full run, in less time",
     )
+    ap.add_argument("--crisp-share", type=float, help="override taste_split.crisp_share")
+    ap.add_argument("--substitution", type=float, help="override taste_split.substitution")
+    ap.add_argument("--tag", default="", help="suffix for output files; needed with an override")
     ap.add_argument("--replot", action="store_true", help="rebuild tables and figures from the CSV")
     args = ap.parse_args()
+    tag = f"_{args.tag}" if args.tag else ""
     if args.replot:
-        report(*load())
+        report(*load(tag), tag)
         return
+    split = {}
+    if args.crisp_share is not None:
+        split["share"] = args.crisp_share
+    if args.substitution is not None:
+        split["substitution"] = args.substitution
+    if split and not tag:
+        ap.error("an override of the split inputs needs --tag, so the main results stay intact")
     path, band = Path(args.aifm_path), (args.pace_low, args.pace_high)
     OUT.mkdir(exist_ok=True)
     t0 = time.time()
@@ -663,11 +701,14 @@ def main() -> None:
         old_rows, old_meta = load()
         wanted, drawn = {r["sample"] for r in old_rows}, old_meta["drawn"]
         jobs = [j for j in jobs if j[0] in wanted]
-        carried = [r for r in old_rows if r["taste_model"] not in models]
+        # A tagged run holds only the models it ran. The main file keeps the others.
+        carried = (
+            [] if tag else [r for r in old_rows if r["taste_model"] in set(every) - set(models)]
+        )
     rows, paces = [], []
     per = len(models) * (len(SCENARIOS) + len(UNLINKED))
     with mp.Pool(
-        args.workers, initializer=_init, initargs=(path, band, args.supervision, models)
+        args.workers, initializer=_init, initargs=(path, band, args.supervision, models, split)
     ) as pool:
         for done, (_index, pace, got) in enumerate(
             pool.imap_unordered(_work, jobs, chunksize=2), 1
@@ -698,14 +739,11 @@ def main() -> None:
         seed=args.seed,
         median_pace=float(np.median(kept_pace)) if kept_pace else float("nan"),
     )
-    with open(OUT / "model_b_taste.csv", "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
-        w.writeheader()
-        for r in rows:
-            w.writerow({k: (f"{v:.4f}" if isinstance(v, float) else v) for k, v in r.items()})
-    with open(OUT / "model_b_taste_meta.json", "w") as f:
-        json.dump(meta, f, indent=1)
-    report(rows, meta)
+    if "share" in split:
+        meta["crisp_share"] = split["share"]
+    if "substitution" in split:
+        meta["substitution"] = split["substitution"]
+    save(rows, meta, tag)
     print(f"[{time.time() - t0:5.0f}s] done", flush=True)
 
 

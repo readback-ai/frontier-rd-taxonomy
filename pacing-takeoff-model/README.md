@@ -2,8 +2,6 @@
 
 Research briefing with a runnable model. Draft of 2026-11-11, calibrated to public data as of 2026-11-10. The comprehension gate was rebuilt on 2026-11-10 to count deployed changes by type, and results from the earlier gate are withdrawn. On 2026-11-11 Model B gained a link from comprehension to human research judgment, and the probability of each milestone by date was computed under two taste models. Sections dated 2026-11-11 use the link. Earlier sections do not. On 2026-11-12 research judgment was split into crisp and fuzzy tasks in two further taste models.
 
-Moved here from `readback-ops` on 2026-11-12. The briefing keeps the wording it was written in, which departs from `GLOSSARY.md` in four places. "Research judgment" and "taste" mean the AI Futures Model's research taste, where the glossary's judgment is an estimate with no evidence behind it. "Assumption" marks what the glossary calls a judgment. "Supervision" is the glossary's oversight. "Understand" means comprehend to the audit standard.
-
 ## Bottom line
 
 1. **Two published models were turned into simulations and given a human-time input.** Model A is Ajeya Cotra's Cobb-Douglas account (Nov 6). Model B is the AI Futures Project's public code, run on the example trajectory in their Nov 10 update. Both start from an AI-attributable pace of 1.7 times the historical rate on Nov 1, 2026.
@@ -709,17 +707,17 @@ Left out: training-run lag in Model A, the 20% of today's acceleration that METR
 | Share of work at automation level 5, monthly | Decides whether a supervision bottleneck exists without pacing | Anthropic's index, when the first nonzero value is reported |
 | Zero-intervention success by task length for August onward | Settles whether OpenAI's horizon doubles every 2.4 or 3.6 months | OpenAI's next report |
 | AI research judgment against researchers on open-ended work, by model generation | Gives the taste slope, which moves the audit delay to TED-AI from 1 month to years | Repeats of the open-ended research case studies and of Anthropic's next-step study on unselected moments |
-| Share of research effort, and of progress, on tasks by how verifiable they are | Sets how far automating crisp work carries a lab, which moves the audit delay to TED-AI from months to years | The task tree's `verifiability`, `feedback_latency` and `labor_share` once more branches are built; developers' own task breakdowns |
+| Share of research effort, and of progress, on tasks by how verifiable they are | Sets how far automating crisp work carries a lab, which moves the audit delay to TED-AI from months to years | A task-level inventory of AI R&D work that records how each task's errors are found and how fast feedback comes; developers' own task breakdowns |
 | Share of deployed changes a named researcher can explain, by quarter | Shows whether labs keep their understanding as volume grows, which the link assumes they do while it pays | Audit pilot pass rates |
 
 One published series could anchor today's load and has not been checked: time engineers spend on code review (for example Sadowski and others, "Modern Code Review: A Case Study at Google", 2018).
 
 ## Reproduce
 
-Run from the repository root.
+Run from this directory.
 
 ```bash
-make setup
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 ```
 
 ```bash
@@ -731,30 +729,30 @@ export AIFM_PATH=~/aifm-public
 ```
 
 ```bash
-uv run python pacing-takeoff-model/run_all.py
+.venv/bin/python run_all.py
 ```
 
 ```bash
-uv run pytest pacing-takeoff-model
+.venv/bin/python -m pytest
 ```
 
 ```bash
-uv run python pacing-takeoff-model/montecarlo_b.py --samples 4000
+.venv/bin/python montecarlo_b.py --samples 4000
 ```
 
 ```bash
-uv run python pacing-takeoff-model/montecarlo_taste.py --samples 10000
+.venv/bin/python montecarlo_taste.py --samples 10000
 ```
 
 ```bash
-uv run python pacing-takeoff-model/link_effect.py
+.venv/bin/python link_effect.py
 ```
 
 ```bash
-uv run python pacing-takeoff-model/split_effect.py
+.venv/bin/python split_effect.py
 ```
 
-Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results were generated with numpy 2.5.4, scipy 1.18.1 and matplotlib 3.11.2, the versions in `uv.lock`, and AI Futures Model commit `1c40ecd`. AI Futures notes that seeded draws from its sampler can differ between CPUs, so the kept trajectories may differ on another machine.
+Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results were generated with numpy 2.5.4, scipy 1.18.1 and matplotlib 3.11.2, the versions in `requirements.txt`, and AI Futures Model commit `1c40ecd`. AI Futures notes that seeded draws from its sampler can differ between CPUs, so the kept trajectories may differ on another machine.
 
 | File | Contents |
 |---|---|
@@ -767,7 +765,8 @@ Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results 
 | `montecarlo_taste.py` | Probability of each milestone by date under four taste models, with the link from comprehension to judgment. About two hours on 4 cores. `--only kept` reruns just the kept trajectories and `--models` picks taste models |
 | `link_effect.py` | What the link changes on the example trajectory |
 | `split_effect.py` | What the split into crisp and fuzzy tasks does on the example trajectory, and how it moves with its three unmeasured inputs |
-| `test_pacing_model.py` | Twenty-five checks, including that the adapter reproduces the AI Futures Model's own dates. The three that need the AI Futures checkout skip without `AIFM_PATH` |
+| `test_pacing_model.py` | Twenty-four checks, including that the adapter reproduces the AI Futures Model's own dates. The three that need the AI Futures checkout skip without `AIFM_PATH` |
+| `requirements.txt` | The library versions the committed results were generated with |
 | `data/` | OpenAI chart data with provenance |
 | `results/` | Generated tables (`tables.md`, CSV) and figures. Do not edit by hand. |
 
