@@ -21,7 +21,7 @@ Research briefing with a runnable model. Draft of 2026-11-11, calibrated to publ
 15. **In the slow case audits move the odds by tens of points.** The chance of researcher-level AI before 2029 falls from 36% with no pacing to 12% under central audits, and the chance of TED-AI before 2031 from 41% to 24%. In the fast case the chance of TED-AI before 2028 falls from 75% to 66% under central audits and to 38% under a 3-month lag.
 16. **Audits cost a lab that already understands its work almost nothing at the start.** Researchers are taken to spend 14% of their time understanding deployed changes today, with that time already inside measured uplift. Central audits then cost 0.6% of research effort on the first day, against the 6% to 10% in item 8.
 17. **A dating error on explosive sampled trajectories was fixed on 2026-11-11.** Medians in items 6, 10 and 11 moved by up to two months. No conclusion changed. The Monte Carlo section describes the error.
-18. **Research judgment was split into crisp and fuzzy tasks.** Added 2026-11-12: AI judgment improves 3 SD per year of 2025 progress on crisp tasks, where success is fast and cheap to verify, and 1 SD or 0.5 SD on fuzzy tasks. Crisp work is taken as 70% of research effort today and the two classes as complements. On the example trajectory the share of effort on fuzzy tasks rises from 30% to 60% by January 2028, and to 92% a year later where fuzzy judgment improves at 0.5 SD.
+18. **Research judgment was split into crisp and fuzzy tasks.** Added 2026-11-12: AI judgment improves 3 SD per year of 2025 progress on crisp tasks, which have clear evaluation criteria, and 1 SD or 0.5 SD on fuzzy tasks. Crisp work is taken as 70% of research effort today and the two classes as complements. On the example trajectory the share of effort on fuzzy tasks rises from 30% to 60% by January 2028, and to 92% a year later where fuzzy judgment improves at 0.5 SD.
 19. **At those inputs the split sits closer to the fast case.** With no pacing the median date of researcher-level AI is October 2027 or January 2028 and of TED-AI May 2028 or May 2031. Central audits delay TED-AI by a median of 2 or 5 months, and a 3-month lag by 5 or 4.
 20. **Two unmeasured inputs decide what the split does.** With crisp work at 85% of effort, or with crisp work standing in for fuzzy work more readily, the split behaves like the fast case. With crisp work at 50% and fuzzy judgment improving 0.5 SD a year, TED-AI on the example trajectory moves to August 2034 and the audit delay to 60 months.
 
@@ -474,8 +474,13 @@ Added 2026-11-12. The link from comprehension to judgment is on.
 
 The two taste models above give AI research judgment one rate of improvement. This section splits research into two classes of task and gives each its own rate.
 
-- **Crisp tasks** are those where success is fast and cheap to verify: an optimization, a benchmark score, a loss curve.
-- **Fuzzy tasks** are the rest: whether a result will generalize, what to work on next, whether an evaluation measures what it claims.
+The classes follow Bowkis, Buhl, Pfau and Irving (2026), who place research tasks on a spectrum from crisp to fuzzy and separate fuzzy tasks by how well people can supervise them.
+
+- **Crisp tasks** have clear evaluation criteria: "success is verifiable and experts reliably agree on correct answers". Examples are an optimization, a benchmark score, a loss curve and the code for an experiment.
+- **Fuzzy tasks**, as the term is used here, are the ones that paper calls hard-to-supervise fuzzy tasks: "tasks without clear evaluation criteria, for which human judgement is systematically flawed". Examples are whether a result will generalize, what to work on next and whether an evaluation measures what it claims.
+- **Tasks with no clear criteria that people judge reliably**, such as writing, are counted with crisp tasks. Human feedback is a reliable training signal for them, so AI improves on them at the fast rate.
+
+The definition gives the reason for the slow rate. On these tasks "human approval does not indicate correctness", so training on human feedback does not teach them, and the two other routes the paper names, generalisation from easier tasks and scalable oversight, are unproven.
 
 AI judgment improves 3 SD per year of 2025 progress on crisp tasks. On fuzzy tasks it improves 1 SD in one model and 0.5 SD in the other. Both classes start at -3.5 SD in September 2026.
 
@@ -779,6 +784,7 @@ Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results 
 - METR, "Independent Assessment of AI R&D Acceleration at Anthropic in October 2026", Nov 5, 2026. https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/
 - Ajeya Cotra, "AI is dramatically accelerating AI research right now", Planned Obsolescence, Nov 6, 2026. https://www.planned-obsolescence.org/p/ai-is-dramatically-accelerating-ai
 - Eli Lifland, Brendan Halstead, Daniel Kokotajlo, Romeo Dean and others, "Q3.5 Timelines Update", AI Futures Project, Nov 10, 2026. https://blog.aifutures.org/p/q35-timelines-update-looks-like-the
+- Aleksandr Bowkis, Marie Davidsen Buhl, Jacob Pfau and Geoffrey Irving, "Automated alignment is harder than you think", arXiv:2605.06390, May 7, 2026. https://arxiv.org/abs/2605.06390
 - AI Futures Project, AI Futures Model code, commit `1c40ecd`, Sep 9, 2026. https://github.com/AI-Futures-Project/aifm-public
 - Eli Lifland, Brendan Halstead, Romeo Dean and Thomas Larsen, "How to Pace the US Frontier", AI Futures Project, Aug 5, 2026. https://blog.aifutures.org/p/how-to-pace-the-us-frontier
 - Anthropic, "Measurements for understanding the pace of AI development inside frontier labs", Sep 2026. https://www.anthropic.com/institute/measuring-pace-of-ai-development

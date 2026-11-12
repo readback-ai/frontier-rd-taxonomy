@@ -122,10 +122,17 @@ taste_models:                    # AI Futures 2026-11-10, "Research taste linear
   slope_slow: 1.0                # low end of Eli Lifland's 80% interval of 1 to 6.25
 
 taste_split:                     # Research split into two classes of task. ASSUMPTIONS except crisp_share's anchor.
-  # Crisp tasks have success that is fast and cheap to verify. Fuzzy tasks do not. AI judgment
-  # improves at a different rate in each class. Both classes start at taste_models.level_sd.
+  # Definitions follow Bowkis, Buhl, Pfau and Irving, "Automated alignment is harder than you
+  # think" (arXiv:2605.06390, 2026-05-07). Crisp tasks have clear evaluation criteria: "success
+  # is verifiable and experts reliably agree on correct answers". Fuzzy tasks here are the paper's
+  # hard-to-supervise fuzzy tasks: "tasks without clear evaluation criteria, for which human
+  # judgement is systematically flawed". Tasks with no clear criteria that people judge reliably
+  # (writing) count with crisp tasks. AI judgment improves at a different rate in each class.
+  # Both classes start at taste_models.level_sd.
   crisp_share: 0.65              # weight of crisp work in research while judgment is equal in both classes.
                                  # Three anchors, none of them a measurement of this quantity:
+                                 # All three separate well-defined work from the rest, which is wider than
+                                 # the fuzzy class as defined above, so 0.65 is at the low end.
                                  # 1. Importance. Anthropic Institute, "AI for scientific discovery: How researchers
                                  #    use Claude" (2026-11-05), survey of 528 scientists, mean importance points out
                                  #    of 100 for producing an important result: ideation and hypothesis generation
