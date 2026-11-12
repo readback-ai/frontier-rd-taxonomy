@@ -1,0 +1,172 @@
+# Series reconstructed from the vector paths of the charts in OpenAI, 'Research acceleration: The view inside OpenAI' (2026-09-06),
+# as saved to PDF. Values are read from the plotted lines against the axis ticks, so they carry about 1% reading error.
+# The workday-ratio chart's date axis did not survive the save. Its 105 points are assumed daily and to end on 2026-08-14
+# ('as of mid-August'). On that assumption the ratio first exceeds 1.0 on 2026-06-11, consistent with the text ('before June ... below').
+series,date,decimal_year,value,date_basis
+median_researcher_inference_usd_per_day,2026-01-03,2026.0055,1.4,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-01-10,2026.0247,1.4,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-01-17,2026.0438,1.6,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-01-24,2026.0630,1.9,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-01-31,2026.0822,2.4,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-02-07,2026.1014,3.7,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-02-14,2026.1205,3.1,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-02-21,2026.1397,2.5,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-02-28,2026.1589,7.1,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-03-07,2026.1781,11.9,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-03-14,2026.1973,11.7,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-03-21,2026.2164,14.8,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-03-28,2026.2356,15.2,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-04-11,2026.2740,30.9,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-04-18,2026.2932,43.7,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-04-25,2026.3123,46.7,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-05-02,2026.3315,67.0,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-05-09,2026.3507,83.4,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-05-16,2026.3699,81.5,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-05-23,2026.3890,102.2,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-05-30,2026.4082,138.1,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-06-06,2026.4274,149.7,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-06-13,2026.4466,162.5,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-06-20,2026.4658,157.3,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-06-27,2026.4849,152.6,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-07-11,2026.5233,164.1,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-07-18,2026.5425,237.8,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-07-25,2026.5616,305.9,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-08-01,2026.5808,378.3,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-08-07,2026.5973,435.3,date read from axis ticks
+median_researcher_inference_usd_per_day,2026-08-13,2026.6137,602.7,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-01-03,2026.0055,18.2,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-01-10,2026.0247,26.3,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-01-17,2026.0438,35.4,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-01-24,2026.0630,44.8,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-01-31,2026.0822,50.5,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-02-07,2026.1014,58.9,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-02-14,2026.1205,58.8,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-02-21,2026.1397,60.7,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-02-28,2026.1589,102.5,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-03-07,2026.1781,128.4,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-03-14,2026.1973,128.0,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-03-21,2026.2164,172.6,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-03-28,2026.2356,254.8,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-04-11,2026.2740,361.2,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-04-18,2026.2932,429.0,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-04-25,2026.3123,476.7,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-05-02,2026.3315,589.7,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-05-09,2026.3507,661.6,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-05-16,2026.3699,704.6,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-05-23,2026.3890,810.9,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-05-30,2026.4082,988.6,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-06-06,2026.4274,987.3,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-06-13,2026.4466,1127.5,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-06-20,2026.4658,1035.8,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-06-27,2026.4849,1185.2,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-07-11,2026.5233,1658.0,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-07-18,2026.5425,2204.6,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-07-25,2026.5616,4428.7,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-08-01,2026.5808,5290.5,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-08-08,2026.6000,6115.9,date read from axis ticks
+p90_researcher_inference_usd_per_day,2026-08-14,2026.6164,7063.4,date read from axis ticks
+agent_workdays_per_human_workday,2026-05-02,2026.3315,0.503,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-03,2026.3342,0.517,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-04,2026.3370,0.535,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-05,2026.3397,0.553,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-06,2026.3425,0.567,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-07,2026.3452,0.581,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-08,2026.3479,0.588,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-09,2026.3507,0.592,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-10,2026.3534,0.6,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-11,2026.3562,0.608,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-12,2026.3589,0.619,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-13,2026.3616,0.628,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-14,2026.3644,0.638,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-15,2026.3671,0.645,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-16,2026.3699,0.654,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-17,2026.3726,0.663,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-18,2026.3753,0.672,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-19,2026.3781,0.68,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-20,2026.3808,0.691,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-21,2026.3836,0.702,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-22,2026.3863,0.703,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-23,2026.3890,0.705,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-24,2026.3918,0.701,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-25,2026.3945,0.71,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-26,2026.3973,0.722,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-27,2026.4000,0.736,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-28,2026.4027,0.753,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-29,2026.4055,0.757,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-30,2026.4082,0.755,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-05-31,2026.4110,0.767,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-01,2026.4137,0.777,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-02,2026.4164,0.798,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-03,2026.4192,0.825,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-04,2026.4219,0.848,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-05,2026.4247,0.87,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-06,2026.4274,0.885,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-07,2026.4301,0.913,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-08,2026.4329,0.942,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-09,2026.4356,0.969,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-10,2026.4384,0.998,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-11,2026.4411,1.028,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-12,2026.4438,1.043,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-13,2026.4466,1.057,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-14,2026.4493,1.094,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-15,2026.4521,1.131,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-16,2026.4548,1.174,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-17,2026.4575,1.211,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-18,2026.4603,1.222,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-19,2026.4630,1.232,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-20,2026.4658,1.243,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-21,2026.4685,1.278,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-22,2026.4712,1.303,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-23,2026.4740,1.327,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-24,2026.4767,1.346,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-25,2026.4795,1.369,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-26,2026.4822,1.385,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-27,2026.4849,1.412,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-28,2026.4877,1.426,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-29,2026.4904,1.438,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-06-30,2026.4932,1.443,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-01,2026.4959,1.441,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-02,2026.4986,1.442,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-03,2026.5014,1.457,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-04,2026.5041,1.462,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-05,2026.5068,1.493,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-06,2026.5096,1.527,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-07,2026.5123,1.566,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-08,2026.5151,1.629,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-09,2026.5178,1.687,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-10,2026.5205,1.704,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-11,2026.5233,1.714,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-12,2026.5260,1.723,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-13,2026.5288,1.738,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-14,2026.5315,1.735,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-15,2026.5342,1.741,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-16,2026.5370,1.8,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-17,2026.5397,1.836,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-18,2026.5425,1.869,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-19,2026.5452,1.916,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-20,2026.5479,1.973,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-21,2026.5507,2.051,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-22,2026.5534,2.125,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-23,2026.5562,2.214,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-24,2026.5589,2.256,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-25,2026.5616,2.268,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-26,2026.5644,2.313,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-27,2026.5671,2.366,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-28,2026.5699,2.413,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-29,2026.5726,2.437,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-30,2026.5753,2.474,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-07-31,2026.5781,2.478,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-01,2026.5808,2.534,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-02,2026.5836,2.596,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-03,2026.5863,2.661,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-04,2026.5890,2.723,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-05,2026.5918,2.764,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-06,2026.5945,2.78,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-07,2026.5973,2.805,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-08,2026.6000,2.833,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-09,2026.6027,2.876,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-10,2026.6055,2.944,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-11,2026.6082,2.999,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-12,2026.6110,3.055,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-13,2026.6137,3.113,date inferred: daily points ending mid-August
+agent_workdays_per_human_workday,2026-08-14,2026.6164,3.152,date inferred: daily points ending mid-August
