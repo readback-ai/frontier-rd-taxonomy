@@ -1,6 +1,6 @@
 # A simple model of pacing and the takeoff of automated AI R&D
 
-Draft of 2026-11-13, revised the same day against the full model's sampled results. Figures to come. The runnable model is `simple_model.py`: one file, one state variable, numpy only. The two full models and their evidence are in [README.md](README.md).
+Draft of 2026-11-13, revised the same day against the full model's sampled results. The runnable model is `simple_model.py`: one file, one state variable, numpy only. The two full models and their evidence are in [README.md](README.md).
 
 ## The question
 
@@ -45,7 +45,13 @@ critical rate = ln 2 / (value of one SD of judgment * software share of progress
 - **Below it the pace settles.** It settles at 1.7 times the historical rate when the binding judgment improves 1 SD a year, and 1.3 times at 0.5 SD.
 - **The binding judgment is the fuzzy one.** Because crisp work stands in for fuzzy work poorly, the rate on fuzzy tasks sets where the pace settles, however fast crisp judgment improves.
 
+![Where the pace settles, by how fast judgment improves](results/fig_simple_1_critical_rate.png)
+
 So whether there is an explosion at all turns on how fast AI judgment improves on the tasks that are hardest to supervise. A benchmark of exactly that, Anthropic's TASTE, has frontier models at chance as of July 2026, which fixes the starting level and not yet the rate.
+
+![Pace over time with no pacing in three cases](results/fig_simple_2_pace_paths.png)
+
+The simulated paths show the same split. The dip in mid-2027 in the two lower lines is where the work that needs a person starts to hold AI labor down.
 
 ## What pacing does
 
@@ -142,4 +148,10 @@ python simple_model.py
 
 ```bash
 python -m pytest test_simple_model.py
+```
+
+The figures need matplotlib:
+
+```bash
+python simple_figures.py
 ```
