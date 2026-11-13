@@ -25,14 +25,14 @@ Pace once AI labor is at its ceiling: 1.7x.
 
 | Scenario | Researcher-level AI | Delay | TED-AI | Delay |
 |---|---|---|---|---|
-| No pacing | Oct 2030 |  | Apr 2033 |  |
-| Comprehension audits, light | Oct 2030 | +1 mo | Jun 2035 | +26 mo |
-| Comprehension audits, central | Dec 2030 | +2 mo | Sep 2035 | +30 mo |
-| Comprehension audits, strict | Mar 2031 | +5 mo | Jan 2036 | +33 mo |
-| Internal-use lag, 3 months | Dec 2030 | +2 mo | Jun 2033 | +2 mo |
-| Internal-use lag, 9 months | Mar 2031 | +6 mo | Nov 2033 | +7 mo |
-| R&D compute cut 3x | Apr 2031 | +6 mo | Oct 2033 | +6 mo |
-| Comprehension audits (central) + 9-month lag | May 2031 | +7 mo | Oct 2035 | +30 mo |
+| No pacing | Aug 2030 |  | Apr 2033 |  |
+| Comprehension audits, light | Sep 2030 | +2 mo | Jul 2035 | +27 mo |
+| Comprehension audits, central | Dec 2030 | +4 mo | Oct 2035 | +31 mo |
+| Comprehension audits, strict | Mar 2031 | +7 mo | Feb 2036 | +34 mo |
+| Internal-use lag, 3 months | Oct 2030 | +2 mo | Jun 2033 | +2 mo |
+| Internal-use lag, 9 months | Jan 2031 | +5 mo | Oct 2033 | +6 mo |
+| R&D compute cut 3x | Feb 2031 | +6 mo | Oct 2033 | +6 mo |
+| Comprehension audits (central) + 9-month lag | Mar 2031 | +7 mo | Dec 2035 | +32 mo |
 
 ### Crisp +3, fuzzy +1 SD a year
 
@@ -40,14 +40,14 @@ Pace once AI labor is at its ceiling: 1.7x.
 
 | Scenario | Researcher-level AI | Delay | TED-AI | Delay |
 |---|---|---|---|---|
-| No pacing | Jul 2028 |  | May 2030 |  |
-| Comprehension audits, light | Jul 2028 | +0 mo | Sep 2030 | +4 mo |
-| Comprehension audits, central | Aug 2028 | +1 mo | Dec 2030 | +7 mo |
-| Comprehension audits, strict | Sep 2028 | +2 mo | Mar 2031 | +10 mo |
-| Internal-use lag, 3 months | Oct 2028 | +3 mo | Aug 2030 | +3 mo |
-| Internal-use lag, 9 months | Jan 2029 | +6 mo | Feb 2031 | +10 mo |
-| R&D compute cut 3x | Dec 2028 | +5 mo | Nov 2030 | +6 mo |
-| Comprehension audits (central) + 9-month lag | Feb 2029 | +7 mo | Apr 2031 | +11 mo |
+| No pacing | Apr 2028 |  | Apr 2030 |  |
+| Comprehension audits, light | May 2028 | +0 mo | Nov 2030 | +7 mo |
+| Comprehension audits, central | Jun 2028 | +1 mo | Feb 2031 | +10 mo |
+| Comprehension audits, strict | Aug 2028 | +3 mo | May 2031 | +13 mo |
+| Internal-use lag, 3 months | Aug 2028 | +3 mo | Jul 2030 | +3 mo |
+| Internal-use lag, 9 months | Dec 2028 | +7 mo | Jan 2031 | +9 mo |
+| R&D compute cut 3x | Sep 2028 | +5 mo | Oct 2030 | +6 mo |
+| Comprehension audits (central) + 9-month lag | Jan 2029 | +8 mo | Apr 2031 | +12 mo |
 
 ### Crisp +3, fuzzy +0.5 SD a year
 
@@ -55,12 +55,12 @@ Pace once AI labor is at its ceiling: 1.3x.
 
 | Scenario | Researcher-level AI | Delay | TED-AI | Delay |
 |---|---|---|---|---|
-| No pacing | Nov 2030 |  | Oct 2037 |  |
-| Comprehension audits, light | Nov 2030 | +0 mo | Jun 2038 | +7 mo |
-| Comprehension audits, central | Dec 2030 | +1 mo | Sep 2038 | +11 mo |
-| Comprehension audits, strict | Feb 2031 | +3 mo | Jan 2039 | +14 mo |
-| Internal-use lag, 3 months | Dec 2030 | +1 mo | Nov 2037 | +1 mo |
-| Internal-use lag, 9 months | Jan 2031 | +3 mo | Jan 2038 | +3 mo |
-| R&D compute cut 3x | May 2031 | +6 mo | May 2038 | +6 mo |
-| Comprehension audits (central) + 9-month lag | Feb 2031 | +4 mo | Sep 2038 | +10 mo |
+| No pacing | Jul 2030 |  | Oct 2037 |  |
+| Comprehension audits, light | Jul 2030 | +1 mo | Sep 2038 | +11 mo |
+| Comprehension audits, central | Aug 2030 | +2 mo | Jan 2039 | +15 mo |
+| Comprehension audits, strict | Nov 2030 | +4 mo | Apr 2039 | +18 mo |
+| Internal-use lag, 3 months | Aug 2030 | +1 mo | Nov 2037 | +1 mo |
+| Internal-use lag, 9 months | Oct 2030 | +3 mo | Jan 2038 | +3 mo |
+| R&D compute cut 3x | Jan 2031 | +6 mo | Apr 2038 | +6 mo |
+| Comprehension audits (central) + 9-month lag | Nov 2030 | +5 mo | Dec 2038 | +14 mo |
 

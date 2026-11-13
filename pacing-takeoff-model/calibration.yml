@@ -119,8 +119,15 @@ real_research:                   # What the labs' own usage data say that benchm
   #    figure for Gemini 4 Argon is 18%. ASSUMPTION, decided by the PI on 2026-11-12: this share is the part of
   #    real work that turns on judgment the AI lacks, so it falls as AI judgment on fuzzy tasks rises and has no
   #    fixed floor. The model scales it by the share of researchers whose judgment on fuzzy tasks is still better
-  #    than the AI's. Work in this share is AI-led with a person supervising (human_time_per_unit_work.al4).
+  #    than the AI's. Work in this share is AI-led with a person supervising.
   residue_today: 0.14
+  #    A person's time on that work, as a share of the time the work would take a person. ASSUMPTION, the PI's
+  #    estimate of 2026-11-13: half an hour of a person's day for each running session, with a session doing far
+  #    more in a day than a person does. That is 6% divided by the person-days of work a session does in a day:
+  #    0.5% to 0.8% at the 8 to 12 times in Anthropic's one example ("In about two hours, Claude delivered what
+  #    would normally be two to three days of work"), and 0.2% if the session also runs around the clock. Until
+  #    2026-11-13 the model used human_time_per_unit_work.al4, 4%, which had no basis specific to this work.
+  residue_supervision_time: 0.005
   #    A third developer, added 2026-11-13. Anthropic's internal Claude Code sessions succeed "without requiring
   #    corrections" 88% of the time on trivial tasks and 91% to 92% on routine, substantial and open-ended tasks
   #    in early September 2026 (data/anthropic_session_success.csv, read by eye from a chart). Trivial tasks were
@@ -129,16 +136,7 @@ real_research:                   # What the labs' own usage data say that benchm
   #    Sensitivity runs (residue_sensitivity.py). ASSUMPTIONS, chosen to bracket the central case.
   sensitivity:
     residue_today: [0.07, 0.28]
-    supervision_multiple: [0.5, 0.25, 0.125, 0.025]   # human time on work that needs a person, as a multiple
-                                               # of human_time_per_unit_work.al4: 2%, 1%, 0.5% and 0.1% of the
-                                               # work. The PI's estimate (2026-11-13) is half an hour of a
-                                               # person's day for each running session, with a session doing
-                                               # far more in a day than a person does. That is 6% divided by
-                                               # the person-days of work a session does in a day: 0.5% to 0.8%
-                                               # at the 8 to 12 times in Anthropic's one example ("In about
-                                               # two hours, Claude delivered what would normally be two to
-                                               # three days of work"), and 0.2% if the session also runs
-                                               # around the clock.
+    supervision_time: [0.04, 0.02, 0.01, 0.001]   # in place of residue_supervision_time
     halving_sd: [1.0, 0.5]                     # the share halves per this many SD of AI judgment gained,
                                                # in place of the tie to the share of researchers ahead of the AI
     audit_hours_scale: 3.5                     # an audit standard 3.5 times the central hours per change

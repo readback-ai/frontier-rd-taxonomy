@@ -343,11 +343,14 @@ def test_work_that_needs_a_person_shrinks_as_ai_judgment_rises():
     assert m.needs_a_person(median + 3.0) < 0.05 * today
     held = m.summarize(m.simulate(Policy(), t_end=2029.0))
     assert held["t_sar"] >= free["t_sar"] - 1e-6
-    # Sensitivity settings: lighter supervision of that work sits between the two runs, and
-    # with a halving rule the share halves for each SD of judgment the AI gains.
-    m.set_residue(today, supervision=0.25)
-    light = m.summarize(m.simulate(Policy(), t_end=2029.0))
-    assert free["t_sar"] - 1e-6 <= light["t_sar"] <= held["t_sar"] + 1e-6
+    # A person's time on that work comes from the calibration, as a multiple of the time on
+    # AI-led work. Heavier supervision delays the milestone more.
+    central = CAL["real_research"]["residue_supervision_time"]
+    assert abs(m.residue_supervision - central / CAL["human_time_per_unit_work"]["al4"]) < 1e-9
+    m.set_residue(today, supervision=4.0 * m.residue_supervision)
+    heavy = m.summarize(m.simulate(Policy(), t_end=2029.0))
+    assert free["t_sar"] - 1e-6 <= held["t_sar"] <= heavy["t_sar"] + 1e-6
+    # With a halving rule the share halves for each SD of judgment the AI gains.
     m.set_residue(today, halving_sd=1.0)
     one_sd = 1.0 / m.params.ai_research_taste_slope
     assert abs(m.needs_a_person(cap) - today) < 1e-9

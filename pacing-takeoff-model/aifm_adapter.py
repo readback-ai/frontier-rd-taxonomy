@@ -210,9 +210,9 @@ class Aifm:
         self.changes = None  # deployed-change counts, set by use_calibration
         self.link = None  # the comprehension-to-judgment link, set by use_calibration
         self.residue = 0.0  # share of work that needs a person today, set by use_calibration
-        # Two settings for sensitivity runs, set by set_residue. Human time on work that needs
-        # a person, as a multiple of the time on AI-led work. And the SD of AI judgment gained
-        # per halving of that work; 0 ties it to the share of researchers ahead of the AI.
+        # Human time on work that needs a person, as a multiple of the time on AI-led work,
+        # set by use_calibration. And the SD of AI judgment gained per halving of that work,
+        # for sensitivity runs; 0 ties it to the share of researchers ahead of the AI.
         self.residue_supervision = 1.0
         self.residue_halving = 0.0
 
@@ -220,8 +220,10 @@ class Aifm:
         self, cal: dict, link: bool | Link = False, residue: bool | float = False
     ) -> None:
         self.changes = gate_from_calibration(cal)
-        self.residue = (
-            float(cal["real_research"]["residue_today"]) if residue is True else float(residue)
+        rr = cal["real_research"]
+        self.residue = float(rr["residue_today"]) if residue is True else float(residue)
+        self.residue_supervision = (
+            rr["residue_supervision_time"] / cal["human_time_per_unit_work"]["al4"]
         )
         self.link = link_from_calibration(cal) if link is True else (link or None)
         if self.link is not None:
@@ -298,11 +300,14 @@ class Aifm:
             + p.ai_research_taste_at_coding_automation_anchor_sd
         )
 
-    def set_residue(self, share: float, supervision: float = 1.0, halving_sd: float = 0.0) -> None:
+    def set_residue(
+        self, share: float, supervision: float | None = None, halving_sd: float = 0.0
+    ) -> None:
         """Override the share of work that needs a person and how it behaves. Call after
-        use_calibration."""
+        use_calibration. `supervision` left as None keeps the calibrated value."""
         self.residue = float(share)
-        self.residue_supervision = float(supervision)
+        if supervision is not None:
+            self.residue_supervision = float(supervision)
         self.residue_halving = float(halving_sd)
 
     def judgment_sd(self, cap: float) -> float:

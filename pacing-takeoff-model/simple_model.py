@@ -64,7 +64,7 @@ class Params:
     substitution: float = 0.25  # how well crisp work stands in for fuzzy work. 1 is neutral
     value_per_sd: float = 0.445  # log research value of one SD of judgment
     residue: float = 0.14  # share of work that needs a person on Nov 1, 2026
-    supervision_time: float = 0.04  # a person's time on that work, as a share of doing it
+    supervision_time: float = 0.005  # a person's time on that work, as a share of doing it
     # 4. Understanding
     understanding_today: float = 0.14  # share of researcher time spent understanding changes
     change_growth: float = 0.4  # percent more deployed changes per percent more AI labor

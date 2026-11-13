@@ -1,10 +1,11 @@
 """How far the result on work that needs a person depends on its unmeasured inputs.
 
-The briefing starts with 14% of work needing a person, supervised at the time AI-led work
-takes, a share that falls with the share of researchers whose judgment is still better than
-the AI's. This script lists what three developers report on that share and reruns AI Futures'
-Nov 10 example trajectory with the starting share, the supervision time, the rule for how the
-share falls and the audit hours varied (calibration.yml, real_research.sensitivity).
+The briefing starts with 14% of work needing a person, supervised for 0.5% of the time the
+work would take a person, a share that falls with the share of researchers whose judgment is
+still better than the AI's. This script lists what three developers report on that share and
+reruns AI Futures' Nov 10 example trajectory with the starting share, the supervision time,
+the rule for how the share falls and the audit hours varied (calibration.yml,
+real_research.sensitivity).
 
 Writes results/tables_residue_sensitivity.md.
 """
@@ -28,15 +29,15 @@ def cases(cal: dict) -> dict[str, dict]:
     """Label -> arguments of Aifm.set_residue."""
     rr = cal["real_research"]
     today, sens = rr["residue_today"], rr["sensitivity"]
-    al4 = cal["human_time_per_unit_work"]["al4"]
+    al4, time = cal["human_time_per_unit_work"]["al4"], rr["residue_supervision_time"]
     out = {
         "No work needs a person": dict(share=0.0),
-        f"Central: {today:.0%} of work, supervised at {al4:.0%} of its time": dict(share=today),
+        f"Central: {today:.0%} of work, supervised at {time:.1%} of its time": dict(share=today),
     }
     for share in sens["residue_today"]:
         out[f"Starting share {share:.0%}"] = dict(share=share)
-    for mult in sens["supervision_multiple"]:
-        out[f"Supervised at {al4 * mult:.1%} of its time"] = dict(share=today, supervision=mult)
+    for other in sens["supervision_time"]:
+        out[f"Supervised at {other:.1%} of its time"] = dict(share=today, supervision=other / al4)
     for sd in sens["halving_sd"]:
         out[f"Share halves per {sd:g} SD of judgment the AI gains"] = dict(
             share=today, halving_sd=sd

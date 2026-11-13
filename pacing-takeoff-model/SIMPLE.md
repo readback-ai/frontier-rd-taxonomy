@@ -59,20 +59,20 @@ Dates with no pacing, and the delay each policy adds, from `results/tables_simpl
 
 | | One judgment, +3 SD | Crisp +3, fuzzy +1 SD | Crisp +3, fuzzy +0.5 SD |
 |---|---|---|---|
-| Researcher-level AI, no pacing | Aug 2027 | Jul 2028 | Nov 2030 |
-| TED-AI, no pacing | Nov 2027 | May 2030 | Oct 2037 |
-| Central audits delay TED-AI | +1 mo | +7 mo | +11 mo |
-| Strict audits delay TED-AI | +3 mo | +10 mo | +14 mo |
+| Researcher-level AI, no pacing | Aug 2027 | Apr 2028 | Jul 2030 |
+| TED-AI, no pacing | Nov 2027 | Apr 2030 | Oct 2037 |
+| Central audits delay TED-AI | +1 mo | +10 mo | +15 mo |
+| Strict audits delay TED-AI | +3 mo | +13 mo | +18 mo |
 | 3-month lag delays TED-AI | +6 mo | +3 mo | +1 mo |
-| 9-month lag delays TED-AI | +12 mo | +10 mo | +3 mo |
+| 9-month lag delays TED-AI | +12 mo | +9 mo | +3 mo |
 | 3-fold compute cut delays TED-AI | +4 mo | +6 mo | +6 mo |
 
-- **The rate on fuzzy tasks decides the dates.** Halving it moves TED-AI by seven years. Lowering the crisp rate from 3 to 2.1 SD moves it by three months.
-- **Audits barely move researcher-level AI.** They delay it by about a month in each of these cases. The gate starts to bind only about when that level arrives.
-- **Where judgment improves fast, audits buy a month and a lag buys more than its length.** The loop runs away, so a fixed setback is worth more calendar time the later it is made up.
-- **Where fuzzy judgment is slow, audits buy 7 to 11 months here.** The full models put that at 2 to 3 months. The next section says why, and which to believe.
-- **How fast deployed changes grow with AI labor decides the audit result.** At 0.2% more changes per 1% more labor, central audits delay TED-AI by 1 month in the middle case. At 0.6% they delay it by 14. Nobody has measured this number.
-- **Work that needs a person and audits act on the same margin.** Without the 14% of work that needs a person, the middle case reaches researcher-level AI four months sooner, and central audits would delay TED-AI by 21 months, against 7 with it. Where the work itself keeps people in the loop, audits add less.
+- **The rate on fuzzy tasks decides the dates.** Halving it moves TED-AI by more than seven years. Lowering the crisp rate from 3 to 2.1 SD moves it by three months.
+- **Audits barely move researcher-level AI.** They delay it by a month or two in each of these cases. The gate starts to bind only about when that level arrives.
+- **Where judgment improves fast, audits buy a month.** The loop runs away on judgment, and people's time to understand what is deployed stops mattering within months.
+- **Where fuzzy judgment is slow, audits buy 10 to 15 months here.** The next section compares that with the full models.
+- **How fast deployed changes grow with AI labor decides the audit result.** At 0.2% more changes per 1% more labor, central audits delay TED-AI by 2 months in the middle case. At 0.6% they delay it by 20. Nobody has measured this number.
+- **Work that needs a person and audits act on the same margin.** Without the 14% of work that needs a person, central audits would delay TED-AI by 21 months in the middle case, against 10 with it. Where the work itself keeps people in the loop, audits add less.
 
 ## How it compares with the full models
 
@@ -121,7 +121,7 @@ Where they differ, the full model is the one to cite:
 | Weight of crisp work | 65% | Three anchors, none a measurement of it. See the full briefing |
 | Substitution between crisp and fuzzy work | 0.25 | Judgment |
 | Work that needs a person | 14% | OpenAI, tasks under 15 minutes, January to July 2026 |
-| A person's time on that work | 4% of doing it | Assumption |
+| A person's time on that work | 0.5% of doing it | The PI's estimate: half an hour a day for each running session, with a session doing 8 to 12 person-days of work in a day |
 | Time understanding deployed changes today | 14% | Assumption in the full model, from counts and hours per change |
 | Growth of deployed changes with AI labor | 0.4 | Assumption. Not measured |
 | Pareto index of a change's value | 1.8 | Read from one developer's description of compute multipliers |

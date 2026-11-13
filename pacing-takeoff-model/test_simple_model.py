@@ -82,11 +82,12 @@ def test_fuzzy_rate_matters_more_than_crisp_rate():
     assert slower_fuzzy - base > 5.0
 
 
-def test_residue_matters_only_where_fuzzy_judgment_is_slow():
-    for p, low, high in ((ONE_FAST, -0.01, 0.1), (SPLIT, 0.15, 1.0)):
+def test_residue_delays_more_the_slower_fuzzy_judgment_improves():
+    def delay(p):
         with_residue = simulate(p)["dates"]["researcher"]
-        without = simulate(replace(p, residue=0.0))["dates"]["researcher"]
-        assert low < with_residue - without < high
+        return with_residue - simulate(replace(p, residue=0.0))["dates"]["researcher"]
+
+    assert abs(delay(ONE_FAST)) < 0.02 < delay(SPLIT) < delay(SLOW)
 
 
 def test_a_lag_delays_by_about_its_length_where_judgment_is_fast():

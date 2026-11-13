@@ -320,6 +320,12 @@ def real_research_note(meta: dict) -> str:
         out += (
             f" {meta['residue']:.0%} of work needs a person on Nov 1, 2026, and that share falls "
             "with the share of researchers whose judgment is still better than the AI's."
+            + (
+                f" A person spends {meta['residue_supervision_time']:.1%} of that work's time "
+                "supervising it."
+                if "residue_supervision_time" in meta
+                else ""
+            )
         )
     return out
 
@@ -802,7 +808,9 @@ def main() -> None:
     if args.supervision != "anthropic":
         meta["supervision"] = args.supervision
     if args.residue:
-        meta["residue"] = pm.load_calibration()["real_research"]["residue_today"]
+        rr = pm.load_calibration()["real_research"]
+        meta["residue"] = rr["residue_today"]
+        meta["residue_supervision_time"] = rr["residue_supervision_time"]
     if "share" in split:
         meta["crisp_share"] = split["share"]
     if "substitution" in split:

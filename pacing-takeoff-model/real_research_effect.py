@@ -160,7 +160,8 @@ def main() -> None:
         "",
         "The link from comprehension to human judgment is on. Pacing starts Jan 1, 2027. With the "
         f"residue, {rr['residue_today']:.0%} of work needs a person on Nov 1, 2026, and that share "
-        "falls with the share of researchers whose judgment is still better than the AI's.",
+        "falls with the share of researchers whose judgment is still better than the AI's. A "
+        f"person spends {rr['residue_supervision_time']:.1%} of that work's time supervising it.",
         "",
     ]
     for spec in taste_models(cal):
