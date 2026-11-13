@@ -25,8 +25,8 @@ Research briefing with a runnable model. Draft of 2026-11-11, calibrated to publ
 19. **The rate on fuzzy tasks decides the dates and what audits do.** Across sampled trajectories with fuzzy tasks at +1 SD, median TED-AI with no pacing is December 2028 or May 2029, central audits delay it by 3 to 5 months and a 3-month lag by 5. With fuzzy tasks at +0.5 SD, median TED-AI is in 2038, almost half the trajectories do not reach it before 2040, and central audits delay it by 18 to 22 months on the trajectories that do, against 13 to 14 for a 9-month lag. Lowering the crisp rate from 3 to 2.1 SD moves the medians by 1 to 6 months.
 20. **Two unmeasured inputs move the result as much as the fuzzy rate does.** On the example trajectory with fuzzy tasks at +0.5 SD, TED-AI with no pacing is October 2029 at a crisp weight of 80%, February 2034 at 65% and July 2039 at 50%. A substitution of 0.5 instead of 0.25 brings it to April 2030. The source of the definition says capabilities research is mostly crisp, which puts 65% at the low end.
 21. **On real research, agents work alone for about 15 minutes, against three hours on benchmarks.** Added 2026-11-12: at OpenAI, agents finish a real task with no human intervention 80% of the time only when it would take a person about 15 minutes, and that figure did not move from March to July 2026. Google DeepMind's latest model gives 11 minutes. METR's benchmark figure is 186 minutes. Even under 15 minutes, 14% of OpenAI's tasks needed a person or failed.
-22. **A share of work that needs a person delays the milestones only where fuzzy judgment is slow.** Model B now starts with 14% of work needing a person, a share that falls as AI judgment on fuzzy tasks rises. On the example trajectory it changes nothing with one taste at +3 SD. With fuzzy tasks at +1 SD it delays TED-AI by 8 to 9 months, and at +0.5 SD by more than three years. The benchmark horizon itself is not an input to the AI Futures code in use.
-23. **Audits add about half as much where the work already keeps people in the loop.** With the residue, the delay from central audits to TED-AI falls from 8 to 10 months to 4 to 5 with fuzzy tasks at +1 SD, and from 57 months to about 25 at +0.5 SD. A 3-month lag still delays it by 5 to 8 months. These are single-trajectory results. Fitting the handover of work to Google DeepMind's slower delegation data would delay the milestones further; this briefing does not anchor on that series.
+22. **A share of work that needs a person delays the milestones only where fuzzy judgment is slow.** Model B now starts with 14% of work needing a person, a share that falls as AI judgment on fuzzy tasks rises. It changes nothing with one taste at +3 SD. Across sampled trajectories with fuzzy tasks at +1 SD it moves the median superhuman AI researcher 5 to 7 months later, to May or October 2028, and the median TED-AI 7 to 9 months later, to July 2029 or February 2030. With fuzzy tasks at +0.5 SD it moves the superhuman AI researcher 20 to 23 months later, and the median trajectory no longer reaches TED-AI before 2040. The benchmark horizon itself is not an input to the AI Futures code in use.
+23. **Where the work already keeps people in the loop, audits add 2 to 3 months, and the long audit delays of item 19 go.** Across sampled trajectories with the residue, central audits delay TED-AI by a median of 2 to 3 months in every case with crisp and fuzzy tasks, against 3 to 5 months and 18 to 22 months without it. Strict audits delay it by 3 to 9 months, a 9-month lag by 10 to 13 and a 3-fold compute cut by 10 to 16. On the example trajectory the audit delay falls by half. Fitting the handover of work to Google DeepMind's slower delegation data would delay the milestones further; this briefing does not anchor on that series.
 
 ## Notes on the sources
 
@@ -709,7 +709,7 @@ Median dates and median paired delays are computed separately, so a scenario's m
 
 ## What the labs' own usage data change
 
-Added 2026-11-12. The link from comprehension to judgment is on. These are single-trajectory results. Sampled results follow when their runs finish.
+Added 2026-11-12. The link from comprehension to judgment is on. Results on AI Futures' example trajectory come first, then medians over 96 sampled trajectories.
 
 Benchmarks measure what a model can do on set tasks. Two developers have now published how their agents do on real internal work, and Ramez Naam has argued from OpenAI's figures that real research is an order of magnitude harder than benchmarks suggest. This section reads those reports into Model B. It anchors on OpenAI's data. Google DeepMind's models were behind the frontier for most of 2026, so its figures are shown as a cross-check and a sensitivity.
 
@@ -757,7 +757,7 @@ Model A has no research-judgment term, so the residue does not apply to it. The 
 
 ### Model B, AI Futures' example trajectory, no pacing
 
-| Taste model | Earlier sections: researcher-level AI | Earlier sections: TED-AI | With the residue: researcher-level AI | With the residue: TED-AI | Sensitivity, slow handover: TED-AI |
+| Taste model | Earlier sections: superhuman AI researcher | Earlier sections: TED-AI | With the residue: superhuman AI researcher | With the residue: TED-AI | Sensitivity, slow handover: TED-AI |
 |---|---|---|---|---|---|
 | One taste, +3 SD | Sep 2027 | Nov 2027 | Sep 2027 | Nov 2027 | May 2028 |
 | One taste, +1 SD | Apr 2029 | Sep 2030 | May 2030 | Aug 2031 | Feb 2034 |
@@ -787,6 +787,38 @@ What the tables show:
 - **A 3-month lag is unaffected.** It delays TED-AI by 5 to 8 months with or without the residue.
 - **The handover rate would matter more than the residue.** In the sensitivity, TED-AI with one taste at +3 SD moves from November 2027 to May 2028, and with crisp and fuzzy tasks at +3 and +1 SD to February 2030. Audits then add 1 to 2 months with fuzzy tasks at +1 SD.
 
+### Model B, sampled trajectories
+
+The same 96 kept trajectories as the earlier sections, each run again with the residue. Median dates with no pacing:
+
+| Taste model | Earlier sections: superhuman AI researcher | Earlier sections: TED-AI | With the residue: superhuman AI researcher | With the residue: TED-AI |
+|---|---|---|---|---|
+| One taste, +3 SD | Jul 2027 | Sep 2027 | Jul 2027 | Oct 2027 |
+| One taste, +1 SD | Jun 2029 | Aug 2032 | Aug 2030 | Apr 2033 |
+| Crisp +3, fuzzy +1 SD | Dec 2027 | Dec 2028 | May 2028 | Jul 2029 |
+| Crisp +3, fuzzy +0.5 SD | Feb 2029 | May 2038 | Oct 2030 | after 2039 |
+| Crisp +2.1, fuzzy +1 SD | Mar 2028 | May 2029 | Oct 2028 | Feb 2030 |
+| Crisp +2.1, fuzzy +0.5 SD | Aug 2029 | Jun 2038 | Jul 2031 | after 2039 |
+
+Median delay to TED-AI with the residue, each trajectory against itself with no pacing:
+
+| Taste model | Central audits, earlier sections | Central audits | Central audits, upper quartile | Strict audits | 3-month lag | 9-month lag | 3-fold compute cut |
+|---|---|---|---|---|---|---|---|
+| One taste, +3 SD | +1 mo | +1 mo | +1 mo | +1 mo | +5 mo | +11 mo | +5 mo |
+| One taste, +1 SD | +14 mo | +9 mo | +20 mo | +14 mo | +5 mo | +15 mo | +16 mo |
+| Crisp +3, fuzzy +1 SD | +3 mo | +2 mo | +4 mo | +3 mo | +5 mo | +13 mo | +10 mo |
+| Crisp +3, fuzzy +0.5 SD | +18 mo | +3 mo | +7 mo | +8 mo | +3 mo | +10 mo | +13 mo |
+| Crisp +2.1, fuzzy +1 SD | +5 mo | +2 mo | +5 mo | +5 mo | +5 mo | +13 mo | +12 mo |
+| Crisp +2.1, fuzzy +0.5 SD | +22 mo | +3 mo | +8 mo | +9 mo | +4 mo | +11 mo | +16 mo |
+
+The full tables are `results/tables_taste_real_research.md`.
+
+- **Sampling confirms what the residue does to the dates.** Nothing moves with one taste at +3 SD. With fuzzy tasks at +1 SD the median superhuman AI researcher comes 5 to 7 months later and the median TED-AI 7 to 9 months later. With fuzzy tasks at +0.5 SD the superhuman AI researcher comes 20 to 23 months later, and the median trajectory does not reach TED-AI before 2040.
+- **With the residue, central audits delay TED-AI by a median of 2 to 3 months in every case with crisp and fuzzy tasks.** In the earlier sections the median was 3 to 5 months with fuzzy tasks at +1 SD and 18 to 22 months at +0.5 SD. Strict audits now delay it by 3 to 9 months.
+- **The long audit delays of the earlier sections rested on handing over all short work.** They came from trajectories where AI labor and deployed changes grew without limit while fuzzy judgment lagged. If 14% of work keeps a person in it until fuzzy judgment catches up, people already hold the pace down, and a rule that they understand what is deployed adds little.
+- **A lag and a compute cut now delay TED-AI more than audits do in every case.** A 9-month lag delays it by 10 to 15 months and a 3-fold compute cut by 5 to 16, against 1 to 9 for central audits.
+- **With fuzzy tasks at +0.5 SD the delays describe the faster half.** Paired delays cover the 48% to 49% of trajectories that reach TED-AI before 2040 with no pacing. Central audits push 2% of those past 2040, so the cut-off itself hides little.
+
 ### The taste benchmark
 
 Anthropic's TASTE benchmark asks a model which of two AI safety research proposals experienced researchers preferred. Researchers agree with the labels 77% of the time. The best model, Fable 5, scores 60%, and "almost all models perform within 2 standard deviations of chance". Naam plots the 18 models against the Epoch Capabilities Index and finds no trend.
@@ -806,11 +838,11 @@ The rates on fuzzy tasks stay at +1 and +0.5 SD a year.
 
 **A short lag and audits do different jobs and add up.** A 3-month lag slows every turn of the loop, so its effect compounds: 9 months to superintelligence in Model B. It does not stop the acceleration. In Model A the pace under a 3-month lag reaches ten times the historical rate in December 2028. Audits leave the early path alone and bend the later one. Together, in Model B, they delay superintelligence by 14 months, against 9 and 6 separately. Across the sampled trajectories the lag does nearly all of the delaying: about 4 months for the 3-month lag, with or without central audits.
 
-**Whether audits buy calendar time is a bet on slow growth in AI research judgment.** With judgment improving 3 SD per year of 2025 progress, central audits buy a month before TED-AI. At 1 SD they buy a median of 8 months before researcher-level AI and 14 before TED-AI, about what a 9-month lag buys, and the two together buy 30 months before TED-AI. The slope is the least-measured input in the AI Futures Model, and the reports from inside the labs point to less AI judgment than its filtered trajectories assume.
+**Whether audits buy calendar time is a bet on slow growth in AI research judgment.** With judgment improving 3 SD per year of 2025 progress, central audits buy a month before TED-AI. At 1 SD they buy a median of 8 months before researcher-level AI and 14 before TED-AI, about what a 9-month lag buys, and the two together buy 30 months before TED-AI. With 14% of work needing a person the same audits buy 4 and 9 months. The slope is the least-measured input in the AI Futures Model, and the reports from inside the labs point to less AI judgment than its filtered trajectories assume.
 
-**Splitting crisp from fuzzy work makes audits a timeline tool only where fuzzy judgment is slow.** With fuzzy tasks improving 1 SD a year, AI judgment far ahead on crisp tasks carries the lab to researcher-level AI while its judgment on fuzzy tasks is near the median researcher, and central audits buy a median of 3 to 5 months before TED-AI, no more than a 3-month lag. With fuzzy tasks improving 0.5 SD a year they buy 18 to 22 months, more than a 9-month lag, and the unpaced date itself moves out by nine years. The weight of crisp work and the substitution move the result as much as the fuzzy rate does, and neither has been measured.
+**Splitting crisp from fuzzy work makes audits a timeline tool only where fuzzy judgment is slow.** With fuzzy tasks improving 1 SD a year, AI judgment far ahead on crisp tasks carries the lab to researcher-level AI while its judgment on fuzzy tasks is near the median researcher, and central audits buy a median of 3 to 5 months before TED-AI, no more than a 3-month lag. With fuzzy tasks improving 0.5 SD a year they buy 18 to 22 months, more than a 9-month lag, and the unpaced date itself moves out by nine years. That result holds only if all short work can be handed over: with 14% of work needing a person, they buy 2 to 3 months in every case. The weight of crisp work and the substitution move the result as much as the fuzzy rate does, and neither has been measured.
 
-**Work that needs a person and comprehension audits act on the same margin.** Both keep people in the loop. Where a share of real work needs human judgment until AI judgment on fuzzy tasks catches up, the milestones arrive later with no pacing at all, and audits add about half as much: on the example trajectory their delay to TED-AI falls from 8 months to 4 with fuzzy tasks at +1 SD. A lag keeps its effect. The timeline case for audits is therefore strongest where work is handed over fast and fuzzy judgment is slow. Their case as a check on whether people understand what they deploy does not depend on the timeline.
+**Work that needs a person and comprehension audits act on the same margin.** Both keep people in the loop. Where a share of real work needs human judgment until AI judgment on fuzzy tasks catches up, the milestones arrive later with no pacing at all, and audits add little on top: across sampled trajectories central audits delay TED-AI by a median of 2 to 3 months whether fuzzy judgment improves 1 SD a year or 0.5. A lag and a compute cut keep their effect, and each then delays TED-AI by more than audits do. The timeline case for audits therefore needs two things at once: work that is handed over in full, and fuzzy judgment that is slow. OpenAI's usage data count against the first. Their case as a check on whether people understand what they deploy does not depend on the timeline.
 
 **Audits bind when the lab would otherwise stop understanding its work.** While AI judgment is far below the researchers', an unpaced lab keeps understanding what it deploys because its progress depends on it, and audits cost it under 1% of research effort. Once AI judgment passes most researchers the unpaced lab lets that understanding go within months and deploys thousands of changes per researcher-year. That is when audits start to cost the lab pace. The rule holds a lab to a practice it follows while the practice pays, past the point where it stops paying.
 
@@ -967,6 +999,14 @@ export AIFM_PATH=~/aifm-public
 .venv/bin/python split_effect.py
 ```
 
+```bash
+.venv/bin/python real_research_effect.py
+```
+
+```bash
+.venv/bin/python montecarlo_taste.py --samples 10000 --only kept --residue --tag real_research --checkpoint real_research_checkpoint.csv
+```
+
 Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results were generated with numpy 2.5.4, scipy 1.18.1 and matplotlib 3.11.2, the versions in `requirements.txt`, and AI Futures Model commit `1c40ecd`. AI Futures notes that seeded draws from its sampler can differ between CPUs, so the kept trajectories may differ on another machine.
 
 | File | Contents |
@@ -977,11 +1017,12 @@ Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results 
 | `run_all.py` | Runs all scenarios and the sensitivity table, writes `results/` |
 | `montecarlo_b.py` | Samples AI Futures' parameter distribution, keeps trajectories near METR's pace, runs each under every scenario. About 20 minutes on 4 cores |
 | `judgment_sensitivity.py` | Varies research judgment and data-driven progress on the example trajectory, and splits the Monte Carlo by research judgment and by pace |
-| `montecarlo_taste.py` | Probability of each milestone by date under four taste models, with the link from comprehension to judgment. About two hours on 4 cores. `--only kept` reruns just the kept trajectories and `--models` picks taste models |
+| `montecarlo_taste.py` | Probability of each milestone by date under six taste models, with the link from comprehension to judgment. About two hours on 4 cores. `--only kept` reruns just the kept trajectories and `--models` picks taste models. `--residue` adds the work that needs a person, and `--checkpoint` saves each finished trajectory so an interrupted run resumes |
 | `link_effect.py` | What the link changes on the example trajectory |
 | `split_effect.py` | What the split into crisp and fuzzy tasks does on the example trajectory, and how it moves with its three unmeasured inputs |
-| `real_research_effect.py` | What two developers' data on real internal use change on the example trajectory: slower handover of work, and a share of work that needs a person |
-| `test_pacing_model.py` | Twenty-four checks, including that the adapter reproduces the AI Futures Model's own dates. The three that need the AI Futures checkout skip without `AIFM_PATH` |
+| `real_research_effect.py` | What two developers' data on real internal use change on the example trajectory: a share of work that needs a person, and slower handover of work as a sensitivity |
+| `simple_model.py`, `SIMPLE.md` | A one-file model with one state variable that carries the main results, and its write-up. Needs numpy only |
+| `test_pacing_model.py`, `test_simple_model.py` | Thirty-nine checks, including that the adapter reproduces the AI Futures Model's own dates. The three that need the AI Futures checkout skip without `AIFM_PATH` |
 | `requirements.txt` | The library versions the committed results were generated with |
 | `data/` | OpenAI chart data with provenance |
 | `results/` | Generated tables (`tables.md`, CSV) and figures. Do not edit by hand. |
