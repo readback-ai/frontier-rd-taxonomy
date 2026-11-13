@@ -1022,7 +1022,7 @@ Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results 
 | `split_effect.py` | What the split into crisp and fuzzy tasks does on the example trajectory, and how it moves with its three unmeasured inputs |
 | `real_research_effect.py` | What two developers' data on real internal use change on the example trajectory: a share of work that needs a person, and slower handover of work as a sensitivity |
 | `simple_model.py`, `SIMPLE.md` | A one-file model with one state variable that carries the main results, and its write-up. Needs numpy only |
-| `test_pacing_model.py`, `test_simple_model.py` | Thirty-nine checks, including that the adapter reproduces the AI Futures Model's own dates. The three that need the AI Futures checkout skip without `AIFM_PATH` |
+| `test_pacing_model.py`, `test_simple_model.py` | Forty checks, including that the adapter reproduces the AI Futures Model's own dates. The three that need the AI Futures checkout skip without `AIFM_PATH` |
 | `requirements.txt` | The library versions the committed results were generated with |
 | `data/` | OpenAI chart data with provenance |
 | `results/` | Generated tables (`tables.md`, CSV) and figures. Do not edit by hand. |

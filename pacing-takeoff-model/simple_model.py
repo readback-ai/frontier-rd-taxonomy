@@ -168,17 +168,18 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         understood, theta = 1.0, p.understanding_today
         effort = float(labor_effect(labor, p))
         if paced and policy.audit_hours > 0.0:
-            # Time to understand everything deployed, as a share of researcher time.
+            # Researchers who spend more time understanding direct less AI labor, and the lab
+            # then deploys fewer changes. `everything` is the time to understand all of them,
+            # as a share of researcher time.
+            time = np.maximum(THETA, p.understanding_today)
+            directed = labor * (1.0 - time) / (1.0 - p.understanding_today)
             everything = (
                 policy.audit_hours
                 * p.understanding_today
-                * (labor / labor_at_ref) ** p.change_growth
+                * (directed / labor_at_ref) ** p.change_growth
             )
             q = np.minimum(1.0, THETA / everything)
-            time = np.maximum(THETA, p.understanding_today)
-            kept = q**value_power * labor_effect(
-                labor * (1.0 - time) / (1.0 - p.understanding_today), p
-            )
+            kept = q**value_power * labor_effect(directed, p)
             best = int(np.argmax(kept))
             effort, understood, theta = float(kept[best]), float(q[best]), float(time[best])
         research = effort / base_labor * judgment * compute ** (1.0 - a)

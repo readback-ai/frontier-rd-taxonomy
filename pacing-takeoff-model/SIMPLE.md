@@ -1,6 +1,6 @@
 # A simple model of pacing and the takeoff of automated AI R&D
 
-Draft of 2026-11-13. Figures to come. The runnable model is `simple_model.py`: one file, one state variable, numpy only. The two full models and their evidence are in [README.md](README.md).
+Draft of 2026-11-13, revised the same day against the full model's sampled results. Figures to come. The runnable model is `simple_model.py`: one file, one state variable, numpy only. The two full models and their evidence are in [README.md](README.md).
 
 ## The question
 
@@ -29,7 +29,7 @@ The last third of progress comes from more compute, which AI research does not s
 - **Crisp work stands in for fuzzy work poorly.** However good the AI gets at crisp tasks, the lab's judgment is at most 4 times its judgment on fuzzy tasks.
 - **Some work needs a person.** On real tasks today, 14% need a person however short the task. That share falls as AI judgment on fuzzy tasks rises.
 
-**4. Understanding takes people's time.** Deployed changes grow with AI labor: 1% more labor, 0.4% more changes. The hours a person needs to understand one do not shrink. Understanding everything deployed takes 14% of researchers' time today.
+**4. Understanding takes people's time.** Deployed changes grow with AI labor: 1% more labor, 0.4% more changes. The hours a person needs to understand one do not shrink. Understanding everything deployed takes 14% of researchers' time today. Time spent understanding is time not spent directing AI labor.
 
 **5. The lab chooses.** Under audits a lab may deploy only what its people understand. It splits researcher time between research and understanding to go fastest, and understands the most valuable changes first.
 
@@ -55,31 +55,49 @@ Dates with no pacing, and the delay each policy adds, from `results/tables_simpl
 |---|---|---|---|
 | Researcher-level AI, no pacing | Aug 2027 | Jul 2028 | Nov 2030 |
 | TED-AI, no pacing | Nov 2027 | May 2030 | Oct 2037 |
-| Central audits delay TED-AI | +3 mo | +11 mo | +16 mo |
-| Strict audits delay TED-AI | +5 mo | +15 mo | +20 mo |
+| Central audits delay TED-AI | +1 mo | +7 mo | +11 mo |
+| Strict audits delay TED-AI | +3 mo | +10 mo | +14 mo |
 | 3-month lag delays TED-AI | +6 mo | +3 mo | +1 mo |
 | 9-month lag delays TED-AI | +12 mo | +10 mo | +3 mo |
 | 3-fold compute cut delays TED-AI | +4 mo | +6 mo | +6 mo |
 
 - **The rate on fuzzy tasks decides the dates.** Halving it moves TED-AI by seven years. Lowering the crisp rate from 3 to 2.1 SD moves it by three months.
-- **Audits work where the takeoff is slow, and lags where it is fast.** An audit bites once deployed changes outgrow people's time, and it keeps biting. A lag sets the lab back a fixed distance, which is worth months in a fast takeoff and weeks in a slow one.
 - **Audits barely move researcher-level AI.** They delay it by about a month in each of these cases. The gate starts to bind only about when that level arrives.
-- **How fast deployed changes grow with AI labor decides the audit result.** At 0.2% more changes per 1% more labor, central audits delay TED-AI by 2 months in the middle case. At 0.6% they delay it by 22. Nobody has measured this number.
-- **Work that needs a person and audits act on the same margin.** Without the 14% of work that needs a person, the middle case reaches researcher-level AI four months sooner, and central audits would delay TED-AI by 27 months, against 11 with it. Where the work itself keeps people in the loop, audits add less.
+- **Where judgment improves fast, audits buy a month and a lag buys more than its length.** The loop runs away, so a fixed setback is worth more calendar time the later it is made up.
+- **Where fuzzy judgment is slow, audits buy 7 to 11 months here.** The full models put that at 2 to 3 months. The next section says why, and which to believe.
+- **How fast deployed changes grow with AI labor decides the audit result.** At 0.2% more changes per 1% more labor, central audits delay TED-AI by 1 month in the middle case. At 0.6% they delay it by 14. Nobody has measured this number.
+- **Work that needs a person and audits act on the same margin.** Without the 14% of work that needs a person, the middle case reaches researcher-level AI four months sooner, and central audits would delay TED-AI by 21 months, against 7 with it. Where the work itself keeps people in the loop, audits add less.
 
 ## How it compares with the full models
 
-The simple model was written to carry four results of the full models. Where it does not, the difference is stated.
+The comparison is with the full model's medians over 96 sampled trajectories, with the same 14% of work needing a person.
 
-| Result of the full models | Simple model |
-|---|---|
-| A lag delays the milestones by about its own length | Holds where judgment improves fast: 3 and 9 months of lag delay TED-AI by 6 and 12 months. Does not hold where fuzzy judgment is slow: the delay is a third to all of the lag's length, where the full model has it at or above the lag's length |
-| Audits barely move the dates when judgment improves fast on every task | Holds roughly: central audits delay TED-AI by 3 months, against a median of 1 in the full model |
-| Audits delay TED-AI by a year or more when fuzzy judgment is slow | Holds: 11 to 16 months. The full model's median is 3 to 5 months at +1 SD and 18 to 22 at +0.5 SD |
-| The fuzzy rate matters far more than the crisp rate | Holds |
-| Work that needs a person changes nothing when judgment is fast and delays the milestones when it is slow | Holds |
+| | One judgment, +3 SD | Crisp +3, fuzzy +1 SD | Crisp +3, fuzzy +0.5 SD |
+|---|---|---|---|
+| Researcher-level AI, no pacing: simple | Aug 2027 | Jul 2028 | Nov 2030 |
+| Researcher-level AI, no pacing: full | Jul 2027 | May 2028 | Oct 2030 |
+| TED-AI, no pacing: simple | Nov 2027 | May 2030 | Oct 2037 |
+| TED-AI, no pacing: full | Oct 2027 | Jul 2029 | after 2039 |
+| Central audits delay TED-AI: simple | +1 mo | +7 mo | +11 mo |
+| Central audits delay TED-AI: full | +1 mo | +2 mo | +3 mo |
+| 9-month lag delays TED-AI: simple | +12 mo | +10 mo | +3 mo |
+| 9-month lag delays TED-AI: full | +11 mo | +13 mo | +10 mo |
+| 3-fold compute cut delays TED-AI: simple | +4 mo | +6 mo | +6 mo |
+| 3-fold compute cut delays TED-AI: full | +5 mo | +10 mo | +13 mo |
 
-Dates differ. With one judgment at +3 SD the simple model has TED-AI in November 2027, and the full model's sampled median is September 2027. In the middle case the simple model has May 2030 and the full model December 2028. The full model draws many parameter sets from AI Futures' distribution and reports the median. The simple model is one set of central values.
+Where the two agree:
+
+- **Dates with no pacing.** Researcher-level AI is within two months in every case, and TED-AI within ten months where the full model's median falls before 2040.
+- **The fuzzy rate matters far more than the crisp rate.**
+- **Audits move researcher-level AI by a month or less.**
+- **With judgment improving fast on every task, audits buy a month and a lag buys its length or more.**
+- **Work that needs a person changes nothing when judgment is fast, delays the milestones when fuzzy judgment is slow, and cuts what audits add.**
+
+Where they differ, the full model is the one to cite:
+
+- **The simple model overstates audits where fuzzy judgment is slow, by about three times.** It has 7 to 11 months, against a sampled median of 2 to 3. The full model's upper quartile is 4 to 7 months, and its one example trajectory gives 4 and 25. Two things explain part of the gap. In the full model a lab with no audit keeps understanding most of what it deploys for as long as its people's judgment is worth having, so an audit asks for less that is new. And the simple model is one trajectory, which in the middle case is slower than the full model's median.
+- **The simple model understates a lag where fuzzy judgment is slow.** Below the critical rate its loop makes up most of a setback. The full model's sampled trajectories lose about the lag's length. With fuzzy tasks at +0.5 SD those are the faster half of trajectories, the ones that reach TED-AI before 2040.
+- **So the simple model does not settle which of audits and a lag buys more time in a slow takeoff.** It ranks audits first with fuzzy tasks at +0.5 SD. The full model ranks a 9-month lag first in every case.
 
 ## Inputs
 
@@ -107,7 +125,7 @@ The fit puts AI labor per researcher at 12 times on Nov 1, 2026. Anthropic staff
 ## What it leaves out
 
 - **Sampling.** One set of central values. The full model samples AI Futures' distribution.
-- **The link from comprehension to judgment.** In the full model people apply judgment only to changes they understand. It moves dates by days to weeks there.
+- **The link from comprehension to judgment.** In the full model people apply judgment only to changes they understand. It moves dates by days to weeks there, and it lowers what audits add.
 - **Sign-off without a comprehension standard.** It does little in the full model.
 - **Training compute after a cut.** A compute cut here lowers experiment compute once and leaves the compute third of progress alone.
 - **Safety research.** The model has one clock, for capabilities. The source of the fuzzy definition argues that safety research is fuzzier than capabilities research, which would make it the slower of two clocks.

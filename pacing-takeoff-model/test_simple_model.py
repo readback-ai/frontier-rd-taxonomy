@@ -100,10 +100,11 @@ def test_a_lag_delays_by_about_its_length_where_judgment_is_fast():
             assert low <= months(base, paced, milestone) <= high
 
 
-def test_audits_delay_by_months_where_judgment_is_fast_and_by_a_year_or_more_where_it_is_slow():
-    assert months(simulate(ONE_FAST), simulate(ONE_FAST, CENTRAL), "ted_ai") < 4.0
-    assert months(simulate(SPLIT), simulate(SPLIT, CENTRAL), "ted_ai") > 9.0
-    assert months(simulate(SLOW), simulate(SLOW, CENTRAL), "ted_ai") > 12.0
+def test_audits_delay_more_the_slower_fuzzy_judgment_improves():
+    fast = months(simulate(ONE_FAST), simulate(ONE_FAST, CENTRAL), "ted_ai")
+    split = months(simulate(SPLIT), simulate(SPLIT, CENTRAL), "ted_ai")
+    slow = months(simulate(SLOW), simulate(SLOW, CENTRAL), "ted_ai")
+    assert fast < 4.0 < split < slow
 
 
 def test_no_policy_brings_a_milestone_forward_and_stricter_audits_delay_more():
@@ -132,3 +133,16 @@ def test_policies_change_nothing_before_they_start():
     for policy in POLICIES[1:]:
         paced = simulate(SPLIT, policy, t_end=2027.0)
         assert np.allclose(base["pace"][:-2], paced["pace"][:-2])
+
+
+def test_an_audited_lab_counts_the_changes_from_the_labor_it_directs():
+    """Time spent understanding is time not spent directing AI labor, so the lab deploys
+    fewer changes. The share it understands is its time over the time those changes take."""
+    run = simulate(SPLIT, CENTRAL)
+    labor_at_ref = 1.0 + P.u0 * 2.0 ** (P.progress_at_ref / P.uplift_doubling)
+    time, understood = run["time_understanding"], run["understood"]
+    partial = (understood < 0.99) & (time > P.understanding_today)
+    assert partial.sum() > 100
+    directed = run["labor"] * (1.0 - time) / (1.0 - P.understanding_today)
+    everything = P.understanding_today * (directed / labor_at_ref) ** P.change_growth
+    assert np.allclose(understood[partial], (time / everything)[partial], rtol=1e-6)
