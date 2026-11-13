@@ -206,17 +206,16 @@ taste_models:                    # AI Futures 2026-11-10, "Research taste linear
   slope_baseline: 3.0            # SD per year of 2025 progress, Kokotajlo's median
   slope_slow: 1.0                # low end of Eli Lifland's 80% interval of 1 to 6.25
 
-taste_split:                     # Research split into two classes of task. ASSUMPTIONS except crisp_share's anchor.
+taste_split:                     # Research split into two classes of task. ASSUMPTIONS except supervisable_share's anchors.
   # Definitions follow Bowkis, Buhl, Pfau and Irving, "Automated alignment is harder than you
   # think" (arXiv:2605.06390, 2026-05-07). HTS fuzzy tasks are the paper's hard-to-supervise
   # fuzzy tasks: "tasks without clear evaluation criteria, for which human judgement is
   # systematically flawed". Supervisable tasks are everything else: the paper's crisp tasks, where
   # "success is verifiable and experts reliably agree on correct answers", and tasks with no clear
   # criteria that people judge reliably (writing). AI judgment improves at a different rate in each
-  # class. Keys keep the labels used until 2026-11-13: crisp is the supervisable class and fuzzy is
-  # the HTS fuzzy class.
+  # class.
   # Both classes start at taste_models.level_sd.
-  crisp_share: 0.65              # weight of supervisable work in research while judgment is equal in both classes.
+  supervisable_share: 0.65       # weight of supervisable work in research while judgment is equal in both classes.
                                  # Three anchors, none of them a measurement of this quantity:
                                  # All three separate well-defined work from the rest, which is wider than
                                  # the HTS fuzzy class as defined above, so 0.65 is at the low end.
@@ -242,10 +241,10 @@ taste_split:                     # Research split into two classes of task. ASSU
                                  # complements, so effort shifts to HTS fuzzy work as supervisable work gets cheap. No data.
                                  # 0.25 is the PI's judgment that supervisable work stands in for HTS fuzzy work poorly.
                                  # One AI Futures author's task-continuum variant uses 0.67 to 0.83.
-  crisp_slopes: [3.0, 2.1]       # SD per year of 2025 progress. 3 is AI Futures' base case. 2.1 is the median
+  supervisable_slopes: [3.0, 2.1]  # SD per year of 2025 progress. 3 is AI Futures' base case. 2.1 is the median
                                  # slope AI Futures reports after filtering its trajectories on the pace in
                                  # May and November 2026.
-  fuzzy_slopes: [1.0, 0.5]
+  hts_fuzzy_slopes: [1.0, 0.5]
 
 other_mechanisms:                # AI Futures, How to pace the US frontier (2026-08-05)
   internal_use_lag_months: 9     # "trained at least X months earlier, perhaps 9"

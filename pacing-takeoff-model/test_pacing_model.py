@@ -251,7 +251,7 @@ def test_task_classes_that_move_together_change_nothing():
 def test_lab_keeps_understanding_for_the_class_where_people_still_lead():
     # AI matches people on supervisable tasks and is far behind on HTS fuzzy ones. People's judgment
     # still pays on the HTS fuzzy class, so the lab keeps understanding what it deploys.
-    crisp_only = lab_choice(1e-3, cobb, REF, GATE, None, 2.0, 2.0, LINK)
+    supervisable_only = lab_choice(1e-3, cobb, REF, GATE, None, 2.0, 2.0, LINK)
     split = lab_choice(
         1e-3,
         cobb,
@@ -264,18 +264,18 @@ def test_lab_keeps_understanding_for_the_class_where_people_still_lead():
         class_shares=[0.7, 0.3],
         class_r=-0.5,
     )
-    assert crisp_only["understood"] < 1e-6
+    assert supervisable_only["understood"] < 1e-6
     assert split["understood"] > 0.3
 
 
-def test_adapter_task_classes_reduce_to_one_taste_and_shift_effort_to_fuzzy_work():
+def test_adapter_task_classes_reduce_to_one_taste_and_shift_effort_to_hts_fuzzy_work():
     need_aifm()
     from link_effect import example
     from montecarlo_taste import taste_models
 
     models = {m.name: m for m in taste_models(CAL)}
     single = example(CAL, models["baseline"])
-    same = example(CAL, replace(models["split_3_1"], fuzzy=models["split_3_1"].crisp))
+    same = example(CAL, replace(models["split_3_1"], hts_fuzzy=models["split_3_1"].supervisable))
     for name in ("SAR", "TED-AI"):
         assert abs(single.levels[name] - same.levels[name]) < 1e-6, name
     split = example(CAL, models["split_3_1"])
@@ -285,7 +285,7 @@ def test_adapter_task_classes_reduce_to_one_taste_and_shift_effort_to_fuzzy_work
     def share(cap):
         return split.effort_shares(split.class_tastes(cap)[1])[1]
 
-    assert math.isclose(share(early), 1.0 - CAL["taste_split"]["crisp_share"], abs_tol=0.01)
+    assert math.isclose(share(early), 1.0 - CAL["taste_split"]["supervisable_share"], abs_tol=0.01)
     assert share(late) > 0.6
 
 

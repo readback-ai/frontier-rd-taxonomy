@@ -8,6 +8,6 @@
  "forecaster": "daniel",
  "seed": 20261110,
  "median_pace": 1.66975,
- "crisp_share": 0.7,
+ "supervisable_share": 0.7,
  "substitution": 0.5
 }

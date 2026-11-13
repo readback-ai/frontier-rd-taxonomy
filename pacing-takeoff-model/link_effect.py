@@ -170,7 +170,7 @@ def figure(cal: dict, paths: dict) -> None:
 
     plt.rcParams["font.family"] = "DejaVu Sans"
     colors = {"baseline": "#2a78d6", "slow": "#eb6834"}
-    slopes = {m.name: m.crisp for m in taste_models(cal) if m.fuzzy is None}
+    slopes = {m.name: m.supervisable for m in taste_models(cal) if m.hts_fuzzy is None}
     paths = {name: v for name, v in paths.items() if name in slopes}
     fig, ax = plt.subplots(figsize=(9.6, 4.6), facecolor=SURFACE)
     ax.set_facecolor(SURFACE)

@@ -3,7 +3,7 @@
 Runs AI Futures' Nov 10 example trajectory with AI judgment improving at one
 rate on supervisable tasks and a slower rate on HTS fuzzy tasks (calibration.yml,
 taste_split), and varies the three inputs that have no measurement behind them:
-the share of research effort that is crisp today, how far supervisable work can stand
+the share of research effort that is supervisable today, how far supervisable work can stand
 in for HTS fuzzy work, and whether supervisable judgment starts ahead.
 
 Writes results/tables_split.md.
@@ -54,7 +54,7 @@ def main() -> None:
         "Pacing starts Jan 1, 2027.",
         "",
     ]
-    for spec in (m for m in taste_models(cal) if m.fuzzy is not None):
+    for spec in (m for m in taste_models(cal) if m.hts_fuzzy is not None):
         out += [f"## {spec.heading} ({spec.name})", ""]
         central = example(cal, spec)
         central.use_calibration(cal, link=True)
@@ -73,10 +73,10 @@ def main() -> None:
             if when > path["t"][-1]:
                 continue
             cap = at(path, "progress", when)
-            crisp, fuzzy = central.class_sds(cap)
+            supervisable, hts_fuzzy = central.class_sds(cap)
             _, people = central.class_tastes(cap)
             out.append(
-                f"| {pm.fmt_date(when + 1e-6)} | {crisp:+.1f} SD | {fuzzy:+.1f} SD | "
+                f"| {pm.fmt_date(when + 1e-6)} | {supervisable:+.1f} SD | {hts_fuzzy:+.1f} SD | "
                 f"{central.taste_sd(cap):+.1f} SD | {central.effort_shares(people)[1]:.0%} | "
                 f"{at(path, 'understood_lab', when):.0%} | {at(path, 'pace', when):.1f}x |"
             )
@@ -94,7 +94,7 @@ def main() -> None:
         ]
         cases = [
             (
-                f"Central: supervisable share {sp['crisp_share']:.0%}, "
+                f"Central: supervisable share {sp['supervisable_share']:.0%}, "
                 f"substitution {sp['substitution']:g}",
                 {},
             ),
@@ -106,14 +106,14 @@ def main() -> None:
                 "Substitution 0.83 (one AI Futures author's light bottleneck)",
                 dict(substitution=0.83),
             ),
-            ("Supervisable judgment starts at -1.5 SD", dict(crisp_level=-1.5)),
+            ("Supervisable judgment starts at -1.5 SD", dict(supervisable_level=-1.5)),
         ]
         for label, override in cases:
             m = example(cal, spec, **override)
             m.use_calibration(cal, link=True)
             out.append(row(label, m, policies))
             print("done:", spec.name, label, flush=True)
-        ceiling = (1.0 - sp["crisp_share"]) ** (-1.0 / (1.0 - sp["substitution"]))
+        ceiling = (1.0 - sp["supervisable_share"]) ** (-1.0 / (1.0 - sp["substitution"]))
         sigma = float(central.params.taste_distribution.sigma)
         out += [
             "",

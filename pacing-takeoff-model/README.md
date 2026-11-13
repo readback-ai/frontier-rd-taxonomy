@@ -518,13 +518,13 @@ AI judgment improves 3 SD or 2.1 SD per year of 2025 progress on supervisable ta
 ### How the classes combine
 
 ```
-lab judgment = ( crisp_share * crisp_judgment^r + fuzzy_share * fuzzy_judgment^r ) ^ (1/r)
+lab judgment = ( supervisable_share * supervisable_judgment^r + hts_fuzzy_share * hts_fuzzy_judgment^r ) ^ (1/r)
 r = substitution - 1
 ```
 
-- **The lab spreads its experiments across the two classes to get the most research from them.** `crisp_share` is the weight of supervisable work, which is also its share of effort while judgment is equal in both classes.
+- **The lab spreads its experiments across the two classes to get the most research from them.** `supervisable_share` is the weight of supervisable work, which is also its share of effort while judgment is equal in both classes.
 - **Substitution is how far supervisable work can stand in for HTS fuzzy work.** Below 1 the classes are complements. As supervisable work gets cheap, effort moves to HTS fuzzy work and HTS fuzzy judgment comes to set the pace. This is how supervisable progress reaches diminishing returns in the model.
-- **Supervisable work that costs nothing still leaves a ceiling.** The lab's judgment tops out at `fuzzy_share ^ (-1 / (1 - substitution))` times its judgment on HTS fuzzy tasks. At the central values that is 4.1 times, or 3.1 SD on the example trajectory's researcher distribution.
+- **Supervisable work that costs nothing still leaves a ceiling.** The lab's judgment tops out at `hts_fuzzy_share ^ (-1 / (1 - substitution))` times its judgment on HTS fuzzy tasks. At the central values that is 4.1 times, or 3.1 SD on the example trajectory's researcher distribution.
 - **Milestones use the same combination.** A milestone that the AI Futures Model defines as a level of research taste is reached when an AI-only lab's judgment across both classes reaches that level. The superhuman AI researcher therefore arrives with AI judgment far past the best researcher on supervisable tasks and near the median researcher on HTS fuzzy ones.
 - **People stay useful for longer.** A person who understands a change applies judgment to it in both classes, and people stay ahead of the AI on HTS fuzzy tasks after it passes them on supervisable ones.
 
@@ -688,9 +688,9 @@ Supervisable tasks at +2.1 SD:
 
 ![Probability of each milestone by date, supervisable tasks at +3 SD: lags, compute cuts and combinations](results/fig9_probability_by_date_other_split.png)
 
-![Probability of each milestone by date, supervisable tasks at +2.1 SD: sign-off and comprehension audits](results/fig10_probability_by_date_gates_split_crisp_2.1.png)
+![Probability of each milestone by date, supervisable tasks at +2.1 SD: sign-off and comprehension audits](results/fig10_probability_by_date_gates_split_supervisable_2.1.png)
 
-![Probability of each milestone by date, supervisable tasks at +2.1 SD: lags, compute cuts and combinations](results/fig11_probability_by_date_other_split_crisp_2.1.png)
+![Probability of each milestone by date, supervisable tasks at +2.1 SD: lags, compute cuts and combinations](results/fig11_probability_by_date_other_split_supervisable_2.1.png)
 
 What the sampled trajectories show:
 

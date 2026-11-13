@@ -118,16 +118,21 @@ def pace_paths_figure(p: Params) -> None:
     hi, top = 2034.0, 30.0
     below, above = dict(xytext=(8, -4), va="top"), dict(xytext=(0, 9), va="bottom", ha="center")
     cases = (
-        ("One judgment, +3 SD a year", dict(crisp_rate=3.0, fuzzy_rate=3.0), BLUE, below),
+        (
+            "One judgment, +3 SD a year",
+            dict(supervisable_rate=3.0, hts_fuzzy_rate=3.0),
+            BLUE,
+            below,
+        ),
         (
             "Supervisable +3, HTS fuzzy +1 SD a year",
-            dict(crisp_rate=3.0, fuzzy_rate=1.0),
+            dict(supervisable_rate=3.0, hts_fuzzy_rate=1.0),
             ORANGE,
             above,
         ),
         (
             "Supervisable +3, HTS fuzzy +0.5 SD a year",
-            dict(crisp_rate=3.0, fuzzy_rate=0.5),
+            dict(supervisable_rate=3.0, hts_fuzzy_rate=0.5),
             AQUA,
             above,
         ),

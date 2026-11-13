@@ -19,7 +19,7 @@ this directory, and it keeps the parts their results turn on.
    and human judgment is systematically flawed, and AI judgment improves at a slower rate.
    Supervisable work stands in for HTS fuzzy work poorly, so the slower rate ends up setting
    the pace. A share of work also needs a person until AI judgment on HTS fuzzy tasks catches
-   up. Parameter names keep the earlier labels: crisp is supervisable and fuzzy is HTS fuzzy.
+   up.
 
 4. Understanding takes people's time. The count of deployed changes grows with AI labor. The
    hours it takes a person to understand one do not shrink.
@@ -60,9 +60,11 @@ class Params:
     progress_at_ref: float = 1.3327  # years of progress from Oct 1, 2025 to Nov 1, 2026. Fitted
     # 3. Judgment
     judgment_start: float = -3.5  # AI research judgment on Nov 1, 2026, in researcher SD
-    crisp_rate: float = 3.0  # SD gained per year of progress on supervisable tasks
-    fuzzy_rate: float = 1.0  # the same on HTS fuzzy tasks. Equal rates give one kind of judgment
-    crisp_weight: float = 0.65  # weight of supervisable work in research
+    supervisable_rate: float = 3.0  # SD gained per year of progress on supervisable tasks
+    hts_fuzzy_rate: float = (
+        1.0  # the same on HTS fuzzy tasks. Equal rates give one kind of judgment
+    )
+    supervisable_weight: float = 0.65  # weight of supervisable work in research
     substitution: float = (
         0.25  # how well supervisable work stands in for HTS fuzzy work. 1 is neutral
     )
@@ -109,14 +111,14 @@ def lab_judgment(ai_sd: float, k: float) -> float:
     )
 
 
-def combine(crisp: float, fuzzy: float, p: Params) -> float:
+def combine(supervisable: float, hts_fuzzy: float, p: Params) -> float:
     """Judgment across the two kinds of task when the lab spreads its experiments to get the
     most from them. Below a substitution of 1 the weaker kind pulls the result down."""
     r = p.substitution - 1.0
-    w = p.crisp_weight
+    w = p.supervisable_weight
     if abs(r) < 1e-9:
-        return crisp**w * fuzzy ** (1.0 - w)
-    return (w * crisp**r + (1.0 - w) * fuzzy**r) ** (1.0 / r)
+        return supervisable**w * hts_fuzzy ** (1.0 - w)
+    return (w * supervisable**r + (1.0 - w) * hts_fuzzy**r) ** (1.0 / r)
 
 
 def labor_effect(labor, p: Params):
@@ -125,11 +127,11 @@ def labor_effect(labor, p: Params):
     return x * p.labor_ceiling / (x + p.labor_ceiling)
 
 
-def ai_labor(progress: float, fuzzy_sd: float, p: Params) -> float:
+def ai_labor(progress: float, hts_fuzzy_sd: float, p: Params) -> float:
     """AI labor per researcher. The share of work that needs a person holds it down."""
     labor = 1.0 + p.u0 * 2.0 ** (min(progress, 200.0) / p.uplift_doubling)
     if p.residue > 0.0:
-        needs_person = p.residue * share_above(fuzzy_sd) / share_above(p.judgment_start)
+        needs_person = p.residue * share_above(hts_fuzzy_sd) / share_above(p.judgment_start)
         labor = min(labor, 1.0 / max(needs_person * p.supervision_time, 1e-12))
     return labor
 
@@ -149,9 +151,9 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
     n = int(round((t_end - T_BASE) / dt))
     start_step = int(round((policy.start - T_BASE) / dt))
     lag_steps = int(round(policy.lag / dt))
-    out = {key: np.full(n, np.nan) for key in ("t", "progress", "pace", "labor", "crisp_sd")}
+    out = {key: np.full(n, np.nan) for key in ("t", "progress", "pace", "labor", "supervisable_sd")}
     out.update(
-        {key: np.full(n, np.nan) for key in ("fuzzy_sd", "understood", "time_understanding")}
+        {key: np.full(n, np.nan) for key in ("hts_fuzzy_sd", "understood", "time_understanding")}
     )
     dates = dict.fromkeys(levels, math.nan)
     software, last = 0.0, n
@@ -164,10 +166,13 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         # The AI the lab may use. Under a lag it is the AI of `lag` years ago, and no older
         # than the AI it had when the policy started.
         used = out["progress"][min(i, max(start_step, i - lag_steps))] if paced else progress
-        crisp_sd = p.judgment_start + p.crisp_rate * (used - p.progress_at_ref)
-        fuzzy_sd = p.judgment_start + p.fuzzy_rate * (used - p.progress_at_ref)
-        labor = ai_labor(used, fuzzy_sd, p)
-        judgment = combine(lab_judgment(crisp_sd, k), lab_judgment(fuzzy_sd, k), p) / base_judgment
+        supervisable_sd = p.judgment_start + p.supervisable_rate * (used - p.progress_at_ref)
+        hts_fuzzy_sd = p.judgment_start + p.hts_fuzzy_rate * (used - p.progress_at_ref)
+        labor = ai_labor(used, hts_fuzzy_sd, p)
+        judgment = (
+            combine(lab_judgment(supervisable_sd, k), lab_judgment(hts_fuzzy_sd, k), p)
+            / base_judgment
+        )
         compute = 1.0 / policy.compute_cut if paced else 1.0
         understood, theta = 1.0, p.understanding_today
         effort = float(labor_effect(labor, p))
@@ -192,8 +197,8 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         for key, value in (
             ("pace", pace),
             ("labor", labor),
-            ("crisp_sd", crisp_sd),
-            ("fuzzy_sd", fuzzy_sd),
+            ("supervisable_sd", supervisable_sd),
+            ("hts_fuzzy_sd", hts_fuzzy_sd),
             ("understood", understood),
             ("time_understanding", theta),
         ):
@@ -201,7 +206,7 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         # Milestones are about the newest AI, whatever the lab is allowed to use.
         newest = (
             p.judgment_start + rate * (progress - p.progress_at_ref)
-            for rate in (p.crisp_rate, p.fuzzy_rate)
+            for rate in (p.supervisable_rate, p.hts_fuzzy_rate)
         )
         ai_only = combine(*(math.exp(k * sd) for sd in newest), p)
         for name, level in levels.items():
@@ -287,10 +292,10 @@ def fmt_delay(base: float, paced: float) -> str:
 
 
 TASTES = (
-    ("One kind of judgment, +3 SD a year", dict(crisp_rate=3.0, fuzzy_rate=3.0)),
-    ("One kind of judgment, +1 SD a year", dict(crisp_rate=1.0, fuzzy_rate=1.0)),
-    ("Supervisable +3, HTS fuzzy +1 SD a year", dict(crisp_rate=3.0, fuzzy_rate=1.0)),
-    ("Supervisable +3, HTS fuzzy +0.5 SD a year", dict(crisp_rate=3.0, fuzzy_rate=0.5)),
+    ("One kind of judgment, +3 SD a year", dict(supervisable_rate=3.0, hts_fuzzy_rate=3.0)),
+    ("One kind of judgment, +1 SD a year", dict(supervisable_rate=1.0, hts_fuzzy_rate=1.0)),
+    ("Supervisable +3, HTS fuzzy +1 SD a year", dict(supervisable_rate=3.0, hts_fuzzy_rate=1.0)),
+    ("Supervisable +3, HTS fuzzy +0.5 SD a year", dict(supervisable_rate=3.0, hts_fuzzy_rate=0.5)),
 )
 
 
@@ -309,7 +314,7 @@ def table(p: Params | None = None) -> str:
     for label, rates in TASTES:
         q = replace(p, **rates)
         base = simulate(q)["dates"]
-        settled = steady_pace(q.fuzzy_rate, q)
+        settled = steady_pace(q.hts_fuzzy_rate, q)
         settled = "runs away" if settled == math.inf else f"{settled:.1f}x"
         out += [
             f"### {label}",

@@ -27,7 +27,7 @@ Usage:
     python montecarlo_taste.py --samples 10000 --only kept --models split_3_1,split_3_0.5
     python montecarlo_taste.py --replot              # rebuild tables and figures from the CSV
     python montecarlo_taste.py --samples 10000 --only kept --models split_3_1,split_3_0.5 \\
-        --crisp-share 0.7 --substitution 0.5 --tag share0.7_sub0.5
+        --supervisable-share 0.7 --substitution 0.5 --tag share0.7_sub0.5
 
 Writes results/model_b_taste.csv, results/tables_taste.md and figures 5, 6 and 8 to 11. A
 tagged run writes results/model_b_taste_<tag>.csv and results/tables_taste_<tag>.md only.
@@ -73,34 +73,34 @@ _STATE = {}
 @dataclass(frozen=True)
 class TasteModel:
     name: str  # key in the CSV
-    crisp: float  # SD per year of 2025 progress. The only slope when `fuzzy` is None
-    fuzzy: float | None  # slope of the HTS fuzzy class, or None for a single taste
+    supervisable: float  # SD per year of 2025 progress. The only slope when `hts_fuzzy` is None
+    hts_fuzzy: float | None  # slope of the HTS fuzzy class, or None for a single taste
     years: tuple  # dates for the probability columns
     until: float  # right edge of the figure panel
 
     @property
     def short(self) -> str:
         return (
-            f"{self.crisp:+g} SD"
-            if self.fuzzy is None
-            else f"Supervisable {self.crisp:+g}, HTS fuzzy {self.fuzzy:+g} SD"
+            f"{self.supervisable:+g} SD"
+            if self.hts_fuzzy is None
+            else f"Supervisable {self.supervisable:+g}, HTS fuzzy {self.hts_fuzzy:+g} SD"
         )
 
     @property
     def panel(self) -> str:
         return (
-            f"taste {self.crisp:+g} SD a year"
-            if self.fuzzy is None
-            else f"supervisable {self.crisp:+g} SD, HTS fuzzy {self.fuzzy:+g} SD a year"
+            f"taste {self.supervisable:+g} SD a year"
+            if self.hts_fuzzy is None
+            else f"supervisable {self.supervisable:+g} SD, HTS fuzzy {self.hts_fuzzy:+g} SD a year"
         )
 
     @property
     def heading(self) -> str:
         return (
-            f"Taste improves {self.crisp:+g} SD per year of 2025 progress"
-            if self.fuzzy is None
-            else f"Supervisable tasks improve {self.crisp:+g} SD and HTS fuzzy tasks "
-            f"{self.fuzzy:+g} SD per year of 2025 progress"
+            f"Taste improves {self.supervisable:+g} SD per year of 2025 progress"
+            if self.hts_fuzzy is None
+            else f"Supervisable tasks improve {self.supervisable:+g} SD and HTS fuzzy tasks "
+            f"{self.hts_fuzzy:+g} SD per year of 2025 progress"
         )
 
 
@@ -110,13 +110,13 @@ def taste_models(cal: dict) -> list[TasteModel]:
         TasteModel("baseline", float(t["slope_baseline"]), None, (2028.0, 2029.0, 2030.0), 2031.0),
         TasteModel("slow", float(t["slope_slow"]), None, (2029.0, 2031.0, 2035.0), T_END),
     ]
-    for crisp in sp["crisp_slopes"]:
-        for fuzzy in sp["fuzzy_slopes"]:
+    for supervisable in sp["supervisable_slopes"]:
+        for hts_fuzzy in sp["hts_fuzzy_slopes"]:
             out.append(
                 TasteModel(
-                    f"split_{crisp:g}_{fuzzy:g}",
-                    float(crisp),
-                    float(fuzzy),
+                    f"split_{supervisable:g}_{hts_fuzzy:g}",
+                    float(supervisable),
+                    float(hts_fuzzy),
                     (2029.0, 2031.0, 2035.0),
                     T_END,
                 )
@@ -132,29 +132,31 @@ def build(
     aifm_path: Path,
     share: float | None = None,
     substitution: float | None = None,
-    crisp_level: float | None = None,
+    supervisable_level: float | None = None,
 ) -> Aifm:
     """The model under `model`. `first` is the same draw run with negligible taste."""
     t, sp, t_ref = cal["taste_models"], cal["taste_split"], cal["reference_date"]
-    m = pinned(params, first, model.crisp, t["level_sd"], t["date"], aifm_path, t_ref)
-    if model.fuzzy is not None:
+    m = pinned(params, first, model.supervisable, t["level_sd"], t["date"], aifm_path, t_ref)
+    if model.hts_fuzzy is not None:
         # The supervisable class keeps the schedule AIFM holds for the single taste. The HTS
-        # fuzzy class passes through the same level on the date and climbs at fuzzy / crisp of
-        # the rate. Field and key names keep the earlier labels: crisp is the supervisable
-        # class and fuzzy is the HTS fuzzy class.
+        # fuzzy class passes through the same level on the date and climbs at the ratio of the
+        # two slopes times that rate.
         at = m.capability_at(t["date"])
         level, slope = m.taste_sd(at), m.params.ai_research_taste_slope
-        share = sp["crisp_share"] if share is None else share
+        share = sp["supervisable_share"] if share is None else share
         m.set_taste_classes(
             [
                 dict(
                     share=share,
                     slope=slope,
                     at=at,
-                    level=level if crisp_level is None else crisp_level,
+                    level=level if supervisable_level is None else supervisable_level,
                 ),
                 dict(
-                    share=1.0 - share, slope=slope * model.fuzzy / model.crisp, at=at, level=level
+                    share=1.0 - share,
+                    slope=slope * model.hts_fuzzy / model.supervisable,
+                    at=at,
+                    level=level,
                 ),
             ],
             sp["substitution"] if substitution is None else substitution,
@@ -353,8 +355,8 @@ def markdown(rows, meta) -> str:
         f"Every taste model puts AI research taste at {spec['level_sd']:+g} SD on "
         f"{pm.fmt_date(spec['date'])}, "
         "in both classes of task where there are two. In the split models supervisable tasks take "
-        f"{meta.get('crisp_share', sp['crisp_share']):.0%} of research effort while judgment is "
-        "equal across the classes, and the "
+        f"{meta.get('supervisable_share', sp['supervisable_share']):.0%} of research effort "
+        "while judgment is equal across the classes, and the "
         "elasticity of substitution between the classes is "
         f"{meta.get('substitution', sp['substitution']):g}. "
         "Pacing starts Jan 1, 2027. Delays are paired: each trajectory under a scenario against "
@@ -368,8 +370,8 @@ def markdown(rows, meta) -> str:
     milestones = (("sar", "Superhuman AI researcher"), ("ted_ai", "TED-AI"))
     out += ["## Summary", ""]
     groups = [
-        ("one taste", [m for m in models if m.fuzzy is None]),
-        ("supervisable and HTS fuzzy tasks", [m for m in models if m.fuzzy is not None]),
+        ("one taste", [m for m in models if m.hts_fuzzy is None]),
+        ("supervisable and HTS fuzzy tasks", [m for m in models if m.hts_fuzzy is not None]),
     ]
     for key, label in milestones:
         for group, members in groups:
@@ -593,11 +595,11 @@ def figure(rows, meta, styles: dict, path: Path, title: str, models: list[TasteM
     ends = ", ".join(
         f"{word} row ends {m.until:.0f}" for word, m in zip(("top", "bottom"), models, strict=False)
     )
-    split = any(m.fuzzy is not None for m in models)
+    split = any(m.hts_fuzzy is not None for m in models)
     classes = (
         " Supervisable tasks take "
-        f"{meta.get('crisp_share', cal['taste_split']['crisp_share']):.0%} of research effort "
-        "at first, and supervisable and HTS fuzzy work are complements."
+        f"{meta.get('supervisable_share', cal['taste_split']['supervisable_share']):.0%} "
+        "of research effort at first, and supervisable and HTS fuzzy work are complements."
         if split
         else ""
     )
@@ -628,15 +630,15 @@ def report(rows, meta, tag: str = "") -> None:
     models = [m for m in taste_models(pm.load_calibration()) if m.name in present]
     gates = "Probability of each milestone by date: sign-off and comprehension audits"
     other = "Probability of each milestone by date: lags, compute cuts and combinations"
-    single = [m for m in models if m.fuzzy is None]
+    single = [m for m in models if m.hts_fuzzy is None]
     if single:
         figure(rows, meta, STYLE_GATES, OUT / "fig5_probability_by_date_gates.png", gates, single)
         figure(rows, meta, STYLE_OTHER, OUT / "fig6_probability_by_date_other.png", other, single)
     # One pair of figures per rate on supervisable tasks: figures 8 and 9, then 10 and 11.
-    crisp_rates = sorted({m.crisp for m in models if m.fuzzy is not None}, reverse=True)
-    for number, crisp in zip((8, 10), crisp_rates, strict=False):
-        members = [m for m in models if m.fuzzy is not None and m.crisp == crisp]
-        suffix = "" if number == 8 else f"_crisp_{crisp:g}"
+    rates = sorted({m.supervisable for m in models if m.hts_fuzzy is not None}, reverse=True)
+    for number, rate in zip((8, 10), rates, strict=False):
+        members = [m for m in models if m.hts_fuzzy is not None and m.supervisable == rate]
+        suffix = "" if number == 8 else f"_supervisable_{rate:g}"
         for offset, (styles, kind, title) in enumerate(
             ((STYLE_GATES, "gates", gates), (STYLE_OTHER, "other", other))
         ):
@@ -721,7 +723,9 @@ def main() -> None:
         help="'kept' reruns just the trajectories in the existing CSV, skipping the pace filter "
         "over all draws. Same results as a full run, in less time",
     )
-    ap.add_argument("--crisp-share", type=float, help="override taste_split.crisp_share")
+    ap.add_argument(
+        "--supervisable-share", type=float, help="override taste_split.supervisable_share"
+    )
     ap.add_argument("--substitution", type=float, help="override taste_split.substitution")
     ap.add_argument("--tag", default="", help="suffix for output files; needed with an override")
     ap.add_argument("--replot", action="store_true", help="rebuild tables and figures from the CSV")
@@ -736,8 +740,8 @@ def main() -> None:
         report(*load(tag), tag)
         return
     split = {}
-    if args.crisp_share is not None:
-        split["share"] = args.crisp_share
+    if args.supervisable_share is not None:
+        split["share"] = args.supervisable_share
     if args.substitution is not None:
         split["substitution"] = args.substitution
     changed = split or args.residue or args.supervision != "anthropic"
@@ -815,7 +819,7 @@ def main() -> None:
         meta["residue"] = rr["residue_today"]
         meta["residue_supervision_time"] = rr["residue_supervision_time"]
     if "share" in split:
-        meta["crisp_share"] = split["share"]
+        meta["supervisable_share"] = split["share"]
     if "substitution" in split:
         meta["substitution"] = split["substitution"]
     save(rows, meta, tag)
