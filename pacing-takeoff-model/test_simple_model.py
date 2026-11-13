@@ -1,0 +1,134 @@
+"""Checks on simple_model.py: its calibration, its closed-form results and the findings of
+the full models it is meant to carry."""
+
+import math
+from dataclasses import replace
+
+import numpy as np
+from simple_model import (
+    PACE_MAY,
+    PACE_REF,
+    POLICIES,
+    T_MAY,
+    T_REF,
+    Params,
+    calibrate,
+    combine,
+    critical_rate,
+    pace_on,
+    simulate,
+    steady_pace,
+)
+
+P = Params()
+ONE_FAST = replace(P, crisp_rate=3.0, fuzzy_rate=3.0)
+SPLIT = replace(P, crisp_rate=3.0, fuzzy_rate=1.0)
+SLOW = replace(P, crisp_rate=3.0, fuzzy_rate=0.5)
+BY_NAME = {policy.name: policy for policy in POLICIES}
+CENTRAL = BY_NAME["Comprehension audits, central"]
+
+
+def months(base: dict, paced: dict, name: str) -> float:
+    return (paced["dates"][name] - base["dates"][name]) * 12.0
+
+
+def test_defaults_are_the_fit_to_the_two_measured_paces():
+    fitted = calibrate(P)
+    assert abs(fitted.u0 / P.u0 - 1.0) < 0.01
+    assert abs(fitted.uplift_doubling / P.uplift_doubling - 1.0) < 0.01
+    assert abs(fitted.progress_at_ref - P.progress_at_ref) < 0.005
+    run = simulate(P, t_end=T_REF + 0.01)
+    assert abs(pace_on(run, T_MAY) - PACE_MAY) < 0.01
+    assert abs(pace_on(run, T_REF) - PACE_REF) < 0.01
+
+
+def test_no_ai_means_the_historical_pace():
+    run = simulate(replace(P, u0=0.0, judgment_start=-40.0), t_end=2030.0)
+    assert np.allclose(run["pace"], 1.0, atol=1e-6)
+
+
+def test_pace_settles_where_the_formula_says_below_the_critical_rate():
+    for rate in (1.0, 0.5):
+        slow = replace(P, crisp_rate=rate, fuzzy_rate=rate, residue=0.0)
+        run = simulate(slow, t_end=2046.0)
+        assert not run["ran_away"]
+        assert abs(run["pace"][-1] / steady_pace(rate, P) - 1.0) < 0.03
+
+
+def test_loop_runs_away_above_the_critical_rate():
+    assert 2.1 < critical_rate(P) < 3.0
+    assert steady_pace(3.0, P) == math.inf
+    fast = simulate(ONE_FAST)
+    assert fast["pace"][-1] > 5.0 * pace_on(fast, 2027.0)  # and still rising at TED-AI
+    assert not simulate(replace(P, crisp_rate=2.1, fuzzy_rate=2.1), t_end=2032.0)["ran_away"]
+
+
+def test_equal_rates_are_one_kind_of_judgment():
+    for weight, substitution in ((0.5, 0.25), (0.8, 0.0), (0.65, 1.0)):
+        assert (
+            abs(combine(2.0, 2.0, replace(P, crisp_weight=weight, substitution=substitution)) - 2.0)
+            < 1e-9
+        )
+    a = simulate(ONE_FAST)["dates"]
+    b = simulate(replace(ONE_FAST, crisp_weight=0.5, substitution=0.9))["dates"]
+    assert a == b
+
+
+def test_fuzzy_rate_matters_more_than_crisp_rate():
+    base = simulate(SPLIT)["dates"]["ted_ai"]
+    slower_crisp = simulate(replace(SPLIT, crisp_rate=2.1))["dates"]["ted_ai"]
+    slower_fuzzy = simulate(SLOW)["dates"]["ted_ai"]
+    assert 0.0 <= slower_crisp - base < 1.0
+    assert slower_fuzzy - base > 5.0
+
+
+def test_residue_matters_only_where_fuzzy_judgment_is_slow():
+    for p, low, high in ((ONE_FAST, -0.01, 0.1), (SPLIT, 0.15, 1.0)):
+        with_residue = simulate(p)["dates"]["researcher"]
+        without = simulate(replace(p, residue=0.0))["dates"]["researcher"]
+        assert low < with_residue - without < high
+
+
+def test_a_lag_delays_by_about_its_length_where_judgment_is_fast():
+    base = simulate(ONE_FAST)
+    for name, low, high in (
+        ("Internal-use lag, 3 months", 2.0, 7.0),
+        ("Internal-use lag, 9 months", 5.0, 14.0),
+    ):
+        paced = simulate(ONE_FAST, BY_NAME[name])
+        for milestone in ("researcher", "ted_ai"):
+            assert low <= months(base, paced, milestone) <= high
+
+
+def test_audits_delay_by_months_where_judgment_is_fast_and_by_a_year_or_more_where_it_is_slow():
+    assert months(simulate(ONE_FAST), simulate(ONE_FAST, CENTRAL), "ted_ai") < 4.0
+    assert months(simulate(SPLIT), simulate(SPLIT, CENTRAL), "ted_ai") > 9.0
+    assert months(simulate(SLOW), simulate(SLOW, CENTRAL), "ted_ai") > 12.0
+
+
+def test_no_policy_brings_a_milestone_forward_and_stricter_audits_delay_more():
+    for p in (ONE_FAST, SPLIT):
+        base = simulate(p)
+        delays = []
+        for policy in POLICIES[1:]:
+            paced = simulate(p, policy)
+            assert months(base, paced, "researcher") > -0.1
+            assert months(base, paced, "ted_ai") > -0.1
+            if policy.lag == 0.0 and policy.audit_hours > 0.0:
+                delays.append(months(base, paced, "ted_ai"))
+        assert delays == sorted(delays)
+
+
+def test_audit_delay_turns_on_how_fast_deployed_changes_grow():
+    slow_growth = replace(SPLIT, change_growth=0.2)
+    fast_growth = replace(SPLIT, change_growth=0.6)
+    few = months(simulate(slow_growth), simulate(slow_growth, CENTRAL), "ted_ai")
+    many = months(simulate(fast_growth), simulate(fast_growth, CENTRAL), "ted_ai")
+    assert few < 4.0 < 12.0 < many
+
+
+def test_policies_change_nothing_before_they_start():
+    base = simulate(SPLIT, t_end=2027.0)
+    for policy in POLICIES[1:]:
+        paced = simulate(SPLIT, policy, t_end=2027.0)
+        assert np.allclose(base["pace"][:-2], paced["pace"][:-2])
