@@ -1,0 +1,14 @@
+{
+ "drawn": 9630,
+ "kept": 96,
+ "band": [
+  1.5,
+  2.0
+ ],
+ "forecaster": "daniel",
+ "seed": 20261110,
+ "median_pace": 1.6697503838335028,
+ "residue": 0.14,
+ "residue_supervision_time": 0.005,
+ "supervisable_share": 0.65
+}

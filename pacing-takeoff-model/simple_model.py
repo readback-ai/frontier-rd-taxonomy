@@ -64,7 +64,7 @@ class Params:
     hts_fuzzy_rate: float = (
         1.0  # the same on HTS fuzzy tasks. Equal rates give one kind of judgment
     )
-    supervisable_weight: float = 0.65  # weight of supervisable work in research
+    supervisable_weight: float = 0.8  # weight of supervisable work in research
     substitution: float = (
         0.25  # how well supervisable work stands in for HTS fuzzy work. 1 is neutral
     )

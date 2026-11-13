@@ -116,28 +116,33 @@ def critical_rate_figure(p: Params) -> None:
 def pace_paths_figure(p: Params) -> None:
     fig, ax = frame((9.6, 4.8))
     hi, top = 2034.0, 30.0
-    below, above = dict(xytext=(8, -4), va="top"), dict(xytext=(0, 9), va="bottom", ha="center")
+    # Where each label sits against its dot, chosen so the labels clear the lines and each other.
+    right = dict(xytext=(8, -4), va="top")
+    left = dict(xytext=(-8, 0), va="center", ha="right")
+    above = dict(xytext=(0, 9), va="bottom", ha="center")
+    up_right = dict(xytext=(8, 8), va="bottom", ha="left")
+    down_left = dict(xytext=(-6, -8), va="top", ha="right")
     cases = (
         (
             "One judgment, +3 SD a year",
             dict(supervisable_rate=3.0, hts_fuzzy_rate=3.0),
             BLUE,
-            below,
+            dict(researcher=left, ted_ai=right),
         ),
         (
             "Supervisable +3, HTS fuzzy +1 SD a year",
             dict(supervisable_rate=3.0, hts_fuzzy_rate=1.0),
             ORANGE,
-            above,
+            dict(researcher=up_right, ted_ai=above),
         ),
         (
             "Supervisable +3, HTS fuzzy +0.5 SD a year",
             dict(supervisable_rate=3.0, hts_fuzzy_rate=0.5),
             AQUA,
-            above,
+            dict(researcher=down_left, ted_ai=above),
         ),
     )
-    for label, rates, color, place in cases:
+    for label, rates, color, places in cases:
         q = replace(p, **rates)
         run = simulate(q)
         keep = (run["t"] >= 2026.0) & (run["t"] <= hi) & (run["pace"] <= top)
@@ -154,7 +159,7 @@ def pace_paths_figure(p: Params) -> None:
                 textcoords="offset points",
                 fontsize=8.5,
                 color=INK2,
-                **place,
+                **places[name],
             )
     pace_axis(ax, top)
     ax.set_xlim(2026.0, hi)

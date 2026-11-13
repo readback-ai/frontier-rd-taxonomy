@@ -110,7 +110,7 @@ def test_audits_delay_more_the_slower_hts_fuzzy_judgment_improves():
     fast = months(simulate(ONE_FAST), simulate(ONE_FAST, CENTRAL), "ted_ai")
     split = months(simulate(SPLIT), simulate(SPLIT, CENTRAL), "ted_ai")
     slow = months(simulate(SLOW), simulate(SLOW, CENTRAL), "ted_ai")
-    assert fast < 4.0 < split < slow
+    assert fast < 2.0 < split < slow
 
 
 def test_no_policy_brings_a_milestone_forward_and_stricter_audits_delay_more():
@@ -131,7 +131,7 @@ def test_audit_delay_turns_on_how_fast_deployed_changes_grow():
     fast_growth = replace(SPLIT, change_growth=0.6)
     few = months(simulate(slow_growth), simulate(slow_growth, CENTRAL), "ted_ai")
     many = months(simulate(fast_growth), simulate(fast_growth, CENTRAL), "ted_ai")
-    assert few < 4.0 < 12.0 < many
+    assert few < 1.0 < 6.0 < many
 
 
 def test_policies_change_nothing_before_they_start():

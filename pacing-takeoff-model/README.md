@@ -524,7 +524,7 @@ r = substitution - 1
 
 - **The lab spreads its experiments across the two classes to get the most research from them.** `supervisable_share` is the weight of supervisable work, which is also its share of effort while judgment is equal in both classes.
 - **Substitution is how far supervisable work can stand in for HTS fuzzy work.** Below 1 the classes are complements. As supervisable work gets cheap, effort moves to HTS fuzzy work and HTS fuzzy judgment comes to set the pace. This is how supervisable progress reaches diminishing returns in the model.
-- **Supervisable work that costs nothing still leaves a ceiling.** The lab's judgment tops out at `hts_fuzzy_share ^ (-1 / (1 - substitution))` times its judgment on HTS fuzzy tasks. At the central values that is 4.1 times, or 3.1 SD on the example trajectory's researcher distribution.
+- **Supervisable work that costs nothing still leaves a ceiling.** The lab's judgment tops out at `hts_fuzzy_share ^ (-1 / (1 - substitution))` times its judgment on HTS fuzzy tasks. At the central values that is 8.5 times, or 4.8 SD on the example trajectory's researcher distribution. At the earlier weight of 65% it was 4.1 times, or 3.1 SD.
 - **Milestones use the same combination.** A milestone that the AI Futures Model defines as a level of research taste is reached when an AI-only lab's judgment across both classes reaches that level. The superhuman AI researcher therefore arrives with AI judgment far past the best researcher on supervisable tasks and near the median researcher on HTS fuzzy ones.
 - **People stay useful for longer.** A person who understands a change applies judgment to it in both classes, and people stay ahead of the AI on HTS fuzzy tasks after it passes them on supervisable ones.
 
@@ -534,7 +534,7 @@ With equal rates in the two classes the split reproduces the single-taste model 
 
 | Input | Value | Basis |
 |---|---|---|
-| Weight of supervisable work | 65% | Three anchors, below. None measures this quantity. Tested at 50% and 80% |
+| Weight of supervisable work | 80% | The PI's judgment of 2026-11-13. Three anchors, below, give 60% to 84% as a floor. None measures this quantity. It was 65% until then. Tested at 50%, 65% and 90% |
 | Substitution between supervisable and HTS fuzzy work | 0.25 | The judgment that supervisable work stands in for HTS fuzzy work poorly. No data. Tested at 0, 0.5 and 0.83 |
 | Rate on supervisable tasks | +3 SD and +2.1 SD per year of 2025 progress | AI Futures' base case, and the median slope it reports after filtering its trajectories on the pace in May and November 2026 |
 | Rate on HTS fuzzy tasks | +1 SD and +0.5 SD | The low end of the AI Futures update's 80% interval, and half of it. Neither is a measurement |
@@ -548,10 +548,12 @@ What the sources say about the weight of supervisable work:
 - **OpenAI's agent output is 60% build and run.** OpenAI sorted its researchers' agent output into the six phases of Epoch's taxonomy. Of the growth in output tokens per researcher-day from January to August 2026, build was 32% and run 28%. Decide was 0.6%, design 2% and analyze 8%. Communicate, which is mostly technical help and review, was 28%. These are sums of the 18 categories in `calibration.yml`. The figure overstates the supervisable share of people's effort, because supervisable work is what gets handed to agents.
 - **Verifiable tasks are where AI is rated most capable and used most.** Anthropic's report: "Tasks are particularly suitable for RL when success is easy to verify, when many examples can be simulated in a computing environment, and when feedback can be delivered quickly". A task's AI capability score correlates 0.78 with that suitability. A language model assigned the capability scores.
 - **The paper behind the definition says capabilities research is mostly crisp.** "Fuzzy tasks are particularly prevalent in alignment research compared to capabilities research", because in capabilities research "the properties that are being targeted are generally easy to measure, resulting in tight feedback loops". It names one hard-to-supervise fuzzy task that capabilities research shares: "steering a body of research and allocating resources efficiently between research directions". It gives no share.
-- **The definition is narrower than the anchors.** The three anchors separate well-defined work from the rest. The rest includes fuzzy work that people judge reliably, which belongs in the supervisable class. Read against the definition, 65% is at the low end for the weight of supervisable work, and the 80% row below is as defensible as the central one.
+- **The definition is narrower than the anchors.** The three anchors separate well-defined work from the rest. The rest includes fuzzy work that people judge reliably, which belongs in the supervisable class. Read against the definition, the anchors are a floor for the weight of supervisable work.
+- **Benchmarks scored against people put gradable judgment in the fast class.** On two of three such benchmarks, scores rise with general capability (see "Benchmarks scored against human judgment"). Work whose quality people can grade is supervisable by the definition, whether or not it has clear criteria.
+- **One essay argues that AI research is largely verifiable.** Dwarkesh Patel (2026-11-13): "AI research is closer to formalizing a theorem than to writing a novel, because there is a lot of independent modular work to do, and there are verifiable proxies for progress." The essay names outcome proxies for pretraining, post-training and inference efficiency, and a test for one part of research taste: whether a gain at 100M parameters holds at 10B. It counts kinds of work that have a proxy and measures no hours or decisions. Its case that the unverifiable remainder will follow rests on transfer from verifiable tasks, and it grants that improvement on tasks that are not easily verifiable is hard to measure.
 - **The labs state the direction.** OpenAI: "As automation progresses, the tasks which are least automatable will take on a larger share of researcher effort and will become the important bottlenecks to future progress." Anthropic: "In research, Claude can already match or outperform skilled humans at executing a well-specified experiment. However, large performance gaps persist when it comes to Claude exercising judgement in choosing goals in both engineering and research."
 
-The 65% used here is the importance-based figure. It sits inside the range of the other two anchors.
+The 80% used here is the PI's judgment of 2026-11-13, at the upper end of the anchors. Until then this briefing used 65%, the importance-based figure. The sampled results at 65% are kept as a sensitivity in `results/tables_taste_share0.65.md` and `results/tables_taste_real_research_share0.65.md`.
 
 ### On one trajectory
 
@@ -559,30 +561,28 @@ AI Futures' example trajectory at the central inputs:
 
 | Rates (SD per year of 2025 progress) | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
-| Supervisable +3, HTS fuzzy +1 | Feb 2028 | Jul 2028 | +1 mo | +8 mo | +8 mo |
-| Supervisable +3, HTS fuzzy +0.5 | Nov 2028 | Feb 2034 | +6 mo | +57 mo | +5 mo |
-| Supervisable +2.1, HTS fuzzy +1 | May 2028 | Nov 2028 | +2 mo | +10 mo | +8 mo |
-| Supervisable +2.1, HTS fuzzy +0.5 | Mar 2029 | Jun 2034 | +8 mo | +58 mo | +5 mo |
+| Supervisable +3, HTS fuzzy +1 | Nov 2027 | Mar 2028 | +0 mo | +4 mo | +7 mo |
+| Supervisable +3, HTS fuzzy +0.5 | Feb 2028 | Oct 2029 | +1 mo | +23 mo | +7 mo |
+| Supervisable +2.1, HTS fuzzy +1 | Mar 2028 | Jul 2028 | +1 mo | +6 mo | +7 mo |
+| Supervisable +2.1, HTS fuzzy +0.5 | Jun 2028 | Mar 2030 | +2 mo | +26 mo | +7 mo |
 
 Where the effort goes with no pacing, supervisable tasks at +3 SD and HTS fuzzy tasks at +1 SD:
 
 | Date | AI judgment, supervisable tasks | AI judgment, HTS fuzzy tasks | Judgment of an AI-only lab | Share of research effort on HTS fuzzy tasks | Share of deployed value that a person understands | Pace |
 |---|---|---|---|---|---|---|
-| Jan 2027 | -2.2 SD | -3.1 SD | -2.6 SD | 35% | 100% | 1.7x |
-| Jul 2027 | +0.7 SD | -2.1 SD | -0.7 SD | 40% | 91% | 2.4x |
-| Jan 2028 | +6.1 SD | -0.3 SD | +2.2 SD | 75% | 23% | 5.3x |
-| Jul 2028 | +17.7 SD | +3.6 SD | +7.1 SD | 93% | 0% | 9.0x |
+| Jan 2027 | -2.2 SD | -3.1 SD | -2.4 SD | 20% | 100% | 1.7x |
+| Jul 2027 | +0.7 SD | -2.1 SD | -0.2 SD | 24% | 83% | 2.4x |
+| Jan 2028 | +7.8 SD | +0.3 SD | +4.2 SD | 66% | 8% | 9.1x |
 
 HTS fuzzy tasks at +0.5 SD:
 
 | Date | AI judgment, supervisable tasks | AI judgment, HTS fuzzy tasks | Judgment of an AI-only lab | Share of research effort on HTS fuzzy tasks | Share of deployed value that a person understands | Pace |
 |---|---|---|---|---|---|---|
-| Jan 2027 | -2.2 SD | -3.3 SD | -2.6 SD | 35% | 100% | 1.7x |
-| Jul 2027 | +0.7 SD | -2.8 SD | -1.1 SD | 40% | 93% | 2.4x |
-| Jan 2028 | +5.8 SD | -2.0 SD | +0.7 SD | 74% | 59% | 4.4x |
-| Jul 2028 | +12.3 SD | -0.9 SD | +2.2 SD | 93% | 11% | 4.1x |
-| Jan 2029 | +18.0 SD | +0.1 SD | +3.3 SD | 97% | 3% | 3.3x |
-| Jan 2030 | +25.5 SD | +1.3 SD | +4.8 SD | 99% | 0% | 2.0x |
+| Jan 2027 | -2.2 SD | -3.3 SD | -2.5 SD | 20% | 100% | 1.7x |
+| Jul 2027 | +0.7 SD | -2.8 SD | -0.5 SD | 24% | 87% | 2.4x |
+| Jan 2028 | +7.1 SD | -1.7 SD | +2.4 SD | 65% | 41% | 6.5x |
+| Jul 2028 | +16.7 SD | -0.1 SD | +4.9 SD | 93% | 3% | 5.6x |
+| Jan 2029 | +23.4 SD | +1.0 SD | +6.4 SD | 97% | 1% | 3.6x |
 
 Effort shares use the lab's judgment with its people fully informed.
 
@@ -590,35 +590,38 @@ The same trajectory with each unmeasured input moved. Supervisable tasks at +3 S
 
 | Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
-| Central: supervisable share 65%, substitution 0.25 | Feb 2028 | Jul 2028 | +1 mo | +8 mo | +8 mo |
+| Central: supervisable share 80%, substitution 0.25 | Nov 2027 | Mar 2028 | +0 mo | +4 mo | +7 mo |
 | Supervisable share 50% | May 2028 | Dec 2028 | +3 mo | +13 mo | +8 mo |
-| Supervisable share 80% | Nov 2027 | Mar 2028 | +0 mo | +4 mo | +7 mo |
-| Substitution 0 (fixed proportions) | Mar 2028 | Oct 2028 | +2 mo | +11 mo | +8 mo |
-| Substitution 0.5 | Jan 2028 | May 2028 | +1 mo | +5 mo | +7 mo |
-| Substitution 0.83 (one AI Futures author's light bottleneck) | Dec 2027 | Feb 2028 | +0 mo | +3 mo | +7 mo |
-| Supervisable judgment starts at -1.5 SD | Dec 2027 | May 2028 | +1 mo | +7 mo | +8 mo |
+| Supervisable share 65% | Feb 2028 | Jul 2028 | +1 mo | +8 mo | +8 mo |
+| Supervisable share 90% | Oct 2027 | Jan 2028 | +0 mo | +2 mo | +6 mo |
+| Substitution 0 (fixed proportions) | Dec 2027 | May 2028 | +1 mo | +6 mo | +7 mo |
+| Substitution 0.5 | Nov 2027 | Feb 2028 | +0 mo | +2 mo | +7 mo |
+| Substitution 0.83 (one AI Futures author's light bottleneck) | Oct 2027 | Jan 2028 | +0 mo | +1 mo | +6 mo |
+| Supervisable judgment starts at -1.5 SD | Sep 2027 | Dec 2027 | +0 mo | +3 mo | +7 mo |
 
 HTS fuzzy tasks at +0.5 SD:
 
 | Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
-| Central: supervisable share 65%, substitution 0.25 | Nov 2028 | Feb 2034 | +6 mo | +57 mo | +5 mo |
+| Central: supervisable share 80%, substitution 0.25 | Feb 2028 | Oct 2029 | +1 mo | +23 mo | +7 mo |
 | Supervisable share 50% | Mar 2030 | Jul 2039 | +20 mo | past 2039 | +3 mo |
-| Supervisable share 80% | Feb 2028 | Oct 2029 | +1 mo | +23 mo | +7 mo |
-| Substitution 0 (fixed proportions) | Aug 2029 | Nov 2037 | +15 mo | past 2039 | +4 mo |
-| Substitution 0.5 | Apr 2028 | Apr 2030 | +2 mo | +28 mo | +7 mo |
-| Substitution 0.83 (one AI Futures author's light bottleneck) | Jan 2028 | May 2028 | +1 mo | +4 mo | +7 mo |
-| Supervisable judgment starts at -1.5 SD | Sep 2028 | Jan 2034 | +6 mo | +57 mo | +5 mo |
+| Supervisable share 65% | Nov 2028 | Feb 2034 | +6 mo | +57 mo | +5 mo |
+| Supervisable share 90% | Nov 2027 | Apr 2028 | +0 mo | +4 mo | +8 mo |
+| Substitution 0 (fixed proportions) | Jun 2028 | May 2032 | +3 mo | +46 mo | +6 mo |
+| Substitution 0.5 | Dec 2027 | May 2028 | +0 mo | +5 mo | +8 mo |
+| Substitution 0.83 (one AI Futures author's light bottleneck) | Nov 2027 | Jan 2028 | +0 mo | +2 mo | +6 mo |
+| Supervisable judgment starts at -1.5 SD | Nov 2027 | Aug 2029 | +1 mo | +23 mo | +7 mo |
 
 The tables for supervisable tasks at +2.1 SD are in `results/tables_split.md`.
 
 What the single trajectory shows:
 
-- **The rate on HTS fuzzy tasks sets the dates.** Halving it from +1 SD to +0.5 SD moves TED-AI with no pacing from July 2028 to February 2034. Lowering the rate on supervisable tasks from +3 SD to +2.1 SD moves it by four months.
-- **Effort moves to HTS fuzzy tasks within a year.** With supervisable tasks at +3 SD the share of effort on HTS fuzzy tasks rises from 35% in January 2027 to about 75% in January 2028 and 93% in July 2028.
-- **Where HTS fuzzy judgment is slow the pace peaks and falls.** With HTS fuzzy tasks at +0.5 SD the pace reaches 4.4 times in January 2028 and is 2.0 times in January 2030.
-- **Central audits match a 3-month lag with HTS fuzzy tasks at +1 SD and far exceed it at +0.5 SD.** They delay TED-AI by 8 to 10 months against the lag's 8, and by 57 to 58 months against the lag's 5.
-- **The weight of supervisable work and the substitution still decide the result.** With HTS fuzzy tasks at +0.5 SD and supervisable at +3 SD, TED-AI with no pacing is October 2029 at a supervisable weight of 80%, February 2034 at 65% and July 2039 at 50%. A substitution of 0.5 brings it to April 2030 and 0.83 to May 2028.
+- **The rate on HTS fuzzy tasks sets the date of TED-AI.** Halving it from +1 SD to +0.5 SD moves TED-AI with no pacing from March 2028 to October 2029, and the superhuman AI researcher from November 2027 to February 2028. Lowering the rate on supervisable tasks from +3 SD to +2.1 SD moves TED-AI by four to five months.
+- **Effort moves to HTS fuzzy tasks within a year and a half.** With supervisable tasks at +3 SD the share of effort on HTS fuzzy tasks rises from 20% in January 2027 to about 65% in January 2028 and, with HTS fuzzy tasks at +0.5 SD, 93% in July 2028.
+- **Where HTS fuzzy judgment is slow the pace peaks and falls.** With HTS fuzzy tasks at +0.5 SD the pace reaches 6.5 times in January 2028 and is 3.6 times in January 2029.
+- **Central audits do less than a 3-month lag with HTS fuzzy tasks at +1 SD and far more at +0.5 SD.** They delay TED-AI by 4 to 6 months against the lag's 7, and by 23 to 26 months against the lag's 7.
+- **The weight of supervisable work decides the result as much as the rate does.** With HTS fuzzy tasks at +0.5 SD and supervisable at +3 SD, TED-AI with no pacing is April 2028 at a supervisable weight of 90%, October 2029 at 80%, February 2034 at 65% and July 2039 at 50%. Central audits delay it by 4, 23 and 57 months at the first three. With HTS fuzzy tasks at +1 SD the same weights give January 2028, March 2028, July 2028 and December 2028.
+- **So does the substitution.** With HTS fuzzy tasks at +0.5 SD, a substitution of 0.5 brings TED-AI to May 2028 and 0.83 to January 2028. Fixed proportions put it in May 2032.
 - **A head start on supervisable tasks changes little.** Starting supervisable judgment at -1.5 SD moves the dates by up to three months.
 - **The link from comprehension to judgment matters more here than with one taste.** On this trajectory it delays the superhuman AI researcher with no pacing by about 24 days with HTS fuzzy tasks at +1 SD and about 100 days at +0.5 SD (`results/tables_link.md`).
 
@@ -1142,6 +1145,7 @@ Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results 
 - Ramez Naam, "Where's the 'intelligence explosion'?", Noahpinion, 2026. https://www.noahpinion.blog/p/wheres-the-intelligence-explosion
 - Anthropic Fellows Program, "TASTE: Can AI Models Judge AI Safety Research Proposals?", 2026. https://alignment.anthropic.com/2026/taste/
 - Anthropic, "How employment is changing at Anthropic", October 16, 2026, Figure 6. https://www.anthropic.com/research/employment-at-anthropic
+- Dwarkesh Patel, "The avalanche that hit math is coming for AI development", November 13, 2026. https://www.dwarkesh.com/p/rsi
 - AI Futures Project, AI Futures Model code, commit `1c40ecd`, Sep 9, 2026. https://github.com/AI-Futures-Project/aifm-public
 - Eli Lifland, Brendan Halstead, Romeo Dean and Thomas Larsen, "How to Pace the US Frontier", AI Futures Project, Aug 5, 2026. https://blog.aifutures.org/p/how-to-pace-the-us-frontier
 - Anthropic, "Measurements for understanding the pace of AI development inside frontier labs", Sep 2026. https://www.anthropic.com/institute/measuring-pace-of-ai-development

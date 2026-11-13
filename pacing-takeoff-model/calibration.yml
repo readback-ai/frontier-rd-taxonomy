@@ -215,10 +215,22 @@ taste_split:                     # Research split into two classes of task. ASSU
   # criteria that people judge reliably (writing). AI judgment improves at a different rate in each
   # class.
   # Both classes start at taste_models.level_sd.
-  supervisable_share: 0.65       # weight of supervisable work in research while judgment is equal in both classes.
-                                 # Three anchors, none of them a measurement of this quantity:
-                                 # All three separate well-defined work from the rest, which is wider than
-                                 # the HTS fuzzy class as defined above, so 0.65 is at the low end.
+  supervisable_share: 0.80       # weight of supervisable work in research while judgment is equal in both classes.
+                                 # The PI's judgment of 2026-11-13. It was 0.65 until then. No source measures it.
+                                 # Three anchors follow. They give 60% to 84%, and all three separate
+                                 # well-defined work from the rest, which is wider than the HTS fuzzy class as
+                                 # defined above, so they are a floor. Three arguments put the weight above them:
+                                 # a. Bowkis et al.: "Fuzzy tasks are particularly prevalent in alignment research
+                                 #    compared to capabilities research".
+                                 # b. Benchmarks scored against human judgment rise with general capability
+                                 #    (judgment_benchmarks above), so work people can grade is in the fast class.
+                                 # c. Dwarkesh Patel, "The avalanche that hit math is coming for AI development"
+                                 #    (2026-11-13): "AI research is closer to formalizing a theorem than to writing
+                                 #    a novel, because there is a lot of independent modular work to do, and there
+                                 #    are verifiable proxies for progress." The essay names proxies for
+                                 #    pretraining, post-training and inference efficiency. It counts kinds of work
+                                 #    that have a proxy and does not measure hours or decisions.
+                                 # The anchors:
                                  # 1. Importance. Anthropic Institute, "AI for scientific discovery: How researchers
                                  #    use Claude" (2026-11-05), survey of 528 scientists, mean importance points out
                                  #    of 100 for producing an important result: ideation and hypothesis generation
@@ -237,6 +249,7 @@ taste_split:                     # Research split into two classes of task. ASSU
                                  #    `openai` above): build 32%, run 28%, decide 0.6%, design 2%, analyze 8%,
                                  #    communicate 28%. Build and run are 60%; without communicate, 84%. Agent
                                  #    output overstates the supervisable share of human effort.
+  supervisable_share_sensitivity: [0.5, 0.65, 0.9]   # 0.65 is the earlier central value
   substitution: 0.25             # elasticity of substitution between supervisable and HTS fuzzy work. Below 1 they are
                                  # complements, so effort shifts to HTS fuzzy work as supervisable work gets cheap. No data.
                                  # 0.25 is the PI's judgment that supervisable work stands in for HTS fuzzy work poorly.

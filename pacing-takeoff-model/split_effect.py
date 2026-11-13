@@ -98,8 +98,10 @@ def main() -> None:
                 f"substitution {sp['substitution']:g}",
                 {},
             ),
-            ("Supervisable share 50%", dict(share=0.5)),
-            ("Supervisable share 80%", dict(share=0.8)),
+            *(
+                (f"Supervisable share {share:.0%}", dict(share=share))
+                for share in sp["supervisable_share_sensitivity"]
+            ),
             ("Substitution 0 (fixed proportions)", dict(substitution=0.0)),
             ("Substitution 0.5", dict(substitution=0.5)),
             (

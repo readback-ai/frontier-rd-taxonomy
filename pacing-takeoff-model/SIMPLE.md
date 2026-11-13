@@ -32,7 +32,7 @@ The last third of progress comes from more compute, which AI research does not s
 
 - **Supervisable tasks** are ones whose output people can judge, because the task has clear criteria or because people judge it reliably anyway. Human feedback trains the AI on them. AI judgment on them improves 3 SD of the human researcher distribution per year of progress.
 - **Hard-to-supervise (HTS) fuzzy tasks** have no clear criteria, and human judgment on them is systematically flawed, so there is little to train on. Deciding what to work on next is one. AI judgment on them improves 1 SD or 0.5 SD.
-- **Supervisable work stands in for HTS fuzzy work poorly.** However good the AI gets at supervisable tasks, the lab's judgment is at most 4 times its judgment on HTS fuzzy tasks.
+- **Supervisable work is most of research and stands in for HTS fuzzy work poorly.** Its weight is 80%. However good the AI gets at supervisable tasks, the lab's judgment is at most 8.5 times its judgment on HTS fuzzy tasks.
 - **Some work needs a person.** On real tasks today, 14% need a person however short the task. That share falls as AI judgment on HTS fuzzy tasks rises.
 
 **4. Understanding takes people's time.** Deployed changes grow with AI labor: 1% more labor, 0.4% more changes. The hours a person needs to understand one do not shrink. Understanding everything deployed takes 14% of researchers' time today. Time spent understanding is time not spent directing AI labor.
@@ -57,7 +57,7 @@ So whether there is an explosion at all turns on how fast AI judgment improves o
 
 ![Pace over time with no pacing in three cases](results/fig_simple_2_pace_paths.png)
 
-The simulated paths show the same split. The dip in mid-2027 in the two lower lines is where the work that needs a person starts to hold AI labor down.
+The simulated paths show the same split. The two lower lines leave the first in mid-2027, where judgment on HTS fuzzy tasks starts to bind. Work that needs a person lowers their peak from 4.3 to 3.7 times.
 
 ## What pacing does
 
@@ -65,20 +65,21 @@ Dates with no pacing, and the delay each policy adds, from `results/tables_simpl
 
 | | One judgment, +3 SD | Supervisable +3, HTS fuzzy +1 SD | Supervisable +3, HTS fuzzy +0.5 SD |
 |---|---|---|---|
-| Researcher-level AI, no pacing | Aug 2027 | Apr 2028 | Jul 2030 |
-| TED-AI, no pacing | Nov 2027 | Apr 2030 | Oct 2037 |
-| Central audits delay TED-AI | +1 mo | +10 mo | +15 mo |
-| Strict audits delay TED-AI | +3 mo | +13 mo | +18 mo |
-| 3-month lag delays TED-AI | +6 mo | +3 mo | +1 mo |
-| 9-month lag delays TED-AI | +12 mo | +9 mo | +3 mo |
+| Researcher-level AI, no pacing | Aug 2027 | Dec 2027 | May 2028 |
+| TED-AI, no pacing | Nov 2027 | Jan 2029 | Jun 2034 |
+| Central audits delay TED-AI | +1 mo | +3 mo | +5 mo |
+| Strict audits delay TED-AI | +3 mo | +6 mo | +8 mo |
+| 3-month lag delays TED-AI | +6 mo | +5 mo | +1 mo |
+| 9-month lag delays TED-AI | +12 mo | +11 mo | +3 mo |
 | 3-fold compute cut delays TED-AI | +4 mo | +6 mo | +6 mo |
 
-- **The rate on HTS fuzzy tasks decides the dates.** Halving it moves TED-AI by more than seven years. Lowering the supervisable rate from 3 to 2.1 SD moves it by three months.
-- **Audits barely move researcher-level AI.** They delay it by a month or two in each of these cases. The gate starts to bind only about when that level arrives.
+- **The rate on HTS fuzzy tasks decides the dates.** Halving it moves TED-AI by more than five years. Lowering the supervisable rate from 3 to 2.1 SD moves it by seven months.
+- **The weight of supervisable work matters as much.** At 65%, the central value until 2026-11-13, TED-AI is April 2030 and October 2037 in the two slow cases, and central audits buy 10 and 15 months. At 90% it is April 2028 and July 2030, and audits buy 1 and 2 months. Nobody has measured the weight.
+- **Audits barely move researcher-level AI.** They delay it by a month in each of these cases. The gate starts to bind only about when that level arrives.
 - **Where judgment improves fast, audits buy a month.** The loop runs away on judgment, and people's time to understand what is deployed stops mattering within months.
-- **Where HTS fuzzy judgment is slow, audits buy 10 to 15 months here.** The next section compares that with the full models.
-- **How fast deployed changes grow with AI labor decides the audit result.** At 0.2% more changes per 1% more labor, central audits delay TED-AI by 2 months in the middle case. At 0.6% they delay it by 20. Nobody has measured this number.
-- **Work that needs a person and audits act on the same margin.** Without the 14% of work that needs a person, central audits would delay TED-AI by 21 months in the middle case, against 10 with it. Where the work itself keeps people in the loop, audits add less.
+- **Where HTS fuzzy judgment is slow, audits buy 3 to 5 months here.** The next section compares that with the full models.
+- **How fast deployed changes grow with AI labor decides the audit result.** At 0.2% more changes per 1% more labor, central audits delay TED-AI by under a month in the middle case. At 0.6% they delay it by 8. Nobody has measured this number.
+- **Work that needs a person and audits act on the same margin.** Without the 14% of work that needs a person, central audits would delay TED-AI by 11 months in the middle case, against 3 with it. Where the work itself keeps people in the loop, audits add less.
 
 ## How it compares with the full models
 
@@ -128,7 +129,7 @@ Where they differ, the full model is the one to cite:
 | Value of one SD of judgment | 0.445 in logs | AI Futures Model's distribution of research taste: one SD is worth about 1.55 times |
 | Rate on supervisable tasks | +3 SD | AI Futures' base case |
 | Rate on HTS fuzzy tasks | +1 and +0.5 SD | Judgment. No measurement |
-| Weight of supervisable work | 65% | Three anchors, none a measurement of it. See the full briefing |
+| Weight of supervisable work | 80% | The PI's judgment. Three anchors, none a measurement of it, give 60% to 84% as a floor. See the full briefing |
 | Substitution between supervisable and HTS fuzzy work | 0.25 | Judgment |
 | Work that needs a person | 14% | OpenAI, tasks under 15 minutes, January to July 2026 |
 | A person's time on that work | 0.5% of doing it | The PI's estimate: half an hour a day for each running session, with a session doing 8 to 12 person-days of work in a day |
