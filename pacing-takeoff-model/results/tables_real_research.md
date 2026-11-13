@@ -35,7 +35,7 @@ Model A has no research-judgment term, so the residue rule does not apply to it.
 
 ## Model B, AI Futures' Nov 10 example trajectory
 
-The link from comprehension to human judgment is on. Pacing starts Jan 1, 2027. With the residue, 14% of work needs a person on Nov 1, 2026, and that share falls with the share of researchers whose judgment is still better than the AI's.
+The link from comprehension to human judgment is on. Pacing starts Jan 1, 2027. With the residue, 14% of work needs a person on Nov 1, 2026, and that share falls with the share of researchers whose judgment is still better than the AI's. A person spends 0.5% of that work's time supervising it.
 
 ### Taste improves +3 SD per year of 2025 progress (baseline)
 
@@ -50,7 +50,7 @@ The link from comprehension to human judgment is on. Pacing starts Jan 1, 2027. 
 | Supervision | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
 | Earlier sections: Anthropic's automation levels, no residue | Apr 2029 | Sep 2030 | +11 mo | +32 mo | +8 mo |
-| Work that needs a person, tied to AI judgment | May 2030 | Aug 2031 | +4 mo | +24 mo | +8 mo |
+| Work that needs a person, tied to AI judgment | Oct 2029 | Feb 2031 | +7 mo | +27 mo | +8 mo |
 | Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Aug 2031 | Feb 2034 | +2 mo | +7 mo | +7 mo |
 
 ### Crisp tasks improve +3 SD and fuzzy tasks +1 SD per year of 2025 progress (split_3_1)
@@ -58,7 +58,7 @@ The link from comprehension to human judgment is on. Pacing starts Jan 1, 2027. 
 | Supervision | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
 | Earlier sections: Anthropic's automation levels, no residue | Feb 2028 | Jul 2028 | +1 mo | +8 mo | +8 mo |
-| Work that needs a person, tied to AI judgment | Jun 2028 | Mar 2029 | +0 mo | +4 mo | +8 mo |
+| Work that needs a person, tied to AI judgment | Mar 2028 | Nov 2028 | +1 mo | +5 mo | +8 mo |
 | Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Nov 2028 | Feb 2030 | +0 mo | +1 mo | +6 mo |
 
 ### Crisp tasks improve +3 SD and fuzzy tasks +0.5 SD per year of 2025 progress (split_3_0.5)
@@ -66,15 +66,15 @@ The link from comprehension to human judgment is on. Pacing starts Jan 1, 2027. 
 | Supervision | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
 | Earlier sections: Anthropic's automation levels, no residue | Nov 2028 | Feb 2034 | +6 mo | +57 mo | +5 mo |
-| Work that needs a person, tied to AI judgment | Feb 2030 | Jun 2037 | +1 mo | +25 mo | +5 mo |
-| Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Aug 2030 | Oct 2037 | +0 mo | +22 mo | +5 mo |
+| Work that needs a person, tied to AI judgment | Jul 2029 | Mar 2036 | +1 mo | +35 mo | +5 mo |
+| Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Jul 2030 | Jul 2037 | +1 mo | +24 mo | +5 mo |
 
 ### Crisp tasks improve +2.1 SD and fuzzy tasks +1 SD per year of 2025 progress (split_2.1_1)
 
 | Supervision | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
 | Earlier sections: Anthropic's automation levels, no residue | May 2028 | Nov 2028 | +2 mo | +10 mo | +8 mo |
-| Work that needs a person, tied to AI judgment | Nov 2028 | Aug 2029 | +1 mo | +5 mo | +8 mo |
+| Work that needs a person, tied to AI judgment | Jul 2028 | Mar 2029 | +1 mo | +7 mo | +8 mo |
 | Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Jun 2029 | Sep 2030 | +0 mo | +2 mo | +6 mo |
 
 ### Crisp tasks improve +2.1 SD and fuzzy tasks +0.5 SD per year of 2025 progress (split_2.1_0.5)
@@ -82,5 +82,5 @@ The link from comprehension to human judgment is on. Pacing starts Jan 1, 2027. 
 | Supervision | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
 | Earlier sections: Anthropic's automation levels, no residue | Mar 2029 | Jun 2034 | +8 mo | +58 mo | +5 mo |
-| Work that needs a person, tied to AI judgment | Oct 2030 | Oct 2037 | +1 mo | +26 mo | +6 mo |
-| Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Apr 2031 | Mar 2038 | +1 mo | past 2039 | +5 mo |
+| Work that needs a person, tied to AI judgment | Jan 2030 | Jun 2036 | +2 mo | +36 mo | +5 mo |
+| Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Mar 2031 | Dec 2037 | +1 mo | +24 mo | +5 mo |
