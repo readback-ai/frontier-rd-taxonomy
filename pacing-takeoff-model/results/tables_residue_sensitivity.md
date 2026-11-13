@@ -30,6 +30,7 @@ Crisp tasks improve 3 SD per year of 2025 progress. The link from comprehension 
 | Supervised at 2.0% of its time | Apr 2028 | Jan 2029 | +4 mo | +4 mo | +12 mo | +19 mo |
 | Supervised at 1.0% of its time | Apr 2028 | Dec 2028 | +5 mo | +4 mo | +13 mo | +18 mo |
 | Supervised at 0.5% of its time | Mar 2028 | Nov 2028 | +5 mo | +4 mo | +14 mo | +18 mo |
+| Supervised at 0.1% of its time | Feb 2028 | Sep 2028 | +6 mo | +5 mo | +15 mo | +19 mo |
 | Share halves per 1 SD of judgment the AI gains | Apr 2028 | Jan 2029 | +3 mo | +4 mo | +12 mo | +17 mo |
 | Share halves per 0.5 SD of judgment the AI gains | Feb 2028 | Sep 2028 | +6 mo | +5 mo | +15 mo | +18 mo |
 
@@ -44,5 +45,6 @@ Crisp tasks improve 3 SD per year of 2025 progress. The link from comprehension 
 | Supervised at 2.0% of its time | Nov 2029 | Dec 2036 | +28 mo | +8 mo | past 2039 | +15 mo |
 | Supervised at 1.0% of its time | Sep 2029 | Jul 2036 | +32 mo | +9 mo | past 2039 | +15 mo |
 | Supervised at 0.5% of its time | Jul 2029 | Mar 2036 | +35 mo | +10 mo | past 2039 | +15 mo |
+| Supervised at 0.1% of its time | Apr 2029 | Jun 2035 | +42 mo | +11 mo | past 2039 | +16 mo |
 | Share halves per 1 SD of judgment the AI gains | Sep 2029 | Oct 2037 | +20 mo | +9 mo | past 2039 | +12 mo |
 | Share halves per 0.5 SD of judgment the AI gains | Jun 2029 | Sep 2035 | +39 mo | +11 mo | past 2039 | +15 mo |
