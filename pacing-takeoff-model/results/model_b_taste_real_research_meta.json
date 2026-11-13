@@ -8,5 +8,6 @@
  "forecaster": "daniel",
  "seed": 20261110,
  "median_pace": 1.6697503838335028,
- "residue": 0.14
+ "residue": 0.14,
+ "residue_supervision_time": 0.005
 }

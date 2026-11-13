@@ -1,6 +1,34 @@
 # How pacing mechanisms change the takeoff of automated AI R&D
 
-Research briefing with a runnable model. Draft of 2026-11-11, calibrated to public data as of 2026-11-10. The comprehension gate was rebuilt on 2026-11-10 to count deployed changes by type, and results from the earlier gate are withdrawn. On 2026-11-11 Model B gained a link from comprehension to human research judgment, and the probability of each milestone by date was computed under two taste models. Sections dated 2026-11-11 use the link. Earlier sections do not. On 2026-11-12 research judgment was split into supervisable and HTS fuzzy tasks in four further taste models, and two developers' data on real internal use were read into Model B.
+Research briefing with a runnable model. Draft of 2026-11-11, calibrated to public data as of 2026-11-10. The comprehension gate was rebuilt on 2026-11-10 to count deployed changes by type, and results from the earlier gate are withdrawn. On 2026-11-11 Model B gained a link from comprehension to human research judgment, and the probability of each milestone by date was computed under two taste models. Sections dated 2026-11-11 use the link. Earlier sections do not. On 2026-11-12 research judgment was split into supervisable and HTS fuzzy tasks in four further taste models, and two developers' data on real internal use were read into Model B. On 2026-11-13 the two classes were named supervisable and HTS fuzzy, Anthropic's usage data and three benchmarks scored against human judgment were added, and the supervision of work that needs a person was set to 0.5% of its time.
+
+## What this analysis contributes
+
+Added 2026-11-13. The numbered findings under "Bottom line" are in the order they were reached. Two of them are the contribution. The figures in this section are medians over 96 trajectories sampled from AI Futures' parameter distribution, with 14% of work needing a person today, from `results/tables_taste_real_research.md`.
+
+| AI judgment gained per year of 2025 progress | Superhuman AI researcher, no pacing | TED-AI, no pacing | Central audits delay TED-AI | Strict audits delay TED-AI |
+|---|---|---|---|---|
+| One judgment, +3 SD | Jul 2027 | Sep 2027 | +1 mo | +2 mo |
+| Supervisable +3 SD, HTS fuzzy +1 SD | Feb 2028 | Mar 2029 | +2 mo | +4 mo |
+| Supervisable +3 SD, HTS fuzzy +0.5 SD | Feb 2030 | after 2039 | +6 mo | +13 mo |
+
+**1. How fast AI judgment improves on hard-to-supervise (HTS) fuzzy tasks, and how much work still needs a person, set the timeline.**
+
+- **HTS fuzzy tasks are the ones people cannot grade.** They have no clear evaluation criteria and human judgment on them is systematically flawed (Bowkis et al. 2026), so there is little feedback to train on. Every other task is supervisable.
+- **The rate on HTS fuzzy tasks decides whether there is an explosion.** In the simple model the loop runs away only if the slowest kind of judgment improves faster than 2.3 SD a year. Below that the pace settles at 1.3 to 1.7 times the historical rate.
+- **That rate moves the dates by years, and the supervisable rate by months.** Lowering the rate on HTS fuzzy tasks from 3 SD to 1 SD moves the median TED-AI from September 2027 to March 2029, and 0.5 SD moves it past 2039. Lowering the supervisable rate from 3 to 2.1 SD moves the medians by 4 to 8 months.
+- **Work that needs a person adds to the delay only where HTS fuzzy judgment is slow.** Three developers report that 8% to 18% of work needs a person whatever the task. With that share tied to AI judgment on HTS fuzzy tasks, the median superhuman AI researcher comes no later at +3 SD, 2 to 3 months later with HTS fuzzy tasks at +1 SD and 12 to 14 months later at +0.5 SD.
+- **Nothing measures the rate on HTS fuzzy tasks.** Benchmarks scored against people's judgment show judgment on supervisable tasks rising with general capability, and they stop at people's level. The weight of HTS fuzzy work in research, taken as 35%, and how far supervisable work can stand in for it are also unmeasured. On the example trajectory they move the dates as much as the rate does.
+
+**2. Comprehension audits pace meaningfully only where judgment on HTS fuzzy tasks is slow, and three unmeasured inputs then set by how much.**
+
+- **The delay from audits rises as that rate falls.** Central audits delay the median TED-AI by 1 month where judgment improves 3 SD a year on every task, 2 to 3 months with HTS fuzzy tasks at +1 SD and 6 months at +0.5 SD. Strict audits delay it by 2, 4 to 6 and 13 to 14 months.
+- **Audits barely move the superhuman AI researcher.** Central audits delay it by a median of 0 to 2 months in these cases.
+- **How long the work that needs a person lasts.** That work caps the AI labor a researcher can direct, so deployed changes outgrow people's time to understand them later. With none of it, central audits delay TED-AI by a median of 18 to 22 months with HTS fuzzy tasks at +0.5 SD.
+- **How many hours it takes to understand a change.** At 3.5 times the central hours, audits delay TED-AI by 11 to 16 months on the example trajectory with HTS fuzzy tasks at +1 SD, against 5 at the central hours.
+- **How fast deployed changes grow with AI labor.** In the simple model with HTS fuzzy tasks at +1 SD, central audits delay TED-AI by 2 months if changes grow 0.2% for each 1% more labor and by 20 months at 0.6%.
+- **Audits do the most where judgment is slow on every task.** With one judgment at +1 SD a year, central audits delay the median TED-AI by 10 months and strict audits by 16.
+- **For scale, a 9-month internal-use lag delays the median TED-AI by 11 to 14 months in every case.** Central audits buy less than that everywhere. Strict audits buy more only with HTS fuzzy tasks at +0.5 SD or one judgment at +1 SD.
 
 ## Bottom line
 
@@ -25,9 +53,9 @@ Research briefing with a runnable model. Draft of 2026-11-11, calibrated to publ
 19. **The rate on HTS fuzzy tasks decides the dates and what audits do.** Across sampled trajectories with HTS fuzzy tasks at +1 SD, median TED-AI with no pacing is December 2028 or May 2029, central audits delay it by 3 to 4 months and a 3-month lag by 5. With HTS fuzzy tasks at +0.5 SD, median TED-AI is in 2038, almost half the trajectories do not reach it before 2040, and central audits delay it by 18 to 22 months on the trajectories that do, against 13 to 14 for a 9-month lag. Lowering the supervisable rate from 3 to 2.1 SD moves the medians by 1 to 6 months.
 20. **Two unmeasured inputs move the result as much as the HTS fuzzy rate does.** On the example trajectory with HTS fuzzy tasks at +0.5 SD, TED-AI with no pacing is October 2029 at a supervisable weight of 80%, February 2034 at 65% and July 2039 at 50%. A substitution of 0.5 instead of 0.25 brings it to April 2030. The source of the definition says capabilities research is mostly crisp in its own sense, which puts 65% at the low end.
 21. **On real research, agents work alone for about 15 minutes, against three hours on benchmarks.** Added 2026-11-12: at OpenAI, agents finish a real task with no human intervention 80% of the time only when it would take a person about 15 minutes, and that figure did not move from March to July 2026. Google DeepMind's latest model gives 11 minutes. METR's benchmark figure is 186 minutes. Even under 15 minutes, 14% of OpenAI's tasks needed a person or failed.
-22. **A share of work that needs a person delays the milestones only where HTS fuzzy judgment is slow.** Model B now starts with 14% of work needing a person, a share that falls as AI judgment on HTS fuzzy tasks rises. It changes nothing with one taste at +3 SD. Across sampled trajectories with HTS fuzzy tasks at +1 SD it moves the median superhuman AI researcher 5 to 7 months later, to May or October 2028, and the median TED-AI 7 to 9 months later, to July 2029 or February 2030. With HTS fuzzy tasks at +0.5 SD it moves the superhuman AI researcher 20 to 23 months later, and the median trajectory no longer reaches TED-AI before 2040. The benchmark horizon itself is not an input to the AI Futures code in use.
-23. **Where the work already keeps people in the loop, audits add 2 to 3 months, and the long audit delays of item 19 go.** Across sampled trajectories with the residue, central audits delay TED-AI by a median of 2 to 3 months in every case with supervisable and HTS fuzzy tasks, against 3 to 5 months and 18 to 22 months without it. Strict audits delay it by 3 to 9 months, a 9-month lag by 10 to 13 and a 3-fold compute cut by 10 to 16. On the example trajectory the audit delay falls by half. Fitting the handover of work to Google DeepMind's slower delegation data would delay the milestones further; this briefing does not anchor on that series.
-24. **That result holds across its unmeasured inputs, except how long the work that needs a person lasts and how many hours an audit takes.** Added 2026-11-13: Anthropic's sessions need a correction 8% to 12% of the time whatever the difficulty of the task, against 14% at OpenAI and 18% at Google DeepMind. On the example trajectory with HTS fuzzy tasks at +1 SD, a starting share from 7% to 28% leaves the delay from central audits at 3 to 4 months, against 8 where no work needs a person. The central case has a person spend 4% of that work's time supervising it, which is heavier than the PI's estimate of 0.1% to 0.8%. At 0.5% the delay is 5 months and at 0.1% it is 6. With HTS fuzzy tasks at +0.5 SD the delay is 25 months in the central case, 35 to 42 at those lighter figures and 57 where no work needs a person. If that work is mostly gone while AI judgment is still well below the median researcher, the delay is 6 months. An audit standard of 3.5 times the hours delays TED-AI by 10 to 16 months in every case.
+22. **A share of work that needs a person delays the milestones only where HTS fuzzy judgment is slow.** Model B now starts with 14% of work needing a person, a share that falls as AI judgment on HTS fuzzy tasks rises. A person spends 0.5% of that work's time supervising it. It changes nothing with one taste at +3 SD. Across sampled trajectories with HTS fuzzy tasks at +1 SD it moves the median superhuman AI researcher 2 to 3 months later, to February or June 2028, and the median TED-AI 3 to 4 months later, to March or September 2029. With HTS fuzzy tasks at +0.5 SD it moves the superhuman AI researcher 12 to 14 months later, and the median trajectory no longer reaches TED-AI before 2040. The benchmark horizon itself is not an input to the AI Futures code in use.
+23. **Where the work already keeps people in the loop audits add less, and what they add still rises as HTS fuzzy judgment slows.** Revised 2026-11-13. Across sampled trajectories with the residue, central audits delay TED-AI by a median of 1 month with one taste at +3 SD, 2 to 3 months with HTS fuzzy tasks at +1 SD and 6 months at +0.5 SD. Without the residue the last two were 3 to 4 and 18 to 22 months. Strict audits delay it by 2, 4 to 6 and 13 to 14 months. A 9-month lag delays it by 11 to 14 months and a 3-fold compute cut by 5 to 16. On the example trajectory the audit delay falls by about a third. Fitting the handover of work to Google DeepMind's slower delegation data would delay the milestones further; this briefing does not anchor on that series.
+24. **The audit result turns on how long the work that needs a person lasts, how lightly it is supervised and how many hours an audit takes.** Added 2026-11-13: Anthropic's sessions need a correction 8% to 12% of the time whatever the difficulty of the task, against 14% at OpenAI and 18% at Google DeepMind. On the example trajectory with HTS fuzzy tasks at +1 SD, a starting share from 7% to 28% leaves the delay from central audits at 5 to 6 months, against 8 where no work needs a person. The 0.5% supervision is the PI's estimate of half an hour a day for a session that does 8 to 12 person-days of work. From 0.1% to 4% the delay runs from 6 months down to 4. With HTS fuzzy tasks at +0.5 SD the delay is 35 months in the central case, 42 down to 25 across that range and 57 where no work needs a person. If that work is mostly gone while AI judgment is still well below the median researcher, the delays are 7 and 48 months. An audit standard of 3.5 times the hours delays TED-AI by 11 to 16 months with HTS fuzzy tasks at +1 SD.
 
 ## Notes on the sources
 
@@ -744,7 +772,7 @@ The AI Futures code in use anchors coding automation on measured coding uplift a
 
 ### One change, and a sensitivity
 
-- **A residue that needs a person.** 14% of work needs a person on the reference date however short the task, which is OpenAI's figure for tasks under 15 minutes. That share is taken to be the part of real work that turns on judgment the AI lacks. It falls with the share of researchers whose judgment is still better than the AI's, on HTS fuzzy tasks where research is split into classes, and it has no fixed floor. Work in the residue is AI-led with a person supervising. The pace on Nov 1, 2026 stays as calibrated.
+- **A residue that needs a person.** 14% of work needs a person on the reference date however short the task, which is OpenAI's figure for tasks under 15 minutes. That share is taken to be the part of real work that turns on judgment the AI lacks. It falls with the share of researchers whose judgment is still better than the AI's, on HTS fuzzy tasks where research is split into classes, and it has no fixed floor. Work in the residue is AI-led, and a person spends 0.5% of the time the work would take a person supervising it. That is the PI's estimate of half an hour of a person's day for each running session, with a session doing 8 to 12 person-days of work in a day. The pace on Nov 1, 2026 stays as calibrated.
 - **Sensitivity: slower handover.** The supervision schedule is the share of work at each automation level, fitted in earlier sections to Anthropic's share of work that AI leads. As a sensitivity it is fitted to Google DeepMind's fully delegated pull requests, a series that moves 4 to 8 times slower. This briefing does not anchor on it. Google DeepMind's models were behind the frontier for most of the months the series covers, the data are production code, and counting pull requests with under 10 human turns as AI-led gives a slope close to Anthropic's.
 
 ### Model A
@@ -761,30 +789,30 @@ Model A has no research-judgment term, so the residue does not apply to it. The 
 | Taste model | Earlier sections: superhuman AI researcher | Earlier sections: TED-AI | With the residue: superhuman AI researcher | With the residue: TED-AI | Sensitivity, slow handover: TED-AI |
 |---|---|---|---|---|---|
 | One taste, +3 SD | Sep 2027 | Nov 2027 | Sep 2027 | Nov 2027 | May 2028 |
-| One taste, +1 SD | Apr 2029 | Sep 2030 | May 2030 | Aug 2031 | Feb 2034 |
-| Supervisable +3, HTS fuzzy +1 SD | Feb 2028 | Jul 2028 | Jun 2028 | Mar 2029 | Feb 2030 |
-| Supervisable +3, HTS fuzzy +0.5 SD | Nov 2028 | Feb 2034 | Feb 2030 | Jun 2037 | Oct 2037 |
-| Supervisable +2.1, HTS fuzzy +1 SD | May 2028 | Nov 2028 | Nov 2028 | Aug 2029 | Sep 2030 |
-| Supervisable +2.1, HTS fuzzy +0.5 SD | Mar 2029 | Jun 2034 | Oct 2030 | Oct 2037 | Mar 2038 |
+| One taste, +1 SD | Apr 2029 | Sep 2030 | Oct 2029 | Feb 2031 | Feb 2034 |
+| Supervisable +3, HTS fuzzy +1 SD | Feb 2028 | Jul 2028 | Mar 2028 | Nov 2028 | Feb 2030 |
+| Supervisable +3, HTS fuzzy +0.5 SD | Nov 2028 | Feb 2034 | Jul 2029 | Mar 2036 | Jul 2037 |
+| Supervisable +2.1, HTS fuzzy +1 SD | May 2028 | Nov 2028 | Jul 2028 | Mar 2029 | Sep 2030 |
+| Supervisable +2.1, HTS fuzzy +0.5 SD | Mar 2029 | Jun 2034 | Jan 2030 | Jun 2036 | Dec 2037 |
 
 ### Model B, what pacing then does
 
 | Taste model | Earlier sections: central audits delay TED-AI | With the residue | With the residue: 3-month lag delays TED-AI | Sensitivity, slow handover: central audits delay TED-AI |
 |---|---|---|---|---|
 | One taste, +3 SD | +1 mo | +1 mo | +5 mo | +0 mo |
-| One taste, +1 SD | +32 mo | +24 mo | +8 mo | +7 mo |
-| Supervisable +3, HTS fuzzy +1 SD | +8 mo | +4 mo | +8 mo | +1 mo |
-| Supervisable +3, HTS fuzzy +0.5 SD | +57 mo | +25 mo | +5 mo | +22 mo |
-| Supervisable +2.1, HTS fuzzy +1 SD | +10 mo | +5 mo | +8 mo | +2 mo |
-| Supervisable +2.1, HTS fuzzy +0.5 SD | +58 mo | +26 mo | +6 mo | past 2039 |
+| One taste, +1 SD | +32 mo | +27 mo | +8 mo | +7 mo |
+| Supervisable +3, HTS fuzzy +1 SD | +8 mo | +5 mo | +8 mo | +1 mo |
+| Supervisable +3, HTS fuzzy +0.5 SD | +57 mo | +35 mo | +5 mo | +24 mo |
+| Supervisable +2.1, HTS fuzzy +1 SD | +10 mo | +7 mo | +8 mo | +2 mo |
+| Supervisable +2.1, HTS fuzzy +0.5 SD | +58 mo | +36 mo | +5 mo | +24 mo |
 
 The full table, with delays to the superhuman AI researcher, is `results/tables_real_research.md`.
 
 What the tables show:
 
 - **The residue does nothing where judgment improves fast.** With one taste at +3 SD a year the dates do not move, because AI judgment passes people within a year and the residue goes with it.
-- **It delays the milestones where HTS fuzzy judgment is slow.** With HTS fuzzy tasks at +1 SD it delays the superhuman AI researcher by 4 to 6 months and TED-AI by 8 to 9. With HTS fuzzy tasks at +0.5 SD it delays the superhuman AI researcher by 15 to 19 months and TED-AI by more than three years.
-- **Audits add about half as much once the residue is there.** The delay from central audits to TED-AI falls from 8 to 10 months to 4 to 5 with HTS fuzzy tasks at +1 SD, and from 57 months to about 25 at +0.5 SD. Where the work itself keeps people in the loop, AI labor grows more slowly, and deployed changes outgrow people's time to understand them later and by less.
+- **It delays the milestones where HTS fuzzy judgment is slow.** With HTS fuzzy tasks at +1 SD it delays the superhuman AI researcher by 1 to 2 months and TED-AI by 4. With HTS fuzzy tasks at +0.5 SD it delays the superhuman AI researcher by 8 to 10 months and TED-AI by about two years.
+- **Audits add about a third less once the residue is there.** The delay from central audits to TED-AI falls from 8 to 10 months to 5 to 7 with HTS fuzzy tasks at +1 SD, and from 57 months to about 35 at +0.5 SD. Where the work itself keeps people in the loop, AI labor grows more slowly, and deployed changes outgrow people's time to understand them later and by less.
 - **A 3-month lag is unaffected.** It delays TED-AI by 5 to 8 months with or without the residue.
 - **The handover rate would matter more than the residue.** In the sensitivity, TED-AI with one taste at +3 SD moves from November 2027 to May 2028, and with supervisable and HTS fuzzy tasks at +3 and +1 SD to February 2030. Audits then add 1 to 2 months with HTS fuzzy tasks at +1 SD.
 
@@ -794,31 +822,33 @@ The same 96 kept trajectories as the earlier sections, each run again with the r
 
 | Taste model | Earlier sections: superhuman AI researcher | Earlier sections: TED-AI | With the residue: superhuman AI researcher | With the residue: TED-AI |
 |---|---|---|---|---|
-| One taste, +3 SD | Jul 2027 | Sep 2027 | Jul 2027 | Oct 2027 |
-| One taste, +1 SD | Jun 2029 | Aug 2032 | Aug 2030 | Apr 2033 |
-| Supervisable +3, HTS fuzzy +1 SD | Dec 2027 | Dec 2028 | May 2028 | Jul 2029 |
-| Supervisable +3, HTS fuzzy +0.5 SD | Feb 2029 | May 2038 | Oct 2030 | after 2039 |
-| Supervisable +2.1, HTS fuzzy +1 SD | Mar 2028 | May 2029 | Oct 2028 | Feb 2030 |
-| Supervisable +2.1, HTS fuzzy +0.5 SD | Aug 2029 | Jun 2038 | Jul 2031 | after 2039 |
+| One taste, +3 SD | Jul 2027 | Sep 2027 | Jul 2027 | Sep 2027 |
+| One taste, +1 SD | Jun 2029 | Aug 2032 | Dec 2029 | Jan 2033 |
+| Supervisable +3, HTS fuzzy +1 SD | Dec 2027 | Dec 2028 | Feb 2028 | Mar 2029 |
+| Supervisable +3, HTS fuzzy +0.5 SD | Feb 2029 | May 2038 | Feb 2030 | after 2039 |
+| Supervisable +2.1, HTS fuzzy +1 SD | Mar 2028 | May 2029 | Jun 2028 | Sep 2029 |
+| Supervisable +2.1, HTS fuzzy +0.5 SD | Aug 2029 | Jun 2038 | Oct 2030 | after 2039 |
 
 Median delay to TED-AI with the residue, each trajectory against itself with no pacing:
 
 | Taste model | Central audits, earlier sections | Central audits | Central audits, upper quartile | Strict audits | 3-month lag | 9-month lag | 3-fold compute cut |
 |---|---|---|---|---|---|---|---|
-| One taste, +3 SD | +1 mo | +1 mo | +1 mo | +1 mo | +5 mo | +11 mo | +5 mo |
-| One taste, +1 SD | +14 mo | +9 mo | +20 mo | +14 mo | +5 mo | +15 mo | +16 mo |
-| Supervisable +3, HTS fuzzy +1 SD | +3 mo | +2 mo | +4 mo | +3 mo | +5 mo | +13 mo | +10 mo |
-| Supervisable +3, HTS fuzzy +0.5 SD | +18 mo | +3 mo | +7 mo | +8 mo | +3 mo | +10 mo | +13 mo |
-| Supervisable +2.1, HTS fuzzy +1 SD | +5 mo | +2 mo | +5 mo | +5 mo | +5 mo | +13 mo | +12 mo |
-| Supervisable +2.1, HTS fuzzy +0.5 SD | +22 mo | +3 mo | +8 mo | +9 mo | +4 mo | +11 mo | +16 mo |
+| One taste, +3 SD | +1 mo | +1 mo | +2 mo | +2 mo | +5 mo | +11 mo | +5 mo |
+| One taste, +1 SD | +14 mo | +10 mo | +24 mo | +16 mo | +5 mo | +14 mo | +16 mo |
+| Supervisable +3, HTS fuzzy +1 SD | +3 mo | +2 mo | +5 mo | +4 mo | +5 mo | +12 mo | +10 mo |
+| Supervisable +3, HTS fuzzy +0.5 SD | +18 mo | +6 mo | +12 mo | +13 mo | +4 mo | +11 mo | +13 mo |
+| Supervisable +2.1, HTS fuzzy +1 SD | +4 mo | +3 mo | +7 mo | +6 mo | +5 mo | +13 mo | +11 mo |
+| Supervisable +2.1, HTS fuzzy +0.5 SD | +22 mo | +6 mo | +13 mo | +14 mo | +4 mo | +12 mo | +14 mo |
 
 The full tables are `results/tables_taste_real_research.md`.
 
-- **Sampling confirms what the residue does to the dates.** Nothing moves with one taste at +3 SD. With HTS fuzzy tasks at +1 SD the median superhuman AI researcher comes 5 to 7 months later and the median TED-AI 7 to 9 months later. With HTS fuzzy tasks at +0.5 SD the superhuman AI researcher comes 20 to 23 months later, and the median trajectory does not reach TED-AI before 2040.
-- **With the residue, central audits delay TED-AI by a median of 2 to 3 months in every case with supervisable and HTS fuzzy tasks.** In the earlier sections the median was 3 to 5 months with HTS fuzzy tasks at +1 SD and 18 to 22 months at +0.5 SD. Strict audits now delay it by 3 to 9 months.
-- **The long audit delays of the earlier sections rested on handing over all short work.** They came from trajectories where AI labor and deployed changes grew without limit while HTS fuzzy judgment lagged. If 14% of work keeps a person in it until HTS fuzzy judgment catches up, people already hold the pace down, and a rule that they understand what is deployed adds little.
-- **A lag and a compute cut now delay TED-AI more than audits do in every case.** A 9-month lag delays it by 10 to 15 months and a 3-fold compute cut by 5 to 16, against 1 to 9 for central audits.
-- **With HTS fuzzy tasks at +0.5 SD the delays describe the faster half.** Paired delays cover the 48% to 49% of trajectories that reach TED-AI before 2040 with no pacing. Central audits push 2% of those past 2040, so the cut-off itself hides little.
+- **The residue moves the dates only where HTS fuzzy judgment is slow.** Nothing moves with one taste at +3 SD. With HTS fuzzy tasks at +1 SD the median superhuman AI researcher comes 2 to 3 months later and the median TED-AI 3 to 4 months later. With HTS fuzzy tasks at +0.5 SD the median superhuman AI researcher comes 12 to 14 months later, and the median trajectory no longer reaches TED-AI before 2040.
+- **The delay from audits rises as the rate on HTS fuzzy tasks falls.** Central audits delay TED-AI by a median of 1 month with one taste at +3 SD, 2 to 3 months with HTS fuzzy tasks at +1 SD and 6 months at +0.5 SD. Strict audits delay it by 2, 4 to 6 and 13 to 14 months. The upper quartile under central audits is 5 to 7 months with HTS fuzzy tasks at +1 SD and about a year at +0.5 SD.
+- **The residue takes two thirds off the audit delay where HTS fuzzy judgment is slowest.** Without it the median delay from central audits was 3 to 4 months with HTS fuzzy tasks at +1 SD and 18 to 22 months at +0.5 SD. Those long delays came from trajectories where AI labor and deployed changes grew without limit while HTS fuzzy judgment lagged. If 14% of work keeps a person in it until HTS fuzzy judgment catches up, AI labor per researcher is capped, deployed changes grow more slowly, and a rule that people understand what is deployed binds later and by less.
+- **A 9-month lag delays TED-AI by more than central audits in every case, and strict audits pass it only with HTS fuzzy tasks at +0.5 SD or one taste at +1 SD.** The lag delays TED-AI by 11 to 14 months and a 3-fold compute cut by 5 to 16.
+- **One slow taste gives audits more than any case with two classes.** With one taste at +1 SD central audits delay TED-AI by a median of 10 months and strict audits by 16, against 6 and 13 to 14 with HTS fuzzy tasks at +0.5 SD.
+- **With HTS fuzzy tasks at +0.5 SD the delays describe the faster half.** Paired delays cover the 49% to 50% of trajectories that reach TED-AI before 2040 with no pacing. Central audits push 4% of those past 2040, so the cut-off itself hides little.
+- **A sampled run with supervision at 4% gave smaller audit delays.** An earlier run of this section had a person spend 4% of that work's time supervising it. Central audits then delayed TED-AI by a median of 2 to 3 months in every case with two classes, and by 9 months with one taste at +1 SD. That run is not among the result files.
 
 ### How far the result depends on what is assumed about that work
 
@@ -838,56 +868,66 @@ OpenAI's monthly values and Anthropic's values were read by eye from charts, to 
 - **Three developers put the share between 8% and 18%.** The 14% this briefing starts from is inside that range.
 - **Anthropic's easiest tier is the closest match to that share, and it fell 8 points in a year.** The harder tiers fell from between 34% and 80% to 8% or 9%, which is catch-up with the easiest tier. All four are now within 4 points of each other. That favors a share that does not depend on difficulty and that lasts.
 - **None of the three shows what the share turns on.** A correction can be a person changing their mind. That the share is the part of work that turns on judgment the AI lacks stays an assumption.
-- **Open-ended is not HTS fuzzy.** Anthropic's example of an open-ended task is finding the setting that crashed training jobs, which has a clear test of success. The series says little about the rate on HTS fuzzy tasks.
+- **Open-ended is not hard to supervise.** Anthropic's example of an open-ended task is finding the setting that crashed training jobs, which has a clear test of success. The series says little about the rate on HTS fuzzy tasks.
 
 The runs below are on AI Futures' example trajectory, and each row changes one input of the central case. That trajectory is more sensitive to audits than the sampled median, so the differences between rows are what to read. With HTS fuzzy tasks at +1 SD:
 
 | Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to TED-AI | Audits at 3.5 times the hours: delay to superhuman AI researcher | Audits at 3.5 times the hours: delay to TED-AI | 9-month lag: delay to TED-AI |
 |---|---|---|---|---|---|---|
 | No work needs a person | Feb 2028 | Jul 2028 | +8 mo | +5 mo | +16 mo | +19 mo |
-| Central: 14% of work, supervised at 4% of its time | Jun 2028 | Mar 2029 | +4 mo | +3 mo | +11 mo | +18 mo |
-| Starting share 7% | Apr 2028 | Jan 2029 | +4 mo | +4 mo | +12 mo | +19 mo |
-| Starting share 28% | Jul 2028 | May 2029 | +3 mo | +3 mo | +10 mo | +18 mo |
+| Central: 14% of work, supervised at 0.5% of its time | Mar 2028 | Nov 2028 | +5 mo | +4 mo | +14 mo | +18 mo |
+| Starting share 7% | Mar 2028 | Oct 2028 | +6 mo | +5 mo | +14 mo | +18 mo |
+| Starting share 28% | Apr 2028 | Dec 2028 | +5 mo | +4 mo | +13 mo | +18 mo |
+| Supervised at 4.0% of its time | Jun 2028 | Mar 2029 | +4 mo | +3 mo | +11 mo | +18 mo |
 | Supervised at 2.0% of its time | Apr 2028 | Jan 2029 | +4 mo | +4 mo | +12 mo | +19 mo |
 | Supervised at 1.0% of its time | Apr 2028 | Dec 2028 | +5 mo | +4 mo | +13 mo | +18 mo |
-| Supervised at 0.5% of its time | Mar 2028 | Nov 2028 | +5 mo | +4 mo | +14 mo | +18 mo |
 | Supervised at 0.1% of its time | Feb 2028 | Sep 2028 | +6 mo | +5 mo | +15 mo | +19 mo |
-| Share halves per 1 SD of judgment the AI gains | Apr 2028 | Jan 2029 | +3 mo | +4 mo | +12 mo | +17 mo |
-| Share halves per 0.5 SD of judgment the AI gains | Feb 2028 | Sep 2028 | +6 mo | +5 mo | +15 mo | +18 mo |
+| Share halves per 1 SD of judgment the AI gains | Feb 2028 | Oct 2028 | +5 mo | +5 mo | +14 mo | +18 mo |
+| Share halves per 0.5 SD of judgment the AI gains | Feb 2028 | Aug 2028 | +7 mo | +5 mo | +16 mo | +18 mo |
 
 With HTS fuzzy tasks at +0.5 SD:
 
 | Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to TED-AI | Audits at 3.5 times the hours: delay to superhuman AI researcher | Audits at 3.5 times the hours: delay to TED-AI | 9-month lag: delay to TED-AI |
 |---|---|---|---|---|---|---|
 | No work needs a person | Nov 2028 | Feb 2034 | +57 mo | +16 mo | past 2039 | +14 mo |
-| Central: 14% of work, supervised at 4% of its time | Feb 2030 | Jun 2037 | +25 mo | +7 mo | past 2039 | +16 mo |
-| Starting share 7% | Nov 2029 | Dec 2036 | +28 mo | +8 mo | past 2039 | +15 mo |
-| Starting share 28% | Jun 2030 | Dec 2037 | +22 mo | +6 mo | past 2039 | +16 mo |
+| Central: 14% of work, supervised at 0.5% of its time | Jul 2029 | Mar 2036 | +35 mo | +10 mo | past 2039 | +15 mo |
+| Starting share 7% | Jun 2029 | Nov 2035 | +38 mo | +10 mo | past 2039 | +15 mo |
+| Starting share 28% | Sep 2029 | Jul 2036 | +32 mo | +9 mo | past 2039 | +15 mo |
+| Supervised at 4.0% of its time | Feb 2030 | Jun 2037 | +25 mo | +7 mo | past 2039 | +16 mo |
 | Supervised at 2.0% of its time | Nov 2029 | Dec 2036 | +28 mo | +8 mo | past 2039 | +15 mo |
 | Supervised at 1.0% of its time | Sep 2029 | Jul 2036 | +32 mo | +9 mo | past 2039 | +15 mo |
-| Supervised at 0.5% of its time | Jul 2029 | Mar 2036 | +35 mo | +10 mo | past 2039 | +15 mo |
 | Supervised at 0.1% of its time | Apr 2029 | Jun 2035 | +42 mo | +11 mo | past 2039 | +16 mo |
-| Share halves per 1 SD of judgment the AI gains | Sep 2029 | Oct 2037 | +20 mo | +9 mo | past 2039 | +12 mo |
-| Share halves per 0.5 SD of judgment the AI gains | Jun 2029 | Sep 2035 | +39 mo | +11 mo | past 2039 | +15 mo |
+| Share halves per 1 SD of judgment the AI gains | May 2029 | Jun 2036 | +31 mo | +11 mo | past 2039 | +12 mo |
+| Share halves per 0.5 SD of judgment the AI gains | Feb 2029 | Dec 2034 | +48 mo | +13 mo | past 2039 | +15 mo |
 
-- **The starting share barely matters.** From 7% to 28%, central audits delay TED-AI by 3 to 4 months with HTS fuzzy tasks at +1 SD and by 22 to 28 months at +0.5 SD, against 8 and 57 months where no work needs a person.
-- **The central supervision time is heavier than the PI's estimate, and lighter supervision gives audits back part of their effect.** The central case has a person spend 4% of the work's time on it, a figure borrowed from the assumed human time on AI-led work. The PI's estimate is half an hour of a person's day for each running session, where a session does far more in a day than a person does. That is 6% divided by the person-days of work a session does in a day: 0.5% to 0.8% at the 8 to 12 times in Anthropic's one example, and about 0.2% if the session also runs around the clock. At 0.5% the delays are 5 and 35 months and at 0.1% they are 6 and 42, against 4 and 25 in the central case and 8 and 57 where no work needs a person. TED-AI with no pacing comes 4 to 6 months sooner than in the central case with HTS fuzzy tasks at +1 SD, and 15 to 24 months sooner at +0.5 SD.
-- **Only the product of the share and the supervision time matters.** A starting share of 7% and supervision at 2% give the same rows. Even at an eighth of the central product a researcher is capped at about 1,400 units of AI labor.
-- **How long the share lasts matters most.** If it halves for each 0.5 SD of judgment the AI gains, it is mostly gone while the AI is still 1.5 SD below the median researcher, and the delays are 6 and 39 months. If it halves for each 1 SD, the delays are 3 and 20 months, close to the central case.
-- **Audit hours matter more than any of these.** At 3.5 times the central hours for each change, audits delay TED-AI by 10 to 16 months in every row with HTS fuzzy tasks at +1 SD, and the superhuman AI researcher by 3 to 5 months. With HTS fuzzy tasks at +0.5 SD they push TED-AI past 2039 in every row. The hours for each change are an assumption.
+- **The starting share barely matters.** From 7% to 28%, central audits delay TED-AI by 5 to 6 months with HTS fuzzy tasks at +1 SD and by 32 to 38 months at +0.5 SD, against 8 and 57 months where no work needs a person.
+- **The supervision time matters more.** The central case has a person spend 0.5% of the work's time on it. From 0.1% to 4%, the delays run from 6 down to 4 months with HTS fuzzy tasks at +1 SD, and from 42 down to 25 months at +0.5 SD. The heavier the supervision, the less AI labor a researcher can run and the less audits add.
+- **Only the product of the share and the supervision time matters.** A starting share of 28% and supervision at 1% give the same rows.
+- **How long the share lasts matters as much.** If it halves for each 0.5 SD of judgment the AI gains, it is mostly gone while the AI is still 1.5 SD below the median researcher, and the delays are 7 and 48 months. If it halves for each 1 SD, the delays are 5 and 31 months, close to the central case.
+- **Audit hours matter more than any of these.** At 3.5 times the central hours for each change, audits delay TED-AI by 11 to 16 months in every row with HTS fuzzy tasks at +1 SD, and the superhuman AI researcher by 3 to 5 months. With HTS fuzzy tasks at +0.5 SD they push TED-AI past 2039 in every row. The hours for each change are an assumption.
 - **Anthropic's count of reading hours does not fix the audit hours.** Reading all agent output from interactive sessions would take an engineering and research employee at Anthropic 424 hours a week in spring 2026. The central standard is about 6 hours a week, 1.4% of that. It covers only the changes that are deployed, one experiment in twenty today, and it asks for the hours to understand the final change. The figure is an upper bound on reading.
 - **A 9-month lag is unaffected.** It delays TED-AI by 12 to 19 months in every row.
 
-### The taste benchmark
+### Benchmarks scored against human judgment
 
-Anthropic's TASTE benchmark asks a model which of two AI safety research proposals experienced researchers preferred. Researchers agree with the labels 77% of the time. The best model, Fable 5, scores 60%, and "almost all models perform within 2 standard deviations of chance". Naam plots the 18 models against the Epoch Capabilities Index and finds no trend.
+Extended 2026-11-13. Three benchmarks test judgment on tasks with no clear criteria. Each scores a model against what people said.
 
-- **The scatter is sampling noise.** The models spread 5.3 points around a fitted line, and sampling noise on 92 pairs is 5.2 points.
-- **The trend cannot separate rates.** The fitted slope is +0.11 points per index point, with a 95% interval from -0.6 to +0.8. That covers no improvement, and it covers a gain of 12 points per year of 2025 progress.
-- **It is evidence on the level.** In July 2026 frontier models could not beat chance on one kind of HTS fuzzy task. That is consistent with the -3.5 SD this briefing starts HTS fuzzy judgment at, and with improvement that has not yet reached the point of signal.
-- **It will separate the two HTS fuzzy rates.** On the example trajectory HTS fuzzy judgment reaches -2 SD in July 2027 at +1 SD a year and in January 2028 at +0.5 SD. Where on that scale the benchmark starts to show signal is not known.
+| Benchmark | Models | Scores | How it moves with capability |
+|---|---|---|---|
+| TASTE, rerun | 36 | 39% to 62%, chance 50% | Rank correlation with ECI -0.16. 5 models are more than 10 points from chance, the 95% noise band on 92 pairs |
+| RedwoodBench | 13 | 0.6% to 8.1% of human reviewers' points matched | Correlation with ECI 0.79, +0.23 points per ECI point |
+| LMCA, frontier models the chart labels | 13 | 17 to 70, estimated ceiling 85 | +17 points a year since Jun 2023, correlation 0.95. The fitted line reaches the ceiling in Dec 2027. From the latest model at that slope it is Sep 2027 |
 
-The rates on HTS fuzzy tasks stay at +1 and +0.5 SD a year.
+All values were read by eye from charts. The pages of RedwoodBench and LMCA were not fetched, and their descriptions here are from the post that carried the charts.
+
+- **TASTE shows no trend and is too small to show one.** Anthropic's TASTE benchmark asks a model which of two AI safety research proposals experienced researchers preferred. Researchers agree with the labels 77% of the time. The best model in the paper, Fable 5, scores 60%, and "almost all models perform within 2 standard deviations of chance". A rerun on 36 models has a rank correlation of -0.16 with the Epoch Capabilities Index. Five of the 36 are more than 10 points from chance, where noise alone gives about two, and the newest, Fable 5.2, scores about 50%. On the paper's 18 models the scatter around a fitted line is 5.3 points and sampling noise on 92 pairs is 5.2.
+- **RedwoodBench rises with capability from a very low level.** Models comment on unpublished conceptual AI safety documents and are graded on how many of the human reviewers' points they make. The best model matches 8.1% of them, and the correlation with the capability index is 0.79. How that compares with one reviewer's match to another is not recorded here.
+- **LMCA rises steadily and is near its estimated ceiling.** Models rate arguments in conceptual domains and are graded against expert ratings. Frontier models have gained about 17 points a year since June 2023. The latest scores about 70 against an estimated ceiling of 85, which the fitted line reaches in December 2027.
+- **Judgment that people can grade is improving with general capability.** Two of the three benchmarks show it, and the third cannot show anything. This is consistent with reading TASTE as improvement that has not yet reached the point of signal.
+- **None of the three can show the rate on HTS fuzzy tasks.** A benchmark scored against people's judgment stops at people's level, and HTS fuzzy tasks are the ones where that judgment is systematically flawed. By the definitions used here all three test supervisable tasks. They show that the supervisable class reaches well beyond tasks with clear criteria, and that it moves fast.
+- **They bear on the weight of the slow class.** If judgment on work that people can grade improves at the supervisable rate, less of research is left in the HTS fuzzy class than the 35% this briefing takes. With supervisable work at a weight of 80% and HTS fuzzy tasks at +0.5 SD, TED-AI on the example trajectory is October 2029, against February 2034 at 65%, in the section on the two classes of task.
+
+The rates on HTS fuzzy tasks stay at +1 and +0.5 SD a year. Nothing measures them, and benchmarks of this kind cannot.
 
 ## What the results imply
 
@@ -897,11 +937,11 @@ The rates on HTS fuzzy tasks stay at +1 and +0.5 SD a year.
 
 **A short lag and audits do different jobs and add up.** A 3-month lag slows every turn of the loop, so its effect compounds: 9 months to superintelligence in Model B. It does not stop the acceleration. In Model A the pace under a 3-month lag reaches ten times the historical rate in December 2028. Audits leave the early path alone and bend the later one. Together, in Model B, they delay superintelligence by 14 months, against 9 and 6 separately. Across the sampled trajectories the lag does nearly all of the delaying: about 4 months for the 3-month lag, with or without central audits.
 
-**Whether audits buy calendar time is a bet on slow growth in AI research judgment.** With judgment improving 3 SD per year of 2025 progress, central audits buy a month before TED-AI. At 1 SD they buy a median of 8 months before researcher-level AI and 14 before TED-AI, about what a 9-month lag buys, and the two together buy 30 months before TED-AI. With 14% of work needing a person the same audits buy 4 and 9 months. The slope is the least-measured input in the AI Futures Model, and the reports from inside the labs point to less AI judgment than its filtered trajectories assume.
+**Whether audits buy calendar time is a bet on slow growth in AI research judgment.** With judgment improving 3 SD per year of 2025 progress, central audits buy a month before TED-AI. At 1 SD they buy a median of 8 months before researcher-level AI and 14 before TED-AI, about what a 9-month lag buys, and the two together buy 30 months before TED-AI. With 14% of work needing a person the same audits buy 5 and 10 months. The slope is the least-measured input in the AI Futures Model, and the reports from inside the labs point to less AI judgment than its filtered trajectories assume.
 
-**Splitting supervisable from HTS fuzzy work makes audits a timeline tool only where HTS fuzzy judgment is slow.** With HTS fuzzy tasks improving 1 SD a year, AI judgment far ahead on supervisable tasks carries the lab to researcher-level AI while its judgment on HTS fuzzy tasks is near the median researcher, and central audits buy a median of 3 to 4 months before TED-AI, no more than a 3-month lag. With HTS fuzzy tasks improving 0.5 SD a year they buy 18 to 22 months, more than a 9-month lag, and the unpaced date itself moves out by nine years. That result holds only if all short work can be handed over: with 14% of work needing a person, they buy 2 to 3 months in every case. The weight of supervisable work and the substitution move the result as much as the HTS fuzzy rate does, and neither has been measured.
+**Splitting supervisable from HTS fuzzy work makes audits a timeline tool only where HTS fuzzy judgment is slow.** With HTS fuzzy tasks improving 1 SD a year, AI judgment far ahead on supervisable tasks carries the lab to researcher-level AI while its judgment on HTS fuzzy tasks is near the median researcher, and central audits buy a median of 3 to 4 months before TED-AI, no more than a 3-month lag. With HTS fuzzy tasks improving 0.5 SD a year they buy 18 to 22 months, more than a 9-month lag, and the unpaced date itself moves out by nine years. That result holds only if all short work can be handed over: with 14% of work needing a person, central audits buy 2 to 3 months with HTS fuzzy tasks at 1 SD a year and 6 months at 0.5 SD, and strict audits buy 4 to 6 and 13 to 14. The weight of supervisable work and the substitution move the result as much as the HTS fuzzy rate does, and neither has been measured.
 
-**Work that needs a person and comprehension audits act on the same margin.** Both keep people in the loop. Where a share of real work needs human judgment until AI judgment on HTS fuzzy tasks catches up, the milestones arrive later with no pacing at all, and audits add little on top: across sampled trajectories central audits delay TED-AI by a median of 2 to 3 months whether HTS fuzzy judgment improves 1 SD a year or 0.5. A lag and a compute cut keep their effect, and each then delays TED-AI by more than audits do. The timeline case for audits therefore needs two things at once: work that is handed over in full, and HTS fuzzy judgment that is slow. OpenAI's usage data count against the first. Their case as a check on whether people understand what they deploy does not depend on the timeline.
+**Work that needs a person and comprehension audits act on the same margin.** Both keep people in the loop. Where a share of real work needs human judgment until AI judgment on HTS fuzzy tasks catches up, the milestones arrive later with no pacing at all, and audits add less on top: across sampled trajectories central audits delay TED-AI by a median of 2 to 3 months with HTS fuzzy judgment improving 1 SD a year and 6 months at 0.5 SD, against 3 to 4 and 18 to 22 where all work is handed over. A lag and a compute cut keep their effect, and a 9-month lag delays TED-AI by more than central audits do in every case. The timeline case for audits is strongest where three things hold at once: HTS fuzzy judgment is slow, the work that needs a person is soon gone, and understanding a change takes many hours. The one series on the second is the correction rate on Anthropic's easiest tasks, which fell 8 points in a year. The case for audits as a check on whether people understand what they deploy does not depend on the timeline.
 
 **Audits bind when the lab would otherwise stop understanding its work.** While AI judgment is far below the researchers', an unpaced lab keeps understanding what it deploys because its progress depends on it, and audits cost it under 1% of research effort. Once AI judgment passes most researchers the unpaced lab lets that understanding go within months and deploys thousands of changes per researcher-year. That is when audits start to cost the lab pace. The rule holds a lab to a practice it follows while the practice pays, past the point where it stops paying.
 
@@ -989,7 +1029,7 @@ Four readings:
 - **With taste that low, the measured pace has to come from coding, and half the kept trajectories have coding fully automated before Nov 1, 2026.** Anthropic reports no work at its top automation level as of August 2026. The tables split the results on this.
 - **The weight of supervisable work and the substitution between supervisable and HTS fuzzy work have no measurement behind them.** The weight rests on three anchors that separate well-defined work from the rest, which is wider than the HTS fuzzy class as defined, so 65% is at the low end. The substitution of 0.25 is a judgment. Together they set how far judgment on supervisable tasks can make up for judgment on HTS fuzzy ones: 4.1 times at the central values, 2.5 times with supervisable work at a weight of 50%, 8.5 times at 80%, 2.9 times at a substitution of 0 and several hundred times at 0.83.
 - **How fast real work is handed over is measured differently at each lab.** Anthropic reports automation levels across R&D work, Google DeepMind reports human turns on production pull requests, and OpenAI reports interventions by task length. The supervision schedule is fitted to Anthropic's series, whose slope halves without its March point. Google DeepMind's fully delegated pull requests move 4 to 8 times slower; its models were behind the frontier for most of that period, so the series is a sensitivity only. On it, TED-AI on the example trajectory moves out by 6 months with one taste at +3 SD and by about a year and a half to two years with HTS fuzzy tasks at +1 SD.
-- **The residue rule is an assumption.** That 14% of work needs a person today is measured on OpenAI's tasks under 15 minutes, and Google DeepMind's and Anthropic's figures are 18% and 8% to 12%. That this share falls with the share of researchers still ahead of the AI on HTS fuzzy tasks is a choice with no data behind it. The starting share and the supervision time move the audit result little. How long the share lasts moves it most, and the only series on that is Anthropic's easiest tier, which fell 8 points in a year.
+- **The residue rule is an assumption.** That 14% of work needs a person today is measured on OpenAI's tasks under 15 minutes, and Google DeepMind's and Anthropic's figures are 18% and 8% to 12%. That this share falls with the share of researchers still ahead of the AI on HTS fuzzy tasks is a choice with no data behind it. The starting share moves the audit result little. The supervision time moves it more: 0.5% is the PI's estimate, and no developer reports it. How long the share lasts moves it as much, and the only series on that is Anthropic's easiest tier, which fell 8 points in a year.
 - **The hours to understand a change set the audit result more than anything about the residue.** They are 5 to 10 hours for each change in the central standard, an assumption to be measured in a pilot. At 3.5 times those hours audits delay TED-AI by about a year on the example trajectory.
 - **The gate assumes a lab that complies and optimizes within the rule.** Audit sampling error, failed audits and the pauses they trigger are not modeled. One row lets the lab keep only 75% of deployed changes understood.
 - **The pace of 1.2 for May 2026 is AI Futures' rough guess.** It sets the steepness of Model A's uplift curve.
