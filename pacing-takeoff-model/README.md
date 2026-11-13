@@ -27,6 +27,7 @@ Research briefing with a runnable model. Draft of 2026-11-11, calibrated to publ
 21. **On real research, agents work alone for about 15 minutes, against three hours on benchmarks.** Added 2026-11-12: at OpenAI, agents finish a real task with no human intervention 80% of the time only when it would take a person about 15 minutes, and that figure did not move from March to July 2026. Google DeepMind's latest model gives 11 minutes. METR's benchmark figure is 186 minutes. Even under 15 minutes, 14% of OpenAI's tasks needed a person or failed.
 22. **A share of work that needs a person delays the milestones only where fuzzy judgment is slow.** Model B now starts with 14% of work needing a person, a share that falls as AI judgment on fuzzy tasks rises. It changes nothing with one taste at +3 SD. Across sampled trajectories with fuzzy tasks at +1 SD it moves the median superhuman AI researcher 5 to 7 months later, to May or October 2028, and the median TED-AI 7 to 9 months later, to July 2029 or February 2030. With fuzzy tasks at +0.5 SD it moves the superhuman AI researcher 20 to 23 months later, and the median trajectory no longer reaches TED-AI before 2040. The benchmark horizon itself is not an input to the AI Futures code in use.
 23. **Where the work already keeps people in the loop, audits add 2 to 3 months, and the long audit delays of item 19 go.** Across sampled trajectories with the residue, central audits delay TED-AI by a median of 2 to 3 months in every case with crisp and fuzzy tasks, against 3 to 5 months and 18 to 22 months without it. Strict audits delay it by 3 to 9 months, a 9-month lag by 10 to 13 and a 3-fold compute cut by 10 to 16. On the example trajectory the audit delay falls by half. Fitting the handover of work to Google DeepMind's slower delegation data would delay the milestones further; this briefing does not anchor on that series.
+24. **That result holds across its unmeasured inputs, except how long the work that needs a person lasts and how many hours an audit takes.** Added 2026-11-13: Anthropic's sessions need a correction 8% to 12% of the time whatever the difficulty of the task, against 14% at OpenAI and 18% at Google DeepMind. On the example trajectory with fuzzy tasks at +1 SD, a starting share from 7% to 28%, or supervision an eighth as heavy, leaves the delay from central audits at 3 to 5 months, against 8 where no work needs a person. If that work is mostly gone while AI judgment is still well below the median researcher, the delay is 6 months. An audit standard of 3.5 times the hours delays TED-AI by 10 to 16 months in every case.
 
 ## Notes on the sources
 
@@ -709,9 +710,9 @@ Median dates and median paired delays are computed separately, so a scenario's m
 
 ## What the labs' own usage data change
 
-Added 2026-11-12. The link from comprehension to judgment is on. Results on AI Futures' example trajectory come first, then medians over 96 sampled trajectories.
+Added 2026-11-12. Anthropic's session data and the sensitivity runs were added on 2026-11-13. The link from comprehension to judgment is on. Results on AI Futures' example trajectory come first, then medians over 96 sampled trajectories.
 
-Benchmarks measure what a model can do on set tasks. Two developers have now published how their agents do on real internal work, and Ramez Naam has argued from OpenAI's figures that real research is an order of magnitude harder than benchmarks suggest. This section reads those reports into Model B. It anchors on OpenAI's data. Google DeepMind's models were behind the frontier for most of 2026, so its figures are shown as a cross-check and a sensitivity.
+Benchmarks measure what a model can do on set tasks. Three developers have now published how their agents do on real internal work, and Ramez Naam has argued from OpenAI's figures that real research is an order of magnitude harder than benchmarks suggest. This section reads those reports into Model B. It anchors on OpenAI's data. Google DeepMind's models were behind the frontier for most of 2026, so its figures are shown as a cross-check and a sensitivity.
 
 ### What the reports show
 
@@ -725,6 +726,7 @@ Benchmarks measure what a model can do on set tasks. Two developers have now pub
 - **Two labs agree.** Agents finish a real task with no human intervention 80% of the time only when the task would take a person about a quarter of an hour. METR's benchmark puts the same figure for Claude Mythos Preview at 186 minutes, 12 times longer.
 - **The 80% figure did not move at OpenAI from March to July.** The task length finished half the time did grow, from about 1.5 hours in January to between 4 and 14 hours from March on. Success improved on long tasks and stayed between 80% and 91% on the shortest.
 - **A share of the shortest tasks still needs a person.** Under 15 minutes, 14% of OpenAI's tasks and 18% of Google DeepMind's needed an intervention or failed.
+- **Anthropic's sessions give a similar share, and it moves slowly on the easiest tasks.** Anthropic counts an internal Claude Code session as a success if the agent "clearly succeeded at the user's tasks without requiring corrections". In early September 2026 that rate was about 88% on trivial tasks and 91% to 92% on routine, substantial and open-ended ones. A year earlier it was about 80%, 66%, 39% and 20%. The harder tiers caught up with the easiest, and the easiest gained 8 points in a year. Open-ended problems were still gaining about 3 points a month from June to September.
 - **Google DeepMind finds no significant end-to-end acceleration.** Its own capability index rose 0.091 points a month before April 2026 and 0.118 after, and "we do not observe a statistically significant difference". Its model "solves only around half of the challenges" in its internal ML R&D evaluation.
 - **Code is written by AI long before it is handed over.** At Google DeepMind the share of production pull requests with over 75% of code written by AI rose from 44% in April 2026 to 91% in September. The share that is "fully delegated" rose from 7.5% to 11.9%, and "about 88% of pull requests still require iterative multi-turn human steering or human code authorship".
 
@@ -818,6 +820,62 @@ The full tables are `results/tables_taste_real_research.md`.
 - **The long audit delays of the earlier sections rested on handing over all short work.** They came from trajectories where AI labor and deployed changes grew without limit while fuzzy judgment lagged. If 14% of work keeps a person in it until fuzzy judgment catches up, people already hold the pace down, and a rule that they understand what is deployed adds little.
 - **A lag and a compute cut now delay TED-AI more than audits do in every case.** A 9-month lag delays it by 10 to 15 months and a 3-fold compute cut by 5 to 16, against 1 to 9 for central audits.
 - **With fuzzy tasks at +0.5 SD the delays describe the faster half.** Paired delays cover the 48% to 49% of trajectories that reach TED-AI before 2040 with no pacing. Central audits push 2% of those past 2040, so the cut-off itself hides little.
+
+### How far the result depends on what is assumed about that work
+
+Added 2026-11-13. Three developers report a share of work that needs a person whatever the task:
+
+| Source | Measure | Earlier | Latest |
+|---|---|---|---|
+| OpenAI | Tasks under 15 minutes that needed an intervention or failed | 9% to 20% in each month from March to July 2026 | 14%, January to July 2026 pooled |
+| Google DeepMind, Gemini 4 Argon | Tasks under 15 minutes that needed an intervention or failed | | 18% of 114 tasks |
+| Anthropic | Sessions on trivial tasks that needed a correction | 20% in Sep 2025 | 12% in Sep 2026 |
+| Anthropic | Sessions on routine tasks that needed a correction | 34% in Sep 2025 | 8% in Sep 2026 |
+| Anthropic | Sessions on substantial tasks that needed a correction | 61% in Sep 2025 | 8% in Sep 2026 |
+| Anthropic | Sessions on open-ended tasks that needed a correction | 80% in Sep 2025 | 9% in Sep 2026 |
+
+OpenAI's monthly values and Anthropic's values were read by eye from charts, to about 2 points.
+
+- **Three developers put the share between 8% and 18%.** The 14% this briefing starts from is inside that range.
+- **Anthropic's easiest tier is the closest match to that share, and it fell 8 points in a year.** The harder tiers fell from between 34% and 80% to 8% or 9%, which is catch-up with the easiest tier. All four are now within 4 points of each other. That favors a share that does not depend on difficulty and that lasts.
+- **None of the three shows what the share turns on.** A correction can be a person changing their mind. That the share is the part of work that turns on judgment the AI lacks stays an assumption.
+- **Open-ended is not fuzzy.** Anthropic's example of an open-ended task is finding the setting that crashed training jobs, which has a clear test of success. The series says little about the rate on fuzzy tasks.
+
+The runs below are on AI Futures' example trajectory, and each row changes one input of the central case. That trajectory is more sensitive to audits than the sampled median, so the differences between rows are what to read. With fuzzy tasks at +1 SD:
+
+| Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to TED-AI | Audits at 3.5 times the hours: delay to superhuman AI researcher | Audits at 3.5 times the hours: delay to TED-AI | 9-month lag: delay to TED-AI |
+|---|---|---|---|---|---|---|
+| No work needs a person | Feb 2028 | Jul 2028 | +8 mo | +5 mo | +16 mo | +19 mo |
+| Central: 14% of work, supervised at 4% of its time | Jun 2028 | Mar 2029 | +4 mo | +3 mo | +11 mo | +18 mo |
+| Starting share 7% | Apr 2028 | Jan 2029 | +4 mo | +4 mo | +12 mo | +19 mo |
+| Starting share 28% | Jul 2028 | May 2029 | +3 mo | +3 mo | +10 mo | +18 mo |
+| Supervised at 2.0% of its time | Apr 2028 | Jan 2029 | +4 mo | +4 mo | +12 mo | +19 mo |
+| Supervised at 1.0% of its time | Apr 2028 | Dec 2028 | +5 mo | +4 mo | +13 mo | +18 mo |
+| Supervised at 0.5% of its time | Mar 2028 | Nov 2028 | +5 mo | +4 mo | +14 mo | +18 mo |
+| Share halves per 1 SD of judgment the AI gains | Apr 2028 | Jan 2029 | +3 mo | +4 mo | +12 mo | +17 mo |
+| Share halves per 0.5 SD of judgment the AI gains | Feb 2028 | Sep 2028 | +6 mo | +5 mo | +15 mo | +18 mo |
+
+With fuzzy tasks at +0.5 SD:
+
+| Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to TED-AI | Audits at 3.5 times the hours: delay to superhuman AI researcher | Audits at 3.5 times the hours: delay to TED-AI | 9-month lag: delay to TED-AI |
+|---|---|---|---|---|---|---|
+| No work needs a person | Nov 2028 | Feb 2034 | +57 mo | +16 mo | past 2039 | +14 mo |
+| Central: 14% of work, supervised at 4% of its time | Feb 2030 | Jun 2037 | +25 mo | +7 mo | past 2039 | +16 mo |
+| Starting share 7% | Nov 2029 | Dec 2036 | +28 mo | +8 mo | past 2039 | +15 mo |
+| Starting share 28% | Jun 2030 | Dec 2037 | +22 mo | +6 mo | past 2039 | +16 mo |
+| Supervised at 2.0% of its time | Nov 2029 | Dec 2036 | +28 mo | +8 mo | past 2039 | +15 mo |
+| Supervised at 1.0% of its time | Sep 2029 | Jul 2036 | +32 mo | +9 mo | past 2039 | +15 mo |
+| Supervised at 0.5% of its time | Jul 2029 | Mar 2036 | +35 mo | +10 mo | past 2039 | +15 mo |
+| Share halves per 1 SD of judgment the AI gains | Sep 2029 | Oct 2037 | +20 mo | +9 mo | past 2039 | +12 mo |
+| Share halves per 0.5 SD of judgment the AI gains | Jun 2029 | Sep 2035 | +39 mo | +11 mo | past 2039 | +15 mo |
+
+- **The starting share barely matters.** From 7% to 28%, central audits delay TED-AI by 3 to 4 months with fuzzy tasks at +1 SD and by 22 to 28 months at +0.5 SD, against 8 and 57 months where no work needs a person.
+- **Lighter supervision barely matters.** The central case has a person spend 4% of the work's time on it. At 0.5% the delays are 5 and 35 months. The PI's estimate of half an hour a day for each running session is 6% if a session does one person-day of work in a day, and less if it does more.
+- **Only the product of the share and the supervision time matters.** A starting share of 7% and supervision at 2% give the same rows. Even at an eighth of the central product a researcher is capped at about 1,400 units of AI labor.
+- **How long the share lasts matters most.** If it halves for each 0.5 SD of judgment the AI gains, it is mostly gone while the AI is still 1.5 SD below the median researcher, and the delays are 6 and 39 months. If it halves for each 1 SD, the delays are 3 and 20 months, close to the central case.
+- **Audit hours matter more than any of these.** At 3.5 times the central hours for each change, audits delay TED-AI by 10 to 16 months in every row with fuzzy tasks at +1 SD, and the superhuman AI researcher by 3 to 5 months. With fuzzy tasks at +0.5 SD they push TED-AI past 2039 in every row. The hours for each change are an assumption.
+- **Anthropic's count of reading hours does not fix the audit hours.** Reading all agent output from interactive sessions would take an engineering and research employee at Anthropic 424 hours a week in spring 2026. The central standard is about 6 hours a week, 1.4% of that. It covers only the changes that are deployed, one experiment in twenty today, and it asks for the hours to understand the final change. The figure is an upper bound on reading.
+- **A 9-month lag is unaffected.** It delays TED-AI by 12 to 19 months in every row.
 
 ### The taste benchmark
 
@@ -930,7 +988,8 @@ Four readings:
 - **With taste that low, the measured pace has to come from coding, and half the kept trajectories have coding fully automated before Nov 1, 2026.** Anthropic reports no work at its top automation level as of August 2026. The tables split the results on this.
 - **The weight of crisp work and the substitution between crisp and fuzzy work have no measurement behind them.** The weight rests on three anchors that separate well-defined work from the rest, which is wider than the fuzzy class as defined, so 65% is at the low end. The substitution of 0.25 is a judgment. Together they set how far judgment on crisp tasks can make up for judgment on fuzzy ones: 4.1 times at the central values, 2.5 times with crisp work at a weight of 50%, 8.5 times at 80%, 2.9 times at a substitution of 0 and several hundred times at 0.83.
 - **How fast real work is handed over is measured differently at each lab.** Anthropic reports automation levels across R&D work, Google DeepMind reports human turns on production pull requests, and OpenAI reports interventions by task length. The supervision schedule is fitted to Anthropic's series, whose slope halves without its March point. Google DeepMind's fully delegated pull requests move 4 to 8 times slower; its models were behind the frontier for most of that period, so the series is a sensitivity only. On it, TED-AI on the example trajectory moves out by 6 months with one taste at +3 SD and by about a year and a half to two years with fuzzy tasks at +1 SD.
-- **The residue rule is an assumption.** That 14% of work needs a person today is measured on OpenAI's tasks under 15 minutes. That this share falls with the share of researchers still ahead of the AI on fuzzy tasks is a choice with no data behind it.
+- **The residue rule is an assumption.** That 14% of work needs a person today is measured on OpenAI's tasks under 15 minutes, and Google DeepMind's and Anthropic's figures are 18% and 8% to 12%. That this share falls with the share of researchers still ahead of the AI on fuzzy tasks is a choice with no data behind it. The starting share and the supervision time move the audit result little. How long the share lasts moves it most, and the only series on that is Anthropic's easiest tier, which fell 8 points in a year.
+- **The hours to understand a change set the audit result more than anything about the residue.** They are 5 to 10 hours for each change in the central standard, an assumption to be measured in a pilot. At 3.5 times those hours audits delay TED-AI by about a year on the example trajectory.
 - **The gate assumes a lab that complies and optimizes within the rule.** Audit sampling error, failed audits and the pauses they trigger are not modeled. One row lets the lab keep only 75% of deployed changes understood.
 - **The pace of 1.2 for May 2026 is AI Futures' rough guess.** It sets the steepness of Model A's uplift curve.
 - **Human time per automation level is assumed.** The values 0.50, 0.12 and 0.04 fit two self-report points and nothing else. The 7-month lag for unsupervised work is AI Futures' assumption on little data.
