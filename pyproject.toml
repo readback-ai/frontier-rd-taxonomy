@@ -1,17 +1,19 @@
 [project]
 name = "frontier-rd-taxonomy"
 version = "0.1.0"
-description = "Tasks in frontier AI development, their safety risks under automation, design-review questions, and bottom-up inputs for the pacing model."
+description = "How frontier AI R&D works, to inform comprehension audits, and how pacing mechanisms change the takeoff of automated AI research."
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "Proprietary. All rights reserved; see LICENSE." }
+license = { text = "MIT" }
 dependencies = [
     "beautifulsoup4>=4.12",
     "httpx>=0.27",
+    "matplotlib>=3.9",
     "numpy>=2.0",
     "pydantic>=2.8",
     "pypdf>=5.0",
     "pyyaml>=6.0",
+    "scipy>=1.14",
 ]
 
 [project.scripts]
@@ -32,7 +34,7 @@ packages = ["src/frontier_taxonomy"]
 
 [tool.pytest.ini_options]
 addopts = "-ra"
-testpaths = ["tests"]
+testpaths = ["tests", "pacing-takeoff-model"]
 
 [tool.ruff]
 line-length = 100

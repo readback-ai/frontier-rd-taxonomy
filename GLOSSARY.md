@@ -41,6 +41,13 @@ The class of deployed change a task produces, as the pacing model counts them: t
 **Output role**:
 What a task's output does to the model or the organization: shapes it, measures it, contains it, runs it, or decides about it.
 
+**Crisp task**:
+A task with clear evaluation criteria: success can be verified and experts reliably agree on the answer. After Bowkis et al. (arXiv:2605.06390). In the pacing model the crisp class also holds tasks with no clear criteria that people judge reliably, such as writing.
+
+**Fuzzy task**:
+A task without clear evaluation criteria, for which human judgment is systematically flawed. This is what Bowkis et al. call a hard-to-supervise fuzzy task; their plain "fuzzy" is wider and includes tasks people judge reliably.
+_Avoid_: Fuzzy for any task that is slow or costly to check
+
 **Frontier**:
 The few developers training the most capable models. Scope `frontier` on an estimate means those developers taken together.
 

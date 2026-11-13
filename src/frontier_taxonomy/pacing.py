@@ -1,6 +1,6 @@
 """Bottom-up inputs for the pacing model's gate on deployed changes.
 
-The pacing and takeoff model lives in readback-ops (research/pacing-takeoff-model). Its gate
+The pacing and takeoff model lives in pacing-takeoff-model/ at the repository root. Its gate
 takes, for each type of deployed change: how many are deployed per researcher-year, the hours
 to understand one, how the count grows with AI labor, and the share of progress that rides on
 the type. In that model every one of those numbers is an assumption. This module builds the
@@ -177,9 +177,9 @@ def write_gate_inputs(paths: Paths, scope: str = "frontier") -> Path:
         "generated_by": "taxo gate-inputs (do not edit by hand)",
         "scope": scope,
         "note": (
-            "Bottom-up counterpart of comprehension_gate.change_types in the readback-ops pacing "
-            "model's calibration.yml. low and high are 10th and 90th percentiles. basis is the "
-            "weakest basis among the estimates combined into the cell."
+            "Bottom-up counterpart of comprehension_gate.change_types in "
+            "pacing-takeoff-model/calibration.yml. low and high are 10th and 90th percentiles. "
+            "basis is the weakest basis among the estimates combined into the cell."
         ),
         "change_types": {
             change_type: {quantity: cell.as_dict() for quantity, cell in cells.items()}

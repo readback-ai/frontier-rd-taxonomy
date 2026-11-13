@@ -15,6 +15,7 @@ from .config import Paths
 from .locks import read_lock
 from .pacing import write_gate_inputs
 from .schema import (
+    CANARY,
     TIER_OF_AREA,
     CategoryValue,
     Estimate,
@@ -355,6 +356,8 @@ def question_pack(dataset: Dataset, branch_id: str) -> str:
         "",
         f"# Review questions: {root.name}",
         "",
+        CANARY,
+        "",
         "Questions a reviewer brings to a contribution, by task. They test understanding of the "
         "design, not recall of the code: someone who understands the contribution can answer "
         "without it open and without asking a model. Each question follows the comprehension "
@@ -405,6 +408,8 @@ def backtest_report(dataset: Dataset) -> str:
         GENERATED,
         "",
         "# Backtest of review questions against incidents",
+        "",
+        CANARY,
         "",
         "For each incident, would a good-faith answer to the question have exposed the root "
         "cause before the incident? Verdicts are judgments recorded in each incident's file, "

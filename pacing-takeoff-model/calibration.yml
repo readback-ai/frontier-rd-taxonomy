@@ -1,0 +1,219 @@
+# Calibration inputs for the pacing and takeoff model.
+# Every value carries its source. "secondary" marks numbers taken from press
+# coverage because the primary page could not be read (see README, Limitations).
+# Dates are decimal years (mid-month for monthly figures).
+
+reference_date: 2026.83          # Nov 1, 2026, the date the models are calibrated to
+
+pace:
+  # Pace of progress relative to the pre-October-2025 rate (1.0 = historical).
+  total_observed: 1.9            # METR 2026-11-05: AECI +29/yr vs +15/yr, 95% CI 1.5-2.8
+  total_plausible_range: [1.3, 3.0]   # METR: "would not be surprised" range
+  ai_share_of_acceleration: 0.8  # METR: "perhaps ~80%" of current acceleration is due to AI
+  ai_attributable: 1.7           # AI Futures 2026-11-10 reading of METR (1.67-1.74)
+  ai_attributable_six_months_earlier: 1.2   # AI Futures' rough guess for May 1, 2026
+  date_six_months_earlier: 2026.33
+  aeci_points_per_baseline_year: 15   # METR: +15 AECI points per year before Oct 2025
+
+production:
+  labor_exponent: 0.5            # Cotra 2026-11-06 fn 8: compute multipliers = labor^0.5 * compute^0.5
+  software_share_of_progress: 0.667   # Greenblatt via Cotra/Zvi: about 2/3 of progress is software
+  research_stock_doublings_per_year: 1.0   # AI Futures 2026-11-10: exogenous inputs grew 2x/yr;
+                                           # Greenblatt: software R&D slows ~2x per year of
+                                           # software progress with inputs held fixed
+  experiment_compute_growth_per_year: 3.3  # AIFM inputs/input_data.csv: 3.8x (2026-27), 3.15x (2027-28)
+  training_compute_growth_per_year: 3.5    # AIFM inputs/input_data.csv, same window
+
+self_reported_labor_uplift:      # Anthropic staff, informal; METR calls it "very loose evidence"
+  - {date: 2025.12, uplift: 1.2,  note: "Claude 3.7 Sonnet, Slack poll (METR 2026-11-05 chart)"}
+  - {date: 2026.21, uplift: 4.0,  note: "Mythos Preview, median of 130 research staff (Anthropic RSI page)"}
+  - {date: 2026.62, uplift: 7.0,  note: "AI Futures 2026-11-10 reading for Aug 2026"}
+  - {date: 2026.75, uplift: 12.0, note: "Model 4, Slack poll (METR 2026-11-05)"}
+
+anthropic_automation_index:      # share of model R&D person-time by Epoch automation level
+  source: "Anthropic, Measurements for understanding the pace of AI development (Sep 2026); monthly values read from the chart by AI Futures 2026-11-10"
+  al4_share:                     # AL4 = "AI leads"; human supervises, course-corrects, approves
+    - {date: 2026.21, share: 0.01}
+    - {date: 2026.37, share: 0.12}
+    - {date: 2026.46, share: 0.14}
+    - {date: 2026.54, share: 0.22}
+    - {date: 2026.62, share: 0.26}
+  al3_plus_share_aug_2026: 0.92  # reported as "above 90%"
+  al5_share_aug_2026: 0.0        # "None for any measured subset"
+  al5_lag_behind_al4_months: 7   # AI Futures 2026-11-10 assumption, "based on little data"
+
+human_time_per_unit_work:        # ASSUMPTIONS. Fraction of unaided human time still needed.
+  al2_or_less: 0.50              # AI assists
+  al3: 0.12                      # AI collaborates under close human direction
+  al4: 0.04                      # AI leads; human specifies, supervises and approves
+  al5: 0.0                       # no human in the loop
+  note: "Ratios are assumptions. The overall level is rescaled so that 1/h equals the calibrated labor uplift at the reference date. With these ratios the unscaled values give 7.7x in Aug 2026 and 10x in Oct 2026, against reported 7x and 12x."
+
+openai:                          # OpenAI, Research acceleration: The view inside OpenAI (2026-09-06)
+  # Text figures are quoted from the page. Chart figures are in data/ with their provenance.
+  agent_workdays_per_human_workday_mid_aug_2026: 3.1   # text; "before June 2026 ... still below" 1.0
+  median_researcher_inference_usd_per_day_mid_aug: 600   # text: "more than $600"
+  p90_researcher_inference_usd_per_day: 7000             # text: "more than $7,000"
+  successful_4_to_8_hour_tasks_with_intervention: 0.51   # text: "over half"; chart: 45 / (43 + 45)
+  zero_intervention_success: data/openai_zero_intervention_success.csv   # chart, read by eye
+  outcomes_by_duration: data/openai_outcomes_by_duration.csv             # chart, labels as printed
+  usage_series: data/openai_chart_series.csv                             # chart vectors from the saved PDF
+  agent_output_token_increase_per_researcher_day:   # chart "All categories of research activity have increased", Jan to Aug 2026
+    "3.1 research and infrastructure code": 198200
+    "6.2 technical help and review": 158800
+    "4.1 launch, monitor and debug runs": 133100
+    "5.1 analyze experiment results": 40200
+    "4.2 compute-cluster operations": 37400
+    "6.1 research write-ups and documentation": 18000
+    "3.2 training and eval datasets": 13700
+    "4.3 production serving reliability": 12900
+    "5.2 analyze model behavior and capabilities": 11200
+    "2.2 technical specifications": 9500
+    "6.3 status updates and work logs": 8100
+    "2.1 research and experiment planning": 5100
+    "5.3 analyze production usage": 3100
+    "1.1 what to work on": 2300
+    "1.3 compute and staffing decisions": 1500
+    "5.4 review external research": 700
+    "1.2 what to continue or stop": 200
+    "6.4 decision announcements": 30
+  pacing_episode_aug_2026:       # text, Section 4: model-specific security restrictions on Astra from Aug 7
+    astra_class_gpu_allocation_change: -0.592
+    other_model_classes_change: 0.172
+    share_of_decline_offset: 0.85
+
+google_deepmind:                 # Gemini 4 Argon Safety & Security Report (October 2026), section 3.4.2
+  # Text figures are quoted from the report. Chart figures are in data/ with their provenance.
+  gci_points_per_month_before_apr_2026: 0.091   # 95% interval 0.071 to 0.108. GCI is its internal capability index
+  gci_points_per_month_after_apr_2026: 0.118    # 95% interval 0.053 to 0.171. "we do not observe a statistically
+                                                # significant difference". With internal models: 0.097 and 0.107.
+  fully_delegated_pull_requests_apr_2026: 0.075   # text: "increased from 7.5% in April to 11.9% in September 2026"
+  fully_delegated_pull_requests_sep_2026: 0.119
+  pull_requests_needing_human_steering: 0.88     # text: "about 88% of pull requests still require iterative
+                                                 # multi-turn human steering or human code authorship"
+  ml_rd_eval_solved: 0.5                         # text: "solves only around half of the challenges" in its GRB evaluation
+  outcomes_by_task_size: data/gdm_outcomes_by_task_size.csv       # Figure 3.16
+  pull_requests_by_ai_share: data/gdm_pull_requests_by_ai_share.csv   # Figure 3.15
+
+taste_eval:                      # Anthropic Fellows Program, TASTE (alignment.anthropic.com/2026/taste/)
+  pairs: 92
+  researcher_agreement: 0.77     # estimated agreement of a researcher with the benchmark's labels
+  best_model: 0.60               # Fable 5. "almost all models perform within 2 standard deviations of chance"
+  by_model: data/taste_by_model.csv   # read from Ramez Naam's chart of the paper's Table 3 against ECI
+  # Derived here: a straight-line fit across the 18 models gives +0.11 points per ECI point, 95% interval -0.6 to
+  # +0.8. The scatter around the line (5.3 points) equals sampling noise on 92 pairs (5.2 points). The benchmark
+  # shows the level of AI judgment on one kind of fuzzy task (at chance in July 2026) and cannot yet show a rate.
+
+real_research:                   # What the labs' own usage data say that benchmarks do not. Model B only.
+  # Task length that agents finish with no human intervention 80% of the time, on the labs' own research and
+  # engineering work: OpenAI, January to July 2026 pooled, 15 minutes, and 9 to 22 minutes in each month from March
+  # to July with no trend (data/openai_*.csv); Google DeepMind, Gemini 4 Argon, 11 minutes
+  # (data/gdm_outcomes_by_task_size.csv). Both by log-linear interpolation between buckets. METR's benchmark
+  # horizon for Claude Mythos Preview is 186 minutes at 80%. Ramez Naam, "Where's the intelligence explosion?"
+  # (noahpinion.blog, 2026) makes the comparison: "roughly 15 minutes".
+  # The benchmark horizon does not enter Model B. The AI Futures code in use anchors coding automation on measured
+  # coding uplift (ac_anchor_mode "uplift-solved"), and its sampled trajectories are identical with a present
+  # horizon of 186 or 15 minutes. The usage data enter through the two inputs below.
+  # 1. Share of work that needs a person however short the task. Under 15 minutes, 14% of OpenAI's tasks needed an
+  #    intervention or failed, January to July 2026 pooled (9% to 20% in each month from March). Google DeepMind's
+  #    figure for Gemini 4 Argon is 18%. ASSUMPTION, decided by the PI on 2026-11-12: this share is the part of
+  #    real work that turns on judgment the AI lacks, so it falls as AI judgment on fuzzy tasks rises and has no
+  #    fixed floor. The model scales it by the share of researchers whose judgment on fuzzy tasks is still better
+  #    than the AI's. Work in this share is AI-led with a person supervising (human_time_per_unit_work.al4).
+  residue_today: 0.14
+  # 2. Sensitivity only: how fast work is handed over. The supervision schedule can be fitted to Google DeepMind's
+  #    share of fully delegated pull requests (supervision kind "gdm") in place of Anthropic's share of AI-led
+  #    work. The PI does not anchor on this series: Google DeepMind's models were behind the frontier for most of
+  #    the months it covers, and it is production code only. ASSUMPTION in the fit: a pull request with all code
+  #    AI-written and under 3 human turns is AI-led work (AL4), and one with over 75% of code AI-written is AL3 or
+  #    above. Counting pull requests with under 10 human turns as AI-led gives a slope close to Anthropic's.
+
+comprehension_gate:              # ASSUMPTIONS throughout, to be measured in a pilot
+  researcher_hours_per_year: 2000
+  deployed_share_of_experiments_today: 0.05   # one in twenty experiments ends in a deployed change.
+                                 # Interview evidence in METR 2026-11-05: researchers "spam 10 ideas ... and
+                                 # see what sticks" and try "many things quickly, most of which won't work".
+  # Each type: deployed changes per researcher-year on the reference date, researcher-hours to
+  # understand one to audit standard, growth of the count per unit growth in AI labor, and the
+  # share of progress that rides on the type. Understanding everything deployed today takes
+  # 6*10 + 8*8 + 30*5 + 2*12 = 298 hours, 15% of a researcher-year.
+  change_types:
+    training_improvements:   {per_researcher_year: 6,  hours_to_understand: 10, elasticity: 0.5, progress_weight: 0.5}
+    dataset_updates:         {per_researcher_year: 8,  hours_to_understand: 8,  elasticity: 0.5, progress_weight: 0.3}
+    system_software_changes: {per_researcher_year: 30, hours_to_understand: 5,  elasticity: 0.3, progress_weight: 0.2}
+  monitor_changes: {per_researcher_year: 2, hours_to_understand: 12}   # count grows with the log of
+                                                                       # promoted training improvements
+  signoff_hours_per_change: 0.5  # approval without a comprehension standard
+  light_scale: 0.5               # multiplies hours_to_understand
+  strict_scale: 2.0
+  value_tail_index: 1.8          # Pareto tail of the value of a deployed change. Read from Amodei's
+                                 # description of compute multipliers (many ~1.2x, some ~2x, rare ~10x)
+                                 # assuming frequencies of roughly 100:10:1. The frequencies are an assumption.
+  audit_process_hours_per_quarter: 150   # paper Section 8.4: lab staff hours for 22 audits
+
+judgment_link:                   # ASSUMPTION. Model B only: Model A has no research-judgment term.
+  # People apply research judgment only to the deployed changes they understand. On the rest
+  # the lab runs on AI judgment alone.
+  depth: 1.0                     # hours to understand a change well enough to judge what to try next,
+                                 # as a multiple of hours_to_understand. At 1.0 the central audit standard
+                                 # and the understanding judgment needs are the same thing.
+  # Derived: researchers already spend depth * 274 / 2000 = 14% of their time understanding the
+  # training, dataset and system software changes they deploy, and measured labor uplift
+  # includes that time. Monitor changes carry no progress weight and are left out.
+
+taste_models:                    # AI Futures 2026-11-10, "Research taste linear extrapolation"
+  date: 2026.73                  # Sep 25, 2026: Anthropic's best internal model in METR's report
+  level_sd: -3.5                 # AI research taste on that date, from Daniel Kokotajlo's Aug 2026 medians
+  slope_baseline: 3.0            # SD per year of 2025 progress, Kokotajlo's median
+  slope_slow: 1.0                # low end of Eli Lifland's 80% interval of 1 to 6.25
+
+taste_split:                     # Research split into two classes of task. ASSUMPTIONS except crisp_share's anchor.
+  # Definitions follow Bowkis, Buhl, Pfau and Irving, "Automated alignment is harder than you
+  # think" (arXiv:2605.06390, 2026-05-07). Crisp tasks have clear evaluation criteria: "success
+  # is verifiable and experts reliably agree on correct answers". Fuzzy tasks here are the paper's
+  # hard-to-supervise fuzzy tasks: "tasks without clear evaluation criteria, for which human
+  # judgement is systematically flawed". Tasks with no clear criteria that people judge reliably
+  # (writing) count with crisp tasks. AI judgment improves at a different rate in each class.
+  # Both classes start at taste_models.level_sd.
+  crisp_share: 0.65              # weight of crisp work in research while judgment is equal in both classes.
+                                 # Three anchors, none of them a measurement of this quantity:
+                                 # All three separate well-defined work from the rest, which is wider than
+                                 # the fuzzy class as defined above, so 0.65 is at the low end.
+                                 # 1. Importance. Anthropic Institute, "AI for scientific discovery: How researchers
+                                 #    use Claude" (2026-11-05), survey of 528 scientists, mean importance points out
+                                 #    of 100 for producing an important result: ideation and hypothesis generation
+                                 #    35.6, data gathering 23.6, data analysis 23.3, writing and communication 17.5.
+                                 #    Ideation as fuzzy gives a crisp weight of 64%. Respondents are mostly in the
+                                 #    life and health sciences and are active adopters of AI. Not AI researchers.
+                                 #    The same report puts ideation at 7.1% of researcher time.
+                                 # 2. Researcher hours in AI R&D. Epoch AI, "Automation of AI R&D: Researcher
+                                 #    Perspectives" (2024-08-27), eight researchers: six predicted that automating
+                                 #    well-defined experiments or debugging would have "a substantial effect on
+                                 #    their work, such as automating half or more of their current work-hours".
+                                 #    One said 60% of their time. Three put it at "hours or days in a multi-month
+                                 #    project".
+                                 # 3. Agent output. OpenAI 2026-09-06, growth in agent output tokens per
+                                 #    researcher-day, Jan to Aug 2026, by phase (sums of the categories under
+                                 #    `openai` above): build 32%, run 28%, decide 0.6%, design 2%, analyze 8%,
+                                 #    communicate 28%. Build and run are 60%; without communicate, 84%. Agent
+                                 #    output overstates the crisp share of human effort.
+  substitution: 0.25             # elasticity of substitution between crisp and fuzzy work. Below 1 they are
+                                 # complements, so effort shifts to fuzzy work as crisp work gets cheap. No data.
+                                 # 0.25 is the PI's judgment that crisp work stands in for fuzzy work poorly.
+                                 # One AI Futures author's task-continuum variant uses 0.67 to 0.83.
+  crisp_slopes: [3.0, 2.1]       # SD per year of 2025 progress. 3 is AI Futures' base case. 2.1 is the median
+                                 # slope AI Futures reports after filtering its trajectories on the pace in
+                                 # May and November 2026.
+  fuzzy_slopes: [1.0, 0.5]
+
+other_mechanisms:                # AI Futures, How to pace the US frontier (2026-08-05)
+  internal_use_lag_months: 9     # "trained at least X months earlier, perhaps 9"
+  internal_use_lag_months_short: 3   # a shorter lag, for comparison. Not an AI Futures figure.
+  rd_compute_cut_factor: 3.0     # stylized constant-percentage cut; e.g. a 70% external-inference
+                                 # minimum leaves about 30% of compute for R&D
+  scoped_control_substitution: 0.85   # OpenAI Aug 2026: 85% of the compute a model-specific restriction
+                                      # removed came back as work on other model classes
+policy_start: 2027.0
+
+milestones:
+  sar_labor_uplift: 1000         # AI Futures 2026-11-10: "perhaps ... about 1,000x" labor uplift at SAR

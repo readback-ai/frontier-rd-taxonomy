@@ -13,11 +13,12 @@ Read, for the task: its record in `data/tasks/`, its risks, its incidents and th
 
 ## Writing the set
 
-1. **State the contribution** the set is for, in one line: "A new model judge and its prompt for a behavioral evaluation."
-2. **Cover the five categories** (`what`, `why`, `failure`, `dependency`, `side_effects`) and add `provenance` questions where a model produced or checked part of the work.
-3. **Cover both tiers.** Deep-tier areas (`architecture_design`, `implementation_behavior`, `process`) and familiarity-tier areas (`key_findings`, `analysis_of_results`).
-4. **Six to ten questions.** Combine questions that overlap.
-5. For each question write what a good answer shows, one to three red flags, and the record to ask for.
+1. **Start the file with the canary line** copied from an existing set in `data/questions/`. `taxo validate` rejects a set without it.
+2. **State the contribution** the set is for, in one line: "A new model judge and its prompt for a behavioral evaluation."
+3. **Cover the five categories** (`what`, `why`, `failure`, `dependency`, `side_effects`) and add `provenance` questions where a model produced or checked part of the work.
+4. **Cover both tiers.** Deep-tier areas (`architecture_design`, `implementation_behavior`, `process`) and familiarity-tier areas (`key_findings`, `analysis_of_results`).
+5. **Six to ten questions.** Combine questions that overlap.
+6. For each question write what a good answer shows, one to three red flags, and the record to ask for.
 
 ### What makes a question work here
 

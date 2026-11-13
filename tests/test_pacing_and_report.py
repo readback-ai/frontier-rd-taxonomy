@@ -122,6 +122,10 @@ def test_reports_are_reproducible_and_dated_by_the_data(verified: Paths):
     assert "2 of 4 estimates (50%) rest on judgment alone" in first["coverage.md"]
     assert "How do you know the grader agrees with people?" in first["question-pack-x.md"]
     assert "1 of 1 backtested incidents" in first["backtest.md"]
+    from frontier_taxonomy.schema import CANARY
+
+    assert CANARY in first["question-pack-x.md"]
+    assert CANARY in first["backtest.md"]
     assert "A model-written grader passes wrong answers" in first["branch-x.md"]
 
 
