@@ -2,7 +2,7 @@
 
 Runs AI Futures' Nov 10 example trajectory under each taste model in
 calibration.yml (taste -3.5 SD in Sep 2026, then a single slope or separate
-slopes for crisp and fuzzy tasks), with the link off and on.
+slopes for supervisable and HTS fuzzy tasks), with the link off and on.
 
 Writes results/tables_link.md and results/fig7_understanding_with_no_pacing.png.
 """

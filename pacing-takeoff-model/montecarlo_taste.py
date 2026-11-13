@@ -6,11 +6,11 @@ extrapolation" (2026-11-10): AI research taste of -3.5 SD on Sep 25, 2026.
 
     baseline    +3 SD per year of 2025 progress (AI Futures' base case)
     slow        +1 SD per year of 2025 progress
-    split_C_F   research split into crisp tasks at +C SD and fuzzy tasks at +F SD,
+    split_C_F   research split into supervisable tasks at +C SD and HTS fuzzy tasks at +F SD,
                 for C in 3 and 2.1 and F in 1 and 0.5
 
 In the split models the two classes are complements (calibration.yml,
-taste_split), so effort shifts to fuzzy work as crisp work gets cheap.
+taste_split), so effort shifts to HTS fuzzy work as supervisable work gets cheap.
 
 Every other parameter is drawn with AI Futures' own sampler and August 2026
 configuration. A draw is kept if its pace of progress on Nov 1, 2026 is in the
@@ -74,7 +74,7 @@ _STATE = {}
 class TasteModel:
     name: str  # key in the CSV
     crisp: float  # SD per year of 2025 progress. The only slope when `fuzzy` is None
-    fuzzy: float | None  # slope of the fuzzy class, or None for a single taste
+    fuzzy: float | None  # slope of the HTS fuzzy class, or None for a single taste
     years: tuple  # dates for the probability columns
     until: float  # right edge of the figure panel
 
@@ -83,7 +83,7 @@ class TasteModel:
         return (
             f"{self.crisp:+g} SD"
             if self.fuzzy is None
-            else f"Crisp {self.crisp:+g}, fuzzy {self.fuzzy:+g} SD"
+            else f"Supervisable {self.crisp:+g}, HTS fuzzy {self.fuzzy:+g} SD"
         )
 
     @property
@@ -91,7 +91,7 @@ class TasteModel:
         return (
             f"taste {self.crisp:+g} SD a year"
             if self.fuzzy is None
-            else f"crisp {self.crisp:+g} SD, fuzzy {self.fuzzy:+g} SD a year"
+            else f"supervisable {self.crisp:+g} SD, HTS fuzzy {self.fuzzy:+g} SD a year"
         )
 
     @property
@@ -99,8 +99,8 @@ class TasteModel:
         return (
             f"Taste improves {self.crisp:+g} SD per year of 2025 progress"
             if self.fuzzy is None
-            else f"Crisp tasks improve {self.crisp:+g} SD and fuzzy tasks {self.fuzzy:+g} SD per "
-            "year of 2025 progress"
+            else f"Supervisable tasks improve {self.crisp:+g} SD and HTS fuzzy tasks "
+            f"{self.fuzzy:+g} SD per year of 2025 progress"
         )
 
 
@@ -138,8 +138,10 @@ def build(
     t, sp, t_ref = cal["taste_models"], cal["taste_split"], cal["reference_date"]
     m = pinned(params, first, model.crisp, t["level_sd"], t["date"], aifm_path, t_ref)
     if model.fuzzy is not None:
-        # The crisp class keeps the schedule AIFM holds for the single taste. The fuzzy class
-        # passes through the same level on the date and climbs at fuzzy / crisp of the rate.
+        # The supervisable class keeps the schedule AIFM holds for the single taste. The HTS
+        # fuzzy class passes through the same level on the date and climbs at fuzzy / crisp of
+        # the rate. Field and key names keep the earlier labels: crisp is the supervisable
+        # class and fuzzy is the HTS fuzzy class.
         at = m.capability_at(t["date"])
         level, slope = m.taste_sd(at), m.params.ai_research_taste_slope
         share = sp["crisp_share"] if share is None else share
@@ -350,7 +352,7 @@ def markdown(rows, meta) -> str:
         f"Median pace of the kept trajectories: {meta['median_pace']:.2f}x. "
         f"Every taste model puts AI research taste at {spec['level_sd']:+g} SD on "
         f"{pm.fmt_date(spec['date'])}, "
-        "in both classes of task where there are two. In the split models crisp tasks take "
+        "in both classes of task where there are two. In the split models supervisable tasks take "
         f"{meta.get('crisp_share', sp['crisp_share']):.0%} of research effort while judgment is "
         "equal across the classes, and the "
         "elasticity of substitution between the classes is "
@@ -367,7 +369,7 @@ def markdown(rows, meta) -> str:
     out += ["## Summary", ""]
     groups = [
         ("one taste", [m for m in models if m.fuzzy is None]),
-        ("crisp and fuzzy tasks", [m for m in models if m.fuzzy is not None]),
+        ("supervisable and HTS fuzzy tasks", [m for m in models if m.fuzzy is not None]),
     ]
     for key, label in milestones:
         for group, members in groups:
@@ -593,8 +595,9 @@ def figure(rows, meta, styles: dict, path: Path, title: str, models: list[TasteM
     )
     split = any(m.fuzzy is not None for m in models)
     classes = (
-        f" Crisp tasks take {meta.get('crisp_share', cal['taste_split']['crisp_share']):.0%} of "
-        "research effort at first, and crisp and fuzzy work are complements."
+        " Supervisable tasks take "
+        f"{meta.get('crisp_share', cal['taste_split']['crisp_share']):.0%} of research effort "
+        "at first, and supervisable and HTS fuzzy work are complements."
         if split
         else ""
     )
@@ -629,7 +632,7 @@ def report(rows, meta, tag: str = "") -> None:
     if single:
         figure(rows, meta, STYLE_GATES, OUT / "fig5_probability_by_date_gates.png", gates, single)
         figure(rows, meta, STYLE_OTHER, OUT / "fig6_probability_by_date_other.png", other, single)
-    # One pair of figures per rate on crisp tasks: figures 8 and 9, then 10 and 11.
+    # One pair of figures per rate on supervisable tasks: figures 8 and 9, then 10 and 11.
     crisp_rates = sorted({m.crisp for m in models if m.fuzzy is not None}, reverse=True)
     for number, crisp in zip((8, 10), crisp_rates, strict=False):
         members = [m for m in models if m.fuzzy is not None and m.crisp == crisp]
@@ -642,7 +645,7 @@ def report(rows, meta, tag: str = "") -> None:
                 meta,
                 styles,
                 OUT / f"fig{number + offset}_probability_by_date_{kind}_split{suffix}.png",
-                title + ", crisp and fuzzy tasks",
+                title + ", supervisable and HTS fuzzy tasks",
                 members,
             )
 

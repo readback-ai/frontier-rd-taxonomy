@@ -1,10 +1,10 @@
-"""What splitting research into crisp and fuzzy tasks does, on one trajectory.
+"""What splitting research into supervisable and HTS fuzzy tasks does, on one trajectory.
 
 Runs AI Futures' Nov 10 example trajectory with AI judgment improving at one
-rate on crisp tasks and a slower rate on fuzzy tasks (calibration.yml,
+rate on supervisable tasks and a slower rate on HTS fuzzy tasks (calibration.yml,
 taste_split), and varies the three inputs that have no measurement behind them:
-the share of research effort that is crisp today, how far crisp work can stand
-in for fuzzy work, and whether crisp judgment starts ahead.
+the share of research effort that is crisp today, how far supervisable work can stand
+in for HTS fuzzy work, and whether supervisable judgment starts ahead.
 
 Writes results/tables_split.md.
 """
@@ -43,7 +43,7 @@ def main() -> None:
     sp = cal["taste_split"]
     policies = {p.name: p for p in pm.standard_policies(cal)}
     out = [
-        "# Crisp and fuzzy research tasks on one trajectory",
+        "# Supervisable and HTS fuzzy research tasks on one trajectory",
         "",
         "Written by `split_effect.py`. Do not edit by hand.",
         "",
@@ -62,9 +62,9 @@ def main() -> None:
         out += [
             "### No pacing: where the effort goes",
             "",
-            "| Date | AI judgment, crisp tasks | AI judgment, fuzzy tasks | Judgment of an AI-only "
-            "lab | "
-            "Share of research effort on fuzzy tasks | Share of deployed value that a person "
+            "| Date | AI judgment, supervisable tasks | AI judgment, HTS fuzzy tasks | "
+            "Judgment of an AI-only lab | "
+            "Share of research effort on HTS fuzzy tasks | Share of deployed value that a person "
             "understands | "
             "Pace |",
             "|---|---|---|---|---|---|---|",
@@ -94,19 +94,19 @@ def main() -> None:
         ]
         cases = [
             (
-                f"Central: crisp share {sp['crisp_share']:.0%}, "
+                f"Central: supervisable share {sp['crisp_share']:.0%}, "
                 f"substitution {sp['substitution']:g}",
                 {},
             ),
-            ("Crisp share 50%", dict(share=0.5)),
-            ("Crisp share 80%", dict(share=0.8)),
+            ("Supervisable share 50%", dict(share=0.5)),
+            ("Supervisable share 80%", dict(share=0.8)),
             ("Substitution 0 (fixed proportions)", dict(substitution=0.0)),
             ("Substitution 0.5", dict(substitution=0.5)),
             (
                 "Substitution 0.83 (one AI Futures author's light bottleneck)",
                 dict(substitution=0.83),
             ),
-            ("Crisp judgment starts at -1.5 SD", dict(crisp_level=-1.5)),
+            ("Supervisable judgment starts at -1.5 SD", dict(crisp_level=-1.5)),
         ]
         for label, override in cases:
             m = example(cal, spec, **override)
@@ -117,8 +117,8 @@ def main() -> None:
         sigma = float(central.params.taste_distribution.sigma)
         out += [
             "",
-            f"With crisp work free, the lab's judgment is at most {ceiling:.1f} times its judgment "
-            "on fuzzy "
+            f"With supervisable work free, the lab's judgment is at most {ceiling:.1f} times its "
+            "judgment on HTS fuzzy "
             f"tasks, which is {np.log(ceiling) / sigma:.1f} SD on this trajectory's researcher "
             "distribution.",
             "",

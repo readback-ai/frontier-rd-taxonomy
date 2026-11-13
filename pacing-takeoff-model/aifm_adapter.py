@@ -323,7 +323,7 @@ class Aifm:
         """Share of work that cannot run unsupervised because it turns on a judgment call the
         AI gets wrong. It starts at the share the labs measure on their shortest tasks and
         falls in step with the share of researchers whose judgment is still better than the
-        AI's, on fuzzy tasks where there are task classes. With `residue_halving` set it
+        AI's, on HTS fuzzy tasks where there are task classes. With `residue_halving` set it
         instead halves each time AI judgment gains that many SD."""
         if self.residue <= 0.0:
             return 0.0

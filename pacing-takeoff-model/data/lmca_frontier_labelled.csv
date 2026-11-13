@@ -1,0 +1,21 @@
+# LMCA, from a chart at conceptualreasoning.ai/lmca posted on X by @hasanbaig8 in November 2026 and supplied to this
+# project by the PI as an image. The post describes the benchmark: models evaluate arguments in conceptual domains
+# (AI safety, decision theory, normative ethics, philosophy of mind, politics) and are graded against expert
+# ratings. The chart shows state-of-the-art models from OpenAI, Anthropic and Google DeepMind by release date, a
+# linear trend with r = 0.95, and a line "Estimated ceiling (85)". The page was not fetched, so what the score and
+# the ceiling measure is not recorded here. Only the points the chart labels with a model name are listed. Values
+# were read by eye from the image, to about one point of score and one month of date.
+model,decimal_year,lmca_score
+GPT-4,2023.46,17
+o1,2024.96,22
+o3,2025.29,40
+GPT-5,2025.60,40
+GPT-5.1,2025.87,44
+Opus 4.5,2025.90,44.5
+Opus 4.6,2026.10,56
+Opus 4.8,2026.42,57.5
+Fable 5,2026.46,60
+Opus 5,2026.58,63
+Fable 5.1,2026.69,65.5
+Opus 5.5,2026.75,68
+Fable 5.2,2026.87,70

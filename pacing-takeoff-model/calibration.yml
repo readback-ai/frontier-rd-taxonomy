@@ -102,7 +102,19 @@ taste_eval:                      # Anthropic Fellows Program, TASTE (alignment.a
   by_model: data/taste_by_model.csv   # read from Ramez Naam's chart of the paper's Table 3 against ECI
   # Derived here: a straight-line fit across the 18 models gives +0.11 points per ECI point, 95% interval -0.6 to
   # +0.8. The scatter around the line (5.3 points) equals sampling noise on 92 pairs (5.2 points). The benchmark
-  # shows the level of AI judgment on one kind of fuzzy task (at chance in July 2026) and cannot yet show a rate.
+  # shows the level of AI judgment on one kind of research-judgment task (at chance in July 2026) and cannot yet
+  # show a rate.
+
+judgment_benchmarks:             # Three benchmarks scored against human judgment, added 2026-11-13 from charts
+  # posted on X by @hasanbaig8 and supplied by the PI as images. The post and the benchmarks' pages were not
+  # fetched. Statistics recomputed from the values read off the charts match the ones the charts print: a rank
+  # correlation of -0.16 for TASTE, and correlations of 0.79 for RedwoodBench and 0.95 for LMCA.
+  # ASSUMPTION in reading them: a benchmark scored against people's judgment measures a supervisable task. It
+  # stops at people's level and cannot show the rate on HTS fuzzy tasks, where human judgment is flawed.
+  taste_rerun: data/taste_rerun_by_model.csv        # 36 models against ECI
+  redwoodbench: data/redwoodbench_by_model.csv      # 13 models against ECI
+  lmca: data/lmca_frontier_labelled.csv             # the 13 frontier models the chart labels, by release date
+  lmca_estimated_ceiling: 85                        # as printed on the chart
 
 real_research:                   # What the labs' own usage data say that benchmarks do not. Model B only.
   # Task length that agents finish with no human intervention 80% of the time, on the labs' own research and
@@ -117,8 +129,8 @@ real_research:                   # What the labs' own usage data say that benchm
   # 1. Share of work that needs a person however short the task. Under 15 minutes, 14% of OpenAI's tasks needed an
   #    intervention or failed, January to July 2026 pooled (9% to 20% in each month from March). Google DeepMind's
   #    figure for Gemini 4 Argon is 18%. ASSUMPTION, decided by the PI on 2026-11-12: this share is the part of
-  #    real work that turns on judgment the AI lacks, so it falls as AI judgment on fuzzy tasks rises and has no
-  #    fixed floor. The model scales it by the share of researchers whose judgment on fuzzy tasks is still better
+  #    real work that turns on judgment the AI lacks, so it falls as AI judgment on HTS fuzzy tasks rises and has no
+  #    fixed floor. The model scales it by the share of researchers whose judgment on HTS fuzzy tasks is still better
   #    than the AI's. Work in this share is AI-led with a person supervising.
   residue_today: 0.14
   #    A person's time on that work, as a share of the time the work would take a person. ASSUMPTION, the PI's
@@ -196,21 +208,23 @@ taste_models:                    # AI Futures 2026-11-10, "Research taste linear
 
 taste_split:                     # Research split into two classes of task. ASSUMPTIONS except crisp_share's anchor.
   # Definitions follow Bowkis, Buhl, Pfau and Irving, "Automated alignment is harder than you
-  # think" (arXiv:2605.06390, 2026-05-07). Crisp tasks have clear evaluation criteria: "success
-  # is verifiable and experts reliably agree on correct answers". Fuzzy tasks here are the paper's
-  # hard-to-supervise fuzzy tasks: "tasks without clear evaluation criteria, for which human
-  # judgement is systematically flawed". Tasks with no clear criteria that people judge reliably
-  # (writing) count with crisp tasks. AI judgment improves at a different rate in each class.
+  # think" (arXiv:2605.06390, 2026-05-07). HTS fuzzy tasks are the paper's hard-to-supervise
+  # fuzzy tasks: "tasks without clear evaluation criteria, for which human judgement is
+  # systematically flawed". Supervisable tasks are everything else: the paper's crisp tasks, where
+  # "success is verifiable and experts reliably agree on correct answers", and tasks with no clear
+  # criteria that people judge reliably (writing). AI judgment improves at a different rate in each
+  # class. Keys keep the labels used until 2026-11-13: crisp is the supervisable class and fuzzy is
+  # the HTS fuzzy class.
   # Both classes start at taste_models.level_sd.
-  crisp_share: 0.65              # weight of crisp work in research while judgment is equal in both classes.
+  crisp_share: 0.65              # weight of supervisable work in research while judgment is equal in both classes.
                                  # Three anchors, none of them a measurement of this quantity:
                                  # All three separate well-defined work from the rest, which is wider than
-                                 # the fuzzy class as defined above, so 0.65 is at the low end.
+                                 # the HTS fuzzy class as defined above, so 0.65 is at the low end.
                                  # 1. Importance. Anthropic Institute, "AI for scientific discovery: How researchers
                                  #    use Claude" (2026-11-05), survey of 528 scientists, mean importance points out
                                  #    of 100 for producing an important result: ideation and hypothesis generation
                                  #    35.6, data gathering 23.6, data analysis 23.3, writing and communication 17.5.
-                                 #    Ideation as fuzzy gives a crisp weight of 64%. Respondents are mostly in the
+                                 #    Ideation as HTS fuzzy gives a supervisable weight of 64%. Respondents are mostly in the
                                  #    life and health sciences and are active adopters of AI. Not AI researchers.
                                  #    The same report puts ideation at 7.1% of researcher time.
                                  # 2. Researcher hours in AI R&D. Epoch AI, "Automation of AI R&D: Researcher
@@ -223,10 +237,10 @@ taste_split:                     # Research split into two classes of task. ASSU
                                  #    researcher-day, Jan to Aug 2026, by phase (sums of the categories under
                                  #    `openai` above): build 32%, run 28%, decide 0.6%, design 2%, analyze 8%,
                                  #    communicate 28%. Build and run are 60%; without communicate, 84%. Agent
-                                 #    output overstates the crisp share of human effort.
-  substitution: 0.25             # elasticity of substitution between crisp and fuzzy work. Below 1 they are
-                                 # complements, so effort shifts to fuzzy work as crisp work gets cheap. No data.
-                                 # 0.25 is the PI's judgment that crisp work stands in for fuzzy work poorly.
+                                 #    output overstates the supervisable share of human effort.
+  substitution: 0.25             # elasticity of substitution between supervisable and HTS fuzzy work. Below 1 they are
+                                 # complements, so effort shifts to HTS fuzzy work as supervisable work gets cheap. No data.
+                                 # 0.25 is the PI's judgment that supervisable work stands in for HTS fuzzy work poorly.
                                  # One AI Futures author's task-continuum variant uses 0.67 to 0.83.
   crisp_slopes: [3.0, 2.1]       # SD per year of 2025 progress. 3 is AI Futures' base case. 2.1 is the median
                                  # slope AI Futures reports after filtering its trajectories on the pace in

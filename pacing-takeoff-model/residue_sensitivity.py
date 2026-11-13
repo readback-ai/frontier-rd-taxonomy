@@ -22,7 +22,7 @@ from montecarlo_taste import taste_models
 
 OUT = pm.HERE / "results"
 CENTRAL, LAG9, HEAVY = "Comprehension audits, central", "Internal-use lag, 9 months", "heavy"
-TASTES = (("split_3_1", "Fuzzy tasks at +1 SD"), ("split_3_0.5", "Fuzzy tasks at +0.5 SD"))
+TASTES = (("split_3_1", "HTS fuzzy tasks at +1 SD"), ("split_3_0.5", "HTS fuzzy tasks at +0.5 SD"))
 
 
 def cases(cal: dict) -> dict[str, dict]:
@@ -127,7 +127,7 @@ def main() -> None:
         *reported(),
         "## Sensitivity on AI Futures' Nov 10 example trajectory",
         "",
-        "Crisp tasks improve 3 SD per year of 2025 progress. The link from comprehension to "
+        "Supervisable tasks improve 3 SD per year of 2025 progress. The link from comprehension to "
         "human judgment is on. Pacing starts Jan 1, 2027. Each row changes one input of the "
         "central case.",
         "",

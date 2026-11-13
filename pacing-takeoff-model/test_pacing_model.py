@@ -249,8 +249,8 @@ def test_task_classes_that_move_together_change_nothing():
 
 
 def test_lab_keeps_understanding_for_the_class_where_people_still_lead():
-    # AI matches people on crisp tasks and is far behind on fuzzy ones. People's judgment
-    # still pays on the fuzzy class, so the lab keeps understanding what it deploys.
+    # AI matches people on supervisable tasks and is far behind on HTS fuzzy ones. People's judgment
+    # still pays on the HTS fuzzy class, so the lab keeps understanding what it deploys.
     crisp_only = lab_choice(1e-3, cobb, REF, GATE, None, 2.0, 2.0, LINK)
     split = lab_choice(
         1e-3,

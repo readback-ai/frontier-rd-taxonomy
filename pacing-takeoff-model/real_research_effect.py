@@ -5,7 +5,7 @@ show. This script runs AI Futures' Nov 10 example trajectory with one change
 (calibration.yml, real_research) and one sensitivity:
 
   residue      a share of work needs a person however short the task, and that share falls
-               as AI judgment rises (on fuzzy tasks, where research is split into classes)
+               as AI judgment rises (on HTS fuzzy tasks, where research is split into classes)
   sensitivity  the supervision schedule fitted to Google DeepMind's share of fully delegated
                pull requests in place of Anthropic's share of AI-led work. The briefing does
                not anchor on that series.
@@ -118,6 +118,57 @@ def data_tables(cal: dict) -> list[str]:
     return out
 
 
+def ranks(values) -> np.ndarray:
+    values = np.asarray(values, float)
+    order = np.argsort(values)
+    out = np.empty(len(values))
+    out[order] = np.arange(len(values))
+    for v in np.unique(values):
+        out[values == v] = out[values == v].mean()
+    return out
+
+
+def benchmarks(cal: dict) -> list[str]:
+    """Three benchmarks scored against human judgment, and how each moves with capability."""
+    jb, pairs = cal["judgment_benchmarks"], cal["taste_eval"]["pairs"]
+    name = lambda key: jb[key].removeprefix("data/")  # noqa: E731
+    taste = pm.read_data(name("taste_rerun"))
+    eci = np.array([float(r["eci"]) for r in taste])
+    acc = np.array([float(r["taste_accuracy"]) for r in taste])
+    noise = 1.96 * np.sqrt(0.25 / pairs)
+    outside = int(np.sum(np.abs(acc - 0.5) > noise))
+    redwood = pm.read_data(name("redwoodbench"))
+    r_eci = np.array([float(r["eci"]) for r in redwood])
+    recall = np.array([float(r["recall_pct"]) for r in redwood])
+    lmca = pm.read_data(name("lmca"))
+    when = np.array([float(r["decimal_year"]) for r in lmca])
+    score = np.array([float(r["lmca_score"]) for r in lmca])
+    slope, intercept = np.polyfit(when, score, 1)
+    ceiling = jb["lmca_estimated_ceiling"]
+    latest = when.max() + (ceiling - score.max()) / slope
+    return [
+        "## Benchmarks scored against human judgment",
+        "",
+        "| Benchmark | Models | Scores | How it moves with capability |",
+        "|---|---|---|---|",
+        f"| TASTE, rerun | {len(taste)} | {acc.min():.0%} to {acc.max():.0%}, chance 50% | Rank "
+        f"correlation with ECI {np.corrcoef(ranks(eci), ranks(acc))[0, 1]:+.2f}. {outside} "
+        f"models are more than {noise * 100:.0f} points from chance, the 95% noise band on {pairs} "
+        "pairs |",
+        f"| RedwoodBench | {len(redwood)} | {recall.min():.1f}% to {recall.max():.1f}% of human "
+        f"reviewers' points matched | Correlation with ECI {np.corrcoef(r_eci, recall)[0, 1]:.2f}, "
+        f"{np.polyfit(r_eci, recall, 1)[0]:+.2f} points per ECI point |",
+        f"| LMCA, frontier models the chart labels | {len(lmca)} | {score.min():.0f} to "
+        f"{score.max():.0f}, estimated ceiling {ceiling} | {slope:+.0f} points a year since "
+        f"{pm.fmt_date(when.min())}, correlation {np.corrcoef(when, score)[0, 1]:.2f}. The fitted "
+        f"line reaches the ceiling in {pm.fmt_date((ceiling - intercept) / slope)}. From the "
+        f"latest model at that slope it is {pm.fmt_date(latest)} |",
+        "",
+        "All values were read by eye from charts. The benchmarks' pages were not fetched.",
+        "",
+    ]
+
+
 def model_a(cal: dict) -> list[str]:
     out = [
         "## Model A, no pacing",
@@ -155,6 +206,7 @@ def main() -> None:
         "Written by `real_research_effect.py`. Do not edit by hand.",
         "",
         *data_tables(cal),
+        *benchmarks(cal),
         *model_a(cal),
         "## Model B, AI Futures' Nov 10 example trajectory",
         "",

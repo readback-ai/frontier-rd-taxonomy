@@ -24,27 +24,27 @@ Crisp tasks improve 3 SD per year of 2025 progress. The link from comprehension 
 | Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to TED-AI | Audits at 3.5 times the hours: delay to superhuman AI researcher | Audits at 3.5 times the hours: delay to TED-AI | 9-month lag: delay to TED-AI |
 |---|---|---|---|---|---|---|
 | No work needs a person | Feb 2028 | Jul 2028 | +8 mo | +5 mo | +16 mo | +19 mo |
-| Central: 14% of work, supervised at 4% of its time | Jun 2028 | Mar 2029 | +4 mo | +3 mo | +11 mo | +18 mo |
-| Starting share 7% | Apr 2028 | Jan 2029 | +4 mo | +4 mo | +12 mo | +19 mo |
-| Starting share 28% | Jul 2028 | May 2029 | +3 mo | +3 mo | +10 mo | +18 mo |
+| Central: 14% of work, supervised at 0.5% of its time | Mar 2028 | Nov 2028 | +5 mo | +4 mo | +14 mo | +18 mo |
+| Starting share 7% | Mar 2028 | Oct 2028 | +6 mo | +5 mo | +14 mo | +18 mo |
+| Starting share 28% | Apr 2028 | Dec 2028 | +5 mo | +4 mo | +13 mo | +18 mo |
+| Supervised at 4.0% of its time | Jun 2028 | Mar 2029 | +4 mo | +3 mo | +11 mo | +18 mo |
 | Supervised at 2.0% of its time | Apr 2028 | Jan 2029 | +4 mo | +4 mo | +12 mo | +19 mo |
 | Supervised at 1.0% of its time | Apr 2028 | Dec 2028 | +5 mo | +4 mo | +13 mo | +18 mo |
-| Supervised at 0.5% of its time | Mar 2028 | Nov 2028 | +5 mo | +4 mo | +14 mo | +18 mo |
 | Supervised at 0.1% of its time | Feb 2028 | Sep 2028 | +6 mo | +5 mo | +15 mo | +19 mo |
-| Share halves per 1 SD of judgment the AI gains | Apr 2028 | Jan 2029 | +3 mo | +4 mo | +12 mo | +17 mo |
-| Share halves per 0.5 SD of judgment the AI gains | Feb 2028 | Sep 2028 | +6 mo | +5 mo | +15 mo | +18 mo |
+| Share halves per 1 SD of judgment the AI gains | Feb 2028 | Oct 2028 | +5 mo | +5 mo | +14 mo | +18 mo |
+| Share halves per 0.5 SD of judgment the AI gains | Feb 2028 | Aug 2028 | +7 mo | +5 mo | +16 mo | +18 mo |
 
 ### Fuzzy tasks at +0.5 SD (split_3_0.5)
 
 | Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to TED-AI | Audits at 3.5 times the hours: delay to superhuman AI researcher | Audits at 3.5 times the hours: delay to TED-AI | 9-month lag: delay to TED-AI |
 |---|---|---|---|---|---|---|
 | No work needs a person | Nov 2028 | Feb 2034 | +57 mo | +16 mo | past 2039 | +14 mo |
-| Central: 14% of work, supervised at 4% of its time | Feb 2030 | Jun 2037 | +25 mo | +7 mo | past 2039 | +16 mo |
-| Starting share 7% | Nov 2029 | Dec 2036 | +28 mo | +8 mo | past 2039 | +15 mo |
-| Starting share 28% | Jun 2030 | Dec 2037 | +22 mo | +6 mo | past 2039 | +16 mo |
+| Central: 14% of work, supervised at 0.5% of its time | Jul 2029 | Mar 2036 | +35 mo | +10 mo | past 2039 | +15 mo |
+| Starting share 7% | Jun 2029 | Nov 2035 | +38 mo | +10 mo | past 2039 | +15 mo |
+| Starting share 28% | Sep 2029 | Jul 2036 | +32 mo | +9 mo | past 2039 | +15 mo |
+| Supervised at 4.0% of its time | Feb 2030 | Jun 2037 | +25 mo | +7 mo | past 2039 | +16 mo |
 | Supervised at 2.0% of its time | Nov 2029 | Dec 2036 | +28 mo | +8 mo | past 2039 | +15 mo |
 | Supervised at 1.0% of its time | Sep 2029 | Jul 2036 | +32 mo | +9 mo | past 2039 | +15 mo |
-| Supervised at 0.5% of its time | Jul 2029 | Mar 2036 | +35 mo | +10 mo | past 2039 | +15 mo |
 | Supervised at 0.1% of its time | Apr 2029 | Jun 2035 | +42 mo | +11 mo | past 2039 | +16 mo |
-| Share halves per 1 SD of judgment the AI gains | Sep 2029 | Oct 2037 | +20 mo | +9 mo | past 2039 | +12 mo |
-| Share halves per 0.5 SD of judgment the AI gains | Jun 2029 | Sep 2035 | +39 mo | +11 mo | past 2039 | +15 mo |
+| Share halves per 1 SD of judgment the AI gains | May 2029 | Jun 2036 | +31 mo | +11 mo | past 2039 | +12 mo |
+| Share halves per 0.5 SD of judgment the AI gains | Feb 2029 | Dec 2034 | +48 mo | +13 mo | past 2039 | +15 mo |

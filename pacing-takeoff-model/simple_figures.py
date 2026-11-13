@@ -71,8 +71,8 @@ def critical_rate_figure(p: Params) -> None:
         va="center",
     )
     marks = (
-        (0.5, "Fuzzy tasks, +0.5 SD", (-8, 8)),
-        (1.0, "Fuzzy tasks, +1 SD", (-8, 8)),
+        (0.5, "HTS fuzzy tasks, +0.5 SD", (-8, 8)),
+        (1.0, "HTS fuzzy tasks, +1 SD", (-8, 8)),
         (2.1, "AI Futures' filtered\nmedian, +2.1 SD", (-10, 6)),
     )
     for rate, text, offset in marks:
@@ -119,8 +119,18 @@ def pace_paths_figure(p: Params) -> None:
     below, above = dict(xytext=(8, -4), va="top"), dict(xytext=(0, 9), va="bottom", ha="center")
     cases = (
         ("One judgment, +3 SD a year", dict(crisp_rate=3.0, fuzzy_rate=3.0), BLUE, below),
-        ("Crisp +3, fuzzy +1 SD a year", dict(crisp_rate=3.0, fuzzy_rate=1.0), ORANGE, above),
-        ("Crisp +3, fuzzy +0.5 SD a year", dict(crisp_rate=3.0, fuzzy_rate=0.5), AQUA, above),
+        (
+            "Supervisable +3, HTS fuzzy +1 SD a year",
+            dict(crisp_rate=3.0, fuzzy_rate=1.0),
+            ORANGE,
+            above,
+        ),
+        (
+            "Supervisable +3, HTS fuzzy +0.5 SD a year",
+            dict(crisp_rate=3.0, fuzzy_rate=0.5),
+            AQUA,
+            above,
+        ),
     )
     for label, rates, color, place in cases:
         q = replace(p, **rates)
@@ -148,7 +158,7 @@ def pace_paths_figure(p: Params) -> None:
     ax.legend(loc="upper right", frameon=False, fontsize=9.5, labelcolor=INK)
     titles(
         ax,
-        "The rate on fuzzy tasks decides whether the pace explodes or settles",
+        "The rate on HTS fuzzy tasks decides whether the pace explodes or settles",
         "Pace of AI progress with no pacing, as a multiple of the rate before October 2025. "
         "Each line ends at TED-AI or at 2034.",
     )

@@ -41,12 +41,13 @@ The class of deployed change a task produces, as the pacing model counts them: t
 **Output role**:
 What a task's output does to the model or the organization: shapes it, measures it, contains it, runs it, or decides about it.
 
-**Crisp task**:
-A task with clear evaluation criteria: success can be verified and experts reliably agree on the answer. After Bowkis et al. (arXiv:2605.06390). In the pacing model the crisp class also holds tasks with no clear criteria that people judge reliably, such as writing.
+**Supervisable task**:
+A task whose output people can judge. Either it has clear evaluation criteria, so success can be verified and experts reliably agree on the answer, which Bowkis et al. (arXiv:2605.06390) call a crisp task. Or it has no clear criteria and people still judge it reliably, as with writing. The faster of the pacing model's two classes.
+_Avoid_: Crisp task for this class, which is wider than the crisp tasks of Bowkis et al.
 
-**Fuzzy task**:
-A task without clear evaluation criteria, for which human judgment is systematically flawed. This is what Bowkis et al. call a hard-to-supervise fuzzy task; their plain "fuzzy" is wider and includes tasks people judge reliably.
-_Avoid_: Fuzzy for any task that is slow or costly to check
+**HTS fuzzy task**:
+A hard-to-supervise fuzzy task: one without clear evaluation criteria, for which human judgment is systematically flawed. The term and the definition are from Bowkis et al., whose plain "fuzzy" is wider and includes tasks people judge reliably. The slower of the pacing model's two classes.
+_Avoid_: Fuzzy task for this class; fuzzy for any task that is slow or costly to check
 
 **Frontier**:
 The few developers training the most capable models. Scope `frontier` on an estimate means those developers taken together.

@@ -14,10 +14,12 @@ this directory, and it keeps the parts their results turn on.
    `labor_ceiling`, because experiments need compute.
 
 3. Judgment has no ceiling, and it comes in two kinds. Research input is multiplied by the
-   lab's research judgment. AI judgment improves at one rate on crisp tasks and a slower rate
-   on fuzzy tasks, and crisp work stands in for fuzzy work poorly, so the slower rate ends up
-   setting the pace. A share of work also needs a person until AI judgment on fuzzy tasks
-   catches up.
+   lab's research judgment. On supervisable tasks people can judge the work, and AI judgment
+   improves at one rate. On hard-to-supervise (HTS) fuzzy tasks there are no clear criteria
+   and human judgment is systematically flawed, and AI judgment improves at a slower rate.
+   Supervisable work stands in for HTS fuzzy work poorly, so the slower rate ends up setting
+   the pace. A share of work also needs a person until AI judgment on HTS fuzzy tasks catches
+   up. Parameter names keep the earlier labels: crisp is supervisable and fuzzy is HTS fuzzy.
 
 4. Understanding takes people's time. The count of deployed changes grows with AI labor. The
    hours it takes a person to understand one do not shrink.
@@ -58,10 +60,12 @@ class Params:
     progress_at_ref: float = 1.3327  # years of progress from Oct 1, 2025 to Nov 1, 2026. Fitted
     # 3. Judgment
     judgment_start: float = -3.5  # AI research judgment on Nov 1, 2026, in researcher SD
-    crisp_rate: float = 3.0  # SD gained per year of progress on crisp tasks
-    fuzzy_rate: float = 1.0  # the same on fuzzy tasks. Equal rates give one kind of judgment
-    crisp_weight: float = 0.65  # weight of crisp work in research
-    substitution: float = 0.25  # how well crisp work stands in for fuzzy work. 1 is neutral
+    crisp_rate: float = 3.0  # SD gained per year of progress on supervisable tasks
+    fuzzy_rate: float = 1.0  # the same on HTS fuzzy tasks. Equal rates give one kind of judgment
+    crisp_weight: float = 0.65  # weight of supervisable work in research
+    substitution: float = (
+        0.25  # how well supervisable work stands in for HTS fuzzy work. 1 is neutral
+    )
     value_per_sd: float = 0.445  # log research value of one SD of judgment
     residue: float = 0.14  # share of work that needs a person on Nov 1, 2026
     supervision_time: float = 0.005  # a person's time on that work, as a share of doing it
@@ -285,8 +289,8 @@ def fmt_delay(base: float, paced: float) -> str:
 TASTES = (
     ("One kind of judgment, +3 SD a year", dict(crisp_rate=3.0, fuzzy_rate=3.0)),
     ("One kind of judgment, +1 SD a year", dict(crisp_rate=1.0, fuzzy_rate=1.0)),
-    ("Crisp +3, fuzzy +1 SD a year", dict(crisp_rate=3.0, fuzzy_rate=1.0)),
-    ("Crisp +3, fuzzy +0.5 SD a year", dict(crisp_rate=3.0, fuzzy_rate=0.5)),
+    ("Supervisable +3, HTS fuzzy +1 SD a year", dict(crisp_rate=3.0, fuzzy_rate=1.0)),
+    ("Supervisable +3, HTS fuzzy +0.5 SD a year", dict(crisp_rate=3.0, fuzzy_rate=0.5)),
 )
 
 

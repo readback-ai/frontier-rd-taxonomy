@@ -1,0 +1,22 @@
+# RedwoodBench, from a chart "More capable models match more of the target points" posted on X by @hasanbaig8 in
+# November 2026 and supplied to this project by the PI as an image. The post describes the benchmark: models write
+# 20 comments on conceptual AI safety documents shared within Redwood Research and not published, and are graded on
+# how many of the points in the human-written comments appear in theirs. The chart prints r = 0.79. Neither the
+# post nor the benchmark's page (lesswrong.com, "RedwoodBench: can frontier models imitate conceptual AI ...") was
+# fetched, so the number of documents, the grader and any human-to-human figure are not recorded here. Values were
+# read by eye from the image, to about 0.2 points of recall and half a point of ECI. The chart shows an interval
+# on each point of roughly 1 to 2 points either way.
+model,eci,recall_pct
+Haiku 4.5,142.0,0.6
+Sonnet 4.5,147.0,2.1
+Sonnet 5,156.0,2.0
+GPT-5.6 Luna,156.2,2.0
+GPT-6 Luna,156.3,1.8
+GPT-5.6 Terra,159.8,2.5
+GPT-5.6 Sol,161.8,4.8
+GPT-6 Sol,162.7,4.2
+Fable 5.1,164.7,6.7
+Sonnet 5.5,165.0,6.5
+GPT-6.1 Sol,166.1,3.9
+GPT-6 Astra,166.4,4.2
+Opus 5.5,167.3,8.1
