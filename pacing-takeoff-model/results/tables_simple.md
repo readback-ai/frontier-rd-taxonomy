@@ -34,7 +34,7 @@ Pace once AI labor is at its ceiling: 1.7x.
 | R&D compute cut 3x | Feb 2031 | +6 mo | Oct 2033 | +6 mo |
 | Comprehension audits (central) + 9-month lag | Mar 2031 | +7 mo | Dec 2035 | +32 mo |
 
-### Crisp +3, fuzzy +1 SD a year
+### Supervisable +3, HTS fuzzy +1 SD a year
 
 Pace once AI labor is at its ceiling: 1.7x.
 
@@ -49,7 +49,7 @@ Pace once AI labor is at its ceiling: 1.7x.
 | R&D compute cut 3x | Sep 2028 | +5 mo | Oct 2030 | +6 mo |
 | Comprehension audits (central) + 9-month lag | Jan 2029 | +8 mo | Apr 2031 | +12 mo |
 
-### Crisp +3, fuzzy +0.5 SD a year
+### Supervisable +3, HTS fuzzy +0.5 SD a year
 
 Pace once AI labor is at its ceiling: 1.3x.
 

@@ -69,7 +69,7 @@ With no pacing the link moves the superhuman AI researcher by +39 days and TED-A
 | 1x | Apr 2029 | Sep 2030 | +11 mo | +32 mo |
 | 2x | Apr 2029 | Sep 2030 | +12 mo | +32 mo |
 
-## Crisp tasks improve +3 SD and fuzzy tasks +1 SD per year of 2025 progress (split_3_1)
+## Supervisable tasks improve +3 SD and HTS fuzzy tasks +1 SD per year of 2025 progress (split_3_1)
 
 Pace on Nov 1, 2026: 1.55x. Automated coder: Dec 2026.
 
@@ -102,7 +102,7 @@ With no pacing the link moves the superhuman AI researcher by +24 days and TED-A
 | 1x | Feb 2028 | Jul 2028 | +1 mo | +8 mo |
 | 2x | Feb 2028 | Jul 2028 | +2 mo | +8 mo |
 
-## Crisp tasks improve +3 SD and fuzzy tasks +0.5 SD per year of 2025 progress (split_3_0.5)
+## Supervisable tasks improve +3 SD and HTS fuzzy tasks +0.5 SD per year of 2025 progress (split_3_0.5)
 
 Pace on Nov 1, 2026: 1.55x. Automated coder: Dec 2026.
 
@@ -135,7 +135,7 @@ With no pacing the link moves the superhuman AI researcher by +101 days and TED-
 | 1x | Nov 2028 | Feb 2034 | +6 mo | +57 mo |
 | 2x | Dec 2028 | Feb 2034 | +8 mo | +58 mo |
 
-## Crisp tasks improve +2.1 SD and fuzzy tasks +1 SD per year of 2025 progress (split_2.1_1)
+## Supervisable tasks improve +2.1 SD and HTS fuzzy tasks +1 SD per year of 2025 progress (split_2.1_1)
 
 Pace on Nov 1, 2026: 1.55x. Automated coder: Dec 2026.
 
@@ -167,7 +167,7 @@ With no pacing the link moves the superhuman AI researcher by +27 days and TED-A
 | 1x | May 2028 | Nov 2028 | +2 mo | +10 mo |
 | 2x | May 2028 | Nov 2028 | +3 mo | +11 mo |
 
-## Crisp tasks improve +2.1 SD and fuzzy tasks +0.5 SD per year of 2025 progress (split_2.1_0.5)
+## Supervisable tasks improve +2.1 SD and HTS fuzzy tasks +0.5 SD per year of 2025 progress (split_2.1_0.5)
 
 Pace on Nov 1, 2026: 1.55x. Automated coder: Dec 2026.
 

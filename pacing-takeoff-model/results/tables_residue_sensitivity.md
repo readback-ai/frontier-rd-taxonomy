@@ -17,9 +17,9 @@ OpenAI's monthly values and Anthropic's values were read by eye from charts, to 
 
 ## Sensitivity on AI Futures' Nov 10 example trajectory
 
-Crisp tasks improve 3 SD per year of 2025 progress. The link from comprehension to human judgment is on. Pacing starts Jan 1, 2027. Each row changes one input of the central case.
+Supervisable tasks improve 3 SD per year of 2025 progress. The link from comprehension to human judgment is on. Pacing starts Jan 1, 2027. Each row changes one input of the central case.
 
-### Fuzzy tasks at +1 SD (split_3_1)
+### HTS fuzzy tasks at +1 SD (split_3_1)
 
 | Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to TED-AI | Audits at 3.5 times the hours: delay to superhuman AI researcher | Audits at 3.5 times the hours: delay to TED-AI | 9-month lag: delay to TED-AI |
 |---|---|---|---|---|---|---|
@@ -34,7 +34,7 @@ Crisp tasks improve 3 SD per year of 2025 progress. The link from comprehension 
 | Share halves per 1 SD of judgment the AI gains | Feb 2028 | Oct 2028 | +5 mo | +5 mo | +14 mo | +18 mo |
 | Share halves per 0.5 SD of judgment the AI gains | Feb 2028 | Aug 2028 | +7 mo | +5 mo | +16 mo | +18 mo |
 
-### Fuzzy tasks at +0.5 SD (split_3_0.5)
+### HTS fuzzy tasks at +0.5 SD (split_3_0.5)
 
 | Case | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to TED-AI | Audits at 3.5 times the hours: delay to superhuman AI researcher | Audits at 3.5 times the hours: delay to TED-AI | 9-month lag: delay to TED-AI |
 |---|---|---|---|---|---|---|

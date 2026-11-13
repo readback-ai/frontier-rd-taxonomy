@@ -2,7 +2,7 @@
 
 Written by `montecarlo_taste.py`. Do not edit by hand.
 
-96 of 9630 sampled trajectories (1.0%) had a pace of 1.5x to 2x on Nov 1, 2026 with AI research taste too low to contribute, and are kept. Parameters other than taste are drawn from AI Futures' August 2026 distribution for Daniel, seed 20261110. Median pace of the kept trajectories: 1.67x. Every taste model puts AI research taste at -3.5 SD on Sep 2026, in both classes of task where there are two. In the split models crisp tasks take 65% of research effort while judgment is equal across the classes, and the elasticity of substitution between the classes is 0.25. Pacing starts Jan 1, 2027. Delays are paired: each trajectory under a scenario against the same trajectory with no pacing. A milestone not reached by the end of 2039 counts as later than that. The link from comprehension to human judgment is on except where a table says otherwise.
+96 of 9630 sampled trajectories (1.0%) had a pace of 1.5x to 2x on Nov 1, 2026 with AI research taste too low to contribute, and are kept. Parameters other than taste are drawn from AI Futures' August 2026 distribution for Daniel, seed 20261110. Median pace of the kept trajectories: 1.67x. Every taste model puts AI research taste at -3.5 SD on Sep 2026, in both classes of task where there are two. In the split models supervisable tasks take 65% of research effort while judgment is equal across the classes, and the elasticity of substitution between the classes is 0.25. Pacing starts Jan 1, 2027. Delays are paired: each trajectory under a scenario against the same trajectory with no pacing. A milestone not reached by the end of 2039 counts as later than that. The link from comprehension to human judgment is on except where a table says otherwise.
 
 ## Summary
 
@@ -21,9 +21,9 @@ Written by `montecarlo_taste.py`. Do not edit by hand.
 | Comprehension audits (central) + 3-month lag | Nov 2027 | +4 mo | Oct 2030 | +11 mo |
 | Comprehension audits (central) + 9-month lag | Mar 2028 | +8 mo | Mar 2031 | +18 mo |
 
-### Superhuman AI researcher, crisp and fuzzy tasks: median date and median delay
+### Superhuman AI researcher, supervisable and HTS fuzzy tasks: median date and median delay
 
-| Scenario | Crisp +3, fuzzy +1 SD: median date | Crisp +3, fuzzy +1 SD: median delay | Crisp +3, fuzzy +0.5 SD: median date | Crisp +3, fuzzy +0.5 SD: median delay | Crisp +2.1, fuzzy +1 SD: median date | Crisp +2.1, fuzzy +1 SD: median delay | Crisp +2.1, fuzzy +0.5 SD: median date | Crisp +2.1, fuzzy +0.5 SD: median delay |
+| Scenario | Supervisable +3, HTS fuzzy +1 SD: median date | Supervisable +3, HTS fuzzy +1 SD: median delay | Supervisable +3, HTS fuzzy +0.5 SD: median date | Supervisable +3, HTS fuzzy +0.5 SD: median delay | Supervisable +2.1, HTS fuzzy +1 SD: median date | Supervisable +2.1, HTS fuzzy +1 SD: median delay | Supervisable +2.1, HTS fuzzy +0.5 SD: median date | Supervisable +2.1, HTS fuzzy +0.5 SD: median delay |
 |---|---|---|---|---|---|---|---|---|
 | No pacing | Dec 2027 |  | Feb 2029 |  | Mar 2028 |  | Aug 2029 |  |
 | Human sign-off, no comprehension standard | Dec 2027 | +0 mo | Jun 2029 | +0 mo | Apr 2028 | +0 mo | Feb 2030 | +1 mo |
@@ -51,14 +51,14 @@ Written by `montecarlo_taste.py`. Do not edit by hand.
 | Comprehension audits (central) + 3-month lag | Mar 2028 | +5 mo | Jan 2035 | +19 mo |
 | Comprehension audits (central) + 9-month lag | Sep 2028 | +11 mo | Apr 2035 | +30 mo |
 
-### TED-AI, crisp and fuzzy tasks: median date and median delay
+### TED-AI, supervisable and HTS fuzzy tasks: median date and median delay
 
-| Scenario | Crisp +3, fuzzy +1 SD: median date | Crisp +3, fuzzy +1 SD: median delay | Crisp +3, fuzzy +0.5 SD: median date | Crisp +3, fuzzy +0.5 SD: median delay | Crisp +2.1, fuzzy +1 SD: median date | Crisp +2.1, fuzzy +1 SD: median delay | Crisp +2.1, fuzzy +0.5 SD: median date | Crisp +2.1, fuzzy +0.5 SD: median delay |
+| Scenario | Supervisable +3, HTS fuzzy +1 SD: median date | Supervisable +3, HTS fuzzy +1 SD: median delay | Supervisable +3, HTS fuzzy +0.5 SD: median date | Supervisable +3, HTS fuzzy +0.5 SD: median delay | Supervisable +2.1, HTS fuzzy +1 SD: median date | Supervisable +2.1, HTS fuzzy +1 SD: median delay | Supervisable +2.1, HTS fuzzy +0.5 SD: median date | Supervisable +2.1, HTS fuzzy +0.5 SD: median delay |
 |---|---|---|---|---|---|---|---|---|
 | No pacing | Dec 2028 |  | May 2038 |  | May 2029 |  | Jun 2038 |  |
 | Human sign-off, no comprehension standard | Jan 2029 | +0 mo | Apr 2039 | +3 mo | Jun 2029 | +0 mo | Apr 2039 | +4 mo |
 | Comprehension audits, light | May 2029 | +2 mo | after 2039 | +12 mo | Jan 2030 | +3 mo | after 2039 | +16 mo |
-| Comprehension audits, central | Aug 2029 | +3 mo | after 2039 | +18 mo | Mar 2030 | +5 mo | after 2039 | +22 mo |
+| Comprehension audits, central | Aug 2029 | +3 mo | after 2039 | +18 mo | Mar 2030 | +4 mo | after 2039 | +22 mo |
 | Comprehension audits, strict | Dec 2029 | +6 mo | after 2039 | +26 mo | Jun 2030 | +8 mo | after 2039 | +32 mo |
 | Internal-use lag, 3 months | Jun 2029 | +5 mo | Jul 2038 | +5 mo | Oct 2029 | +5 mo | Sep 2038 | +5 mo |
 | Internal-use lag, 9 months | Feb 2030 | +14 mo | Dec 2038 | +13 mo | Aug 2030 | +14 mo | Jan 2039 | +14 mo |
@@ -166,7 +166,7 @@ Paired across trajectories, the link moves the no-pacing date of the superhuman 
 | Before Nov 1, 2026 | 49 | Jun 2030 | Sep 2033 | +4 mo | +7 mo | +4 mo |
 | Nov 1, 2026 or later | 47 | Jan 2029 | Dec 2030 | +8 mo | +20 mo | +5 mo |
 
-## Crisp tasks improve +3 SD and fuzzy tasks +1 SD per year of 2025 progress (split_3_1)
+## Supervisable tasks improve +3 SD and HTS fuzzy tasks +1 SD per year of 2025 progress (split_3_1)
 
 ### Superhuman AI researcher
 
@@ -177,7 +177,7 @@ Paired across trajectories, the link moves the no-pacing date of the superhuman 
 | Comprehension audits, light | Jan 2028 | Oct 2027 to Aug 2028 | 88% | 100% | 100% | +1 mo | +1 mo |
 | Comprehension audits, central | Feb 2028 | Oct 2027 to Aug 2028 | 85% | 100% | 100% | +1 mo | +2 mo |
 | Comprehension audits, strict | Mar 2028 | Dec 2027 to Oct 2028 | 79% | 100% | 100% | +3 mo | +4 mo |
-| Internal-use lag, 3 months | Apr 2028 | Feb 2028 to Nov 2028 | 82% | 100% | 100% | +4 mo | +5 mo |
+| Internal-use lag, 3 months | Apr 2028 | Feb 2028 to Nov 2028 | 81% | 100% | 100% | +4 mo | +5 mo |
 | Internal-use lag, 9 months | Nov 2028 | Sep 2028 to Apr 2029 | 59% | 100% | 100% | +10 mo | +12 mo |
 | R&D compute cut 3x | Jun 2028 | Jan 2028 to May 2029 | 66% | 97% | 100% | +6 mo | +9 mo |
 | Comprehension audits (central) + 3-month lag | May 2028 | Mar 2028 to Nov 2028 | 78% | 100% | 100% | +5 mo | +6 mo |
@@ -191,7 +191,7 @@ Paired across trajectories, the link moves the no-pacing date of the superhuman 
 | Human sign-off, no comprehension standard | Jan 2029 | Dec 2027 to Dec 2030 | 50% | 75% | 91% | +0 mo | +1 mo |
 | Comprehension audits, light | May 2029 | Feb 2028 to Jun 2031 | 44% | 70% | 89% | +2 mo | +5 mo |
 | Comprehension audits, central | Aug 2029 | Feb 2028 to Aug 2031 | 43% | 70% | 86% | +3 mo | +7 mo |
-| Comprehension audits, strict | Dec 2029 | May 2028 to Nov 2031 | 40% | 67% | 86% | +6 mo | +11 mo |
+| Comprehension audits, strict | Dec 2029 | May 2028 to Nov 2031 | 39% | 67% | 86% | +6 mo | +11 mo |
 | Internal-use lag, 3 months | Jun 2029 | Jun 2028 to Mar 2031 | 45% | 73% | 90% | +5 mo | +6 mo |
 | Internal-use lag, 9 months | Feb 2030 | Feb 2029 to Nov 2031 | 20% | 59% | 90% | +14 mo | +16 mo |
 | R&D compute cut 3x | Aug 2029 | May 2028 to Apr 2032 | 43% | 61% | 86% | +9 mo | +16 mo |
@@ -216,7 +216,7 @@ Paired across trajectories, the link moves the no-pacing date of the superhuman 
 | Before Nov 1, 2026 | 49 | Mar 2028 | Feb 2029 | +1 mo | +2 mo | +5 mo |
 | Nov 1, 2026 or later | 47 | Nov 2027 | Apr 2028 | +1 mo | +4 mo | +6 mo |
 
-## Crisp tasks improve +3 SD and fuzzy tasks +0.5 SD per year of 2025 progress (split_3_0.5)
+## Supervisable tasks improve +3 SD and HTS fuzzy tasks +0.5 SD per year of 2025 progress (split_3_0.5)
 
 ### Superhuman AI researcher
 
@@ -266,7 +266,7 @@ Paired across trajectories, the link moves the no-pacing date of the superhuman 
 | Before Nov 1, 2026 | 49 | Feb 2030 | after 2039 | +3 mo | +25 mo | +4 mo |
 | Nov 1, 2026 or later | 47 | Jun 2028 | Nov 2030 | +4 mo | +15 mo | +5 mo |
 
-## Crisp tasks improve +2.1 SD and fuzzy tasks +1 SD per year of 2025 progress (split_2.1_1)
+## Supervisable tasks improve +2.1 SD and HTS fuzzy tasks +1 SD per year of 2025 progress (split_2.1_1)
 
 ### Superhuman AI researcher
 
@@ -290,7 +290,7 @@ Paired across trajectories, the link moves the no-pacing date of the superhuman 
 | No pacing | May 2029 | Feb 2028 to Aug 2031 | 45% | 69% | 86% |  |  |
 | Human sign-off, no comprehension standard | Jun 2029 | Feb 2028 to Sep 2031 | 43% | 68% | 85% | +0 mo | +2 mo |
 | Comprehension audits, light | Jan 2030 | Jun 2028 to Jun 2032 | 33% | 64% | 83% | +3 mo | +8 mo |
-| Comprehension audits, central | Mar 2030 | Sep 2028 to Aug 2032 | 32% | 60% | 83% | +5 mo | +11 mo |
+| Comprehension audits, central | Mar 2030 | Sep 2028 to Aug 2032 | 32% | 60% | 83% | +4 mo | +11 mo |
 | Comprehension audits, strict | Jun 2030 | Dec 2028 to Nov 2032 | 26% | 57% | 83% | +8 mo | +16 mo |
 | Internal-use lag, 3 months | Oct 2029 | Sep 2028 to Dec 2031 | 35% | 62% | 85% | +5 mo | +7 mo |
 | Internal-use lag, 9 months | Aug 2030 | Jun 2029 to Jul 2032 | 8% | 54% | 84% | +14 mo | +17 mo |
@@ -305,7 +305,7 @@ Paired across trajectories, the link moves the no-pacing date of the superhuman 
 | No pacing: median date of superhuman AI researcher | Feb 2028 | Mar 2028 |
 | No pacing: median date of TED-AI | Apr 2029 | May 2029 |
 | Central audits: median delay to superhuman AI researcher | +3 mo | +2 mo |
-| Central audits: median delay to TED-AI | +6 mo | +5 mo |
+| Central audits: median delay to TED-AI | +6 mo | +4 mo |
 
 Paired across trajectories, the link moves the no-pacing date of the superhuman AI researcher by a median of +19 days and TED-AI by +10 days.
 
@@ -316,7 +316,7 @@ Paired across trajectories, the link moves the no-pacing date of the superhuman 
 | Before Nov 1, 2026 | 49 | Aug 2028 | Dec 2029 | +1 mo | +3 mo | +5 mo |
 | Nov 1, 2026 or later | 47 | Jan 2028 | Sep 2028 | +2 mo | +7 mo | +6 mo |
 
-## Crisp tasks improve +2.1 SD and fuzzy tasks +0.5 SD per year of 2025 progress (split_2.1_0.5)
+## Supervisable tasks improve +2.1 SD and HTS fuzzy tasks +0.5 SD per year of 2025 progress (split_2.1_0.5)
 
 ### Superhuman AI researcher
 

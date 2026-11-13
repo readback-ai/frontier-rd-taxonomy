@@ -24,6 +24,16 @@ Interpolated between the published buckets in log task length. OpenAI's January 
 
 The model's supervision schedule is a logistic in capability fitted to the first series. The sensitivity rows below fit it to the third.
 
+## Benchmarks scored against human judgment
+
+| Benchmark | Models | Scores | How it moves with capability |
+|---|---|---|---|
+| TASTE, rerun | 36 | 39% to 62%, chance 50% | Rank correlation with ECI -0.16. 5 models are more than 10 points from chance, the 95% noise band on 92 pairs |
+| RedwoodBench | 13 | 0.6% to 8.1% of human reviewers' points matched | Correlation with ECI 0.79, +0.23 points per ECI point |
+| LMCA, frontier models the chart labels | 13 | 17 to 70, estimated ceiling 85 | +17 points a year since Jun 2023, correlation 0.95. The fitted line reaches the ceiling in Dec 2027. From the latest model at that slope it is Sep 2027 |
+
+All values were read by eye from charts. The benchmarks' pages were not fetched.
+
 ## Model A, no pacing
 
 | Supervision fitted to | Capability of the superhuman AI researcher reached | Pace in January 2028 | Labor uplift in January 2028 |
