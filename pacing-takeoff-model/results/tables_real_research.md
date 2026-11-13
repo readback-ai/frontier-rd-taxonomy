@@ -67,30 +67,30 @@ The link from comprehension to human judgment is on. Pacing starts Jan 1, 2027. 
 
 | Supervision | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
-| Earlier sections: Anthropic's automation levels, no residue | Feb 2028 | Jul 2028 | +1 mo | +8 mo | +8 mo |
-| Work that needs a person, tied to AI judgment | Mar 2028 | Nov 2028 | +1 mo | +5 mo | +8 mo |
-| Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Nov 2028 | Feb 2030 | +0 mo | +1 mo | +6 mo |
+| Earlier sections: Anthropic's automation levels, no residue | Nov 2027 | Mar 2028 | +0 mo | +4 mo | +7 mo |
+| Work that needs a person, tied to AI judgment | Dec 2027 | May 2028 | +0 mo | +2 mo | +7 mo |
+| Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | May 2028 | Mar 2029 | +0 mo | +1 mo | +6 mo |
 
 ### Supervisable tasks improve +3 SD and HTS fuzzy tasks +0.5 SD per year of 2025 progress (split_3_0.5)
 
 | Supervision | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
-| Earlier sections: Anthropic's automation levels, no residue | Nov 2028 | Feb 2034 | +6 mo | +57 mo | +5 mo |
-| Work that needs a person, tied to AI judgment | Jul 2029 | Mar 2036 | +1 mo | +35 mo | +5 mo |
-| Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Jul 2030 | Jul 2037 | +1 mo | +24 mo | +5 mo |
+| Earlier sections: Anthropic's automation levels, no residue | Feb 2028 | Oct 2029 | +1 mo | +23 mo | +7 mo |
+| Work that needs a person, tied to AI judgment | Mar 2028 | Apr 2031 | +0 mo | +8 mo | +6 mo |
+| Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Nov 2028 | Feb 2032 | +0 mo | +5 mo | +6 mo |
 
 ### Supervisable tasks improve +2.1 SD and HTS fuzzy tasks +1 SD per year of 2025 progress (split_2.1_1)
 
 | Supervision | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
-| Earlier sections: Anthropic's automation levels, no residue | May 2028 | Nov 2028 | +2 mo | +10 mo | +8 mo |
-| Work that needs a person, tied to AI judgment | Jul 2028 | Mar 2029 | +1 mo | +7 mo | +8 mo |
-| Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Jun 2029 | Sep 2030 | +0 mo | +2 mo | +6 mo |
+| Earlier sections: Anthropic's automation levels, no residue | Mar 2028 | Jul 2028 | +1 mo | +6 mo | +7 mo |
+| Work that needs a person, tied to AI judgment | Apr 2028 | Oct 2028 | +1 mo | +4 mo | +7 mo |
+| Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Jan 2029 | Jan 2030 | +0 mo | +1 mo | +6 mo |
 
 ### Supervisable tasks improve +2.1 SD and HTS fuzzy tasks +0.5 SD per year of 2025 progress (split_2.1_0.5)
 
 | Supervision | No pacing: superhuman AI researcher | No pacing: TED-AI | Central audits: delay to superhuman AI researcher | Central audits: delay to TED-AI | 3-month lag: delay to TED-AI |
 |---|---|---|---|---|---|
-| Earlier sections: Anthropic's automation levels, no residue | Mar 2029 | Jun 2034 | +8 mo | +58 mo | +5 mo |
-| Work that needs a person, tied to AI judgment | Jan 2030 | Jun 2036 | +2 mo | +36 mo | +5 mo |
-| Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Mar 2031 | Dec 2037 | +1 mo | +24 mo | +5 mo |
+| Earlier sections: Anthropic's automation levels, no residue | Jun 2028 | Mar 2030 | +2 mo | +26 mo | +7 mo |
+| Work that needs a person, tied to AI judgment | Oct 2028 | Nov 2031 | +1 mo | +10 mo | +6 mo |
+| Sensitivity: handover as slow as Google DeepMind's delegation, with the residue | Aug 2029 | Nov 2032 | +0 mo | +6 mo | +6 mo |

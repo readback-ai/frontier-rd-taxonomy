@@ -623,7 +623,7 @@ What the single trajectory shows:
 - **The weight of supervisable work decides the result as much as the rate does.** With HTS fuzzy tasks at +0.5 SD and supervisable at +3 SD, TED-AI with no pacing is April 2028 at a supervisable weight of 90%, October 2029 at 80%, February 2034 at 65% and July 2039 at 50%. Central audits delay it by 4, 23 and 57 months at the first three. With HTS fuzzy tasks at +1 SD the same weights give January 2028, March 2028, July 2028 and December 2028.
 - **So does the substitution.** With HTS fuzzy tasks at +0.5 SD, a substitution of 0.5 brings TED-AI to May 2028 and 0.83 to January 2028. Fixed proportions put it in May 2032.
 - **A head start on supervisable tasks changes little.** Starting supervisable judgment at -1.5 SD moves the dates by up to three months.
-- **The link from comprehension to judgment matters more here than with one taste.** On this trajectory it delays the superhuman AI researcher with no pacing by about 24 days with HTS fuzzy tasks at +1 SD and about 100 days at +0.5 SD (`results/tables_link.md`).
+- **The link from comprehension to judgment matters more here than with one taste at +3 SD.** On this trajectory it delays the superhuman AI researcher with no pacing by about 15 days with HTS fuzzy tasks at +1 SD and about 36 days at +0.5 SD, against 1 day with one taste at +3 SD (`results/tables_link.md`).
 
 ### Across sampled trajectories
 
