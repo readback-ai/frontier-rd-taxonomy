@@ -1004,6 +1004,10 @@ export AIFM_PATH=~/aifm-public
 ```
 
 ```bash
+.venv/bin/python residue_sensitivity.py
+```
+
+```bash
 .venv/bin/python montecarlo_taste.py --samples 10000 --only kept --residue --tag real_research --checkpoint real_research_checkpoint.csv
 ```
 
@@ -1021,6 +1025,7 @@ Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results 
 | `link_effect.py` | What the link changes on the example trajectory |
 | `split_effect.py` | What the split into crisp and fuzzy tasks does on the example trajectory, and how it moves with its three unmeasured inputs |
 | `real_research_effect.py` | What two developers' data on real internal use change on the example trajectory: a share of work that needs a person, and slower handover of work as a sensitivity |
+| `residue_sensitivity.py` | What three developers report on the share of work that needs a person, and how far the result depends on its starting level, its supervision time, how it falls and the audit hours |
 | `simple_model.py`, `SIMPLE.md` | A one-file model with one state variable that carries the main results, and its write-up. Needs numpy only. `simple_figures.py` draws its figures |
 | `test_pacing_model.py`, `test_simple_model.py` | Forty checks, including that the adapter reproduces the AI Futures Model's own dates. The three that need the AI Futures checkout skip without `AIFM_PATH` |
 | `requirements.txt` | The library versions the committed results were generated with |
@@ -1036,10 +1041,11 @@ Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results 
 - Google DeepMind, "Gemini 4 Argon Safety & Security Report", October 2026, section 3.4.2. https://storage.googleapis.com/deepmind-media/gemini/gemini_4_safety_report.pdf
 - Ramez Naam, "Where's the 'intelligence explosion'?", Noahpinion, 2026. https://www.noahpinion.blog/p/wheres-the-intelligence-explosion
 - Anthropic Fellows Program, "TASTE: Can AI Models Judge AI Safety Research Proposals?", 2026. https://alignment.anthropic.com/2026/taste/
+- Anthropic, "How employment is changing at Anthropic", October 16, 2026, Figure 6. https://www.anthropic.com/research/employment-at-anthropic
 - AI Futures Project, AI Futures Model code, commit `1c40ecd`, Sep 9, 2026. https://github.com/AI-Futures-Project/aifm-public
 - Eli Lifland, Brendan Halstead, Romeo Dean and Thomas Larsen, "How to Pace the US Frontier", AI Futures Project, Aug 5, 2026. https://blog.aifutures.org/p/how-to-pace-the-us-frontier
 - Anthropic, "Measurements for understanding the pace of AI development inside frontier labs", Sep 2026. https://www.anthropic.com/institute/measuring-pace-of-ai-development
-- Anthropic, "Recursive Self-Improvement", Anthropic Institute, 2026. https://www.anthropic.com/institute/recursive-self-improvement
+- Anthropic, "When AI builds itself", Anthropic Institute, 2026, with its update of September 18, 2026. https://www.anthropic.com/institute/recursive-self-improvement
 - OpenAI, "Research acceleration: The view inside OpenAI", Sep 6, 2026. Text read from a saved copy of the page; chart values read from the published charts. https://openai.com/index/research-acceleration-view-inside-openai/
 - Zvi Mowshowitz, "AI R&D Is Accelerating Towards Potential RSI in 2027", Nov 9, 2026 (source for Ryan Greenblatt's and others' estimates). https://thezvi.substack.com/p/ai-r-and-d-is-accelerating-towards
 - Dario Amodei, "On DeepSeek and Export Controls" (compute multiplier sizes, as quoted by Cotra). https://darioamodei.com/post/on-deepseek-and-export-controls

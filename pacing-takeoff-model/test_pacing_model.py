@@ -343,6 +343,16 @@ def test_work_that_needs_a_person_shrinks_as_ai_judgment_rises():
     assert m.needs_a_person(median + 3.0) < 0.05 * today
     held = m.summarize(m.simulate(Policy(), t_end=2029.0))
     assert held["t_sar"] >= free["t_sar"] - 1e-6
+    # Sensitivity settings: lighter supervision of that work sits between the two runs, and
+    # with a halving rule the share halves for each SD of judgment the AI gains.
+    m.set_residue(today, supervision=0.25)
+    light = m.summarize(m.simulate(Policy(), t_end=2029.0))
+    assert free["t_sar"] - 1e-6 <= light["t_sar"] <= held["t_sar"] + 1e-6
+    m.set_residue(today, halving_sd=1.0)
+    one_sd = 1.0 / m.params.ai_research_taste_slope
+    assert abs(m.needs_a_person(cap) - today) < 1e-9
+    assert abs(m.needs_a_person(cap + one_sd) - 0.5 * today) < 1e-6
+    assert abs(m.needs_a_person(cap + 3.0 * one_sd) - 0.125 * today) < 1e-6
     # The start is unchanged: almost no work runs unsupervised on the reference date.
     start = m.simulate(Policy(), t_end=m.t_ref + 0.02)
     assert abs(start["pace"][0] / m.base_pace(m.t_ref) - 1.0) < 0.01

@@ -210,6 +210,11 @@ class Aifm:
         self.changes = None  # deployed-change counts, set by use_calibration
         self.link = None  # the comprehension-to-judgment link, set by use_calibration
         self.residue = 0.0  # share of work that needs a person today, set by use_calibration
+        # Two settings for sensitivity runs, set by set_residue. Human time on work that needs
+        # a person, as a multiple of the time on AI-led work. And the SD of AI judgment gained
+        # per halving of that work; 0 ties it to the share of researchers ahead of the AI.
+        self.residue_supervision = 1.0
+        self.residue_halving = 0.0
 
     def use_calibration(
         self, cal: dict, link: bool | Link = False, residue: bool | float = False
@@ -293,19 +298,33 @@ class Aifm:
             + p.ai_research_taste_at_coding_automation_anchor_sd
         )
 
+    def set_residue(self, share: float, supervision: float = 1.0, halving_sd: float = 0.0) -> None:
+        """Override the share of work that needs a person and how it behaves. Call after
+        use_calibration."""
+        self.residue = float(share)
+        self.residue_supervision = float(supervision)
+        self.residue_halving = float(halving_sd)
+
+    def judgment_sd(self, cap: float) -> float:
+        """AI research judgment in researcher SD, on its weakest class of task."""
+        return float(self.class_sds(cap).min()) if self.classes else self.taste_sd(cap)
+
     def people_share(self, cap: float) -> float:
         """Share of researchers whose research judgment is better than the AI's. With task
         classes, better in at least one class."""
-        sd = float(self.class_sds(cap).min()) if self.classes else self.taste_sd(cap)
-        return 0.5 * math.erfc(sd / math.sqrt(2.0))
+        return 0.5 * math.erfc(self.judgment_sd(cap) / math.sqrt(2.0))
 
     def needs_a_person(self, cap: float) -> float:
         """Share of work that cannot run unsupervised because it turns on a judgment call the
         AI gets wrong. It starts at the share the labs measure on their shortest tasks and
         falls in step with the share of researchers whose judgment is still better than the
-        AI's, on fuzzy tasks where there are task classes."""
+        AI's, on fuzzy tasks where there are task classes. With `residue_halving` set it
+        instead halves each time AI judgment gains that many SD."""
         if self.residue <= 0.0:
             return 0.0
+        if self.residue_halving > 0.0:
+            gained = self.judgment_sd(cap) - self.judgment_sd(self.capability_at(self.t_ref))
+            return self.residue * min(1.0, 2.0 ** (-gained / self.residue_halving))
         today = self.people_share(self.capability_at(self.t_ref))
         return self.residue * min(1.0, self.people_share(cap) / today)
 
@@ -380,8 +399,13 @@ class Aifm:
         mult = coding / human  # serial coding labor multiplier
         tau = 1.0 / mult
         if supervised and self.supervision.kind != "none":
-            ceiling = 1.0 - self.needs_a_person(cap) if self.residue > 0.0 else None
-            tau = max(tau, self.supervision.h(cap, ceiling))
+            handed_over = self.supervision.h(cap)
+            if self.residue > 0.0:
+                # Work that needs a person cannot run unsupervised. The human time it adds is
+                # the time on AI-led work, times `residue_supervision`.
+                held = self.supervision.h(cap, 1.0 - self.needs_a_person(cap))
+                handed_over += self.residue_supervision * (held - handed_over)
+            tau = max(tau, handed_over)
         effort_human = float(
             pr.compute_research_effort(
                 X_unpaced,

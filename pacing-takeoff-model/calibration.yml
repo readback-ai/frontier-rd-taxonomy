@@ -121,6 +121,19 @@ real_research:                   # What the labs' own usage data say that benchm
   #    fixed floor. The model scales it by the share of researchers whose judgment on fuzzy tasks is still better
   #    than the AI's. Work in this share is AI-led with a person supervising (human_time_per_unit_work.al4).
   residue_today: 0.14
+  #    A third developer, added 2026-11-13. Anthropic's internal Claude Code sessions succeed "without requiring
+  #    corrections" 88% of the time on trivial tasks and 91% to 92% on routine, substantial and open-ended tasks
+  #    in early September 2026 (data/anthropic_session_success.csv, read by eye from a chart). Trivial tasks were
+  #    at 80% a year earlier. So 8% to 12% of sessions need a correction whatever the difficulty, and that share
+  #    has moved slowly on the easiest tasks. It supports the level. It does not show what the share turns on.
+  #    Sensitivity runs (residue_sensitivity.py). ASSUMPTIONS, chosen to bracket the central case.
+  sensitivity:
+    residue_today: [0.07, 0.28]
+    supervision_multiple: [0.5, 0.25, 0.125]   # human time on work that needs a person, as a multiple of
+                                               # human_time_per_unit_work.al4: 2%, 1% and 0.5% of the work
+    halving_sd: [1.0, 0.5]                     # the share halves per this many SD of AI judgment gained,
+                                               # in place of the tie to the share of researchers ahead of the AI
+    audit_hours_scale: 3.5                     # an audit standard 3.5 times the central hours per change
   # 2. Sensitivity only: how fast work is handed over. The supervision schedule can be fitted to Google DeepMind's
   #    share of fully delegated pull requests (supervision kind "gdm") in place of Anthropic's share of AI-led
   #    work. The PI does not anchor on this series: Google DeepMind's models were behind the frontier for most of
@@ -150,6 +163,14 @@ comprehension_gate:              # ASSUMPTIONS throughout, to be measured in a p
                                  # description of compute multipliers (many ~1.2x, some ~2x, rare ~10x)
                                  # assuming frequencies of roughly 100:10:1. The frequencies are an assumption.
   audit_process_hours_per_quarter: 150   # paper Section 8.4: lab staff hours for 22 audits
+  # Cross-check, added 2026-11-13. Anthropic, "How employment is changing at Anthropic" (2026-10-16), Figure 6,
+  # "Reading Claude as a fulltime job": reading all agent output from interactive sessions would take an
+  # engineering and research employee 424 hours a week at the last point plotted, in spring 2026, at 0.75 words
+  # per token and 250 words a minute. The central audit standard above is 298 hours a year, about 6 hours a
+  # week, which is 1.4% of that. The standard covers only changes that are deployed and asks for the hours to
+  # understand each one, so the two figures do not measure the same thing: 424 hours is an upper bound on
+  # reading, and it does not fix the hours per change.
+  anthropic_hours_per_week_to_read_all_agent_output: 424
 
 judgment_link:                   # ASSUMPTION. Model B only: Model A has no research-judgment term.
   # People apply research judgment only to the deployed changes they understand. On the rest

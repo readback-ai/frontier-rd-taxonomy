@@ -1,0 +1,20 @@
+# Anthropic, "When AI builds itself" (The Anthropic Institute, anthropic.com/institute/recursive-self-improvement),
+# chart "Claude Code session success rate" in the update of 2026-09-18. Chart note: "Internal Claude Code sessions,
+# weekly 4-week mean, LLM-judged; automated sessions excluded. Most Open-ended weeks in 2025 had under 100 sessions.
+# Data through Sep 6, 2026." Page text: "a session is deemed successful if the Claude Code agent clearly succeeded
+# at the user's tasks without requiring corrections." Values were read by eye from the chart at the start of each
+# month, to about 2 points. The chart prints no values. The May 2026 open-ended value is from the page text: 76%.
+month,decimal_year,trivial,routine,substantial,open_ended
+2025-09,2025.67,0.80,0.66,0.39,0.20
+2025-10,2025.75,0.81,0.67,0.42,0.17
+2025-11,2025.83,0.83,0.73,0.48,0.16
+2025-12,2025.92,0.83,0.76,0.57,0.28
+2026-01,2026.00,0.84,0.79,0.60,0.34
+2026-02,2026.08,0.86,0.80,0.66,0.38
+2026-03,2026.17,0.84,0.84,0.73,0.53
+2026-04,2026.25,0.83,0.88,0.84,0.72
+2026-05,2026.33,0.85,0.88,0.85,0.76
+2026-06,2026.42,0.88,0.90,0.89,0.81
+2026-07,2026.50,0.91,0.91,0.90,0.83
+2026-08,2026.58,0.89,0.92,0.91,0.86
+2026-09,2026.67,0.88,0.92,0.92,0.91
