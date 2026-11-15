@@ -99,11 +99,14 @@ def test_measured_progress_runs_ahead_of_real_progress_while_ai_metric_judgment_
 
 
 def test_slower_transfer_and_metric_judgment_bring_the_milestones_later():
-    dates = [simulate(q)["dates"] for q in BY_CASE.values()]
+    def when(transfer_rate: float, metric_rate: float) -> dict:
+        return simulate(replace(P, transfer_rate=transfer_rate, metric_rate=metric_rate))["dates"]
+
     for name in ("researcher", "ted_ai"):
-        when = [d[name] for d in dates]
-        assert when == sorted(when)
-    assert dates[-1]["ted_ai"] - dates[0]["ted_ai"] > 1.0
+        assert when(3.0, 3.0)[name] < when(3.0, 1.0)[name] < when(3.0, 0.5)[name]
+        assert when(3.0, 1.0)[name] < when(1.0, 1.0)[name] < when(0.5, 1.0)[name]
+        assert when(1.0, 0.5)[name] < when(0.5, 0.5)[name]
+    assert when(0.5, 0.5)["ted_ai"] - when(3.0, 3.0)["ted_ai"] > 1.5
 
 
 def test_audits_delay_more_the_slower_the_ais_own_judgment():

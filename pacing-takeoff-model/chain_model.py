@@ -76,9 +76,9 @@ class Params:
     # Throughput
     labor_exponent: float = 0.5  # experiments rise with the square root of AI labor
     labor_ceiling: float = 15.0  # most that unlimited labor can multiply experiments by
-    u0: float = 0.103678  # AI labor per researcher on Oct 1, 2025. Fitted
-    uplift_doubling: float = 0.193495  # years of progress per doubling of AI labor. Fitted
-    progress_at_ref: float = 1.348707  # years of progress from Oct 1, 2025 to Nov 1, 2026. Fitted
+    u0: float = 0.103914  # AI labor per researcher on Oct 1, 2025. Fitted
+    uplift_doubling: float = 0.193653  # years of progress per doubling of AI labor. Fitted
+    progress_at_ref: float = 1.349178  # years of progress from Oct 1, 2025 to Nov 1, 2026. Fitted
     compute_doublings: float = 1.5  # doublings of compute per year on the historical schedule
     compute_slows_in: float = math.inf  # year from which compute grows at `compute_slow_pace`
     compute_slow_pace: float = 0.5  # that growth, as a share of the historical rate
@@ -99,13 +99,13 @@ class Params:
     transfer_ai_start: float = 0.2  # the same with the AI judging, on Nov 1, 2026
     transfer_max: float = 0.9
     validity_people: float = 0.8  # share of a gain on the metric that is real, people judging
-    validity_ai_start: float = 0.3  # the same with the AI judging, on Nov 1, 2026
+    validity_ai_start: float = 0.05  # the same with the AI judging, on Nov 1, 2026
     validity_max: float = 0.95
     vouch_sd: float = 3.09  # people can vouch for gains up to this researcher's ideas, in SD
     # People's time
     time_judging: float = 0.4  # share of researcher time on results, metrics and plans on
     # Oct 1, 2025. The rest was implementation
-    volume_elasticity: float = 0.006383  # percent more judging time per experiment at scale per
+    volume_elasticity: float = 0.004869  # percent more judging time per experiment at scale per
     # percent more candidates behind it, net of AI help with the analysis. Fitted
     # Comprehension audits
     understanding_today: float = 0.14  # time to understand all deployed changes, Nov 1, 2026
@@ -168,9 +168,10 @@ def labor_effect(labor: float, p: Params) -> float:
 
 def link(sd: float, people: float, ai_start: float, top: float, p: Params) -> float:
     """A link's value with the AI judging: `ai_start` on Nov 1, 2026, people's value when the
-    AI's judgment reaches the median researcher, and linear in SD up to `top`."""
-    per_sd = (people - ai_start) / -p.judgment_start
-    return min(top, max(0.0, people + per_sd * sd))
+    AI's judgment reaches the median researcher, and the same ratio for each SD up to `top`.
+    Value is geometric in SD, as research value is in the AI Futures Model."""
+    per_sd = math.log(people / ai_start) / -p.judgment_start
+    return min(top, people * math.exp(per_sd * sd))
 
 
 def ai_state(progress: float, p: Params, years: float | None = None) -> dict:
@@ -333,7 +334,9 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         )
         lab = research(ai, p, experiments, policy.audit_hours if paced else 0.0, labor_at_ref)
         software_pace = lab["real"] / 2.0 ** (p.stock_doublings * (software - elapsed))
-        measured_pace = lab["measured"] / 2.0 ** (p.stock_doublings * (measured_software - elapsed))
+        # Measured progress can run far ahead of real progress, so its halvings are capped.
+        measured_ahead = min(p.stock_doublings * (measured_software - elapsed), 1000.0)
+        measured_pace = lab["measured"] / 2.0**measured_ahead
         pace = w * software_pace + (1.0 - w) * compute_pace
         out["pace"][i] = pace
         out["measured_pace"][i] = w * measured_pace + (1.0 - w) * compute_pace
@@ -455,18 +458,11 @@ CASES = (
 
 SENSITIVITY = (
     ("Central", {}),
-    ("Half of transfer and metric judgment comes with calendar time", dict(with_experience=0.5)),
-    ("All of transfer and metric judgment comes with calendar time", dict(with_experience=1.0)),
     ("Experiments from unlimited AI labor: 5 times", dict(labor_ceiling=5.0)),
     ("Experiments from unlimited AI labor: 60 times", dict(labor_ceiling=60.0)),
-    (
-        "AI keeps 2% of a gain today (transfer 0.1, validity 0.1)",
-        dict(transfer_ai_start=0.1, validity_ai_start=0.1),
-    ),
-    (
-        "AI keeps 36% of a gain today (transfer 0.4, validity 0.5)",
-        dict(transfer_ai_start=0.4, validity_ai_start=0.5),
-    ),
+    ("Validity with the AI judging today: 0.3", dict(validity_ai_start=0.3)),
+    ("Validity with the AI judging today: 0.01", dict(validity_ai_start=0.01)),
+    ("Transfer with the AI judging today: 0.4", dict(transfer_ai_start=0.4)),
     ("AI never judges better than people", dict(transfer_max=0.7, validity_max=0.8)),
     ("People can vouch for any gain", dict(vouch_sd=1e9)),
     ("People can vouch for gains up to +1 SD ideas", dict(vouch_sd=1.0)),
@@ -525,6 +521,27 @@ def arrival_table(p: Params) -> list[str]:
     return out
 
 
+def pacing_table(p: Params) -> list[str]:
+    by_name = {policy.name: policy for policy in POLICIES}
+    names = (
+        "Comprehension audits, central",
+        "Comprehension audits, strict",
+        "Internal-use lag, 9 months",
+        "R&D compute cut 3x",
+    )
+    out = [
+        "| AI judgment gained per year | TED-AI, no pacing | Central audits | Strict audits | "
+        "9-month lag | 3-fold compute cut |",
+        "|---|---|---|---|---|---|",
+    ]
+    for label, rates in CASES:
+        q = replace(p, **rates)
+        base = simulate(q)["dates"]["ted_ai"]
+        delays = (fmt_delay(base, simulate(q, by_name[n])["dates"]["ted_ai"]) for n in names)
+        out.append("| " + " | ".join([label, fmt_date(base), *delays]) + " |")
+    return out
+
+
 def path_table(p: Params) -> list[str]:
     run = simulate(p)
     out = [
@@ -568,38 +585,51 @@ def sensitivity_table(p: Params) -> list[str]:
 
 def tables(p: Params | None = None) -> str:
     p = p or Params()
-    slow = replace(p, **dict(CASES)["Ideas +3, transfer +1, metrics +0.5"])
+    by_time = replace(p, with_experience=1.0)
+    case = "Ideas +3, transfer +1, metrics +0.5"
     out = [
         "# Chain model: milestone dates by scenario",
         "",
         "Written by `chain_model.py`. Do not edit by hand.",
         "",
         "Delays are against no pacing. Pacing starts Jan 1, 2027. Rates are SD of researcher "
-        "judgment gained per year of progress. The loop runs away on better ideas alone once "
-        f"the AI's own judgment keeps {critical_share(p):.0%} of the share of a gain that "
-        "people's judgment keeps.",
-        "",
-        "## No pacing",
+        "judgment. Ideas gain theirs per year of progress. Transfer and metric judgment gain "
+        "theirs per year of progress in the first set of tables and per calendar year in the "
+        "second. The loop runs away on better ideas alone once the AI's own judgment keeps "
+        f"{critical_share(p):.0%} of the share of a gain that people's judgment keeps.",
         "",
         "Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a lab "
         "of researchers at AI Futures' two levels, +3.09 and +7.72 SD. The third date is when "
         "the AI's weakest kind of judgment passes the best researcher's. `over` means the run "
         "had ended by then.",
         "",
-        *arrival_table(p),
-        "",
-        "## Dates by scenario",
-        "",
-        *scenario_table(p),
-        "## The path with no pacing: ideas +3, transfer +1, metrics +0.5",
-        "",
-        *path_table(slow),
-        "",
-        "## Each input moved: ideas +3, transfer +1, metrics +0.5",
-        "",
-        *sensitivity_table(slow),
-        "",
     ]
+    for title, q in (
+        ("Transfer and metric judgment come with progress", p),
+        ("Transfer and metric judgment come with calendar time", by_time),
+    ):
+        out += [
+            f"## {title}",
+            "",
+            "### No pacing",
+            "",
+            *arrival_table(q),
+            "",
+            "### Delay to TED-AI",
+            "",
+            *pacing_table(q),
+            "",
+            f"### The path with no pacing: {case[0].lower()}{case[1:]}",
+            "",
+            *path_table(replace(q, **dict(CASES)[case])),
+            "",
+            f"### Each input moved: {case[0].lower()}{case[1:]}",
+            "",
+            *sensitivity_table(replace(q, **dict(CASES)[case])),
+            "",
+        ]
+    out += ["## Every scenario, with transfer and metric judgment coming with progress", ""]
+    out += scenario_table(p)
     return "\n".join(out)
 
 

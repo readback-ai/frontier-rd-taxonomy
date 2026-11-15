@@ -1,6 +1,6 @@
 # The chain model: from small experiments to real value
 
-Draft of 2026-11-15. A standalone model in one file, `chain_model.py`, with numpy and the standard library. It shares no code with the two full models or the simple model in this directory. Their write-ups are [README.md](README.md) and [SIMPLE.md](SIMPLE.md). Every number in the tables below is from `results/tables_chain.md`, which the script writes.
+Draft of 2026-11-15, revised the same day. A standalone model in one file, `chain_model.py`, with numpy and the standard library. It shares no code with the two full models or the simple model in this directory. Their write-ups are [README.md](README.md) and [SIMPLE.md](SIMPLE.md). Every number in the tables below is from `results/tables_chain.md`, which the script writes.
 
 ## What it is for
 
@@ -29,13 +29,15 @@ kept  = transfer * validity, each against people's
 
 `gain` is what has been added at small scale since October 2025: better ideas from the AI, and the best of more candidates. `standing` is what an experiment was already worth.
 
-Three kinds of AI judgment improve at their own rates, all in SD of researcher judgment per year of progress:
+Three kinds of AI judgment improve at their own rates, in SD of researcher judgment:
 
 | Kind | What it does | Rate |
 |---|---|---|
-| Ideas | Proposes candidates on a well-defined problem. No ceiling | +3 SD |
+| Ideas | Proposes candidates on a well-defined problem. No ceiling | +3 SD per year of progress |
 | Transfer | Judges which small-scale gains hold at scale | +3, +1 or +0.5 SD |
 | Metrics | Defines the next metric and debugs results that game the current one | +3, +1 or +0.5 SD |
+
+Transfer and metric judgment can come with progress, as all judgment does in the AI Futures Model, or with calendar time, as outcomes at scale come in. Nothing measures which holds, and it moves the results more than any other input, so every table is given both ways.
 
 ## What it reduces to
 
@@ -48,7 +50,7 @@ Three inputs are fitted to three measurements.
 | Measurement | Value | Source | Input fitted | Fitted value |
 |---|---|---|---|---|
 | Pace on May 1, 2026 | 1.2 times | AI Futures' estimate | Years of progress per doubling of AI labor | 0.19 |
-| Pace on Nov 1, 2026 | 1.7 times | AI Futures' reading of METR's report | Growth of judging time with candidates | 0.006 |
+| Pace on Nov 1, 2026 | 1.7 times | AI Futures' reading of METR's report | Growth of judging time with candidates | 0.005 |
 | AI labor per researcher on Nov 1, 2026 | 13 agent workdays per researcher workday | OpenAI's trend | AI labor on Oct 1, 2025 | 0.10 |
 
 - **People's time is already short.** In the fitted model researchers judge 70% of experiments at scale on Nov 1, 2026 and 51% on Jan 1, 2027.
@@ -56,49 +58,76 @@ Three inputs are fitted to three measurements.
 
 ## Results with no pacing
 
-| AI judgment gained per year of progress | Researcher-level AI | TED-AI | AI passes the best researcher on every kind of judgment |
+Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a lab of researchers at AI Futures' two levels, +3.09 and +7.72 SD. The last column is when the AI's weakest kind of judgment passes the best researcher's.
+
+Transfer and metric judgment come with progress:
+
+| AI judgment gained per year | Researcher-level AI | TED-AI | AI passes the best researcher on every kind of judgment |
 |---|---|---|---|
-| Ideas, transfer and metrics all +3 SD | May 2027 | Jun 2027 | May 2027 |
-| Ideas and transfer +3, metrics +1 | Jul 2027 | Aug 2027 | Aug 2027 |
-| Ideas and transfer +3, metrics +0.5 | Aug 2027 | Oct 2027 | Nov 2027 |
-| Ideas +3, transfer and metrics +1 | Nov 2027 | Dec 2027 | Dec 2027 |
-| Ideas +3, transfer +1, metrics +0.5 | Jan 2028 | Mar 2028 | Mar 2028 |
-| Ideas +3, transfer and metrics +0.5 | Apr 2028 | Aug 2028 | Sep 2028 |
+| Ideas, transfer and metrics all +3 SD | Jun 2027 | Jun 2027 | Jun 2027 |
+| Ideas and transfer +3, metrics +1 | Oct 2027 | Nov 2027 | Nov 2027 |
+| Ideas and transfer +3, metrics +0.5 | Mar 2028 | Jun 2028 | Jul 2028 |
+| Ideas +3, transfer and metrics +1 | Feb 2028 | Mar 2028 | Mar 2028 |
+| Ideas +3, transfer +1, metrics +0.5 | Aug 2028 | Nov 2028 | Nov 2028 |
+| Ideas +3, transfer and metrics +0.5 | Mar 2029 | Jul 2029 | Aug 2029 |
 
-Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a lab of researchers at AI Futures' two levels, +3.09 and +7.72 SD.
+Transfer and metric judgment come with calendar time:
 
-- **The model does not produce a long plateau.** It was built to test whether people's judging time holds the pace down until the AI's transfer and metric judgment arrive. At these inputs TED-AI comes between June 2027 and August 2028 in all six cases. The earlier simple model put it in 2034 with slow judgment at +0.5 SD.
-- **A weak link costs a share of the slope and sets no ceiling.** An AI that keeps 25% of a gain turns ideas improving 3 SD a year into 0.75 SD a year of real judgment. The loop runs away once the AI keeps 78% of what people keep.
-- **Experiments nobody judged are still worth something, and there are many of them.** With transfer at +1 SD and metrics at +0.5 SD, the lab runs 15 times the experiments in January 2028 and people judge 16% of them. The pace is 4.4 times.
-- **A faster pace brings the slow judgment sooner.** The rates are per year of progress, as in the AI Futures Model. At a pace of 2 to 4 the AI gains 3.5 SD of transfer judgment in a little over a year.
-- **Measured progress runs ahead of real progress.** In the same case the pace on the lab's metrics in January 2028 is 6.7 times against a real 4.4.
-- **Tying slow judgment to calendar time changes the picture.** If transfer and metric judgment improve only as outcomes come in, an AI-only lab matches the +7.72 SD level in May 2029 on the strength of its ideas, and the AI passes the best researcher on every kind of judgment in January 2040. Nothing measures which holds.
+| AI judgment gained per year | Researcher-level AI | TED-AI | AI passes the best researcher on every kind of judgment |
+|---|---|---|---|
+| Ideas, transfer and metrics all +3 SD | Nov 2027 | Dec 2027 | Jan 2029 |
+| Ideas and transfer +3, metrics +1 | Aug 2028 | Feb 2029 | Jun 2033 |
+| Ideas and transfer +3, metrics +0.5 | Jun 2029 | Jul 2030 | Jan 2040 |
+| Ideas +3, transfer and metrics +1 | Mar 2029 | Sep 2029 | Jun 2033 |
+| Ideas +3, transfer +1, metrics +0.5 | Feb 2030 | Nov 2030 | Jan 2040 |
+| Ideas +3, transfer and metrics +0.5 | Nov 2030 | Nov 2031 | Jan 2040 |
+
+- **If slow judgment comes with progress there is no long plateau.** TED-AI arrives between June 2027 and July 2029. The pace holds at about 2 to 3 times for one to two years in the slower cases, and at that pace the AI gains its 3.5 SD of transfer and metric judgment quickly.
+- **If it comes with calendar time the pace holds between 1.4 and 2.7 times for two to four years.** With transfer at +1 SD and metrics at +0.5 SD the pace is 2.1 times in January 2028, 1.5 in January 2029 and 1.8 in January 2030.
+- **In that case TED-AI is reached on ideas alone.** An AI-only lab matches the +7.72 SD level in November 2030 with its metric judgment still below the median researcher's. Its ideas are then about 20 SD above the median researcher's and it keeps 37% of their gain. The AI passes the best researcher on every kind of judgment in 2033 with metrics at +1 SD and in 2040 at +0.5 SD.
+- **Ideas have no ceiling here, and the last result depends on that.** If gains on well-defined problems run into diminishing returns, the date to trust is the last column.
+- **A weak link costs a share of the slope and sets no ceiling.** An AI that keeps 10% of a gain turns ideas improving 3 SD a year into 0.3 SD a year of real judgment. The loop runs away once the AI keeps 78% of what people keep.
+- **Work nobody judged is not what drives the pace.** People judge 17% of experiments in January 2028, and those carry 73% of the real research, because people can vouch for AI ideas up to their best researcher's level. A cap that tied unjudged work to judged work was tested and never bound, so it is not in the model.
+- **Measured progress runs ahead of real progress.** With transfer at +1 SD and metrics at +0.5 SD, the pace on the lab's metrics in January 2028 is 4.0 times against a real 2.2 if judgment comes with progress, and 2.8 against 2.1 if it comes with calendar time.
 
 ## What pacing does
 
-Delay to TED-AI:
+Delay to TED-AI, transfer and metric judgment coming with progress:
 
-| AI judgment gained per year of progress | Central audits | Strict audits | 9-month lag | 3-fold compute cut |
+| AI judgment gained per year | Central audits | Strict audits | 9-month lag | 3-fold compute cut |
 |---|---|---|---|---|
-| Ideas, transfer and metrics all +3 SD | +0 mo | +1 mo | +11 mo | +2 mo |
-| Ideas and transfer +3, metrics +1 | +1 mo | +3 mo | +12 mo | +2 mo |
-| Ideas and transfer +3, metrics +0.5 | +4 mo | +6 mo | +13 mo | +2 mo |
-| Ideas +3, transfer and metrics +1 | +4 mo | +6 mo | +11 mo | +2 mo |
-| Ideas +3, transfer +1, metrics +0.5 | +7 mo | +10 mo | +12 mo | +2 mo |
-| Ideas +3, transfer and metrics +0.5 | +14 mo | +17 mo | +12 mo | +2 mo |
+| Ideas, transfer and metrics all +3 SD | +0 mo | +1 mo | +11 mo | +1 mo |
+| Ideas and transfer +3, metrics +1 | +4 mo | +6 mo | +11 mo | +1 mo |
+| Ideas and transfer +3, metrics +0.5 | +16 mo | +19 mo | +12 mo | +1 mo |
+| Ideas +3, transfer and metrics +1 | +6 mo | +8 mo | +10 mo | +2 mo |
+| Ideas +3, transfer +1, metrics +0.5 | +16 mo | +19 mo | +12 mo | +2 mo |
+| Ideas +3, transfer and metrics +0.5 | +23 mo | +26 mo | +10 mo | +2 mo |
 
-- **Audits delay more than in the earlier models, and more the slower the AI's own judgment.** Audit hours come out of time that is already short, so each hour means experiments left to the AI.
-- **Audits pass a 9-month lag only in the slowest case.**
+Coming with calendar time:
+
+| AI judgment gained per year | Central audits | Strict audits | 9-month lag | 3-fold compute cut |
+|---|---|---|---|---|
+| Ideas, transfer and metrics all +3 SD | +1 mo | +1 mo | +7 mo | +0 mo |
+| Ideas and transfer +3, metrics +1 | +5 mo | +5 mo | +4 mo | +0 mo |
+| Ideas and transfer +3, metrics +0.5 | +10 mo | +11 mo | +3 mo | +0 mo |
+| Ideas +3, transfer and metrics +1 | +3 mo | +4 mo | +3 mo | +0 mo |
+| Ideas +3, transfer +1, metrics +0.5 | +7 mo | +8 mo | +3 mo | +0 mo |
+| Ideas +3, transfer and metrics +0.5 | +7 mo | +8 mo | +2 mo | +0 mo |
+
+- **Audits delay more than in the earlier models, and more the slower the AI's metric judgment.** Audit hours come out of time that is already short, so each hour means experiments left to the AI.
+- **With metrics at +0.5 SD audits pass a 9-month lag under either reading.** They delay TED-AI by 16 to 23 months against the lag's 10 to 12 if judgment comes with progress, and by 7 to 10 months against 2 to 3 if it comes with calendar time.
+- **A lag does little if slow judgment comes with calendar time.** The lag holds back the AI a lab may use, and the judgment the lab is waiting for arrives on the calendar either way.
 - **The audit result rests on one assumption.** If deployed changes do not grow with AI labor, central audits delay TED-AI by nothing. The model takes the briefing's value of 0.4% more changes for each 1% more labor, which is an assumption.
-- **Half of audit time is taken to count as judging.** At none of it the central delay in the fifth case is 9 months, and at all of it 5.
+- **Half of audit time is taken to count as judging.** With judgment coming with progress, the central delay in the fifth case is 19 months at none of it and 12 at all of it.
 
 ## Each input moved
 
-Case: ideas +3, transfer +1, metrics +0.5. The central row has TED-AI in March 2028. Across the 19 rows in `results/tables_chain.md` it runs from November 2027 to May 2029.
+Case: ideas +3, transfer +1, metrics +0.5. `results/tables_chain.md` has 18 rows for each reading.
 
-- **Latest:** transfer and metric judgment that come with calendar time (May 2029), ideas at +2.1 SD (August 2028), an experiment ceiling of 5 times (June 2028).
-- **Earliest:** an experiment ceiling of 60 times (November 2027), selection worth twice as much (December 2027).
-- **What the AI keeps today matters little.** From 2% to 36% of a gain, TED-AI moves from May 2028 to January 2028. The link is taken to reach people's value when the AI's judgment reaches the median researcher, so a lower start means a steeper climb.
+- **Judgment with progress.** TED-AI is November 2028 in the central row and runs from April 2028 to May 2029. Earliest: validity of 0.3 with the AI judging today, and people able to vouch for any gain (both April 2028). Latest: judging time that grows with candidates (May 2029) and ideas at +2.1 SD (April 2029).
+- **Judgment with calendar time.** TED-AI is November 2030 in the central row and within three months of that in 13 of the 18 rows. Earliest: people able to vouch for any gain (September 2028). Latest: validity of 0.01 with the AI judging today (August 2031).
+- **What the AI keeps today moves the date by about a year.** Validity with the AI judging runs from 0.3 to 0.01, against 0.05 in the central case. TED-AI moves from April 2028 to March 2029 with progress, and from September 2029 to August 2031 with calendar time.
+- **The limit on what people can vouch for matters most where slow judgment comes with calendar time.** Without it, people-judged experiments carry the AI's ideas at full value and TED-AI comes in September 2028.
 
 ## Inputs
 
@@ -112,8 +141,9 @@ Case: ideas +3, transfer +1, metrics +0.5. The central row has TED-AI in March 2
 | Value of one SD of small-scale result | 0.3 log units | Judgment. Tested at 0.6 |
 | Value of one SD of researcher judgment | 0.445 log units | AI Futures' gap between the median and the top researcher |
 | AI judgment on Nov 1, 2026 | -3.5 SD, all three kinds | AI Futures' base case |
-| Transfer: people, AI today, ceiling | 0.7, 0.2, 0.9 | Judgment. Only the ratios enter |
-| Validity: people, AI today, ceiling | 0.8, 0.3, 0.95 | Judgment. Only the ratios enter |
+| Transfer: people, AI today, ceiling | 0.7, 0.2, 0.9 | Judgment. Only the ratios enter. AI today tested at 0.4 |
+| Validity: people, AI today, ceiling | 0.8, 0.05, 0.95 | The PI's judgment of 2026-11-15 that the first draft's 0.3 was too high. Tested at 0.3 and 0.01 |
+| Shape of a link between the AI today and people's level | The same ratio for each SD | As research value is in the AI Futures Model |
 | People can vouch for gains up to | +3.09 SD ideas | Judgment: the best researcher. Tested at +1 SD and with no limit |
 | Researcher time on results, metrics and plans, Oct 2025 | 40% | Judgment. One of Epoch's eight interviewees said "60% of my time would be automated". Tested at 60% |
 | Time to understand all deployed changes today | 14% | The briefing's gate |
@@ -123,7 +153,8 @@ Case: ideas +3, transfer +1, metrics +0.5. The central row has TED-AI in March 2
 ## What it leaves out
 
 - **Sampling.** One set of central values.
-- **Any ceiling on ideas.** AI judgment on well-defined problems rises without limit, as in the AI Futures Model. A ceiling would change every date above.
+- **Any ceiling on ideas.** AI judgment on well-defined problems rises without limit, as in the AI Futures Model. A ceiling would move every output-based date above.
+- **Separate streams of research.** Pretraining and post-training are one stream. A model in which gains on a fixed metric run out and progress waits for the next valid target would need two.
 - **Validity that falls under pressure.** Selecting harder on a metric does not lower its validity here. The AI's metric judgment is the only thing that sets validity on unjudged work.
 - **A lab that cannot see validity.** The lab is taken to know what its gains are really worth.
 - **Sign-off without a comprehension standard.**
