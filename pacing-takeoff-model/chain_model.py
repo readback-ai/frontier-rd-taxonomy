@@ -92,8 +92,9 @@ class Params:
     idea_rate: float = 3.0  # proposing candidates on a well-defined problem
     transfer_rate: float = 1.0  # judging which small-scale gains hold at scale
     metric_rate: float = 1.0  # defining metrics and debugging results that game them
-    with_experience: float = 0.0  # share of the gain in transfer and metric judgment that comes
-    # with calendar time, as outcomes at scale come in. The rest comes with progress
+    transfer_with_time: float = 0.0  # share of the gain in transfer judgment that comes with
+    # calendar time. The rest comes with progress
+    metric_with_time: float = 0.0  # the same for metric judgment
     # The two links. Only their ratios to people's values enter
     transfer_people: float = 0.7  # share of a small-scale gain that holds at scale, people judging
     transfer_ai_start: float = 0.2  # the same with the AI judging, on Nov 1, 2026
@@ -179,9 +180,12 @@ def ai_state(progress: float, p: Params, years: float | None = None) -> dict:
     `years` given, calendar time is taken to have kept step with progress."""
     ahead = progress - p.progress_at_ref
     years = ahead if years is None else years
-    learned = (1.0 - p.with_experience) * ahead + p.with_experience * years
-    transfer_sd = p.judgment_start + p.transfer_rate * learned
-    metric_sd = p.judgment_start + p.metric_rate * learned
+    transfer_sd = p.judgment_start + p.transfer_rate * (
+        (1.0 - p.transfer_with_time) * ahead + p.transfer_with_time * years
+    )
+    metric_sd = p.judgment_start + p.metric_rate * (
+        (1.0 - p.metric_with_time) * ahead + p.metric_with_time * years
+    )
     labor = 1.0 + p.u0 * 2.0 ** min(progress / p.uplift_doubling, 1000.0)
     # Small experiments grow with AI labor. Experiments at scale grow more slowly, so the
     # candidates behind each one multiply.
@@ -367,11 +371,13 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         # calendar time still takes its time.
         end = float(out["t"][-1])
         arrives = dict.fromkeys(names, end)
-        if p.with_experience >= 1.0:
-            slowest = min(p.transfer_rate, p.metric_rate)
-            arrives["every_judgment"] = max(
-                end, T_REF + (SD_RESEARCHER - p.judgment_start) / slowest
-            )
+        needed = SD_RESEARCHER - p.judgment_start
+        for share, rate in (
+            (p.transfer_with_time, p.transfer_rate),
+            (p.metric_with_time, p.metric_rate),
+        ):
+            if share >= 1.0:
+                arrives["every_judgment"] = max(arrives["every_judgment"], T_REF + needed / rate)
         dates = {name: (when if when == when else arrives[name]) for name, when in dates.items()}
     return dict(out, dates=dates, ran_away=ran_away)
 
@@ -585,7 +591,8 @@ def sensitivity_table(p: Params) -> list[str]:
 
 def tables(p: Params | None = None) -> str:
     p = p or Params()
-    by_time = replace(p, with_experience=1.0)
+    split = replace(p, metric_with_time=1.0)
+    by_time = replace(p, transfer_with_time=1.0, metric_with_time=1.0)
     case = "Ideas +3, transfer +1, metrics +0.5"
     out = [
         "# Chain model: milestone dates by scenario",
@@ -594,8 +601,9 @@ def tables(p: Params | None = None) -> str:
         "",
         "Delays are against no pacing. Pacing starts Jan 1, 2027. Rates are SD of researcher "
         "judgment. Ideas gain theirs per year of progress. Transfer and metric judgment gain "
-        "theirs per year of progress in the first set of tables and per calendar year in the "
-        "second. The loop runs away on better ideas alone once the AI's own judgment keeps "
+        "theirs per year of progress in the first set of tables. In the second, metric judgment "
+        "gains its rate per calendar year. In the third, both do. The loop runs away on better "
+        "ideas alone once the AI's own judgment keeps "
         f"{critical_share(p):.0%} of the share of a gain that people's judgment keeps.",
         "",
         "Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a lab "
@@ -606,6 +614,7 @@ def tables(p: Params | None = None) -> str:
     ]
     for title, q in (
         ("Transfer and metric judgment come with progress", p),
+        ("Transfer judgment comes with progress and metric judgment with calendar time", split),
         ("Transfer and metric judgment come with calendar time", by_time),
     ):
         out += [

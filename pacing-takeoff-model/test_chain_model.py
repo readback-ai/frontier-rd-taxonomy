@@ -156,8 +156,18 @@ def test_the_loop_runs_away_only_if_the_ai_keeps_more_than_the_critical_share():
 
 def test_judgment_that_comes_with_calendar_time_separates_the_milestones():
     by_progress = simulate(SLOW)["dates"]
-    by_time = simulate(replace(SLOW, with_experience=1.0))["dates"]
+    by_time = simulate(replace(SLOW, transfer_with_time=1.0, metric_with_time=1.0))["dates"]
     assert by_time["ted_ai"] > by_progress["ted_ai"] + 0.5
     assert by_time["every_judgment"] > by_time["ted_ai"] + 1.0
     weakest = SD_RESEARCHER - SLOW.judgment_start
     assert by_time["every_judgment"] == pytest.approx(T_REF + weakest / SLOW.metric_rate, abs=0.02)
+
+
+def test_metric_judgment_is_the_slow_judgment_that_decides_the_date():
+    both = simulate(replace(SLOW, transfer_with_time=1.0, metric_with_time=1.0))["dates"]
+    metric_only = simulate(replace(SLOW, metric_with_time=1.0))["dates"]
+    transfer_only = simulate(replace(SLOW, transfer_with_time=1.0))["dates"]
+    with_progress = simulate(SLOW)["dates"]
+    assert abs(metric_only["ted_ai"] - both["ted_ai"]) < 0.5
+    assert metric_only["ted_ai"] - with_progress["ted_ai"] > 1.0
+    assert transfer_only["ted_ai"] - with_progress["ted_ai"] < 1.0
