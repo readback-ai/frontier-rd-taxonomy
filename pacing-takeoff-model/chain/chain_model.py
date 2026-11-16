@@ -139,8 +139,6 @@ class Policy:
     lag: float = 0.0  # years by which the AI a lab may use internally trails its newest
     compute_share: float = 1.0  # share of its scheduled compute a lab may use for research
     # and for training
-    compute_cap: float = math.inf  # most compute it may use for them, as a multiple of what it
-    # used when the policy started
 
 
 POLICIES = (
@@ -151,8 +149,6 @@ POLICIES = (
     Policy("Internal-use lag, 3 months", lag=0.25),
     Policy("Internal-use lag, 9 months", lag=0.75),
     Policy("R&D compute at a third of baseline", compute_share=1 / 3),
-    Policy("R&D compute frozen at its Jan 2027 level", compute_cap=1.0),
-    Policy("R&D compute frozen at a third of its Jan 2027 level", compute_cap=1 / 3),
     Policy("Comprehension audits (central) + 9-month lag", audit_hours=1.0, lag=0.75),
 )
 
@@ -333,7 +329,7 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
     dates = dict.fromkeys(levels, math.nan)
     # `scheduled` is the compute growth a lab would have with no policy, in years of growth at
     # the historical rate. `hardware` is the part of it that training has used.
-    software = measured_software = hardware = scheduled = scheduled_at_start = 0.0
+    software = measured_software = hardware = scheduled = 0.0
     last = n
     for i in range(n):
         t = T_BASE + i * dt
@@ -346,17 +342,11 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         # than the AI it had when the policy started.
         j = min(i, max(start_step, i - lag_steps)) if paced else i
         compute_pace = p.compute_slow_pace if t >= p.compute_slows_in else 1.0
-        if i == start_step:
-            scheduled_at_start = scheduled
         # The compute the lab may use, in the same years of growth. A share of the schedule
-        # sets it a fixed number of doublings back. A cap holds it at a level, so a capped lab
-        # falls further behind the schedule each year.
+        # sets it a fixed number of doublings back.
         allowed = scheduled
         if paced:
-            allowed = min(
-                scheduled + math.log2(policy.compute_share) / p.compute_doublings,
-                scheduled_at_start + math.log2(policy.compute_cap) / p.compute_doublings,
-            )
+            allowed += math.log2(policy.compute_share) / p.compute_doublings
         # Research compute against the historical schedule.
         compute = 2.0 ** (p.compute_doublings * (allowed - elapsed))
         # Training cannot use more than is allowed, and what it has already used stays used.
@@ -411,48 +401,71 @@ def pace_on(run: dict, date: float) -> float:
     return at(run, "pace", date)
 
 
-def calibrate(p: Params, steps: int = 16) -> Params:
-    """Fit three inputs to three measurements: AI labor on Oct 1, 2025 to AI labor on Nov 1,
-    2026, its doubling to the pace in May 2026, and the growth of judging time with the
-    number of candidates to the pace in November 2026. Three nested bisections."""
+def fit_labor(p: Params, labor_ref: float = LABOR_REF, steps: int = 16) -> Params:
+    """Fit AI labor on Oct 1, 2025 to AI labor on Nov 1, 2026, and its doubling to the pace in
+    May 2026, leaving every other input of `p` as it is. Two nested bisections."""
 
     def short(q: Params) -> dict:
         return simulate(q, t_end=T_REF + 0.01)
 
-    def fit_level(doubling: float, elasticity: float) -> Params:
-        q = replace(p, uplift_doubling=doubling, volume_elasticity=elasticity)
+    def fit_level(doubling: float) -> Params:
+        q = replace(p, uplift_doubling=doubling)
         lo, hi = 1e-6, 5.0
         for _ in range(steps):
             mid = math.sqrt(lo * hi)
-            if at(short(replace(q, u0=mid)), "labor", T_REF) - 1.0 > LABOR_REF:
+            if at(short(replace(q, u0=mid)), "labor", T_REF) - 1.0 > labor_ref:
                 hi = mid
             else:
                 lo = mid
         return replace(q, u0=math.sqrt(lo * hi))
 
-    def fit_doubling(elasticity: float) -> Params:
-        # With AI labor fixed in November, a slower doubling puts more of it early, so May
-        # runs hotter.
-        lo, hi = 0.05, 2.0
-        for _ in range(steps):
-            mid = math.sqrt(lo * hi)
-            if pace_on(short(fit_level(mid, elasticity)), T_MAY) > PACE_MAY:
-                hi = mid
-            else:
-                lo = mid
-        return fit_level(math.sqrt(lo * hi), elasticity)
+    # With AI labor fixed in November, a slower doubling puts more of it early, so May runs
+    # hotter.
+    lo, hi = 0.05, 2.0
+    for _ in range(steps):
+        mid = math.sqrt(lo * hi)
+        if pace_on(short(fit_level(mid)), T_MAY) > PACE_MAY:
+            hi = mid
+        else:
+            lo = mid
+    fitted = fit_level(math.sqrt(lo * hi))
+    return replace(fitted, progress_at_ref=at(short(fitted), "progress", T_REF))
 
+
+def pace_in_november(p: Params) -> float:
+    return pace_on(simulate(p, t_end=T_REF + 0.01), T_REF)
+
+
+def calibrate(p: Params, steps: int = 16) -> Params:
+    """Fit three inputs to three measurements: AI labor on Oct 1, 2025 and its doubling as in
+    `fit_labor`, and the growth of judging time with the number of candidates to the pace in
+    November 2026."""
     # The more judging time each experiment takes, the fewer people judge, and November runs
     # cooler.
     lo, hi = 0.0, 1.0
     for _ in range(steps):
         mid = 0.5 * (lo + hi)
-        if pace_on(short(fit_doubling(mid)), T_REF) > PACE_REF:
+        if pace_in_november(fit_labor(replace(p, volume_elasticity=mid), steps=steps)) > PACE_REF:
             lo = mid
         else:
             hi = mid
-    fitted = fit_doubling(0.5 * (lo + hi))
-    return replace(fitted, progress_at_ref=at(short(fitted), "progress", T_REF))
+    return fit_labor(replace(p, volume_elasticity=0.5 * (lo + hi)), steps=steps)
+
+
+def max_difficulty(p: Params, labor_ref: float = LABOR_REF, steps: int = 11) -> float:
+    """The highest difficulty at which the model still reaches the pace measured in November
+    2026, with AI labor and the pace of May 2026 matched. Judging time is taken not to grow
+    with candidates, which favors a high pace. Returns the bottom of the search, 0.3, if no
+    difficulty above it fits. Takes about a minute."""
+    easy = replace(p, volume_elasticity=0.0)
+    lo, hi = 0.3, 3.0
+    for _ in range(steps):
+        mid = 0.5 * (lo + hi)
+        if pace_in_november(fit_labor(replace(easy, difficulty=mid), labor_ref)) >= PACE_REF:
+            lo = mid
+        else:
+            hi = mid
+    return lo
 
 
 def critical_share(p: Params) -> float:
@@ -495,23 +508,31 @@ CASES = (
     ("Ideas +3, transfer and metrics +0.5", dict(transfer_rate=0.5, metric_rate=0.5)),
 )
 
-# The three fitted inputs refitted by `calibrate` at other difficulties. Above a difficulty of
-# about 1 no fit reaches the pace measured in November 2026: these two get to 1.57 and 1.46.
+# The three fitted inputs refitted by `calibrate` at lower difficulties.
 DIFFICULTY_FITS = {
+    0.25: dict(
+        u0=0.070495, uplift_doubling=0.177581, volume_elasticity=0.213598, progress_at_ref=1.336609
+    ),
     0.5: dict(
         u0=0.080099, uplift_doubling=0.182743, volume_elasticity=0.144372, progress_at_ref=1.341790
     ),
-    0.7: dict(
-        u0=0.088839, uplift_doubling=0.187031, volume_elasticity=0.088512, progress_at_ref=1.345334
+    0.75: dict(
+        u0=0.091182, uplift_doubling=0.188122, volume_elasticity=0.074525, progress_at_ref=1.346112
     ),
     1.0: {},
-    1.5: dict(
-        u0=0.118576, uplift_doubling=0.195657, volume_elasticity=0.0, progress_at_ref=1.325884
-    ),
-    2.0: dict(
-        u0=0.139250, uplift_doubling=0.199425, volume_elasticity=0.0, progress_at_ref=1.305176
-    ),
 }
+# The highest difficulty that still fits the pace of November 2026, from `max_difficulty`, at
+# the central inputs and with one input moved. `None` means no difficulty above 0.3 fits.
+DIFFICULTY_BOUNDS = (
+    ("Central", 1.02),
+    ("AI labor per researcher on Nov 1, 2026: 26, twice OpenAI's trend", 1.53),
+    ("AI labor per researcher on Nov 1, 2026: 6.5, half of it", 0.37),
+    ("25% of researcher time was on judging in Oct 2025", 2.02),
+    ("60% of researcher time was on judging in Oct 2025", None),
+    ("Experiments rise with AI labor to the power 0.4", 0.98),
+    ("Experiments rise with AI labor to the power 0.6", 1.12),
+    ("Experiments from unlimited AI labor: 60 times", 1.06),
+)
 
 SENSITIVITY = (
     ("Central", {}),
@@ -585,14 +606,11 @@ def pacing_table(p: Params) -> list[str]:
         "Comprehension audits, strict",
         "Internal-use lag, 9 months",
         "R&D compute at a third of baseline",
-        "R&D compute frozen at its Jan 2027 level",
-        "R&D compute frozen at a third of its Jan 2027 level",
     )
     out = [
         "| AI judgment gained per year | TED-AI, no pacing | Central audits | Strict audits | "
-        "9-month lag | Compute at a third of baseline | Compute frozen | "
-        "Compute frozen at a third |",
-        "|---|---|---|---|---|---|---|---|",
+        "9-month lag | Compute at a third of baseline |",
+        "|---|---|---|---|---|---|",
     ]
     for label, rates in CASES:
         q = replace(p, **rates)
@@ -607,21 +625,35 @@ def difficulty_table(p: Params) -> list[str]:
     audits = by_name["Comprehension audits, central"]
     fast, slow = (dict(CASES)[c] for c in (CASES[0][0], "Ideas +3, transfer +1, metrics +0.5"))
     out = [
-        "| Halvings of what research buys per year of software progress | Pace it gives for "
-        "Nov 2026 | Share of a gain the AI must keep for the loop to run away | TED-AI, all "
-        "judgment +3 SD | TED-AI, transfer +1 and metrics +0.5 | Central audits delay it |",
-        "|---|---|---|---|---|---|",
+        "| Halvings of what research buys per year of software progress | Share of a gain the "
+        "AI must keep for the loop to run away | TED-AI, all judgment +3 SD | TED-AI, transfer "
+        "+1 and metrics +0.5 | Central audits delay it |",
+        "|---|---|---|---|---|",
     ]
     for difficulty, fit in DIFFICULTY_FITS.items():
         q = replace(p, difficulty=difficulty, **fit)
-        pace = pace_on(simulate(q, t_end=T_REF + 0.01), T_REF)
         base = simulate(replace(q, **slow))["dates"]["ted_ai"]
         paced = simulate(replace(q, **slow), audits)["dates"]["ted_ai"]
         out.append(
-            f"| {difficulty:g} | {pace:.2f}x | {critical_share(q):.0%} | "
+            f"| {difficulty:g} | {critical_share(q):.0%} | "
             f"{fmt_date(simulate(replace(q, **fast))['dates']['ted_ai'])} | {fmt_date(base)} | "
             f"{fmt_delay(base, paced)} |"
         )
+    return out
+
+
+def bound_table(p: Params) -> list[str]:
+    out = [
+        "| Inputs | Highest difficulty that fits the pace of Nov 2026 | Share of a gain the AI "
+        "must keep for the loop to run away at that difficulty |",
+        "|---|---|---|",
+    ]
+    for label, bound in DIFFICULTY_BOUNDS:
+        if bound is None:
+            out.append(f"| {label} | none above 0.3 | |")
+        else:
+            share = critical_share(replace(p, difficulty=bound))
+            out.append(f"| {label} | {bound:.2f} | {share:.0%} |")
     return out
 
 
@@ -707,6 +739,12 @@ def tables(p: Params | None = None) -> str:
         f"can keep of a gain is {most_kept:.0%} of what people's keeps.",
         "",
         *difficulty_table(p),
+        "",
+        "Above a difficulty of about 1 the model cannot reach the pace measured in November "
+        "2026. The table below gives the highest difficulty that still fits, computed by "
+        "`max_difficulty`, and how it moves with the inputs it rests on.",
+        "",
+        *bound_table(p),
         "",
         "## Every scenario",
         "",

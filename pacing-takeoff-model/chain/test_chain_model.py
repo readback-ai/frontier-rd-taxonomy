@@ -8,6 +8,8 @@ import numpy as np
 import pytest
 from chain_model import (
     CASES,
+    DIFFICULTY_BOUNDS,
+    DIFFICULTY_FITS,
     LABOR_REF,
     PACE_MAY,
     PACE_REF,
@@ -20,7 +22,9 @@ from chain_model import (
     at,
     best_of,
     critical_share,
+    fit_labor,
     lab_judgment,
+    pace_in_november,
     pace_on,
     research,
     simulate,
@@ -158,27 +162,20 @@ def test_the_pace_settles_below_the_critical_share_and_runs_away_above_it():
     assert above["dates"]["ted_ai"] < simulate(fixed(critical - 0.3))["dates"]["ted_ai"] - 1.0
 
 
-def test_tighter_limits_on_research_compute_delay_more_and_less_than_a_lag():
+def test_a_tighter_compute_limit_delays_more_and_holds_back_training():
     base = simulate(SLOW)
 
-    def delay(**limit) -> float:
-        return months(base, simulate(SLOW, Policy("limit", **limit)))
+    def limited(share: float) -> dict:
+        return simulate(SLOW, Policy("limit", compute_share=share))
 
-    third, tenth = delay(compute_share=1 / 3), delay(compute_share=0.1)
-    frozen, frozen_third = delay(compute_cap=1.0), delay(compute_cap=1 / 3)
-    assert 0.0 < third < tenth
-    assert 0.0 < frozen < frozen_third
-    assert third < frozen_third
-    assert third < months(base, simulate(SLOW, BY_NAME["Internal-use lag, 9 months"]))
-
-
-def test_a_compute_limit_holds_back_training_as_well_as_research():
-    frozen = simulate(SLOW, Policy("frozen", compute_cap=1.0))
-    free = simulate(SLOW)
-    # With compute frozen, the third of progress that comes from more compute stops.
-    late = 2028.0
-    lost = at(free, "progress", late) - at(frozen, "progress", late)
-    assert lost > (1.0 - SLOW.software_share) * (late - 2027.0) * 0.99
+    third, tenth = limited(1 / 3), limited(0.1)
+    assert 0.0 < months(base, third) < months(base, tenth)
+    assert months(base, third) < months(base, simulate(SLOW, BY_NAME["Internal-use lag, 9 months"]))
+    # Training waits for its allowance to catch up with what it has used, so for about a
+    # year the third of progress that comes from more compute stops.
+    waited = math.log2(3.0) / SLOW.compute_doublings
+    lost = at(base, "progress", 2028.5) - at(third, "progress", 2028.5)
+    assert lost > (1.0 - SLOW.software_share) * waited
 
 
 def test_a_compute_limit_cuts_ai_labor_and_small_experiments_as_well_as_experiments_at_scale():
@@ -190,15 +187,19 @@ def test_a_compute_limit_cuts_ai_labor_and_small_experiments_as_well_as_experime
 
 
 def test_harder_research_delays_the_takeoff_and_raises_what_the_ai_must_keep():
-    from chain_model import DIFFICULTY_FITS
-
     when, critical = [], []
     for difficulty, fit in DIFFICULTY_FITS.items():
         q = replace(SLOW, difficulty=difficulty, **fit)
         when.append(simulate(q)["dates"]["ted_ai"])
         critical.append(critical_share(q))
-        if difficulty <= 1.0:  # these are the difficulties the measured pace can be fitted at
-            assert abs(pace_on(simulate(q, t_end=T_REF + 0.01), T_REF) - PACE_REF) < 0.005
+        assert abs(pace_in_november(q) - PACE_REF) < 0.005
     assert when == sorted(when)
     assert critical == sorted(critical)
-    assert critical[-1] / critical[0] == pytest.approx(2.0 / 0.5)
+    assert critical[-1] / critical[0] == pytest.approx(1.0 / 0.25)
+
+
+def test_the_pace_of_2026_cannot_be_fitted_much_above_the_central_difficulty():
+    central = dict(DIFFICULTY_BOUNDS)["Central"]
+    easy = replace(P, volume_elasticity=0.0)
+    assert pace_in_november(fit_labor(replace(easy, difficulty=central - 0.05))) >= PACE_REF
+    assert pace_in_november(fit_labor(replace(easy, difficulty=central + 0.05))) < PACE_REF

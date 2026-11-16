@@ -19,14 +19,14 @@ Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a
 
 ## Delay to TED-AI
 
-| AI judgment gained per year | TED-AI, no pacing | Central audits | Strict audits | 9-month lag | Compute at a third of baseline | Compute frozen | Compute frozen at a third |
-|---|---|---|---|---|---|---|---|
-| Ideas, transfer and metrics all +3 SD a year | Jun 2027 | +0 mo | +1 mo | +11 mo | +5 mo | +2 mo | +8 mo |
-| Ideas and transfer +3, metrics +1 | Nov 2027 | +4 mo | +6 mo | +11 mo | +5 mo | +4 mo | +8 mo |
-| Ideas and transfer +3, metrics +0.5 | Jun 2028 | +16 mo | +19 mo | +12 mo | +5 mo | +8 mo | +11 mo |
-| Ideas +3, transfer and metrics +1 | Mar 2028 | +6 mo | +8 mo | +10 mo | +6 mo | +7 mo | +12 mo |
-| Ideas +3, transfer +1, metrics +0.5 | Nov 2028 | +16 mo | +19 mo | +12 mo | +6 mo | +12 mo | +15 mo |
-| Ideas +3, transfer and metrics +0.5 | Jul 2029 | +23 mo | +26 mo | +10 mo | +6 mo | +20 mo | +33 mo |
+| AI judgment gained per year | TED-AI, no pacing | Central audits | Strict audits | 9-month lag | Compute at a third of baseline |
+|---|---|---|---|---|---|
+| Ideas, transfer and metrics all +3 SD a year | Jun 2027 | +0 mo | +1 mo | +11 mo | +5 mo |
+| Ideas and transfer +3, metrics +1 | Nov 2027 | +4 mo | +6 mo | +11 mo | +5 mo |
+| Ideas and transfer +3, metrics +0.5 | Jun 2028 | +16 mo | +19 mo | +12 mo | +5 mo |
+| Ideas +3, transfer and metrics +1 | Mar 2028 | +6 mo | +8 mo | +10 mo | +6 mo |
+| Ideas +3, transfer +1, metrics +0.5 | Nov 2028 | +16 mo | +19 mo | +12 mo | +6 mo |
+| Ideas +3, transfer and metrics +0.5 | Jul 2029 | +23 mo | +26 mo | +10 mo | +6 mo |
 
 ## The path with no pacing: ideas +3, transfer +1, metrics +0.5
 
@@ -64,13 +64,25 @@ Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a
 
 The three fitted inputs are refitted at each difficulty. The most the AI's judgment can keep of a gain is 153% of what people's keeps.
 
-| Halvings of what research buys per year of software progress | Pace it gives for Nov 2026 | Share of a gain the AI must keep for the loop to run away | TED-AI, all judgment +3 SD | TED-AI, transfer +1 and metrics +0.5 | Central audits delay it |
-|---|---|---|---|---|---|
-| 0.5 | 1.70x | 39% | May 2027 | Jun 2028 | +16 mo |
-| 0.7 | 1.70x | 55% | May 2027 | Aug 2028 | +16 mo |
-| 1 | 1.70x | 78% | Jun 2027 | Nov 2028 | +16 mo |
-| 1.5 | 1.57x | 117% | Jul 2027 | Jun 2029 | +14 mo |
-| 2 | 1.46x | 156% | Sep 2027 | Dec 2029 | +12 mo |
+| Halvings of what research buys per year of software progress | Share of a gain the AI must keep for the loop to run away | TED-AI, all judgment +3 SD | TED-AI, transfer +1 and metrics +0.5 | Central audits delay it |
+|---|---|---|---|---|
+| 0.25 | 19% | May 2027 | Mar 2028 | +15 mo |
+| 0.5 | 39% | May 2027 | Jun 2028 | +16 mo |
+| 0.75 | 58% | May 2027 | Aug 2028 | +16 mo |
+| 1 | 78% | Jun 2027 | Nov 2028 | +16 mo |
+
+Above a difficulty of about 1 the model cannot reach the pace measured in November 2026. The table below gives the highest difficulty that still fits, computed by `max_difficulty`, and how it moves with the inputs it rests on.
+
+| Inputs | Highest difficulty that fits the pace of Nov 2026 | Share of a gain the AI must keep for the loop to run away at that difficulty |
+|---|---|---|
+| Central | 1.02 | 79% |
+| AI labor per researcher on Nov 1, 2026: 26, twice OpenAI's trend | 1.53 | 119% |
+| AI labor per researcher on Nov 1, 2026: 6.5, half of it | 0.37 | 29% |
+| 25% of researcher time was on judging in Oct 2025 | 2.02 | 157% |
+| 60% of researcher time was on judging in Oct 2025 | none above 0.3 | |
+| Experiments rise with AI labor to the power 0.4 | 0.98 | 76% |
+| Experiments rise with AI labor to the power 0.6 | 1.12 | 87% |
+| Experiments from unlimited AI labor: 60 times | 1.06 | 83% |
 
 ## Every scenario
 
@@ -85,8 +97,6 @@ The three fitted inputs are refitted at each difficulty. The most the AI's judgm
 | Internal-use lag, 3 months | Oct 2027 | +4 mo | Nov 2027 | +5 mo |
 | Internal-use lag, 9 months | Jan 2028 | +7 mo | May 2028 | +11 mo |
 | R&D compute at a third of baseline | Oct 2027 | +4 mo | Oct 2027 | +5 mo |
-| R&D compute frozen at its Jan 2027 level | Aug 2027 | +2 mo | Aug 2027 | +2 mo |
-| R&D compute frozen at a third of its Jan 2027 level | Jan 2028 | +7 mo | Feb 2028 | +8 mo |
 | Comprehension audits (central) + 9-month lag | Jan 2028 | +8 mo | May 2028 | +12 mo |
 
 ### Ideas and transfer +3, metrics +1
@@ -100,8 +110,6 @@ The three fitted inputs are refitted at each difficulty. The most the AI's judgm
 | Internal-use lag, 3 months | Feb 2028 | +4 mo | Apr 2028 | +6 mo |
 | Internal-use lag, 9 months | Jun 2028 | +8 mo | Sep 2028 | +11 mo |
 | R&D compute at a third of baseline | Mar 2028 | +5 mo | Apr 2028 | +5 mo |
-| R&D compute frozen at its Jan 2027 level | Jan 2028 | +4 mo | Mar 2028 | +4 mo |
-| R&D compute frozen at a third of its Jan 2027 level | May 2028 | +7 mo | Jun 2028 | +8 mo |
 | Comprehension audits (central) + 9-month lag | Jul 2028 | +10 mo | Nov 2028 | +13 mo |
 
 ### Ideas and transfer +3, metrics +0.5
@@ -115,8 +123,6 @@ The three fitted inputs are refitted at each difficulty. The most the AI's judgm
 | Internal-use lag, 3 months | Jul 2028 | +4 mo | Dec 2028 | +6 mo |
 | Internal-use lag, 9 months | Dec 2028 | +9 mo | Jul 2029 | +12 mo |
 | R&D compute at a third of baseline | Aug 2028 | +5 mo | Dec 2028 | +5 mo |
-| R&D compute frozen at its Jan 2027 level | Sep 2028 | +6 mo | Feb 2029 | +8 mo |
-| R&D compute frozen at a third of its Jan 2027 level | Dec 2028 | +8 mo | May 2029 | +11 mo |
 | Comprehension audits (central) + 9-month lag | Apr 2029 | +12 mo | Apr 2030 | +21 mo |
 
 ### Ideas +3, transfer and metrics +1
@@ -130,8 +136,6 @@ The three fitted inputs are refitted at each difficulty. The most the AI's judgm
 | Internal-use lag, 3 months | May 2028 | +3 mo | Aug 2028 | +5 mo |
 | Internal-use lag, 9 months | Sep 2028 | +7 mo | Dec 2028 | +10 mo |
 | R&D compute at a third of baseline | Aug 2028 | +6 mo | Aug 2028 | +6 mo |
-| R&D compute frozen at its Jan 2027 level | Aug 2028 | +6 mo | Oct 2028 | +7 mo |
-| R&D compute frozen at a third of its Jan 2027 level | Dec 2028 | +10 mo | Feb 2029 | +12 mo |
 | Comprehension audits (central) + 9-month lag | Nov 2028 | +9 mo | Mar 2029 | +13 mo |
 
 ### Ideas +3, transfer +1, metrics +0.5
@@ -145,8 +149,6 @@ The three fitted inputs are refitted at each difficulty. The most the AI's judgm
 | Internal-use lag, 3 months | Dec 2028 | +3 mo | Apr 2029 | +6 mo |
 | Internal-use lag, 9 months | Mar 2029 | +7 mo | Nov 2029 | +12 mo |
 | R&D compute at a third of baseline | Feb 2029 | +6 mo | Apr 2029 | +6 mo |
-| R&D compute frozen at its Jan 2027 level | Jul 2029 | +10 mo | Oct 2029 | +12 mo |
-| R&D compute frozen at a third of its Jan 2027 level | Oct 2029 | +13 mo | Feb 2030 | +15 mo |
 | Comprehension audits (central) + 9-month lag | Sep 2029 | +13 mo | Aug 2030 | +22 mo |
 
 ### Ideas +3, transfer and metrics +0.5
@@ -160,7 +162,5 @@ The three fitted inputs are refitted at each difficulty. The most the AI's judgm
 | Internal-use lag, 3 months | Jun 2029 | +2 mo | Dec 2029 | +5 mo |
 | Internal-use lag, 9 months | Sep 2029 | +6 mo | May 2030 | +10 mo |
 | R&D compute at a third of baseline | Sep 2029 | +6 mo | Feb 2030 | +6 mo |
-| R&D compute frozen at its Jan 2027 level | Jul 2030 | +15 mo | Apr 2031 | +20 mo |
-| R&D compute frozen at a third of its Jan 2027 level | Feb 2031 | +22 mo | Apr 2032 | +33 mo |
 | Comprehension audits (central) + 9-month lag | Sep 2030 | +17 mo | Oct 2031 | +27 mo |
 

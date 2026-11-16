@@ -13,7 +13,7 @@ Terms used below:
 - **Progress** is measured in years of AI progress at the rate before October 2025. **Pace** is years of progress per calendar year.
 - **SD** is a standard deviation of research judgment across a lab's researchers. The best researcher is at +3.09 SD.
 - **Researcher-level AI** is the date an AI-only lab's research matches a lab made up of its best researchers. **TED-AI** is the date it matches the level the AI Futures Project uses for top-expert-dominating AI, +7.72 SD. "Where the two levels come from" below gives their source.
-- **Comprehension audits** let a lab deploy only the changes its own people understand. An **internal-use lag** makes a lab work with the AI it had some months ago. A **compute limit** holds a lab to a share of the compute it would otherwise use for research and for training, or freezes that compute at a level.
+- **Comprehension audits** let a lab deploy only the changes its own people understand. An **internal-use lag** makes a lab work with the AI it had some months ago. A **compute limit** holds a lab to a share of the compute it would otherwise use for research and for training.
 
 ## The chain
 
@@ -103,25 +103,24 @@ The path in that case:
 
 Delay to TED-AI. Pacing starts January 1, 2027.
 
-| AI judgment gained per year of progress | Central audits | Strict audits | 9-month lag | Compute at a third of baseline | Compute frozen | Compute frozen at a third |
-|---|---|---|---|---|---|---|
-| Ideas, transfer and metrics all +3 SD | +0 mo | +1 mo | +11 mo | +5 mo | +2 mo | +8 mo |
-| Ideas and transfer +3, metrics +1 | +4 mo | +6 mo | +11 mo | +5 mo | +4 mo | +8 mo |
-| Ideas and transfer +3, metrics +0.5 | +16 mo | +19 mo | +12 mo | +5 mo | +8 mo | +11 mo |
-| Ideas +3, transfer and metrics +1 | +6 mo | +8 mo | +10 mo | +6 mo | +7 mo | +12 mo |
-| Ideas +3, transfer +1, metrics +0.5 | +16 mo | +19 mo | +12 mo | +6 mo | +12 mo | +15 mo |
-| Ideas +3, transfer and metrics +0.5 | +23 mo | +26 mo | +10 mo | +6 mo | +20 mo | +33 mo |
+| AI judgment gained per year of progress | Central audits | Strict audits | 9-month lag | Compute at a third of baseline |
+|---|---|---|---|---|
+| Ideas, transfer and metrics all +3 SD | +0 mo | +1 mo | +11 mo | +5 mo |
+| Ideas and transfer +3, metrics +1 | +4 mo | +6 mo | +11 mo | +5 mo |
+| Ideas and transfer +3, metrics +0.5 | +16 mo | +19 mo | +12 mo | +5 mo |
+| Ideas +3, transfer and metrics +1 | +6 mo | +8 mo | +10 mo | +6 mo |
+| Ideas +3, transfer +1, metrics +0.5 | +16 mo | +19 mo | +12 mo | +6 mo |
+| Ideas +3, transfer and metrics +0.5 | +23 mo | +26 mo | +10 mo | +6 mo |
 
-Central audits take the hours to understand every deployed change that researchers are assumed to spend today, 14% of their time. Strict audits take twice the hours. The three compute limits are a third of what the lab would otherwise use, a freeze at the level of January 2027, and a freeze at a third of that level. Each covers the compute for experiments at scale, for small experiments, for running AI labor and for training the next model.
+Central audits take the hours to understand every deployed change that researchers are assumed to spend today, 14% of their time. Strict audits take twice the hours. The compute limit holds a lab to a third of the compute it would otherwise use for experiments at scale, for small experiments, for running AI labor and for training the next model.
 
 - **Audits delay TED-AI more the slower the AI's metric judgment.** Central audits delay it by nothing where all judgment improves 3 SD a year, by 4 to 6 months with metrics at +1 SD and by 16 to 23 months at +0.5 SD.
 - **The reason is people's time.** Audit hours come out of time that is already short, so each hour means experiments left to the AI. That costs most where the AI's own judgment is weak for longest.
 - **With metrics at +0.5 SD audits pass a 9-month lag.** The lag delays TED-AI by 10 to 12 months in every case.
 - **The audit result rests on one assumption.** If deployed changes do not grow with AI labor, central audits delay TED-AI by nothing. The model assumes 0.4% more changes for each 1% more labor.
 - **Half of audit time is taken to count as judging.** At none of it the central delay in the fifth case is 19 months, and at all of it 12.
-- **A third of baseline is a one-time setback of 5 to 6 months.** Training waits about a year for its allowance to catch up with what it has already used, and research runs on a third of the compute from then on.
-- **A freeze delays more the longer the road.** It delays TED-AI by 2 months where all judgment improves 3 SD a year and by 20 months in the slowest case. A freeze at a third delays it by 8 to 33 months. A freeze stops the third of progress that comes from more compute, and research compute falls further behind the schedule each year.
-- **A freeze matches a 9-month lag in the fifth case and passes it in the slowest.** In the faster cases the lag delays more.
+- **A compute limit at a third of baseline is a one-time setback of 5 to 6 months.** Training waits about a year for its allowance to catch up with what it has already used, and research runs on a third of the compute from then on. The delay is about the same in every case, and less than a 9-month lag.
+- **A third is a tight limit.** In the AI Futures Project's input series, experiments, training and running AI researchers take 62% of the leading company's compute in 2026: 50%, 7% and 5%. A third of that is 21%, which matches a rule that about 79% of compute go to other uses. A rule of 60% would leave research about two thirds of baseline and delay TED-AI by 2 to 3 months. That run is not in the results file.
 
 ## Where the two levels come from
 
@@ -136,19 +135,32 @@ Both levels are the AI Futures Project's, read from its public code.
 
 The debate over whether automated research runs away or peters out is a debate about this input. The model's value is 1: each year of software progress halves what research buys. The three fitted inputs are refitted at each value below.
 
-| Halvings of what research buys per year of software progress | Pace the model gives for Nov 2026 | Share of a gain the AI must keep for the loop to run away | TED-AI, all judgment +3 SD | TED-AI, transfer +1 and metrics +0.5 | Central audits delay it |
-|---|---|---|---|---|---|
-| 0.5 | 1.70x | 39% | May 2027 | Jun 2028 | +16 mo |
-| 0.7 | 1.70x | 55% | May 2027 | Aug 2028 | +16 mo |
-| 1 | 1.70x | 78% | Jun 2027 | Nov 2028 | +16 mo |
-| 1.5 | 1.57x | 117% | Jul 2027 | Jun 2029 | +14 mo |
-| 2 | 1.46x | 156% | Sep 2027 | Dec 2029 | +12 mo |
+| Halvings of what research buys per year of software progress | Share of a gain the AI must keep for the loop to run away | TED-AI, all judgment +3 SD | TED-AI, transfer +1 and metrics +0.5 | Central audits delay it |
+|---|---|---|---|---|
+| 0.25 | 19% | May 2027 | Mar 2028 | +15 mo |
+| 0.5 | 39% | May 2027 | Jun 2028 | +16 mo |
+| 0.75 | 58% | May 2027 | Aug 2028 | +16 mo |
+| 1 | 78% | Jun 2027 | Nov 2028 | +16 mo |
 
-- **The share the AI must keep rises in step with difficulty.** The loop runs away once the AI's own judgment keeps that share of what people's judgment keeps. The most it can keep here is 153%.
-- **At a difficulty of 2 the loop cannot run away on ideas alone.** TED-AI still arrives in December 2029, because ideas have no ceiling and the pace holds near 1.5 times while they accumulate.
-- **The measured pace of 2026 rules out the hardest values in this model.** Above a difficulty of about 1, no fit reaches 1.7 times in November 2026 with AI labor at OpenAI's level. The model's value of 1 is at the hard end of what fits.
-- **Easier research brings the takeoff forward by months.** At 0.5, TED-AI in the slower case comes in June 2028 against November 2028.
-- **One outside estimate is of the same order.** Garicano and Imas (November 2026) fit a research production function to Anthropic's capability index against its R&D spending. Their estimates have progress per unit of input falling about 0.8% to 6% for each index point. At about 13 index points for a year of progress before October 2025, that is 0.15 to 1.2 halvings a year. The conversion is ours, and their measure covers all progress and all R&D spending, so the comparison is rough.
+The table stops at 1 because the model cannot reach the pace measured in November 2026 at much higher values. The highest difficulty that still fits, and how it moves with the inputs it rests on:
+
+| Inputs | Highest difficulty that fits the pace of Nov 2026 | Share of a gain the AI must keep for the loop to run away at that difficulty |
+|---|---|---|
+| Central | 1.02 | 79% |
+| AI labor per researcher on Nov 1, 2026: 26, twice OpenAI's trend | 1.53 | 119% |
+| AI labor per researcher on Nov 1, 2026: 6.5, half of it | 0.37 | 29% |
+| 25% of researcher time was on judging in Oct 2025 | 2.02 | 157% |
+| 60% of researcher time was on judging in Oct 2025 | none above 0.3 | |
+| Experiments rise with AI labor to the power 0.4 | 0.98 | 76% |
+| Experiments rise with AI labor to the power 0.6 | 1.12 | 87% |
+| Experiments from unlimited AI labor: 60 times | 1.06 | 83% |
+
+- **The pace of 2026 caps how hard research can be getting.** At the central inputs the model reaches 1.7 times in November 2026 only if difficulty is 1.02 or less. Harder than that, 13 units of AI labor per researcher and the researcher time they free cannot add enough research.
+- **At that cap the loop runs away once the AI keeps 79% of what people keep.** The most it can keep here is 153%. So the measured pace leaves room for a runaway. It does not show one: a runaway also needs the AI's judgment to improve as fast as the AI Futures Project assumes.
+- **The cap is only as good as two inputs.** It is 1.53 if AI labor in November 2026 was twice OpenAI's trend and 0.37 if it was half. It is 2.02 if a quarter of researcher time went to judging in 2025, and at 60% the model cannot reach the measured pace at all. At 2.02 the loop cannot run away on ideas alone. The labor figure is OpenAI's and the pace was measured at Anthropic.
+- **The cap takes the 1.7 times as the AI's doing.** METR attributed 80% of the rise in pace to AI and called the estimate uncertain. Garicano and Imas (November 2026) read the same period as faster growth in spending with diminishing returns and a one-time gain from AI tools.
+- **Easier research brings the takeoff forward by months.** At 0.25, TED-AI in the slower case comes in March 2028 against November 2028.
+- **One outside estimate is of the same order.** Garicano and Imas fit a research production function to Anthropic's capability index against its R&D spending. Their estimates have progress per unit of input falling about 0.8% to 6% for each index point. At about 13 index points for a year of progress before October 2025, that is 0.15 to 1.2 halvings a year. The conversion is ours, and their measure covers all progress and all R&D spending, so the comparison is rough.
 
 ## Each input moved
 
@@ -165,7 +177,7 @@ Case: ideas +3, transfer +1, metrics +0.5. TED-AI is November 2028 in the centra
 | Input | Value | Basis |
 |---|---|---|
 | Software share of progress | 2/3 | Judgment. The rest is more compute |
-| Difficulty: halvings of what research buys per year of software progress | 1 | Judgment, at the hard end of what the pace of 2026 allows. Tested at 0.5, 0.7, 1.5 and 2 |
+| Difficulty: halvings of what research buys per year of software progress | 1 | Judgment, at the top of what the pace of 2026 allows at the central inputs. Tested at 0.25, 0.5 and 0.75 |
 | Experiments from AI labor | Square root, ceiling of 15 times | Judgment. Tested at 5 and 60 |
 | Small experiments behind each one at scale, Oct 2025 | 20 | Judgment, from researchers' accounts that most experiments are discarded |
 | Most candidates small-scale compute allows | 10,000 | Judgment. Tested at a million |
