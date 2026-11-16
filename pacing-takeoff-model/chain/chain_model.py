@@ -75,6 +75,12 @@ PACE_MAY, PACE_REF = 1.2, 1.7
 # organizations in late August 2026, from its report "How employment is changing at Anthropic"
 # (Figure 2). The pace was measured at the same company.
 T_LABOR, LABOR_REF = 2026.65, 19.0
+# The compute limit. The AI Futures Project's "How to Pace the US Frontier" (August 2026) puts
+# capabilities compute at 48% of a company's compute today and at 9.6% under a floor of 90% for
+# external inference, the second tightest of its three examples. The model holds research
+# compute to the same fraction of its schedule.
+COMPUTE_TODAY, COMPUTE_CAP = 0.48, 0.096
+COMPUTE_LIMIT = "R&D compute capped at 9.6% of all compute"
 # The two milestone levels are the AI Futures Project's, in SD of researcher judgment. In its
 # public code (github.com/AI-Futures-Project, `progress_model/config.py` and `_impl.py`) both
 # are levels of AI research taste.
@@ -157,7 +163,7 @@ POLICIES = (
     Policy("Comprehension audits", audits=True),
     Policy("Internal-use lag, 3 months", lag=0.25),
     Policy("Internal-use lag, 9 months", lag=0.75),
-    Policy("R&D compute at a third of baseline", compute_share=1 / 3),
+    Policy(COMPUTE_LIMIT, compute_share=COMPUTE_CAP / COMPUTE_TODAY),
     Policy("Comprehension audits + 9-month lag", audits=True, lag=0.75),
 )
 
@@ -695,11 +701,11 @@ def pacing_table(p: Params) -> list[str]:
         "Comprehension audits",
         "Internal-use lag, 9 months",
         "Comprehension audits + 9-month lag",
-        "R&D compute at a third of baseline",
+        COMPUTE_LIMIT,
     )
     out = [
         "| AI judgment gained per year | TED-AI, no pacing | Comprehension audits | "
-        "9-month lag | Audits and 9-month lag | Compute at a third of baseline |",
+        "9-month lag | Audits and 9-month lag | Compute capped at 9.6% |",
         "|---|---|---|---|---|---|",
     ]
     for label, rates in CASES:

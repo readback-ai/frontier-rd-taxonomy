@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from chain_model import (
     CASES,
+    COMPUTE_LIMIT,
     MONTHS,
     PACE_MAY,
     PACE_REF,
@@ -38,7 +39,7 @@ SERIES = (
     ("Comprehension audits", "Comprehension audits", "#2a78d6"),
     ("Internal-use lag, 9 months", "Internal-use lag, 9 months", "#eb6834"),
     ("Comprehension audits + 9-month lag", "Audits and 9-month lag", "#1baf7a"),
-    ("R&D compute at a third of baseline", "Compute at a third of baseline", "#eda100"),
+    (COMPUTE_LIMIT, "Compute capped at 9.6% of total", "#eda100"),
 )
 START, PACING, TICKS = 2026.0, 2027.0, (1.0, 1.5, 2.0, 3.0, 5.0, 10.0, 15.0)
 OUT = Path(__file__).parent / "results" / "pace.png"

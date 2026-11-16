@@ -62,7 +62,7 @@ kept  = transfer * validity, each measured against people's
 
 - **Comprehension audits.** A lab may deploy only what its own people understand. That takes researchers' hours for every deployed change: 14% of their time today, growing with the number of changes. It also has a reach. People cannot understand a gain past what they can vouch for, so an audited lab does not deploy that part.
 - **Internal-use lag.** A lab works with the AI it had nine months ago.
-- **Compute limit.** A lab may use a third of the compute it otherwise would for experiments, for running AI labor and for training.
+- **Compute cap.** Capabilities work may use at most 9.6% of a lab's compute. That is a fifth of what it otherwise would use for experiments, for running AI labor and for training.
 
 Audits and the lag are also run together.
 
@@ -144,14 +144,14 @@ The figure is the primary scenario. Each line is the pace under one policy and e
 
 Delay to TED-AI:
 
-| AI judgment gained per year of progress | Comprehension audits | 9-month lag | Audits and 9-month lag | Compute at a third of baseline |
+| AI judgment gained per year of progress | Comprehension audits | 9-month lag | Audits and 9-month lag | Compute capped at 9.6% |
 |---|---|---|---|---|
-| Ideas, transfer and metrics all +3 SD | +0 mo | +11 mo | +11 mo | +5 mo |
-| Ideas and transfer +3, metrics +1 | +3 mo | +10 mo | +11 mo | +8 mo |
-| **Ideas and transfer +3, metrics +0.5 (primary)** | **+12 mo** | **+12 mo** | **+16 mo** | **+7 mo** |
-| Ideas +3, transfer and metrics +1 | +4 mo | +10 mo | +11 mo | +8 mo |
-| Ideas +3, transfer +1, metrics +0.5 | +12 mo | +12 mo | +17 mo | +8 mo |
-| Ideas +3, transfer and metrics +0.5 | +13 mo | +11 mo | +17 mo | +8 mo |
+| Ideas, transfer and metrics all +3 SD | +0 mo | +11 mo | +11 mo | +7 mo |
+| Ideas and transfer +3, metrics +1 | +3 mo | +10 mo | +11 mo | +11 mo |
+| **Ideas and transfer +3, metrics +0.5 (primary)** | **+12 mo** | **+12 mo** | **+16 mo** | **+10 mo** |
+| Ideas +3, transfer and metrics +1 | +4 mo | +10 mo | +11 mo | +12 mo |
+| Ideas +3, transfer +1, metrics +0.5 | +12 mo | +12 mo | +17 mo | +11 mo |
+| Ideas +3, transfer and metrics +0.5 | +13 mo | +11 mo | +17 mo | +12 mo |
 
 **Comprehension audits**
 
@@ -165,8 +165,9 @@ Delay to TED-AI:
 
 - **A 9-month lag delays TED-AI by 10 to 12 months in every scenario.** It sets back the AI the lab may use, and so the judgment that drives the loop.
 - **Audits and the lag together delay it by 11 to 17 months.** That is less than the two delays added up. In the primary scenario the two together give 16 months, against 12 and 12 apart, and the pace ends at 1.3 times.
-- **A compute limit delays it by 5 to 8 months, once.** Training waits about a year for its allowance to catch up with what it has already used, and research runs on a third of the compute from then on. A cut in research buys a fixed delay because difficulty is exponential: a lab with half the research ends up one year of software progress behind and stays there.
-- **A third is a tight limit.** In the AI Futures Project's input series, experiments, training and running AI researchers take 62% of the leading company's compute in 2026. A third of that is 21%, which matches a rule that about 79% of compute go to other uses. A rule of 60% would leave research about two thirds of baseline and delay TED-AI by 2 to 3 months. That run is not in the results file.
+- **The compute cap delays it by 7 to 12 months, once.** Training waits a year and a half for its allowance to catch up with what it has already used, and research runs on a fifth of the compute from then on. In the primary scenario the pace drops to 0.7 times when the cap starts and is back above 1 in April 2028. A cut in research buys a fixed delay because difficulty is exponential: a lab with half the research ends up one year of software progress behind and stays there.
+- **The cap is the AI Futures Project's.** A chart in its ["How to Pace the US Frontier"](https://blog.aifutures.org/p/how-to-pace-the-us-frontier) (August 2026) gives three examples of compute rules. It estimates capabilities compute at 48% of a company's compute today. Under a floor of 90% for external inference it is 9.6%, the second tightest of the three, and the model holds research compute to the same fraction of its schedule, 9.6/48. The figures were read from the chart.
+- **Other rules from the same chart.** Its tightest example, 5% under floors of 70% for inference and 25% for safety, delays TED-AI by 13 months in the primary scenario. Its loosest, 12.5% under a safety floor of 75%, delays it by 8. A cut to a third of baseline delays it by 7. If the base is the 62% that the project's input series gives for experiments, training and running AI researchers in 2026, a cap of 9.6% delays it by 11. Those runs are not in the results file.
 
 ## How fast research gets harder
 

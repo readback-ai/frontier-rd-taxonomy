@@ -19,14 +19,14 @@ SAR, the superhuman AI researcher, and TED-AI are the AI Futures Project's miles
 
 ## Delay to TED-AI
 
-| AI judgment gained per year | TED-AI, no pacing | Comprehension audits | 9-month lag | Audits and 9-month lag | Compute at a third of baseline |
+| AI judgment gained per year | TED-AI, no pacing | Comprehension audits | 9-month lag | Audits and 9-month lag | Compute capped at 9.6% |
 |---|---|---|---|---|---|
-| Ideas, transfer and metrics all +3 SD a year | Jun 2027 | +0 mo | +11 mo | +11 mo | +5 mo |
-| Ideas and transfer +3, metrics +1 | Feb 2028 | +3 mo | +10 mo | +11 mo | +8 mo |
-| Ideas and transfer +3, metrics +0.5 | Feb 2029 | +12 mo | +12 mo | +16 mo | +7 mo |
-| Ideas +3, transfer and metrics +1 | Jun 2028 | +4 mo | +10 mo | +11 mo | +8 mo |
-| Ideas +3, transfer +1, metrics +0.5 | Jun 2029 | +12 mo | +12 mo | +17 mo | +8 mo |
-| Ideas +3, transfer and metrics +0.5 | Feb 2030 | +13 mo | +11 mo | +17 mo | +8 mo |
+| Ideas, transfer and metrics all +3 SD a year | Jun 2027 | +0 mo | +11 mo | +11 mo | +7 mo |
+| Ideas and transfer +3, metrics +1 | Feb 2028 | +3 mo | +10 mo | +11 mo | +11 mo |
+| Ideas and transfer +3, metrics +0.5 | Feb 2029 | +12 mo | +12 mo | +16 mo | +10 mo |
+| Ideas +3, transfer and metrics +1 | Jun 2028 | +4 mo | +10 mo | +11 mo | +12 mo |
+| Ideas +3, transfer +1, metrics +0.5 | Jun 2029 | +12 mo | +12 mo | +17 mo | +11 mo |
+| Ideas +3, transfer and metrics +0.5 | Feb 2030 | +13 mo | +11 mo | +17 mo | +12 mo |
 
 ## The path with no pacing: ideas and transfer +3, metrics +0.5
 
@@ -101,7 +101,7 @@ Above some difficulty the model cannot reach the pace measured in November 2026.
 | Comprehension audits | Jun 2027 | +0 mo | Jun 2027 | +0 mo |
 | Internal-use lag, 3 months | Sep 2027 | +3 mo | Nov 2027 | +5 mo |
 | Internal-use lag, 9 months | Nov 2027 | +6 mo | May 2028 | +11 mo |
-| R&D compute at a third of baseline | Oct 2027 | +5 mo | Nov 2027 | +5 mo |
+| R&D compute capped at 9.6% of all compute | Dec 2027 | +7 mo | Jan 2028 | +7 mo |
 | Comprehension audits + 9-month lag | Nov 2027 | +6 mo | May 2028 | +11 mo |
 
 ### Ideas and transfer +3, metrics +1
@@ -112,7 +112,7 @@ Above some difficulty the model cannot reach the pace measured in November 2026.
 | Comprehension audits | Apr 2028 | +2 mo | May 2028 | +3 mo |
 | Internal-use lag, 3 months | Jun 2028 | +4 mo | Jul 2028 | +5 mo |
 | Internal-use lag, 9 months | Oct 2028 | +8 mo | Dec 2028 | +10 mo |
-| R&D compute at a third of baseline | Sep 2028 | +7 mo | Sep 2028 | +8 mo |
+| R&D compute capped at 9.6% of all compute | Dec 2028 | +11 mo | Jan 2029 | +11 mo |
 | Comprehension audits + 9-month lag | Oct 2028 | +9 mo | Jan 2029 | +11 mo |
 
 ### Ideas and transfer +3, metrics +0.5
@@ -123,7 +123,7 @@ Above some difficulty the model cannot reach the pace measured in November 2026.
 | Comprehension audits | Jul 2029 | +7 mo | Mar 2030 | +12 mo |
 | Internal-use lag, 3 months | Apr 2029 | +4 mo | Aug 2029 | +6 mo |
 | Internal-use lag, 9 months | Sep 2029 | +8 mo | Feb 2030 | +12 mo |
-| R&D compute at a third of baseline | Jul 2029 | +6 mo | Sep 2029 | +7 mo |
+| R&D compute capped at 9.6% of all compute | Oct 2029 | +9 mo | Dec 2029 | +10 mo |
 | Comprehension audits + 9-month lag | Oct 2029 | +10 mo | Jun 2030 | +16 mo |
 
 ### Ideas +3, transfer and metrics +1
@@ -134,7 +134,7 @@ Above some difficulty the model cannot reach the pace measured in November 2026.
 | Comprehension audits | Sep 2028 | +3 mo | Oct 2028 | +4 mo |
 | Internal-use lag, 3 months | Oct 2028 | +4 mo | Nov 2028 | +5 mo |
 | Internal-use lag, 9 months | Jan 2029 | +7 mo | Apr 2029 | +10 mo |
-| R&D compute at a third of baseline | Feb 2029 | +8 mo | Feb 2029 | +8 mo |
+| R&D compute capped at 9.6% of all compute | Jun 2029 | +12 mo | Jun 2029 | +12 mo |
 | Comprehension audits + 9-month lag | Feb 2029 | +8 mo | May 2029 | +11 mo |
 
 ### Ideas +3, transfer +1, metrics +0.5
@@ -145,7 +145,7 @@ Above some difficulty the model cannot reach the pace measured in November 2026.
 | Comprehension audits | Nov 2029 | +7 mo | May 2030 | +12 mo |
 | Internal-use lag, 3 months | Aug 2029 | +4 mo | Nov 2029 | +6 mo |
 | Internal-use lag, 9 months | Jan 2030 | +8 mo | Jun 2030 | +12 mo |
-| R&D compute at a third of baseline | Dec 2029 | +8 mo | Feb 2030 | +8 mo |
+| R&D compute capped at 9.6% of all compute | Apr 2030 | +11 mo | May 2030 | +11 mo |
 | Comprehension audits + 9-month lag | Mar 2030 | +11 mo | Nov 2030 | +17 mo |
 
 ### Ideas +3, transfer and metrics +0.5
@@ -156,6 +156,6 @@ Above some difficulty the model cannot reach the pace measured in November 2026.
 | Comprehension audits | Nov 2030 | +9 mo | Apr 2031 | +13 mo |
 | Internal-use lag, 3 months | May 2030 | +4 mo | Aug 2030 | +5 mo |
 | Internal-use lag, 9 months | Sep 2030 | +8 mo | Jan 2031 | +11 mo |
-| R&D compute at a third of baseline | Sep 2030 | +8 mo | Nov 2030 | +8 mo |
+| R&D compute capped at 9.6% of all compute | Jan 2031 | +11 mo | Feb 2031 | +12 mo |
 | Comprehension audits + 9-month lag | Jan 2031 | +12 mo | Aug 2031 | +17 mo |
 
