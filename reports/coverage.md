@@ -2,7 +2,7 @@
 
 # Coverage
 
-Data date: 2026-11-11.
+Data date: 2026-11-16.
 
 ## Sources by type
 
@@ -14,6 +14,7 @@ Data date: 2026-11-11.
 | system card | 5 | 47 |
 | risk report | 4 | 43 |
 | academic paper | 4 | 28 |
+| forecast or model | 3 | 7 |
 | lab measurement report | 2 | 20 |
 | readback internal | 2 | 11 |
 | staff statement | 1 | 4 |
@@ -27,10 +28,10 @@ Data date: 2026-11-11.
 |---|---|---|---|---|
 | A | 37 | 37 | 0 | 0 |
 | B | 303 | 303 | 0 | 0 |
-| C | 80 | 80 | 0 | 0 |
+| C | 87 | 87 | 0 | 0 |
 | D | 7 | 7 | 0 | 0 |
 
-427 of 427 quotes are verified against a snapshot.
+434 of 434 quotes are verified against a snapshot.
 
 ## Estimates by basis
 

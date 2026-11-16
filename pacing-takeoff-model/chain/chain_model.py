@@ -236,11 +236,18 @@ def ai_state(progress: float, p: Params, compute: float = 1.0) -> dict:
     )
 
 
-def realized_sd(ai: dict) -> float:
-    """Judgment of an AI-only lab in researcher SD: its ideas, times the share of their gain
-    that its own transfer and metric judgment keep, against the share people's keep."""
+def realized_sd(ai: dict, p: Params) -> float:
+    """Judgment of an AI-only lab in researcher SD. It is the level at which an AI with people's
+    transfer and metric judgment gets the same research from an experiment as this AI gets with
+    its own. The value equation is the one `research` applies to an experiment left to the AI,
+    so weak links cost a share of the standing value as well as a share of the ideas. Selection
+    among candidates is left out: the score is about judgment, not the number of experiments."""
     kept = ai["transfer"] * ai["validity"]
-    return ai["idea_sd"] * kept if ai["idea_sd"] > 0.0 else ai["idea_sd"]
+    k = p.value_per_sd
+    # An AI-only lab at level s with people's links is worth exp(k * s - k**2 / 2).
+    own = k * ai["idea_sd"] - 0.5 * k**2
+    base = standing(p)
+    return (kept * (base + own) - base + 0.5 * k**2) / k
 
 
 def standing(p: Params) -> float:
@@ -438,7 +445,7 @@ def simulate(
         for key in ("labor_used", "experiments", "candidates", "covered", "time_audit", "deployed"):
             out[key][i] = lab[key]
         # Milestones are about the newest AI, whatever the lab is allowed to use.
-        newest = realized_sd(ai_state(progress, p))
+        newest = realized_sd(ai_state(progress, p), p)
         for name, level in levels.items():
             if dates[name] != dates[name] and newest >= level:
                 dates[name] = t

@@ -1,0 +1,50 @@
+id: S-cotra-2026-11-ai-accelerating-ai
+title: AI is dramatically accelerating AI research right now
+publisher: Planned Obsolescence
+authors: [Ajeya Cotra]
+published: 2026-11-06
+url: https://www.planned-obsolescence.org/p/ai-is-dramatically-accelerating-ai
+type: forecast_or_model
+vantage: external_third_party
+labs: [Anthropic]
+summary: >-
+  A post on what METR's report on AI R&D acceleration at Anthropic implies. It backs out the labor
+  uplift behind a doubling of progress with a Cobb-Douglas account of labor and experiment compute,
+  and extrapolates the acceleration.
+limits: >-
+  The author works at METR, which wrote the report she discusses. She says she did not work on it
+  or see the unredacted version and that her opinions are her own. Most of the evidence METR found
+  most informative is redacted in the public report. The calculation is a back-of-envelope with
+  round constants chosen for simplicity, and the uplift she checks it against is informal
+  self-reports from Anthropic staff. She thanks Ryan Greenblatt for help with modeling, so this
+  source and S-greenblatt-2026-04-mythos-4x-productivity are not independent estimates. Only the
+  two footnotes that say where the model comes from were extracted.
+evidence:
+  - id: EV-cotra-2026-11-ai-accelerating-ai-01
+    claim: >-
+      Cotra says her calculation is a simplified version of Ryan Greenblatt's modeling.
+    quote: >-
+      This is a simplified version of the modeling that my colleague Ryan Greenblatt goes through
+    locator: Footnote 6
+    kind: method
+    strength: reported
+    grade: C
+    tasks: []
+    note: >-
+      Footnote 6 is attached to the step from doubled overall progress to faster growth in compute
+      multipliers. The modeling she simplifies is Greenblatt's thread on X, which the footnote
+      links and which could not be snapshotted. The footnote cites his earlier comment and his
+      post of April 2026 as the basis of his numbers.
+
+  - id: EV-cotra-2026-11-ai-accelerating-ai-02
+    claim: >-
+      She assumes labor and experiment compute contribute equally to compute multipliers, each
+      with an exponent of 0.5, to keep the arithmetic simple.
+    quote: >-
+      To make the math simple, I just assumed that labor and experiment compute contributed equally
+      (i.e. compute multipliers = (labor)^0.5 * (compute)^0.5.
+    locator: Footnote 8
+    kind: pace
+    strength: reported
+    grade: C
+    tasks: []

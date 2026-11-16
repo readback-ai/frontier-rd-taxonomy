@@ -1,0 +1,26 @@
+{
+  "source_id": "S-cotra-2026-11-ai-accelerating-ai",
+  "snapshot": {
+    "url": "https://www.planned-obsolescence.org/p/ai-is-dramatically-accelerating-ai",
+    "final_url": "https://www.planned-obsolescence.org/p/ai-is-dramatically-accelerating-ai",
+    "retrieved": "2026-11-16",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "e7e4b3ae5bed1cc6c37ab903f9f72820f1ca8ac4b17e91640185d3698b10f1f1",
+    "text_sha256": "4d95ed82fb0400a1a18a35703d7ec702f27c96532413ee8f40a9cbef90d3f040",
+    "text_chars": 18077,
+    "paywalled": false
+  },
+  "quotes": {
+    "EV-cotra-2026-11-ai-accelerating-ai-01": {
+      "quote_sha256": "b557d8439c58a68d1f38d007a0fea55c8a36950b799c5cf5247fb59bd4c2b6d4",
+      "text_sha256": "4d95ed82fb0400a1a18a35703d7ec702f27c96532413ee8f40a9cbef90d3f040",
+      "verified": "2026-11-16"
+    },
+    "EV-cotra-2026-11-ai-accelerating-ai-02": {
+      "quote_sha256": "3177011389436ab523f70dcfdb180cf8daba1ba9fa2cd45025325619586e1128",
+      "text_sha256": "4d95ed82fb0400a1a18a35703d7ec702f27c96532413ee8f40a9cbef90d3f040",
+      "verified": "2026-11-16"
+    }
+  }
+}

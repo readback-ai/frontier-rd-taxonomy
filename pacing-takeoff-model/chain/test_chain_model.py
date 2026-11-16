@@ -27,6 +27,7 @@ from chain_model import (
     lab_judgment,
     pace_in_november,
     pace_on,
+    realized_sd,
     research,
     simulate,
     standing,
@@ -87,6 +88,18 @@ def test_an_experiment_left_to_todays_ai_is_worth_what_ai_futures_gives_its_judg
     assert lab["covered"] < 1e-6
     assert lab["real"] / 1e9 == pytest.approx(math.exp(q.value_per_sd * q.judgment_start), rel=0.01)
     assert standing(q) > 0.0
+
+
+def test_a_milestone_score_is_the_level_whose_experiment_is_worth_the_same():
+    q = replace(P, value_of_selection=0.0)
+    weak = dict(ai_state(q.progress_at_ref, q), idea_sd=40.0, transfer=0.9, validity=0.9)
+    score = realized_sd(weak, q)
+    assert 20.0 < score < 40.0 * 0.81  # the weak links cost part of the standing value too
+    level = dict(weak, idea_sd=score, transfer=1.0, validity=1.0)
+    left_to_ai = research(weak, q, experiments=1e9)
+    assert left_to_ai["covered"] < 1e-6
+    assert left_to_ai["real"] == pytest.approx(research(level, q, experiments=1e9)["real"])
+    assert realized_sd(level, q) == pytest.approx(score)
 
 
 def test_people_judge_every_experiment_on_the_base_date_and_fewer_as_experiments_multiply():

@@ -38,7 +38,7 @@ SERIES = (
     ("Comprehension audits + 9-month lag", "Audits and 9-month lag", "#1baf7a"),
     ("R&D compute at a third of baseline", "Compute at a third of baseline", "#eda100"),
 )
-START, TICKS = 2026.0, (1.0, 1.5, 2.0, 3.0, 5.0, 10.0)
+START, TICKS = 2026.0, (1.0, 1.5, 2.0, 3.0, 5.0, 10.0, 15.0)
 OUT = Path(__file__).parent / "results" / "pace.png"
 
 
@@ -104,7 +104,7 @@ def main() -> None:
         fontsize=9,
     )
     ax.set_yscale("log")
-    ax.set_ylim(0.9, 11.5)
+    ax.set_ylim(0.9, 1.15 * max(TICKS[-1], max(pace for _, pace, *_ in ends)))
     ax.yaxis.set_major_locator(FixedLocator(TICKS))
     ax.yaxis.set_minor_formatter(NullFormatter())
     ax.set_yticklabels([f"{tick:g}x" for tick in TICKS])
