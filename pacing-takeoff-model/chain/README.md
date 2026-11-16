@@ -51,7 +51,7 @@ kept  = transfer * validity, each measured against people's
 
 **People.** A person who judges an experiment supplies both links at people's level, and keeps all of its gain. Two things limit this:
 
-- **Time.** Researchers judge as many experiments as they have time for. The AI judges the rest with its own transfer and metric judgment and keeps less. AI takes over implementation, which frees researcher time. Managing the agents takes part of it back.
+- **Time.** Researchers judge as many experiments as they have time for. The AI judges the rest with its own transfer and metric judgment and keeps less. In October 2025 researchers spend 40% of their time judging and 60% implementing. AI takes over implementation as the candidates multiply, which frees that time. Managing the agents takes 22 points of it and the rest goes to judging.
 - **Reach.** People can vouch for a gain only up to what their best researcher could have proposed. The AI judges any part of a gain beyond that.
 
 **The lab chooses.** It runs the amount of AI labor that gives it the most research. More agents mean more experiments and more candidates. They also mean more for people to judge and more deployed changes.
@@ -96,7 +96,7 @@ Three inputs are fitted to three measurements, all from Anthropic.
 
 - **The fit has an independent check.** The model's AI labor doubles about monthly in mid-2026. Anthropic's series, which is not used to fit the doubling, rose from 0.2 agent hours per human hour in February 2026 to 19 in late August, a doubling every 31 days. The series was read from the chart by eye.
 - **People's time is already short.** In the fitted model researchers judge 36% of experiments at scale in late August 2026 and 17% on November 1.
-- **Managing agents takes researcher time.** Anthropic reports that 22% of model researchers' agent sessions in spring 2026 were meta-work: writing specs for agents, setting one agent to review another, watching pipelines. The model takes that as a share of researcher time, which is an assumption.
+- **Managing agents takes researcher time.** Anthropic reports that 22% of model researchers' agent sessions in spring 2026 were meta-work: writing specs for agents, setting one agent to review another, watching pipelines. The model takes that as the share of researcher time managing takes once AI does all the implementation, which is an assumption. Before then it scales with the share of implementation handed over: 0% in October 2025, 8% in April 2026, 18% in late August 2026 and 22% from early 2027. A higher share at the start would change no result, because it would come out of implementation time and not out of judging. That path is not in the results file.
 
 ## Results with no pacing
 
