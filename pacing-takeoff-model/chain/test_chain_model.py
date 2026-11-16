@@ -115,11 +115,26 @@ def test_slower_transfer_and_metric_judgment_bring_the_milestones_later():
     assert when(0.5, 0.5)["ted_ai"] - when(3.0, 3.0)["ted_ai"] > 1.5
 
 
-def test_audits_delay_more_the_slower_the_ais_own_judgment():
-    delay = [months(simulate(q), simulate(q, CENTRAL)) for q in (FAST, SLOW, SLOWEST)]
-    assert delay[0] < 3.0
-    assert delay[0] < delay[1] < delay[2]
-    assert delay[2] > 9.0
+def test_audits_delay_more_the_slower_the_ais_own_judgment_and_the_more_hours_they_take():
+    central = [months(simulate(q), simulate(q, CENTRAL)) for q in (FAST, SLOW, SLOWEST)]
+    assert central[0] < central[1] <= central[2]
+    for q in (SLOW, SLOWEST):
+        base = simulate(q)
+        light, mid, strict = (
+            months(base, simulate(q, BY_NAME[f"Comprehension audits, {level}"]))
+            for level in ("light", "central", "strict")
+        )
+        assert 0.0 < light < mid < strict
+
+
+def test_an_audited_lab_runs_less_ai_labor_and_keeps_its_pace_above_the_old_one():
+    run = simulate(SLOW, CENTRAL)
+    late = run["t"] > 2027.5
+    assert np.all(run["labor_used"][late] < 0.2 * run["labor"][late])
+    assert np.all(run["pace"][late] > 1.0)
+    # Through 2026 a lab with no audit runs all the AI labor it has.
+    free = simulate(SLOW, t_end=T_REF)
+    assert np.allclose(free["labor_used"], free["labor"])
 
 
 def test_no_pacing_policy_brings_a_milestone_forward():

@@ -1,3 +1,4 @@
 # Versions the committed results were generated with.
 numpy==2.5.4
+matplotlib==3.11.2
 pytest>=8.3

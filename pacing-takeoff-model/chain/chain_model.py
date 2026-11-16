@@ -198,6 +198,22 @@ def link(sd: float, people: float, ai_start: float, top: float, p: Params) -> fl
     return min(top, people * math.exp(per_sd * sd))
 
 
+def experiments_at_scale(labor: float, p: Params, compute: float = 1.0) -> float:
+    """Experiments at scale per researcher against Oct 1, 2025, from the AI labor a lab runs
+    and its research compute against the historical schedule."""
+    more_at_scale = labor_effect(labor, p) / labor_effect(1.0 + p.u0, p)
+    return more_at_scale * compute ** (1.0 - p.labor_exponent)
+
+
+def candidates_behind(labor: float, p: Params, compute: float = 1.0) -> float:
+    """Small experiments behind each experiment at scale. Small experiments grow with AI
+    labor and experiments at scale grow more slowly, so the candidates multiply, up to what
+    small-scale compute allows."""
+    more_labor = labor / (1.0 + p.u0)
+    more_at_scale = labor_effect(labor, p) / labor_effect(1.0 + p.u0, p)
+    return min(p.candidates_max * compute, p.candidates_base * more_labor / more_at_scale)
+
+
 def ai_state(progress: float, p: Params, compute: float = 1.0) -> dict:
     """What an AI at this level of progress supplies. `compute` is the lab's research compute
     against the historical schedule. It scales the AI labor the lab can run and the small
@@ -206,15 +222,11 @@ def ai_state(progress: float, p: Params, compute: float = 1.0) -> dict:
     transfer_sd = p.judgment_start + p.transfer_rate * ahead
     metric_sd = p.judgment_start + p.metric_rate * ahead
     labor = 1.0 + compute * p.u0 * 2.0 ** min(progress / p.uplift_doubling, 1000.0)
-    # Small experiments grow with AI labor. Experiments at scale grow more slowly, so the
-    # candidates behind each one multiply.
-    more_labor = labor / (1.0 + p.u0)
-    more_at_scale = labor_effect(labor, p) / labor_effect(1.0 + p.u0, p)
     transfer = link(transfer_sd, p.transfer_people, p.transfer_ai_start, p.transfer_max, p)
     validity = link(metric_sd, p.validity_people, p.validity_ai_start, p.validity_max, p)
     return dict(
         labor=labor,
-        candidates=min(p.candidates_max * compute, p.candidates_base * more_labor / more_at_scale),
+        candidates=candidates_behind(labor, p, compute),
         idea_sd=p.judgment_start + p.idea_rate * ahead,
         transfer_sd=transfer_sd,
         metric_sd=metric_sd,
@@ -304,6 +316,42 @@ def research(
     )
 
 
+def lab_choice(
+    ai: dict,
+    p: Params,
+    compute: float = 1.0,
+    audit_hours: float = 0.0,
+    labor_at_ref: float = 1.0,
+    choose_labor: bool = True,
+) -> dict:
+    """What the lab does with the AI it may use. It runs the amount of AI labor that gives it
+    the most research. More agents mean more experiments and more candidates, and also more
+    for people to judge and, under audits, more changes to understand. With `choose_labor`
+    off it runs all the AI labor it has."""
+
+    def run(labor: float) -> dict:
+        used = dict(ai, labor=float(labor), candidates=candidates_behind(labor, p, compute))
+        experiments = experiments_at_scale(labor, p, compute)
+        lab = research(used, p, experiments, audit_hours, labor_at_ref)
+        return dict(
+            lab,
+            labor_used=float(labor),
+            experiments=experiments,
+            **{"candidates": used["candidates"]},
+        )
+
+    if not choose_labor or ai["labor"] <= 1.0:
+        return run(ai["labor"])
+    # A coarse search over the amount of labor, then a finer one around the best.
+    coarse = np.geomspace(1.0, ai["labor"], 16)
+    tried = [run(labor) for labor in coarse]
+    k = int(np.argmax([lab["real"] for lab in tried]))
+    fine = np.geomspace(coarse[max(k - 1, 0)], coarse[min(k + 1, len(coarse) - 1)], 13)
+    tried += [run(labor) for labor in fine]
+    # Ties go to more labor, so a lab that loses nothing by it runs all it has.
+    return max(tried, key=lambda lab: (round(lab["real"], 12), lab["labor_used"]))
+
+
 KEYS = (
     "t",
     "progress",
@@ -311,6 +359,7 @@ KEYS = (
     "pace",
     "measured_pace",
     "labor",
+    "labor_used",
     "experiments",
     "candidates",
     "idea_sd",
@@ -323,13 +372,20 @@ KEYS = (
 )
 
 
-def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt: float = 0.004):
-    """Integrate from Oct 1, 2025. Returns the path and the date of each milestone."""
+def simulate(
+    p: Params,
+    policy: Policy | None = None,
+    t_end: float = 2046.0,
+    dt: float = 0.004,
+    choose_labor: bool = True,
+):
+    """Integrate from Oct 1, 2025. Returns the path and the date of each milestone. With
+    `choose_labor` off the lab runs all the AI labor it has, which is what it chooses anyway
+    through 2026 and is faster to compute."""
     policy = policy or Policy()
     w = p.software_share
     levels = {"researcher": SD_RESEARCHER, "ted_ai": SD_TED}
     labor_at_ref = ai_state(p.progress_at_ref, p)["labor"]
-    base_labor = labor_effect(1.0 + p.u0, p)
     n = int(round((t_end - T_BASE) / dt))
     start_step = int(round((policy.start - T_BASE) / dt))
     lag_steps = int(round(policy.lag / dt))
@@ -360,10 +416,8 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         # Training cannot use more than is allowed, and what it has already used stays used.
         hardware_pace = compute_pace if hardware <= allowed + 1e-9 else 0.0
         ai = ai_state(out["progress"][j], p, compute)
-        experiments = (
-            labor_effect(ai["labor"], p) / base_labor * compute ** (1.0 - p.labor_exponent)
-        )
-        lab = research(ai, p, experiments, policy.audit_hours if paced else 0.0, labor_at_ref)
+        audit_hours = policy.audit_hours if paced else 0.0
+        lab = lab_choice(ai, p, compute, audit_hours, labor_at_ref, choose_labor)
         # Each year of software progress halves what research buys, `difficulty` times over.
         # The lab's other inputs double as often per calendar year, which held the pace at 1
         # before AI helped. Any shortfall in compute is already in `experiments`.
@@ -375,11 +429,10 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         pace = w * software_pace + (1.0 - w) * hardware_pace
         out["pace"][i] = pace
         out["measured_pace"][i] = w * measured_pace + (1.0 - w) * hardware_pace
-        out["experiments"][i] = experiments
         out["kept_ai"][i] = ai["transfer"] * ai["validity"]
-        for key in ("labor", "candidates", "idea_sd", "transfer_sd", "metric_sd"):
+        for key in ("labor", "idea_sd", "transfer_sd", "metric_sd"):
             out[key][i] = ai[key]
-        for key in ("covered", "time_audit", "deployed"):
+        for key in ("labor_used", "experiments", "candidates", "covered", "time_audit", "deployed"):
             out[key][i] = lab[key]
         # Milestones are about the newest AI, whatever the lab is allowed to use.
         newest = realized_sd(ai_state(progress, p))
@@ -414,7 +467,7 @@ def fit_labor(p: Params, labor_ref: float = LABOR_REF, steps: int = 16) -> Param
     in May 2026, leaving every other input of `p` as it is. Two nested bisections."""
 
     def short(q: Params) -> dict:
-        return simulate(q, t_end=T_REF + 0.01)
+        return simulate(q, t_end=T_REF + 0.01, choose_labor=False)
 
     def fit_level(doubling: float) -> Params:
         q = replace(p, uplift_doubling=doubling)
@@ -441,7 +494,7 @@ def fit_labor(p: Params, labor_ref: float = LABOR_REF, steps: int = 16) -> Param
 
 
 def pace_in_november(p: Params) -> float:
-    return pace_on(simulate(p, t_end=T_REF + 0.01), T_REF)
+    return pace_on(simulate(p, t_end=T_REF + 0.01, choose_labor=False), T_REF)
 
 
 def calibrate(p: Params, steps: int = 16) -> Params:
@@ -507,6 +560,7 @@ def fmt_delay(base: float, paced: float) -> str:
     return "past 2045" if paced != paced else f"{(paced - base) * 12:+.0f} mo"
 
 
+PRIMARY = "Ideas and transfer +3, metrics +0.5"  # the case the write-up and the figure lead with
 CASES = (
     ("Ideas, transfer and metrics all +3 SD a year", dict(transfer_rate=3.0, metric_rate=3.0)),
     ("Ideas and transfer +3, metrics +1", dict(transfer_rate=3.0, metric_rate=1.0)),
@@ -635,11 +689,11 @@ def pacing_table(p: Params) -> list[str]:
 def difficulty_table(p: Params) -> list[str]:
     by_name = {policy.name: policy for policy in POLICIES}
     audits = by_name["Comprehension audits, central"]
-    fast, slow = (dict(CASES)[c] for c in (CASES[0][0], "Ideas +3, transfer +1, metrics +0.5"))
+    fast, slow = (dict(CASES)[c] for c in (CASES[0][0], PRIMARY))
     out = [
         "| Halvings of what research buys per year of software progress | Share of a gain the "
-        "AI must keep for the loop to run away | TED-AI, all judgment +3 SD | TED-AI, transfer "
-        "+1 and metrics +0.5 | Central audits delay it |",
+        "AI must keep for the loop to run away | TED-AI, all judgment +3 SD | TED-AI, ideas and "
+        "transfer +3 and metrics +0.5 | Central audits delay it |",
         "|---|---|---|---|---|",
     ]
     for difficulty, fit in DIFFICULTY_FITS.items():
@@ -712,7 +766,7 @@ def sensitivity_table(p: Params) -> list[str]:
 
 def tables(p: Params | None = None) -> str:
     p = p or Params()
-    case = "Ideas +3, transfer +1, metrics +0.5"
+    case = PRIMARY
     slow = replace(p, **dict(CASES)[case])
     most_kept = p.transfer_max * p.validity_max / (p.transfer_people * p.validity_people)
     out = [
