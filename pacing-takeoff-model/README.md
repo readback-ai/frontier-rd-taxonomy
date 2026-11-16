@@ -1138,7 +1138,7 @@ Model A alone runs with `run_all.py --skip-aifm` and needs no checkout. Results 
 | `residue_sensitivity.py` | What three developers report on the share of work that needs a person, and how far the result depends on its starting level, its supervision time, how it falls and the audit hours |
 | `simple_model.py`, `SIMPLE.md` | A one-file model with one state variable that carries the main results, and its write-up. Needs numpy only. `simple_figures.py` draws its figures |
 | `chain/` | A standalone model, added 2026-11-15, that replaces the weight of supervisable work and the substitution with a chain from small experiments to real value. The folder is self-contained, with its own write-up, checks and results, and shares no code with the other models. Its results are not in this briefing |
-| `test_pacing_model.py`, `test_simple_model.py` | Forty checks, including that the adapter reproduces the AI Futures Model's own dates. The three that need the AI Futures checkout skip without `AIFM_PATH`. `chain/` has thirteen of its own |
+| `test_pacing_model.py`, `test_simple_model.py` | Forty checks, including that the adapter reproduces the AI Futures Model's own dates. The three that need the AI Futures checkout skip without `AIFM_PATH`. `chain/` has fifteen of its own |
 | `requirements.txt` | The library versions the committed results were generated with |
 | `data/` | OpenAI chart data with provenance |
 | `results/` | Generated tables (`tables.md`, CSV) and figures. Do not edit by hand. |

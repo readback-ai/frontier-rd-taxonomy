@@ -31,8 +31,15 @@ good a candidate looks from what it is worth:
 6. What people can vouch for. People's judgment applies to gains up to what their best
    researcher could have proposed. The AI judges any gain beyond that.
 
-7. The loop. Real research makes software progress, progress makes better AI, and research
-   gets harder: each year of software progress ahead of schedule halves what research buys.
+7. The loop. Real research makes software progress, and progress makes better AI.
+
+8. Difficulty. Research gets harder as software advances: each year of software progress
+   halves what a unit of research buys, `difficulty` times over. A lab's other inputs,
+   compute and people, have grown fast enough to offset that, which is what a pace of 1
+   means. Whether the loop runs away or peters out turns on whether the AI's judgment adds
+   research faster than difficulty takes it away.
+
+       software pace = research * other inputs / 2 ** (difficulty * software progress)
 
 The links multiply in the exponent of an experiment's value:
 
@@ -62,7 +69,18 @@ T_BASE = 2025.75  # Oct 1, 2025: the pace is 1 up to here
 T_MAY, T_REF = 2026.33, 2026.83  # May 1 and Nov 1, 2026: the two dates with a measured pace
 PACE_MAY, PACE_REF = 1.2, 1.7
 LABOR_REF = 13.0  # agent workdays per researcher workday on Nov 1, 2026: OpenAI's trend
-SD_RESEARCHER, SD_TED = 3.09, 7.72  # AI Futures' levels for the two milestones, in researcher SD
+# The two milestone levels are the AI Futures Project's, in SD of researcher judgment. In its
+# public code (github.com/AI-Futures-Project, `progress_model/config.py` and `_impl.py`) both
+# are levels of AI research taste.
+# - The top researcher is the 99.9th percentile of a normal distribution, +3.09 SD. The code
+#   names it TOP_RESEARCHER_SD and marks its superhuman AI researcher there.
+# - TED-AI is `ted_ai_m2b` gaps of that size further on. The value below is the one in the
+#   parameters of the example trajectory in the project's update of November 10, 2026, and it
+#   is a forecaster's judgment. The code's default is 1.00, which puts TED-AI at +6.18 SD.
+TOP_PERCENTILE = 0.999
+TED_GAPS_ABOVE_TOP = 1.4966629547095764
+SD_RESEARCHER = NormalDist().inv_cdf(TOP_PERCENTILE)  # +3.09
+SD_TED = SD_RESEARCHER * (1.0 + TED_GAPS_ABOVE_TOP)  # +7.72
 SHARES = np.linspace(0.0, 1.0, 201)  # shares of the audit load a lab can choose to carry
 MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 _NORMAL = NormalDist()
@@ -72,7 +90,7 @@ _NORMAL = NormalDist()
 class Params:
     # The loop
     software_share: float = 2 / 3  # share of progress from software; the rest is more compute
-    stock_doublings: float = 1.0  # halvings of research productivity per year ahead of schedule
+    difficulty: float = 1.0  # halvings of what research buys per year of software progress
     # Throughput
     labor_exponent: float = 0.5  # experiments rise with the square root of AI labor
     labor_ceiling: float = 15.0  # most that unlimited labor can multiply experiments by
@@ -99,7 +117,8 @@ class Params:
     validity_people: float = 0.8  # share of a gain on the metric that is real, people judging
     validity_ai_start: float = 0.05  # the same with the AI judging, on Nov 1, 2026
     validity_max: float = 0.95
-    vouch_sd: float = 3.09  # people can vouch for gains up to this researcher's ideas, in SD
+    vouch_sd: float = SD_RESEARCHER  # people can vouch for gains up to this researcher's
+    # ideas, in SD. The default is the top researcher
     # People's time
     time_judging: float = 0.4  # share of researcher time on results, metrics and plans on
     # Oct 1, 2025. The rest was implementation
@@ -118,9 +137,10 @@ class Policy:
     start: float = 2027.0
     audit_hours: float = 0.0  # 0 is no audit; 1 is the central standard; 2 is twice the hours
     lag: float = 0.0  # years by which the AI a lab may use internally trails its newest
-    compute_share: float = 1.0  # share of its scheduled research compute a lab may use
-    compute_cap: float = math.inf  # most research compute a lab may use, as a multiple of what
-    # it used when the policy started
+    compute_share: float = 1.0  # share of its scheduled compute a lab may use for research
+    # and for training
+    compute_cap: float = math.inf  # most compute it may use for them, as a multiple of what it
+    # used when the policy started
 
 
 POLICIES = (
@@ -311,7 +331,9 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
     lag_steps = int(round(policy.lag / dt))
     out = {key: np.full(n, np.nan) for key in KEYS}
     dates = dict.fromkeys(levels, math.nan)
-    software = measured_software = hardware = 0.0
+    # `scheduled` is the compute growth a lab would have with no policy, in years of growth at
+    # the historical rate. `hardware` is the part of it that training has used.
+    software = measured_software = hardware = scheduled = scheduled_at_start = 0.0
     last = n
     for i in range(n):
         t = T_BASE + i * dt
@@ -324,29 +346,37 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         # than the AI it had when the policy started.
         j = min(i, max(start_step, i - lag_steps)) if paced else i
         compute_pace = p.compute_slow_pace if t >= p.compute_slows_in else 1.0
-        # Research compute against the historical schedule: behind it once compute growth
-        # slows, held to a share of it by the policy, and under a cap on its level. The
-        # schedule keeps growing, so a capped lab falls further behind it each year.
-        compute = 2.0 ** (p.compute_doublings * (hardware - elapsed))
         if i == start_step:
-            compute_at_start, elapsed_at_start = compute, elapsed
+            scheduled_at_start = scheduled
+        # The compute the lab may use, in the same years of growth. A share of the schedule
+        # sets it a fixed number of doublings back. A cap holds it at a level, so a capped lab
+        # falls further behind the schedule each year.
+        allowed = scheduled
         if paced:
-            behind = 2.0 ** (p.compute_doublings * (elapsed - elapsed_at_start))
-            compute = min(
-                compute * policy.compute_share, policy.compute_cap * compute_at_start / behind
+            allowed = min(
+                scheduled + math.log2(policy.compute_share) / p.compute_doublings,
+                scheduled_at_start + math.log2(policy.compute_cap) / p.compute_doublings,
             )
+        # Research compute against the historical schedule.
+        compute = 2.0 ** (p.compute_doublings * (allowed - elapsed))
+        # Training cannot use more than is allowed, and what it has already used stays used.
+        hardware_pace = compute_pace if hardware <= allowed + 1e-9 else 0.0
         ai = ai_state(out["progress"][j], p, compute)
         experiments = (
             labor_effect(ai["labor"], p) / base_labor * compute ** (1.0 - p.labor_exponent)
         )
         lab = research(ai, p, experiments, policy.audit_hours if paced else 0.0, labor_at_ref)
-        software_pace = lab["real"] / 2.0 ** (p.stock_doublings * (software - elapsed))
+        # Each year of software progress halves what research buys, `difficulty` times over.
+        # The lab's other inputs double as often per calendar year, which held the pace at 1
+        # before AI helped. Any shortfall in compute is already in `experiments`.
+        harder = p.difficulty * (software - elapsed)
+        software_pace = lab["real"] / 2.0**harder
         # Measured progress can run far ahead of real progress, so its halvings are capped.
-        measured_ahead = min(p.stock_doublings * (measured_software - elapsed), 1000.0)
-        measured_pace = lab["measured"] / 2.0**measured_ahead
-        pace = w * software_pace + (1.0 - w) * compute_pace
+        measured_harder = min(p.difficulty * (measured_software - elapsed), 1000.0)
+        measured_pace = lab["measured"] / 2.0**measured_harder
+        pace = w * software_pace + (1.0 - w) * hardware_pace
         out["pace"][i] = pace
-        out["measured_pace"][i] = w * measured_pace + (1.0 - w) * compute_pace
+        out["measured_pace"][i] = w * measured_pace + (1.0 - w) * hardware_pace
         out["experiments"][i] = experiments
         out["kept_ai"][i] = ai["transfer"] * ai["validity"]
         for key in ("labor", "candidates", "idea_sd", "transfer_sd", "metric_sd"):
@@ -363,7 +393,8 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
             break
         software += software_pace * dt
         measured_software += measured_pace * dt
-        hardware += compute_pace * dt
+        hardware += hardware_pace * dt
+        scheduled += compute_pace * dt
     out = {key: value[:last] for key, value in out.items()}
     ran_away = bool(out["pace"][-1] > 1e4 or out["progress"][-1] > 300.0)
     if ran_away:  # everything left arrives at once
@@ -427,14 +458,14 @@ def calibrate(p: Params, steps: int = 16) -> Params:
 def critical_share(p: Params) -> float:
     """Share of a gain the AI's own judgment must keep, against the share people's keep, for
     the loop to run away on better ideas alone."""
-    return math.log(2.0) * p.stock_doublings / (p.value_per_sd * p.idea_rate * p.software_share)
+    return math.log(2.0) * p.difficulty / (p.value_per_sd * p.idea_rate * p.software_share)
 
 
 def steady_pace(kept: float, p: Params) -> float:
     """Where the pace settles once AI labor is at its ceiling, if the AI keeps the share `kept`
     of a gain, against the share people keep, and that share stays put. Infinite at or above
     the critical share."""
-    doublings = p.value_per_sd * p.idea_rate * kept / math.log(2.0) / p.stock_doublings
+    doublings = p.value_per_sd * p.idea_rate * kept / math.log(2.0) / p.difficulty
     w = p.software_share
     if w * doublings >= 1.0:
         return math.inf
@@ -463,6 +494,24 @@ CASES = (
     ("Ideas +3, transfer +1, metrics +0.5", dict(transfer_rate=1.0, metric_rate=0.5)),
     ("Ideas +3, transfer and metrics +0.5", dict(transfer_rate=0.5, metric_rate=0.5)),
 )
+
+# The three fitted inputs refitted by `calibrate` at other difficulties. Above a difficulty of
+# about 1 no fit reaches the pace measured in November 2026: these two get to 1.57 and 1.46.
+DIFFICULTY_FITS = {
+    0.5: dict(
+        u0=0.080099, uplift_doubling=0.182743, volume_elasticity=0.144372, progress_at_ref=1.341790
+    ),
+    0.7: dict(
+        u0=0.088839, uplift_doubling=0.187031, volume_elasticity=0.088512, progress_at_ref=1.345334
+    ),
+    1.0: {},
+    1.5: dict(
+        u0=0.118576, uplift_doubling=0.195657, volume_elasticity=0.0, progress_at_ref=1.325884
+    ),
+    2.0: dict(
+        u0=0.139250, uplift_doubling=0.199425, volume_elasticity=0.0, progress_at_ref=1.305176
+    ),
+}
 
 SENSITIVITY = (
     ("Central", {}),
@@ -553,6 +602,29 @@ def pacing_table(p: Params) -> list[str]:
     return out
 
 
+def difficulty_table(p: Params) -> list[str]:
+    by_name = {policy.name: policy for policy in POLICIES}
+    audits = by_name["Comprehension audits, central"]
+    fast, slow = (dict(CASES)[c] for c in (CASES[0][0], "Ideas +3, transfer +1, metrics +0.5"))
+    out = [
+        "| Halvings of what research buys per year of software progress | Pace it gives for "
+        "Nov 2026 | Share of a gain the AI must keep for the loop to run away | TED-AI, all "
+        "judgment +3 SD | TED-AI, transfer +1 and metrics +0.5 | Central audits delay it |",
+        "|---|---|---|---|---|---|",
+    ]
+    for difficulty, fit in DIFFICULTY_FITS.items():
+        q = replace(p, difficulty=difficulty, **fit)
+        pace = pace_on(simulate(q, t_end=T_REF + 0.01), T_REF)
+        base = simulate(replace(q, **slow))["dates"]["ted_ai"]
+        paced = simulate(replace(q, **slow), audits)["dates"]["ted_ai"]
+        out.append(
+            f"| {difficulty:g} | {pace:.2f}x | {critical_share(q):.0%} | "
+            f"{fmt_date(simulate(replace(q, **fast))['dates']['ted_ai'])} | {fmt_date(base)} | "
+            f"{fmt_delay(base, paced)} |"
+        )
+    return out
+
+
 def path_table(p: Params) -> list[str]:
     run = simulate(p)
     out = [
@@ -598,6 +670,7 @@ def tables(p: Params | None = None) -> str:
     p = p or Params()
     case = "Ideas +3, transfer +1, metrics +0.5"
     slow = replace(p, **dict(CASES)[case])
+    most_kept = p.transfer_max * p.validity_max / (p.transfer_people * p.validity_people)
     out = [
         "# Chain model: milestone dates by scenario",
         "",
@@ -627,6 +700,13 @@ def tables(p: Params | None = None) -> str:
         f"## Each input moved: {case[0].lower()}{case[1:]}",
         "",
         *sensitivity_table(slow),
+        "",
+        "## By how fast research gets harder",
+        "",
+        "The three fitted inputs are refitted at each difficulty. The most the AI's judgment "
+        f"can keep of a gain is {most_kept:.0%} of what people's keeps.",
+        "",
+        *difficulty_table(p),
         "",
         "## Every scenario",
         "",

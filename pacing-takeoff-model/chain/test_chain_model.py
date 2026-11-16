@@ -169,8 +169,16 @@ def test_tighter_limits_on_research_compute_delay_more_and_less_than_a_lag():
     assert 0.0 < third < tenth
     assert 0.0 < frozen < frozen_third
     assert third < frozen_third
-    # A limit on compute leaves the AI's judgment alone, which is what the takeoff runs on.
-    assert frozen_third < months(base, simulate(SLOW, BY_NAME["Internal-use lag, 9 months"]))
+    assert third < months(base, simulate(SLOW, BY_NAME["Internal-use lag, 9 months"]))
+
+
+def test_a_compute_limit_holds_back_training_as_well_as_research():
+    frozen = simulate(SLOW, Policy("frozen", compute_cap=1.0))
+    free = simulate(SLOW)
+    # With compute frozen, the third of progress that comes from more compute stops.
+    late = 2028.0
+    lost = at(free, "progress", late) - at(frozen, "progress", late)
+    assert lost > (1.0 - SLOW.software_share) * (late - 2027.0) * 0.99
 
 
 def test_a_compute_limit_cuts_ai_labor_and_small_experiments_as_well_as_experiments_at_scale():
@@ -179,3 +187,18 @@ def test_a_compute_limit_cuts_ai_labor_and_small_experiments_as_well_as_experime
     assert third["labor"] - 1.0 == pytest.approx((full["labor"] - 1.0) / 3.0)
     assert third["candidates"] < full["candidates"]
     assert third["idea_sd"] == full["idea_sd"]
+
+
+def test_harder_research_delays_the_takeoff_and_raises_what_the_ai_must_keep():
+    from chain_model import DIFFICULTY_FITS
+
+    when, critical = [], []
+    for difficulty, fit in DIFFICULTY_FITS.items():
+        q = replace(SLOW, difficulty=difficulty, **fit)
+        when.append(simulate(q)["dates"]["ted_ai"])
+        critical.append(critical_share(q))
+        if difficulty <= 1.0:  # these are the difficulties the measured pace can be fitted at
+            assert abs(pace_on(simulate(q, t_end=T_REF + 0.01), T_REF) - PACE_REF) < 0.005
+    assert when == sorted(when)
+    assert critical == sorted(critical)
+    assert critical[-1] / critical[0] == pytest.approx(2.0 / 0.5)
