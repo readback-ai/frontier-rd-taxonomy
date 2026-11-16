@@ -114,8 +114,12 @@ The primary scenario is the third row.
 - **Slow transfer and metric judgment delay the takeoff by up to three years and do not prevent it.** In the primary scenario the pace holds between 1.8 and 2.5 times through mid-2028 and rises steeply in the months after.
 - **A weak link slows the loop and sets no ceiling.** An AI that keeps 10% of a gain turns ideas improving 3 SD a year into 0.3 SD a year of real judgment.
 - **People judge very little of the work.** In the primary scenario researchers judge 9% of experiments at scale in January 2027 and 4% from mid-2027.
-- **Measured progress runs ahead of real progress.** The pace the lab's own metrics show is 4.6 times in July 2027 against a real 1.9.
+- **Measured progress runs ahead of real progress.** The pace the lab's own metrics show is 4.6 times in July 2027 against a real 1.9. When TED-AI arrives the metrics show 11.3 years of progress since October 2025 and the real figure is 6.8. Those two totals are from the figure below.
 - **TED-AI arrives on the strength of ideas.** When it arrives in December 2028 the AI's metric judgment is at -0.8 SD. Its ideas are 13 SD above the median researcher's and its own judgment keeps 70% of what people's would.
+
+![The real pace with no pacing, and cumulative progress as it is and as the lab's own metrics show it](results/measured.png)
+
+The upper panel is the real pace. The lower panel is total progress, real and on the lab's metrics. The pace on the lab's metrics is not drawn because it jumps when the lab changes how many agents it runs.
 
 The path in the primary scenario:
 
@@ -241,7 +245,7 @@ pytest
 | File | What it is |
 |---|---|
 | `chain_model.py` | The model and the code that writes the tables |
-| `figure.py` | Draws `results/pace.png`. Needs matplotlib |
+| `figure.py` | Draws `results/pace.png` and `results/measured.png`. Needs matplotlib |
 | `diagram.py` | Draws `results/chain.png`, the diagram of the chain. Needs matplotlib |
 | `test_chain_model.py` | Nineteen checks: the calibration, the AI Futures case the model reduces to, and the directions its results must move in |
 | `results/tables.md` | Every table, written by the model |

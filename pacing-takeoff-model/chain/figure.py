@@ -1,6 +1,7 @@
-"""Draw the pace of progress in the primary scenario under each pacing policy.
+"""Draw the pace of progress in the primary scenario.
 
-Writes results/pace.png. Needs matplotlib as well as numpy.
+Writes results/pace.png, the pace under each pacing policy, and results/measured.png, the pace
+with no pacing beside the pace the lab's own metrics show. Needs matplotlib as well as numpy.
 """
 
 from __future__ import annotations
@@ -12,6 +13,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import numpy as np
 from chain_model import (
     CASES,
     MONTHS,
@@ -40,18 +42,119 @@ SERIES = (
 )
 START, TICKS = 2026.0, (1.0, 1.5, 2.0, 3.0, 5.0, 10.0, 15.0)
 OUT = Path(__file__).parent / "results" / "pace.png"
+OUT_MEASURED = Path(__file__).parent / "results" / "measured.png"
+MEASURED = "#2a78d6"
+
+
+def frame(ax, last: float) -> None:
+    """Dates along the bottom, a light grid and no box."""
+    ax.set_xlim(START, last + 0.45)
+    years = [year for year in range(int(START), int(last) + 2) if year <= last + 0.45]
+    ax.set_xticks([float(year) for year in years])
+    ax.set_xticklabels([f"{MONTHS[0]} {year}" for year in years])
+    ax.grid(axis="y", which="major", color=GRID, lw=0.8)
+    ax.grid(axis="y", which="minor", visible=False)
+    ax.tick_params(axis="both", which="both", length=0, colors=MUTED, labelsize=9)
+    for side in ("top", "right", "left"):
+        ax.spines[side].set_visible(False)
+    ax.spines["bottom"].set_color(AXIS)
+
+
+def pace_axis(ax, top: float) -> None:
+    """Pace on a log scale, so that equal steps are equal multiples."""
+    ax.set_yscale("log")
+    ax.set_ylim(0.9, 1.15 * top)
+    ax.yaxis.set_major_locator(FixedLocator(TICKS))
+    ax.yaxis.set_minor_formatter(NullFormatter())
+    ax.set_yticklabels([f"{tick:g}x" for tick in TICKS])
+
+
+def titles(fig, title: str, subtitle: str) -> None:
+    fig.suptitle(title, x=0.065, y=0.965, ha="left", color=INK, fontsize=14, fontweight="bold")
+    fig.text(
+        0.065, 0.895, subtitle, ha="left", va="top", color=SECONDARY, fontsize=9.5, linespacing=1.4
+    )
+
+
+def fitted_points(ax) -> None:
+    """The two measured paces the model is fitted to."""
+    ax.plot(
+        [T_MAY, T_REF], [PACE_MAY, PACE_REF], "o", ms=5, mfc=SURFACE, mec=INK, mew=1.2, zorder=5
+    )
+
+
+def canvas(rows: int = 1, height: float = 5.6):
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 10})
+    fig, axes = plt.subplots(rows, 1, figsize=(10.0, height), dpi=200, sharex=True)
+    fig.patch.set_facecolor(SURFACE)
+    for ax in [axes] if rows == 1 else axes:
+        ax.set_facecolor(SURFACE)
+    return fig, axes
+
+
+def measured_figure(run: dict) -> None:
+    """The pace with no pacing, and progress as it is and as the lab's own metrics show it.
+
+    The lower panel is cumulative progress. The pace on the lab's metrics jumps when the lab
+    changes how many agents it runs, and the running total does not."""
+    fig, (above, below) = canvas(rows=2, height=7.6)
+    shown = run["t"] >= START
+    t, when = run["t"][shown], float(run["t"][-1])
+    pace, real, metric = run["pace"][shown], run["progress"][shown], run["measured_progress"][shown]
+
+    above.plot(t, pace, color=INK, lw=2.0, solid_capstyle="round", solid_joinstyle="round")
+    above.plot([when], [pace[-1]], "o", ms=8, color=INK, mec=SURFACE, mew=2.0, zorder=4,
+               clip_on=False)  # fmt: skip
+    above.annotate(f"TED-AI, {fmt_date(run['dates']['ted_ai'])}", (when, pace[-1]), xytext=(-10, 0),
+                   textcoords="offset points", ha="right", va="center", color=SECONDARY,
+                   fontsize=9)  # fmt: skip
+    fitted_points(above)
+    above.annotate("measured", (T_REF, PACE_REF), xytext=(-6, 8), textcoords="offset points",
+                   ha="right", color=MUTED, fontsize=9)  # fmt: skip
+    pace_axis(above, max(TICKS[-1], float(pace.max())))
+    frame(above, when)
+
+    below.fill_between(t, real, metric, color=MEASURED, alpha=0.12, lw=0)
+    for series, color, name in ((metric, MEASURED, "On the lab's metrics"), (real, INK, "Real")):
+        below.plot(t, series, color=color, lw=2.0, solid_capstyle="round", solid_joinstyle="round")
+        below.plot([when], [series[-1]], "o", ms=8, color=color, mec=SURFACE, mew=2.0, zorder=4,
+                   clip_on=False)  # fmt: skip
+        below.annotate(f"{name}\n{series[-1]:.1f} years", (when, series[-1]), xytext=(9, 0),
+                       textcoords="offset points", va="center", color=SECONDARY, fontsize=9,
+                       linespacing=1.3)  # fmt: skip
+    below.set_ylim(0.0, 2.0 * np.ceil(float(metric.max()) / 2.0))
+    below.yaxis.set_major_locator(FixedLocator(np.arange(0.0, 20.0, 2.0)))
+    frame(below, when)
+    below.set_xlim(START, when + 0.75)  # room for the two end labels
+
+    for ax, head in (
+        (above, "Pace: years of progress per calendar year"),
+        (below, "Progress since October 2025, in years at the rate before then"),
+    ):
+        ax.set_title(head, loc="left", color=INK, fontsize=10, fontweight="bold", pad=8)
+    fig.subplots_adjust(left=0.065, right=0.955, top=0.815, bottom=0.06, hspace=0.3)
+    fig.suptitle("Real progress and progress on the lab's own metrics", x=0.065, y=0.975,
+                 ha="left", color=INK, fontsize=14, fontweight="bold")  # fmt: skip
+    fig.text(
+        0.065, 0.925,
+        "Primary scenario with no pacing: AI ideas and transfer judgment improve 3 SD a year, "
+        "metric judgment 0.5 SD.\nA gain on the lab's metric is real only as far as the metric "
+        "is valid.",
+        ha="left", va="top", color=SECONDARY, fontsize=9.5, linespacing=1.4,
+    )  # fmt: skip
+    fig.savefig(OUT_MEASURED, facecolor=SURFACE)
+    print(f"wrote {OUT_MEASURED}")
 
 
 def main() -> None:
     p = replace(Params(), **dict(CASES)[PRIMARY])
     by_name = {policy.name: policy for policy in POLICIES}
-    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 10})
-    fig, ax = plt.subplots(figsize=(10.0, 5.6), dpi=200)
-    fig.patch.set_facecolor(SURFACE)
-    ax.set_facecolor(SURFACE)
+    fig, ax = canvas()
     ends = []
     for name, label, color in SERIES:
         run = simulate(p, by_name[name])
+        if name == "No pacing":
+            unpaced = run
         shown = run["t"] >= START
         ax.plot(
             run["t"][shown],
@@ -80,10 +183,7 @@ def main() -> None:
             fontsize=9,
             **place,
         )
-    # The two measured paces the model is fitted to.
-    ax.plot(
-        [T_MAY, T_REF], [PACE_MAY, PACE_REF], "o", ms=5, mfc=SURFACE, mec=INK, mew=1.2, zorder=5
-    )
+    fitted_points(ax)
     ax.annotate(
         "measured",
         (T_REF, PACE_REF),
@@ -103,42 +203,16 @@ def main() -> None:
         color=MUTED,
         fontsize=9,
     )
-    ax.set_yscale("log")
-    ax.set_ylim(0.9, 1.15 * max(TICKS[-1], max(pace for _, pace, *_ in ends)))
-    ax.yaxis.set_major_locator(FixedLocator(TICKS))
-    ax.yaxis.set_minor_formatter(NullFormatter())
-    ax.set_yticklabels([f"{tick:g}x" for tick in TICKS])
     last = max(when for when, *_ in ends)
-    ax.set_xlim(START, last + 0.45)
-    years = range(int(START), int(last) + 2)
-    ax.set_xticks([float(year) for year in years if year <= last + 0.45])
-    ax.set_xticklabels([f"{MONTHS[0]} {year}" for year in years if year <= last + 0.45])
-    ax.grid(axis="y", which="major", color=GRID, lw=0.8)
-    ax.grid(axis="y", which="minor", visible=False)
-    ax.tick_params(axis="both", which="both", length=0, colors=MUTED, labelsize=9)
-    for side in ("top", "right", "left"):
-        ax.spines[side].set_visible(False)
-    ax.spines["bottom"].set_color(AXIS)
+    pace_axis(ax, max(TICKS[-1], max(pace for _, pace, *_ in ends)))
+    frame(ax, last)
     ax.set_ylabel("Pace: years of progress per calendar year", color=SECONDARY, fontsize=9)
-    fig.suptitle(
+    fig.subplots_adjust(left=0.065, right=0.955, top=0.80, bottom=0.085)
+    titles(
+        fig,
         "Pace of AI progress under four pacing policies",
-        x=0.065,
-        y=0.965,
-        ha="left",
-        color=INK,
-        fontsize=14,
-        fontweight="bold",
-    )
-    fig.text(
-        0.065,
-        0.895,
         "Primary scenario: AI ideas and transfer judgment improve 3 SD a year, metric judgment "
         "0.5 SD.\nEach line ends when TED-AI arrives, at the date shown.",
-        ha="left",
-        va="top",
-        color=SECONDARY,
-        fontsize=9.5,
-        linespacing=1.4,
     )
     legend = ax.legend(
         loc="upper left",
@@ -151,10 +225,10 @@ def main() -> None:
     )
     for line in legend.get_lines():
         line.set_linewidth(2.0)
-    fig.subplots_adjust(left=0.065, right=0.955, top=0.80, bottom=0.085)
     OUT.parent.mkdir(exist_ok=True)
     fig.savefig(OUT, facecolor=SURFACE)
     print(f"wrote {OUT}")
+    measured_figure(unpaced)
 
 
 if __name__ == "__main__":
