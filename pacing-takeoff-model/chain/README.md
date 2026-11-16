@@ -13,7 +13,7 @@ Terms used below:
 - **Progress** is measured in years of AI progress at the rate before October 2025. **Pace** is years of progress per calendar year.
 - **SD** is a standard deviation of research judgment across a lab's researchers. The best researcher is at +3.09 SD.
 - **Researcher-level AI** is the date an AI-only lab's research matches a lab made up of its best researchers. **TED-AI** is the date it matches the level the AI Futures Project uses for top-expert-dominating AI, +7.72 SD. "Where the two levels come from" below gives their source.
-- **Comprehension audits** let a lab deploy only the changes its own people understand. An **internal-use lag** makes a lab work with the AI it had some months ago. A **compute limit** holds a lab to a share of the compute it would otherwise use for research and for training.
+- **Comprehension audits** let a lab deploy only the changes its own people understand. Understanding takes researchers' hours, and it has a reach: people cannot understand a gain past what they can vouch for, so an audited lab cannot deploy that part. An **internal-use lag** makes a lab work with the AI it had some months ago. A **compute limit** holds a lab to a share of the compute it would otherwise use for research and for training.
 
 ## The chain
 
@@ -29,7 +29,7 @@ small-scale result  ->  result on the metric at scale  ->  real value
 3. **Transfer** is the share of a small-scale gain that holds at scale. It depends on who judged which candidate would transfer.
 4. **Validity** is the share of a gain on the metric that is real. It depends on who defined the metric and checked the result for gaming.
 5. **People's time.** A person who judges an experiment supplies both links. Researchers judge as many experiments as they have time for, and the AI judges the rest with its own transfer and metric judgment. AI takes over implementation, which frees researcher time. Managing the agents takes part of it back, and more experiments use up the rest.
-6. **What people can vouch for.** People's judgment applies to gains up to what their best researcher could have proposed. The AI judges any gain beyond that.
+6. **What people can vouch for.** People's judgment applies to gains up to what their best researcher could have proposed. The AI judges any gain beyond that. Under comprehension audits the part beyond it is not deployed.
 7. **The lab chooses.** It runs the amount of AI labor that gives it the most research. More agents mean more experiments and more candidates. They also mean more for people to judge and, under audits, more deployed changes to understand.
 8. **The loop.** Real research makes software progress, and progress makes better AI.
 9. **Difficulty.** Research gets harder as software advances: each year of software progress halves what a unit of research buys. A lab's other inputs, compute and people, have grown fast enough to offset that, which is what a pace of 1 means. Whether the loop runs away or peters out turns on whether the AI's judgment adds research faster than difficulty takes it away.
@@ -115,24 +115,25 @@ Delay to TED-AI in every scenario. Pacing starts January 1, 2027.
 
 | AI judgment gained per year of progress | Central audits | Strict audits | 9-month lag | Compute at a third of baseline |
 |---|---|---|---|---|
-| Ideas, transfer and metrics all +3 SD | +0 mo | +1 mo | +11 mo | +4 mo |
-| Ideas and transfer +3, metrics +1 | +2 mo | +3 mo | +10 mo | +6 mo |
-| **Ideas and transfer +3, metrics +0.5 (primary)** | **+2 mo** | **+3 mo** | **+11 mo** | **+6 mo** |
-| Ideas +3, transfer and metrics +1 | +2 mo | +3 mo | +9 mo | +7 mo |
-| Ideas +3, transfer +1, metrics +0.5 | +2 mo | +4 mo | +11 mo | +7 mo |
-| Ideas +3, transfer and metrics +0.5 | +2 mo | +4 mo | +10 mo | +7 mo |
+| Ideas, transfer and metrics all +3 SD | +1 mo | +1 mo | +11 mo | +4 mo |
+| Ideas and transfer +3, metrics +1 | +4 mo | +5 mo | +10 mo | +6 mo |
+| **Ideas and transfer +3, metrics +0.5 (primary)** | **+12 mo** | **+13 mo** | **+11 mo** | **+6 mo** |
+| Ideas +3, transfer and metrics +1 | +4 mo | +5 mo | +9 mo | +7 mo |
+| Ideas +3, transfer +1, metrics +0.5 | +11 mo | +12 mo | +11 mo | +7 mo |
+| Ideas +3, transfer and metrics +0.5 | +13 mo | +14 mo | +10 mo | +7 mo |
 
-Central audits take the hours to understand every deployed change that researchers are assumed to spend today, 14% of their time. Strict audits take twice the hours. The compute limit holds a lab to a third of the compute it would otherwise use for experiments at scale, for small experiments, for running AI labor and for training the next model.
+An audit has two parts here. The first is hours: central audits take the hours to understand every deployed change that researchers are assumed to spend today, 14% of their time, and strict audits take twice that. The second is reach: a lab's people can understand a gain only as far as they can vouch for it, which is up to what their best researcher could have proposed. The part of a gain past that is not deployed, however many hours are spent. The compute limit holds a lab to a third of the compute it would otherwise use for experiments at scale, for small experiments, for running AI labor and for training the next model.
 
-- **A 9-month lag delays TED-AI the most, by 9 to 11 months in every scenario.**
+- **Under audits the loop does not run away.** In the primary scenario the pace under central audits peaks at 2.6 times in January 2028 and is 1.4 to 1.7 times from mid-2028 through 2029. With no pacing it reaches 9.8 times as TED-AI arrives in December 2028.
+- **TED-AI still arrives, a year later, as a capability the lab may not fully use.** The lab keeps making progress on gains its people can vouch for, and the AI keeps improving with that progress. In December 2029 the newest AI could do research at the TED-AI level. The audited lab deploys only the part of its ideas that people can vouch for, and its pace is 1.5 times.
+- **The reach does the work, and the hours add a month.** Light, central and strict audits delay TED-AI in the primary scenario by 11, 12 and 13 months. If any change passes once people have spent the hours, central audits delay it by 2 months.
+- **Audits delay most where the AI's metric judgment is slow.** Central audits delay TED-AI by 11 to 13 months with metrics at +0.5 SD, by 4 months at +1 SD and by 1 month where all judgment improves 3 SD a year. In that last scenario TED-AI arrives before the AI's ideas are far past people's.
+- **The delay moves with how far people can vouch.** With a reach of +1 SD ideas the central delay in the primary scenario is 16 months, against 12 at the best researcher's +3.09 SD.
+- **An audited lab runs far fewer agents.** More agents mean more changes to understand. From 2028 to early 2029 the lab runs 12 to 34 agents per researcher and its people judge a quarter to two fifths of its experiments.
+- **A 9-month lag delays TED-AI by 9 to 11 months in every scenario.** Central audits and the lag together delay it by 15 months in the primary scenario.
 - **A compute limit at a third of baseline delays it by 4 to 7 months.** Training waits about a year for its allowance to catch up with what it has already used, and research runs on a third of the compute from then on.
-- **Audits delay it by up to 2 months at the central standard and 1 to 4 at the strict one.**
-- **An audited lab runs far fewer agents.** More agents mean more changes to understand, so the lab cuts the AI labor it runs to between tens and thousands of agents per researcher, where it could run a hundred thousand or more. It loses little, because what agents add to experiments and to candidates flattens, and with fewer experiments people judge more of them.
-- **So in this model audits work as a brake on how much AI labor a lab runs.** They slow the pace through 2027 and delay the takeoff by months.
-- **An earlier version of this section had audits delaying TED-AI by one to four years.** There the lab had to run all the AI labor it had, and the pace under audits fell below its level before AI. That result is withdrawn.
-- **The audit result still rests on deployed changes growing with AI labor.** The model assumes 0.4% more changes for each 1% more labor. Anthropic's figures support that over the range seen so far: commits per engineer rose 5 times in six months while agent hours per person rose 50 to 100 times, an elasticity of about 0.35 to 0.4. If deployed changes do not grow with AI labor, audits delay TED-AI by nothing.
-- **Half of audit time is taken to count as judging.** At none of it the central delay in the primary scenario is 3 months, and at all of it 1.
 - **A third is a tight compute limit.** In the AI Futures Project's input series, experiments, training and running AI researchers take 62% of the leading company's compute in 2026: 50%, 7% and 5%. A third of that is 21%, which matches a rule that about 79% of compute go to other uses. A rule of 60% would leave research about two thirds of baseline and delay TED-AI by 2 to 3 months. That run is not in the results file.
+- **Two earlier versions of this section are withdrawn.** In the first the lab had to run all the AI labor it had, and audits delayed TED-AI by one to four years. In the second an audit took hours only, and audits delayed it by 2 months.
 
 ## Where the two levels come from
 
@@ -149,10 +150,10 @@ The debate over whether automated research runs away or peters out is a debate a
 
 | Halvings of what research buys per year of software progress | Share of a gain the AI must keep for the loop to run away | TED-AI, all judgment +3 SD | TED-AI, primary scenario | Central audits delay it |
 |---|---|---|---|---|
-| 0.5 | 39% | Apr 2027 | Apr 2028 | +1 mo |
-| 1 | 78% | May 2027 | Dec 2028 | +2 mo |
-| 1.5 | 117% | Jun 2027 | Jun 2029 | +2 mo |
-| 2 | 156% | Aug 2027 | Nov 2029 | +2 mo |
+| 0.5 | 39% | Apr 2027 | Apr 2028 | +8 mo |
+| 1 | 78% | May 2027 | Dec 2028 | +12 mo |
+| 1.5 | 117% | Jun 2027 | Jun 2029 | +12 mo |
+| 2 | 156% | Aug 2027 | Nov 2029 | +11 mo |
 
 The table stops at 2 because the model cannot reach the pace measured in November 2026 at much higher values. The highest difficulty that still fits, and how it moves with the inputs it rests on:
 
@@ -180,12 +181,12 @@ The table stops at 2 because the model cannot reach the pace measured in Novembe
 
 ## Each input moved
 
-The primary scenario. TED-AI is December 2028 in the central row. Across the 20 rows in `results/tables.md` it runs from December 2027 to July 2029.
+The primary scenario. TED-AI is December 2028 in the central row. Across the 21 rows in `results/tables.md` it runs from December 2027 to July 2029.
 
 - **Earliest.** Validity of 0.3 with the AI judging today (December 2027). An experiment ceiling of 60 times (March 2028). People able to vouch for any gain (April 2028).
 - **Latest.** Validity of 0.01 with the AI judging today (July 2029). An AI that never judges better than people, and ideas at +2.1 SD (both June 2029).
 - **Time spent managing agents matters little.** With none, TED-AI comes in November 2028, and with a third of researcher time, January 2029.
-- **The delay from central audits is 1 to 4 months in every row** but the one where deployed changes do not grow with AI labor. The delay from a 9-month lag is 10 to 15 months.
+- **The delay from central audits is 8 to 16 months in every row but two.** Those are the rows that remove the reach: people able to vouch for any gain (1 month), and audits that take hours only (2 months). The delay from a 9-month lag is 10 to 15 months.
 - **The level set for TED-AI matters little.** At the public code's default of +6.18 SD, TED-AI comes in November 2028, a month earlier. That run is not in the results file.
 
 ## Inputs
@@ -212,9 +213,12 @@ The primary scenario. TED-AI is December 2028 in the central row. Across the 20 
 | Growth of deployed changes with AI labor | 0.4 | Judgment. Anthropic's commits per engineer and agent hours give about 0.35 to 0.4 over six months of 2026. Tested at 0 |
 | Spread of value across deployed changes | Pareto index 1.8 | Judgment |
 | Share of audit time that counts as judging | 50% | Judgment. Tested at 0 and 100% |
+| What an audit passes | A gain only as far as people can vouch for it | Readback's judgment of 2026-11-16: an audit that people can pass on a change they cannot evaluate does not test comprehension. Tested with hours only |
 
 ## What to hold loosely
 
+- **How far people can vouch is fixed.** It stays at the best researcher's level however good the AI becomes at explaining its work. If AI help extends it, audits delay less.
+- **Under audits TED-AI is a capability, and the model stops there.** It does not follow what a lab does with an AI it may not fully use, or whether the audit holds.
 - **AI labor keeps doubling, with no cap.** The model extrapolates a monthly doubling of agent hours per researcher that has been observed for seven months, and Anthropic's own series flattens in its last ten days. Readback's judgment is that the ratio keeps climbing as AI takes over research. What the labor adds is capped, and a lab runs only as much of it as helps.
 - **Judgment improves with progress, with no limit on how fast.** A lab would need its feedback on transfer and metrics to keep up.
 - **Ideas have no ceiling.** AI judgment on well-defined problems rises without limit, as in the AI Futures Model.
@@ -238,7 +242,7 @@ pytest
 |---|---|
 | `chain_model.py` | The model and the code that writes the tables |
 | `figure.py` | Draws `results/pace.png`. Needs matplotlib |
-| `test_chain_model.py` | Sixteen checks: the calibration, the AI Futures case the model reduces to, and the directions its results must move in |
+| `test_chain_model.py` | Eighteen checks: the calibration, the AI Futures case the model reduces to, and the directions its results must move in |
 | `results/tables.md` | Every table, written by the script |
 | `LICENSE` | MIT |
 

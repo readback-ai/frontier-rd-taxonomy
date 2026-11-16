@@ -219,3 +219,25 @@ def test_the_pace_of_2026_cannot_be_fitted_much_above_the_central_difficulty():
     easy = replace(P, volume_elasticity=0.0)
     assert pace_in_november(fit_labor(replace(easy, difficulty=central - 0.05))) >= PACE_REF
     assert pace_in_november(fit_labor(replace(easy, difficulty=central + 0.05))) < PACE_REF
+
+
+def test_an_audited_lab_cannot_deploy_gains_past_what_its_people_can_vouch_for():
+    # An AI far past the best researcher: with no audit its ideas carry the research, and
+    # under an audit the lab gets no more than it would from ideas at the best researcher's.
+    far = ai_state(P.progress_at_ref + 4.0, SLOW)
+    at_range = dict(far, idea_sd=SLOW.vouch_sd)
+    assert far["idea_sd"] > SLOW.vouch_sd + 5.0
+    free = research(far, SLOW, experiments=5.0)
+    audited = research(far, SLOW, experiments=5.0, audit_hours=1.0, labor_at_ref=far["labor"])
+    capped = research(at_range, SLOW, experiments=5.0, audit_hours=1.0, labor_at_ref=far["labor"])
+    assert audited["real"] == pytest.approx(capped["real"])
+    assert audited["real"] < 0.5 * free["real"]
+
+
+def test_under_audits_the_pace_does_not_run_away():
+    free, audited = simulate(SLOW), simulate(SLOW, CENTRAL)
+    assert free["pace"][-1] > 5.0
+    assert np.nanmax(audited["pace"]) < 4.0
+    assert months(free, audited) > 6.0
+    hours_only = simulate(replace(SLOW, audit_needs_vouching=False), CENTRAL)
+    assert months(free, hours_only) < 0.5 * months(free, audited)

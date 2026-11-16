@@ -135,6 +135,8 @@ class Params:
     change_growth: float = 0.4  # percent more deployed changes per percent more AI labor
     tail: float = 1.8  # Pareto index of a change's value. Lower means a few changes matter most
     audit_credit: float = 0.5  # share of audit time that also counts as judging experiments
+    audit_needs_vouching: bool = True  # an audited lab may deploy a gain only as far as its
+    # people can vouch for it. False: any change passes once people have spent the hours
 
 
 @dataclass(frozen=True)
@@ -262,8 +264,8 @@ def research(
     """Research per researcher against Oct 1, 2025, real and as measured on the lab's metrics.
 
     `experiments` is the number of experiments at scale against that date. Under audits the
-    lab chooses the share of its changes to understand and deploy that gives the most
-    research."""
+    lab deploys a gain only as far as its people can vouch for it, and it chooses the share
+    of its changes to understand and deploy that gives the most research."""
     n, n0 = ai["candidates"], p.candidates_base
     # Far past the best researcher every candidate is the AI's, and the rule is exp(k * SD).
     ideas = p.value_per_sd * ai["idea_sd"]
@@ -273,6 +275,10 @@ def research(
     gain = ideas + p.value_of_selection * (best_of(n) - best_of(n0))  # at small scale
     vouched = min(gain, p.value_per_sd * p.vouch_sd)
     beyond = gain - vouched
+    if audit_hours > 0.0 and p.audit_needs_vouching:
+        # An audit passes a change only if the lab's people understand it, and they cannot
+        # understand a gain past what they can vouch for. That part is not deployed.
+        gain, beyond = vouched, 0.0
     base = standing(p)
     # Once the AI's judgment on a link passes people's, people use it.
     transfer_people = max(1.0, ai["transfer"])
@@ -607,6 +613,7 @@ SENSITIVITY = (
     ("Transfer with the AI judging today: 0.4", dict(transfer_ai_start=0.4)),
     ("AI never judges better than people", dict(transfer_max=0.7, validity_max=0.8)),
     ("People can vouch for any gain", dict(vouch_sd=1e9)),
+    ("Audits take hours only: any change passes once understood", dict(audit_needs_vouching=False)),
     ("People can vouch for gains up to +1 SD ideas", dict(vouch_sd=1.0)),
     (
         "Judging time per experiment grows with candidates, elasticity 0.25",
