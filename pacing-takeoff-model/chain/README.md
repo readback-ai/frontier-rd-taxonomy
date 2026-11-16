@@ -68,6 +68,16 @@ The outer structure is the AI Futures Project's model: experiments limited by co
 
 The two milestone levels are also theirs, read from their public code. A superhuman AI researcher "can fully automate AI R&D", and a TED-AI "is at least as good as top human experts at virtually all cognitive tasks". Their model marks both as levels of research taste. The first is the 99.9th percentile of a normal distribution, +3.09 SD (`TOP_RESEARCHER_SD`). The second is a number of median-to-top gaps further on (`ted_ai_m2b`), which is a forecaster's judgment: 1.50 in the example trajectory of their update of November 10, 2026, giving +7.72 SD. This model applies both levels to the research an AI-only lab gets from an experiment after transfer and validity.
 
+Three inputs to the loop follow Ryan Greenblatt's public estimates.
+
+- **Software share.** "I tend to think that ~2/3 of AI progress is algorithms while ~1/3 is from scaling up compute for training runs." The model uses 2/3.
+- **Difficulty.** "I've previously estimated software R&D would slow down by around 2x for each year of software progress if you held inputs fixed". That is one halving per year of software progress, the model's value of 1.
+- **Labor and compute.** "I tend to think the functional form for just AI R&D progress (like algorithmic progress) is like serial_labor_acceleration^0.55 * compute^0.45." He calls 0.7 and 0.3 "somewhat plausible" in either order. The model's square root is close to this and is not the same quantity: his labor input is how much faster staff work, and the model's is AI labor per researcher, which the fit to Anthropic's agent hours sets.
+
+The first and third quotes are from his post of April 2026, ["If Mythos actually made Anthropic employees 4x more productive, I would radically shorten my timelines"](https://www.lesswrong.com/posts/Jga7PHMzfZf4fbdyo/if-mythos-actually-made-anthropic-employees-4x-more). He describes that model as "basically a simplified version of the AI Futures Project model with somewhat different constants". The second is from his [thread on X](https://x.com/RyanGreenblatt/status/2118447235289817503) about METR's report, taken here as Zvi Mowshowitz quotes it in ["AI R&D Is Accelerating Towards Potential RSI in 2027"](https://thezvi.substack.com/p/ai-r-and-d-is-accelerating-towards) (November 9, 2026). The estimate behind it is in an earlier [comment](https://www.lesswrong.com/posts/FG54euEAesRkSZuJN/ryan_greenblatt-s-shortform?commentId=rAFxcETtNtsuzw6aG).
+
+Ajeya Cotra's ["AI is dramatically accelerating AI research right now"](https://www.planned-obsolescence.org/p/ai-is-dramatically-accelerating-ai) (November 6, 2026) is a simplified version of the same modeling, and its footnote 6 links all three of his pieces. Her footnote 8 gives the model's square root: "To make the math simple, I just assumed that labor and experiment compute contributed equally".
+
 ## Calibration
 
 Three inputs are fitted to three measurements, all from Anthropic.
@@ -176,9 +186,9 @@ The primary scenario, one input at a time. TED-AI is December 2028 in the centra
 
 | Input | Value | Basis |
 |---|---|---|
-| Software share of progress | 2/3 | Judgment. The rest is more compute |
-| Difficulty: halvings of what research buys per year of software progress | 1 | Judgment. The pace of 2026 allows up to 2.08. Tested at 0.5, 1.5 and 2 |
-| Experiments from AI labor | Square root, ceiling of 15 times | Judgment. Tested at 5 and 60 |
+| Software share of progress | 2/3 | Greenblatt's estimate. The rest is more compute |
+| Difficulty: halvings of what research buys per year of software progress | 1 | Greenblatt's estimate. The pace of 2026 allows up to 2.08. Tested at 0.5, 1.5 and 2 |
+| Experiments from AI labor | Square root, ceiling of 15 times | The square root is Cotra's simplification, close to Greenblatt's 0.55. The limit on difficulty is run at 0.4 and 0.6. The ceiling is judgment, tested at 5 and 60 |
 | Small experiments behind each one at scale, Oct 2025 | 20 | Judgment, from researchers' accounts that most experiments are discarded |
 | Most candidates small-scale compute allows | 10,000 | Judgment. Tested at a million |
 | Value of one SD of small-scale result | 0.3 log units | Judgment. Tested at 0.6 |
