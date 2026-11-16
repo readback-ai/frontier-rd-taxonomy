@@ -14,6 +14,7 @@ from chain_model import (
     PACE_MAY,
     PACE_REF,
     POLICIES,
+    T_LABOR,
     T_MAY,
     T_REF,
     Params,
@@ -49,7 +50,7 @@ def test_defaults_reproduce_the_three_measurements():
     run = simulate(P, t_end=T_REF + 0.01)
     assert abs(pace_on(run, T_MAY) - PACE_MAY) < 0.005
     assert abs(pace_on(run, T_REF) - PACE_REF) < 0.005
-    assert abs(at(run, "labor", T_REF) - 1.0 - LABOR_REF) < 0.05
+    assert abs(at(run, "labor", T_LABOR) - 1.0 - LABOR_REF) < 0.05
     assert abs(at(run, "progress", T_REF) - P.progress_at_ref) < 0.002
 
 
@@ -116,7 +117,7 @@ def test_slower_transfer_and_metric_judgment_bring_the_milestones_later():
 
 def test_audits_delay_more_the_slower_the_ais_own_judgment():
     delay = [months(simulate(q), simulate(q, CENTRAL)) for q in (FAST, SLOW, SLOWEST)]
-    assert delay[0] < 1.5
+    assert delay[0] < 3.0
     assert delay[0] < delay[1] < delay[2]
     assert delay[2] > 9.0
 
@@ -195,11 +196,11 @@ def test_harder_research_delays_the_takeoff_and_raises_what_the_ai_must_keep():
         assert abs(pace_in_november(q) - PACE_REF) < 0.005
     assert when == sorted(when)
     assert critical == sorted(critical)
-    assert critical[-1] / critical[0] == pytest.approx(1.0 / 0.25)
+    assert critical[-1] / critical[0] == pytest.approx(2.0 / 0.5)
 
 
 def test_the_pace_of_2026_cannot_be_fitted_much_above_the_central_difficulty():
-    central = dict(DIFFICULTY_BOUNDS)["Central"]
+    central = DIFFICULTY_BOUNDS[0][2]
     easy = replace(P, volume_elasticity=0.0)
     assert pace_in_november(fit_labor(replace(easy, difficulty=central - 0.05))) >= PACE_REF
     assert pace_in_november(fit_labor(replace(easy, difficulty=central + 0.05))) < PACE_REF

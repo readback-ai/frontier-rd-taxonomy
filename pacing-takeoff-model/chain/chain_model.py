@@ -68,7 +68,10 @@ import numpy as np
 T_BASE = 2025.75  # Oct 1, 2025: the pace is 1 up to here
 T_MAY, T_REF = 2026.33, 2026.83  # May 1 and Nov 1, 2026: the two dates with a measured pace
 PACE_MAY, PACE_REF = 1.2, 1.7
-LABOR_REF = 13.0  # agent workdays per researcher workday on Nov 1, 2026: OpenAI's trend
+# AI labor per researcher: agent hours for each human work-hour in Anthropic's research
+# organizations in late August 2026, from its report "How employment is changing at Anthropic"
+# (Figure 2). The pace was measured at the same company.
+T_LABOR, LABOR_REF = 2026.65, 19.0
 # The two milestone levels are the AI Futures Project's, in SD of researcher judgment. In its
 # public code (github.com/AI-Futures-Project, `progress_model/config.py` and `_impl.py`) both
 # are levels of AI research taste.
@@ -94,9 +97,9 @@ class Params:
     # Throughput
     labor_exponent: float = 0.5  # experiments rise with the square root of AI labor
     labor_ceiling: float = 15.0  # most that unlimited labor can multiply experiments by
-    u0: float = 0.103914  # AI labor per researcher on Oct 1, 2025. Fitted
-    uplift_doubling: float = 0.193653  # years of progress per doubling of AI labor. Fitted
-    progress_at_ref: float = 1.349178  # years of progress from Oct 1, 2025 to Nov 1, 2026. Fitted
+    u0: float = 0.029674  # AI labor per researcher on Oct 1, 2025. Fitted
+    uplift_doubling: float = 0.112319  # years of progress per doubling of AI labor. Fitted
+    progress_at_ref: float = 1.336045  # years of progress from Oct 1, 2025 to Nov 1, 2026. Fitted
     compute_doublings: float = 1.5  # doublings of compute per year on the historical schedule
     compute_slows_in: float = math.inf  # year from which compute grows at `compute_slow_pace`
     compute_slow_pace: float = 0.5  # that growth, as a share of the historical rate
@@ -120,9 +123,12 @@ class Params:
     vouch_sd: float = SD_RESEARCHER  # people can vouch for gains up to this researcher's
     # ideas, in SD. The default is the top researcher
     # People's time
+    time_managing: float = 0.22  # share of researcher time that goes to managing agents once AI
+    # does the implementation: writing specs, setting one agent to review another, watching
+    # pipelines. Anthropic reports 22% of model researchers' agent sessions in spring 2026
     time_judging: float = 0.4  # share of researcher time on results, metrics and plans on
     # Oct 1, 2025. The rest was implementation
-    volume_elasticity: float = 0.004869  # percent more judging time per experiment at scale per
+    volume_elasticity: float = 0.187287  # percent more judging time per experiment at scale per
     # percent more candidates behind it, net of AI help with the analysis. Fitted
     # Comprehension audits
     understanding_today: float = 0.14  # time to understand all deployed changes, Nov 1, 2026
@@ -267,7 +273,9 @@ def research(
     )
     unjudged_measured = capped_exp(ai["transfer"] * (base + gain) - base)
     # Implementation goes to the AI as the candidates multiply, which frees researcher time.
-    free = 1.0 - (1.0 - p.time_judging) * n0 / n
+    # Managing the agents takes some of it back.
+    handed_over = 1.0 - n0 / n
+    free = p.time_judging + (1.0 - p.time_judging - p.time_managing) * handed_over
     per_experiment = p.time_judging * (n / n0) ** p.volume_elasticity
     if audit_hours > 0.0:
         # `everything` is the time to understand all deployed changes, as a share of
@@ -402,8 +410,8 @@ def pace_on(run: dict, date: float) -> float:
 
 
 def fit_labor(p: Params, labor_ref: float = LABOR_REF, steps: int = 16) -> Params:
-    """Fit AI labor on Oct 1, 2025 to AI labor on Nov 1, 2026, and its doubling to the pace in
-    May 2026, leaving every other input of `p` as it is. Two nested bisections."""
+    """Fit AI labor on Oct 1, 2025 to AI labor in late August 2026, and its doubling to the pace
+    in May 2026, leaving every other input of `p` as it is. Two nested bisections."""
 
     def short(q: Params) -> dict:
         return simulate(q, t_end=T_REF + 0.01)
@@ -413,7 +421,7 @@ def fit_labor(p: Params, labor_ref: float = LABOR_REF, steps: int = 16) -> Param
         lo, hi = 1e-6, 5.0
         for _ in range(steps):
             mid = math.sqrt(lo * hi)
-            if at(short(replace(q, u0=mid)), "labor", T_REF) - 1.0 > labor_ref:
+            if at(short(replace(q, u0=mid)), "labor", T_LABOR) - 1.0 > labor_ref:
                 hi = mid
             else:
                 lo = mid
@@ -508,30 +516,32 @@ CASES = (
     ("Ideas +3, transfer and metrics +0.5", dict(transfer_rate=0.5, metric_rate=0.5)),
 )
 
-# The three fitted inputs refitted by `calibrate` at lower difficulties.
+# The three fitted inputs refitted by `calibrate` at other difficulties.
 DIFFICULTY_FITS = {
-    0.25: dict(
-        u0=0.070495, uplift_doubling=0.177581, volume_elasticity=0.213598, progress_at_ref=1.336609
-    ),
     0.5: dict(
-        u0=0.080099, uplift_doubling=0.182743, volume_elasticity=0.144372, progress_at_ref=1.341790
-    ),
-    0.75: dict(
-        u0=0.091182, uplift_doubling=0.188122, volume_elasticity=0.074525, progress_at_ref=1.346112
+        u0=0.038462, uplift_doubling=0.116652, volume_elasticity=0.285144, progress_at_ref=1.329253
     ),
     1.0: {},
+    1.5: dict(
+        u0=0.024921, uplift_doubling=0.109672, volume_elasticity=0.096138, progress_at_ref=1.341833
+    ),
+    2.0: dict(
+        u0=0.022122, uplift_doubling=0.107969, volume_elasticity=0.012197, progress_at_ref=1.346145
+    ),
 }
 # The highest difficulty that still fits the pace of November 2026, from `max_difficulty`, at
 # the central inputs and with one input moved. `None` means no difficulty above 0.3 fits.
 DIFFICULTY_BOUNDS = (
-    ("Central", 1.02),
-    ("AI labor per researcher on Nov 1, 2026: 26, twice OpenAI's trend", 1.53),
-    ("AI labor per researcher on Nov 1, 2026: 6.5, half of it", 0.37),
-    ("25% of researcher time was on judging in Oct 2025", 2.02),
-    ("60% of researcher time was on judging in Oct 2025", None),
-    ("Experiments rise with AI labor to the power 0.4", 0.98),
-    ("Experiments rise with AI labor to the power 0.6", 1.12),
-    ("Experiments from unlimited AI labor: 60 times", 1.06),
+    ("Central", dict(), 2.08),
+    ("AI labor per researcher in late August 2026: 38, twice Anthropic's figure", dict(), 2.63),
+    ("AI labor per researcher in late August 2026: 9.5, half of it", dict(), 1.36),
+    ("AI labor per researcher in late August 2026: 3.8, OpenAI's trend", dict(), None),
+    ("No researcher time goes to managing agents", dict(time_managing=0.0), 2.47),
+    ("25% of researcher time was on judging in Oct 2025", dict(time_judging=0.25), 2.69),
+    ("60% of researcher time was on judging in Oct 2025", dict(time_judging=0.6), 0.38),
+    ("Experiments rise with AI labor to the power 0.4", dict(labor_exponent=0.4), 1.75),
+    ("Experiments rise with AI labor to the power 0.6", dict(labor_exponent=0.6), 2.29),
+    ("Experiments from unlimited AI labor: 60 times", dict(labor_ceiling=60.0), 2.52),
 )
 
 SENSITIVITY = (
@@ -549,6 +559,8 @@ SENSITIVITY = (
         dict(volume_elasticity=0.25),
     ),
     ("60% of researcher time was already on judging", dict(time_judging=0.6)),
+    ("No researcher time goes to managing agents", dict(time_managing=0.0)),
+    ("A third of researcher time goes to managing agents", dict(time_managing=1 / 3)),
     ("Ideas improve +2.1 SD a year", dict(idea_rate=2.1)),
     ("Selection worth twice as much", dict(value_of_selection=0.6)),
     ("Up to a million candidates behind each experiment", dict(candidates_max=1e6)),
@@ -648,7 +660,7 @@ def bound_table(p: Params) -> list[str]:
         "must keep for the loop to run away at that difficulty |",
         "|---|---|---|",
     ]
-    for label, bound in DIFFICULTY_BOUNDS:
+    for label, _, bound in DIFFICULTY_BOUNDS:
         if bound is None:
             out.append(f"| {label} | none above 0.3 | |")
         else:
@@ -740,8 +752,8 @@ def tables(p: Params | None = None) -> str:
         "",
         *difficulty_table(p),
         "",
-        "Above a difficulty of about 1 the model cannot reach the pace measured in November "
-        "2026. The table below gives the highest difficulty that still fits, computed by "
+        "Above some difficulty the model cannot reach the pace measured in November 2026. "
+        "The table below gives the highest difficulty that still fits, computed by "
         "`max_difficulty`, and how it moves with the inputs it rests on.",
         "",
         *bound_table(p),
