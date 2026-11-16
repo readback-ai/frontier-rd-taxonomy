@@ -16,9 +16,11 @@ Terms:
 
 ## How the model works
 
-![The chain from an AI's ideas through small experiments and experiments at scale to real value, with the transfer and validity links and the loop back to better AI](results/chain.png)
+![The chain from ideas through small experiments and experiments at scale to real value. People and the AI each supply ideas and judge the transfer and validity links, and progress makes the AI better at all three](results/chain.png)
 
 **Experiments.** Experiments at scale are limited by compute. Behind each one the lab runs many small experiments and backs the candidate that looks best. AI labor raises the number of experiments a lab gets from its compute, with diminishing returns and a ceiling. It also multiplies the candidates, which helps less and less: the best of n candidates is about sqrt(2 ln n) SD better than a typical one.
+
+**Ideas.** Candidates come from people and from the AI. Each researcher uses the better of their own judgment and the AI's, which is the AI Futures Model's rule, so the AI's ideas matter once they pass the weakest researchers' and replace everyone's once they pass the best. The lab does not choose this mix. What it chooses is how much AI labor to run.
 
 **The chain.** Two links separate how good a candidate looks from what it is worth.
 
