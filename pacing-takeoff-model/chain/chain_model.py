@@ -77,7 +77,7 @@ T_LABOR, LABOR_REF = 2026.65, 19.0
 # public code (github.com/AI-Futures-Project, `progress_model/config.py` and `_impl.py`) both
 # are levels of AI research taste.
 # - The top researcher is the 99.9th percentile of a normal distribution, +3.09 SD. The code
-#   names it TOP_RESEARCHER_SD and marks its superhuman AI researcher there.
+#   names it TOP_RESEARCHER_SD and marks its superhuman AI researcher (SAR) there.
 # - TED-AI is `ted_ai_m2b` gaps of that size further on. The value below is the one in the
 #   parameters of the example trajectory in the project's update of November 10, 2026, and it
 #   is a forecaster's judgment. The code's default is 1.00, which puts TED-AI at +6.18 SD.
@@ -394,7 +394,7 @@ def simulate(
     through 2026 and is faster to compute."""
     policy = policy or Policy()
     w = p.software_share
-    levels = {"researcher": SD_RESEARCHER, "ted_ai": SD_TED}
+    levels = {"sar": SD_RESEARCHER, "ted_ai": SD_TED}
     labor_at_ref = ai_state(p.progress_at_ref, p)["labor"]
     n = int(round((t_end - T_BASE) / dt))
     start_step = int(round((policy.start - T_BASE) / dt))
@@ -646,14 +646,14 @@ def scenario_table(p: Params) -> list[str]:
         out += [
             f"### {label}",
             "",
-            "| Scenario | Researcher-level AI | Delay | TED-AI | Delay |",
+            "| Scenario | SAR | Delay | TED-AI | Delay |",
             "|---|---|---|---|---|",
         ]
         for policy in POLICIES:
             d = simulate(q, policy)["dates"]
             first = policy.name == "No pacing"
             cells = [policy.name]
-            for name in ("researcher", "ted_ai"):
+            for name in ("sar", "ted_ai"):
                 cells += [fmt_date(d[name]), "" if first else fmt_delay(base[name], d[name])]
             out.append("| " + " | ".join(cells) + " |")
         out.append("")
@@ -662,7 +662,7 @@ def scenario_table(p: Params) -> list[str]:
 
 def arrival_table(p: Params) -> list[str]:
     out = [
-        "| AI judgment gained per year of progress | Researcher-level AI | TED-AI | "
+        "| AI judgment gained per year of progress | SAR | TED-AI | "
         "Pace in Jan 2028 | As measured |",
         "|---|---|---|---|---|",
     ]
@@ -760,7 +760,7 @@ def sensitivity_table(p: Params) -> list[str]:
     by_name = {policy.name: policy for policy in POLICIES}
     audits, lag = by_name["Comprehension audits"], by_name["Internal-use lag, 9 months"]
     out = [
-        "| Case | Researcher-level AI | TED-AI | Audits delay TED-AI | 9-month lag delays TED-AI |",
+        "| Case | SAR | TED-AI | Audits delay TED-AI | 9-month lag delays TED-AI |",
         "|---|---|---|---|---|",
     ]
     for label, change in SENSITIVITY:
@@ -790,9 +790,10 @@ def tables(p: Params | None = None) -> str:
         f"the AI's own judgment keeps {critical_share(p):.0%} of the share of a gain that "
         "people's judgment keeps.",
         "",
-        "Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a lab "
-        "of researchers at AI Futures' two levels, +3.09 and +7.72 SD. `over` means the run "
-        "had ended by then.",
+        "SAR, the superhuman AI researcher, and TED-AI are the AI Futures Project's milestones. "
+        "They are the dates an AI-only lab's research matches a lab of researchers at the "
+        "project's two levels, +3.09 and +7.72 SD above the median researcher. `over` means "
+        "the run had ended by then.",
         "",
         "## No pacing",
         "",

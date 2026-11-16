@@ -4,11 +4,11 @@ Written by `chain_model.py`. Do not edit by hand.
 
 Delays are against no pacing. Pacing starts Jan 1, 2027. Rates are SD of researcher judgment gained per year of progress. The loop runs away on better ideas alone once the AI's own judgment keeps 78% of the share of a gain that people's judgment keeps.
 
-Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a lab of researchers at AI Futures' two levels, +3.09 and +7.72 SD. `over` means the run had ended by then.
+SAR, the superhuman AI researcher, and TED-AI are the AI Futures Project's milestones. They are the dates an AI-only lab's research matches a lab of researchers at the project's two levels, +3.09 and +7.72 SD above the median researcher. `over` means the run had ended by then.
 
 ## No pacing
 
-| AI judgment gained per year of progress | Researcher-level AI | TED-AI | Pace in Jan 2028 | As measured |
+| AI judgment gained per year of progress | SAR | TED-AI | Pace in Jan 2028 | As measured |
 |---|---|---|---|---|
 | Ideas, transfer and metrics all +3 SD a year | May 2027 | May 2027 | over | over |
 | Ideas and transfer +3, metrics +1 | Dec 2027 | Jan 2028 | 58.8x | 14.8x |
@@ -39,7 +39,7 @@ Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a
 
 ## Each input moved: ideas and transfer +3, metrics +0.5
 
-| Case | Researcher-level AI | TED-AI | Audits delay TED-AI | 9-month lag delays TED-AI |
+| Case | SAR | TED-AI | Audits delay TED-AI | 9-month lag delays TED-AI |
 |---|---|---|---|---|
 | Central | Oct 2028 | Dec 2028 | +13 mo | +12 mo |
 | Experiments from unlimited AI labor: 5 times | Jan 2029 | Apr 2029 | +12 mo | +11 mo |
@@ -94,7 +94,7 @@ Above some difficulty the model cannot reach the pace measured in November 2026.
 
 ### Ideas, transfer and metrics all +3 SD a year
 
-| Scenario | Researcher-level AI | Delay | TED-AI | Delay |
+| Scenario | SAR | Delay | TED-AI | Delay |
 |---|---|---|---|---|
 | No pacing | May 2027 |  | May 2027 |  |
 | Comprehension audits | May 2027 | +0 mo | Jun 2027 | +0 mo |
@@ -105,7 +105,7 @@ Above some difficulty the model cannot reach the pace measured in November 2026.
 
 ### Ideas and transfer +3, metrics +1
 
-| Scenario | Researcher-level AI | Delay | TED-AI | Delay |
+| Scenario | SAR | Delay | TED-AI | Delay |
 |---|---|---|---|---|
 | No pacing | Dec 2027 |  | Jan 2028 |  |
 | Comprehension audits | Mar 2028 | +3 mo | Apr 2028 | +4 mo |
@@ -116,7 +116,7 @@ Above some difficulty the model cannot reach the pace measured in November 2026.
 
 ### Ideas and transfer +3, metrics +0.5
 
-| Scenario | Researcher-level AI | Delay | TED-AI | Delay |
+| Scenario | SAR | Delay | TED-AI | Delay |
 |---|---|---|---|---|
 | No pacing | Oct 2028 |  | Dec 2028 |  |
 | Comprehension audits | Jun 2029 | +7 mo | Jan 2030 | +13 mo |
@@ -127,7 +127,7 @@ Above some difficulty the model cannot reach the pace measured in November 2026.
 
 ### Ideas +3, transfer and metrics +1
 
-| Scenario | Researcher-level AI | Delay | TED-AI | Delay |
+| Scenario | SAR | Delay | TED-AI | Delay |
 |---|---|---|---|---|
 | No pacing | May 2028 |  | May 2028 |  |
 | Comprehension audits | Aug 2028 | +4 mo | Sep 2028 | +4 mo |
@@ -138,7 +138,7 @@ Above some difficulty the model cannot reach the pace measured in November 2026.
 
 ### Ideas +3, transfer +1, metrics +0.5
 
-| Scenario | Researcher-level AI | Delay | TED-AI | Delay |
+| Scenario | SAR | Delay | TED-AI | Delay |
 |---|---|---|---|---|
 | No pacing | Feb 2029 |  | Apr 2029 |  |
 | Comprehension audits | Oct 2029 | +7 mo | Apr 2030 | +12 mo |
@@ -149,7 +149,7 @@ Above some difficulty the model cannot reach the pace measured in November 2026.
 
 ### Ideas +3, transfer and metrics +0.5
 
-| Scenario | Researcher-level AI | Delay | TED-AI | Delay |
+| Scenario | SAR | Delay | TED-AI | Delay |
 |---|---|---|---|---|
 | No pacing | Nov 2029 |  | Jan 2030 |  |
 | Comprehension audits | Sep 2030 | +10 mo | Mar 2031 | +14 mo |

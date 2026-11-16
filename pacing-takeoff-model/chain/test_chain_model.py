@@ -121,7 +121,7 @@ def test_slower_transfer_and_metric_judgment_bring_the_milestones_later():
     def when(transfer_rate: float, metric_rate: float) -> dict:
         return simulate(replace(P, transfer_rate=transfer_rate, metric_rate=metric_rate))["dates"]
 
-    for name in ("researcher", "ted_ai"):
+    for name in ("sar", "ted_ai"):
         assert when(3.0, 3.0)[name] < when(3.0, 1.0)[name] < when(3.0, 0.5)[name]
         assert when(3.0, 1.0)[name] < when(1.0, 1.0)[name] < when(0.5, 1.0)[name]
         assert when(1.0, 0.5)[name] < when(0.5, 0.5)[name]
@@ -152,7 +152,7 @@ def test_no_pacing_policy_brings_a_milestone_forward():
         base = simulate(q)
         for policy in POLICIES[1:]:
             paced = simulate(q, policy)
-            assert months(base, paced, "researcher") > -0.2
+            assert months(base, paced, "sar") > -0.2
             assert months(base, paced, "ted_ai") > -0.2
 
 

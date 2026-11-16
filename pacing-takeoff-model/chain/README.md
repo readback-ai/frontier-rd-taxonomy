@@ -12,7 +12,7 @@ Terms:
 
 - **Progress** is measured in years of AI progress at the rate before October 2025. **Pace** is years of progress per calendar year.
 - **SD** is a standard deviation of research judgment across a lab's researchers. The best researcher is at +3.09 SD.
-- **Researcher-level AI** is the date an AI-only lab's research matches a lab of its best researchers. The AI Futures Project calls this the superhuman AI researcher. **TED-AI**, top-expert-dominating AI, is the date it matches the project's higher level, +7.72 SD.
+- **SAR**, the superhuman AI researcher, and **TED-AI**, top-expert-dominating AI, are the AI Futures Project's two milestones, at the levels its model sets. SAR is at +3.09 SD above the median researcher, the level of a lab's best researcher. TED-AI is at +7.72 SD. Each date here is when an AI-only lab's research matches a lab of researchers at that level.
 
 ## How the model works
 
@@ -66,7 +66,7 @@ Audits and the lag are also run together.
 
 The outer structure is the AI Futures Project's model: experiments limited by compute, AI labor with diminishing returns, judgment in SD of the researcher distribution, and research that gets harder. With the AI's two links set to people's values and no gain from selection, research here is the AI Futures rule exactly, and a check confirms it.
 
-The two milestone levels are also theirs, read from their public code. A superhuman AI researcher "can fully automate AI R&D", and a TED-AI "is at least as good as top human experts at virtually all cognitive tasks". Their model marks both as levels of research taste. The first is the 99.9th percentile of a normal distribution, +3.09 SD (`TOP_RESEARCHER_SD`). The second is a number of median-to-top gaps further on (`ted_ai_m2b`), which is a forecaster's judgment: 1.50 in the example trajectory of their update of November 10, 2026, giving +7.72 SD. This model applies both levels to an AI-only lab. A milestone arrives when an experiment left to the AI, with its own transfer and metric judgment, is worth what it would be with ideas at that level and people's judgment on both links. Weak links cost the AI a share of the value an experiment already had as well as a share of its ideas.
+The two milestone levels are also theirs, read from their public code. A superhuman AI researcher (SAR) "can fully automate AI R&D", and a TED-AI "is at least as good as top human experts at virtually all cognitive tasks". Their model marks both as levels of research taste. The first is the 99.9th percentile of a normal distribution, +3.09 SD (`TOP_RESEARCHER_SD`). The second is a number of median-to-top gaps further on (`ted_ai_m2b`), which is a forecaster's judgment: 1.50 in the example trajectory of their update of November 10, 2026, giving +7.72 SD. This model applies both levels to an AI-only lab. A milestone arrives when an experiment left to the AI, with its own transfer and metric judgment, is worth what it would be with ideas at that level and people's judgment on both links. Weak links cost the AI a share of the value an experiment already had as well as a share of its ideas. The AI Futures Model has no such links, so an AI whose ideas reach +3.09 SD is a SAR there. Here it is a SAR only once its own transfer and metric judgment carry those ideas through, which is later.
 
 Three inputs to the loop follow Ryan Greenblatt's public estimates.
 
@@ -98,7 +98,7 @@ Three inputs are fitted to three measurements, all from Anthropic.
 
 The primary scenario is the third row.
 
-| AI judgment gained per year of progress | Researcher-level AI | TED-AI |
+| AI judgment gained per year of progress | SAR | TED-AI |
 |---|---|---|
 | Ideas, transfer and metrics all +3 SD | May 2027 | May 2027 |
 | Ideas and transfer +3, metrics +1 | Dec 2027 | Jan 2028 |
