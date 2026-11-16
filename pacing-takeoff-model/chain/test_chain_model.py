@@ -39,7 +39,7 @@ FAST = BY_CASE["Ideas, transfer and metrics all +3 SD a year"]
 SLOW = BY_CASE["Ideas +3, transfer +1, metrics +0.5"]
 SLOWEST = BY_CASE["Ideas +3, transfer and metrics +0.5"]
 BY_NAME = {policy.name: policy for policy in POLICIES}
-CENTRAL = BY_NAME["Comprehension audits, central"]
+AUDITS = BY_NAME["Comprehension audits"]
 
 
 def months(base: dict, paced: dict, name: str = "ted_ai") -> float:
@@ -116,19 +116,16 @@ def test_slower_transfer_and_metric_judgment_bring_the_milestones_later():
 
 
 def test_audits_delay_more_the_slower_the_ais_own_judgment_and_the_more_hours_they_take():
-    central = [months(simulate(q), simulate(q, CENTRAL)) for q in (FAST, SLOW, SLOWEST)]
-    assert central[0] < central[1] <= central[2]
+    delay = [months(simulate(q), simulate(q, AUDITS)) for q in (FAST, SLOW, SLOWEST)]
+    assert delay[0] < delay[1] <= delay[2]
     for q in (SLOW, SLOWEST):
-        base = simulate(q)
-        light, mid, strict = (
-            months(base, simulate(q, BY_NAME[f"Comprehension audits, {level}"]))
-            for level in ("light", "central", "strict")
-        )
-        assert 0.0 < light < mid < strict
+        slower = replace(q, understanding_today=2.0 * q.understanding_today)
+        usual = months(simulate(q), simulate(q, AUDITS))
+        assert 0.0 < usual < months(simulate(slower), simulate(slower, AUDITS))
 
 
 def test_an_audited_lab_runs_less_ai_labor_and_keeps_its_pace_above_the_old_one():
-    run = simulate(SLOW, CENTRAL)
+    run = simulate(SLOW, AUDITS)
     late = run["t"] > 2027.5
     assert np.all(run["labor_used"][late] < 0.2 * run["labor"][late])
     assert np.all(run["pace"][late] > 1.0)
@@ -149,7 +146,7 @@ def test_no_pacing_policy_brings_a_milestone_forward():
 def test_audits_cost_less_when_their_hours_also_count_as_judging():
     base = simulate(SLOW)
     none, half, full = (
-        months(base, simulate(replace(SLOW, audit_credit=c), CENTRAL)) for c in (0.0, 0.5, 1.0)
+        months(base, simulate(replace(SLOW, audit_credit=c), AUDITS)) for c in (0.0, 0.5, 1.0)
     )
     assert full < half < none
 
@@ -228,16 +225,16 @@ def test_an_audited_lab_cannot_deploy_gains_past_what_its_people_can_vouch_for()
     at_range = dict(far, idea_sd=SLOW.vouch_sd)
     assert far["idea_sd"] > SLOW.vouch_sd + 5.0
     free = research(far, SLOW, experiments=5.0)
-    audited = research(far, SLOW, experiments=5.0, audit_hours=1.0, labor_at_ref=far["labor"])
-    capped = research(at_range, SLOW, experiments=5.0, audit_hours=1.0, labor_at_ref=far["labor"])
+    audited = research(far, SLOW, experiments=5.0, audits=True, labor_at_ref=far["labor"])
+    capped = research(at_range, SLOW, experiments=5.0, audits=True, labor_at_ref=far["labor"])
     assert audited["real"] == pytest.approx(capped["real"])
     assert audited["real"] < 0.5 * free["real"]
 
 
 def test_under_audits_the_pace_does_not_run_away():
-    free, audited = simulate(SLOW), simulate(SLOW, CENTRAL)
+    free, audited = simulate(SLOW), simulate(SLOW, AUDITS)
     assert free["pace"][-1] > 5.0
     assert np.nanmax(audited["pace"]) < 4.0
     assert months(free, audited) > 6.0
-    hours_only = simulate(replace(SLOW, audit_needs_vouching=False), CENTRAL)
+    hours_only = simulate(replace(SLOW, audit_needs_vouching=False), AUDITS)
     assert months(free, hours_only) < 0.5 * months(free, audited)

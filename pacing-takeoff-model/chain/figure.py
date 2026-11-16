@@ -33,9 +33,9 @@ GRID, AXIS = "#e1e0d9", "#c3c2b7"
 # policies take the first four slots of a palette checked for color-blind separation.
 SERIES = (
     ("No pacing", "No pacing", INK),
-    ("Comprehension audits, central", "Comprehension audits, central", "#2a78d6"),
-    ("Comprehension audits, strict", "Comprehension audits, strict", "#eb6834"),
-    ("Internal-use lag, 9 months", "Internal-use lag, 9 months", "#1baf7a"),
+    ("Comprehension audits", "Comprehension audits", "#2a78d6"),
+    ("Internal-use lag, 9 months", "Internal-use lag, 9 months", "#eb6834"),
+    ("Comprehension audits + 9-month lag", "Audits and 9-month lag", "#1baf7a"),
     ("R&D compute at a third of baseline", "Compute at a third of baseline", "#eda100"),
 )
 START, TICKS = 2026.0, (1.0, 1.5, 2.0, 3.0, 5.0, 10.0)
@@ -64,11 +64,9 @@ def main() -> None:
             zorder=3 if name == "No pacing" else 2,
         )
         ends.append((float(run["t"][-1]), float(run["pace"][-1]), color, run["dates"]["ted_ai"]))
-    # End labels sit to the right of each end, except where two ends are close together.
-    places = {
-        0: dict(xytext=(-8, 0), ha="right", va="center"),
-        1: dict(xytext=(0, 9), ha="center", va="bottom"),
-    }
+    # End labels sit to the right of each end. The first sits to the left, clear of the lines
+    # that end after it.
+    places = {0: dict(xytext=(-8, 0), ha="right", va="center")}
     for k, (when, pace, color, ted) in enumerate(ends):
         ax.plot(
             [when], [pace], "o", ms=8, color=color, mec=SURFACE, mew=2.0, zorder=4, clip_on=False

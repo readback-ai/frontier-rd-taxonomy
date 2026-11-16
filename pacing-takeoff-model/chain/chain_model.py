@@ -50,8 +50,9 @@ worth before October 2025 and `gain` is what has been added at small scale since
 experiment people judged keeps all of it, which is the AI Futures Model's case. One left to an
 AI with weak transfer and metric judgment keeps part.
 
-Under comprehension audits researchers must also understand what is deployed, and that time
-comes out of judging.
+The lab runs the amount of AI labor that gives it the most research. Under comprehension
+audits researchers must also understand what is deployed. That time comes out of judging,
+and a gain past what people can vouch for is not deployed.
 
 Progress is in years of progress at the rate before October 2025. Pace is years of progress
 per calendar year. Run this file to print the scenario tables.
@@ -143,7 +144,7 @@ class Params:
 class Policy:
     name: str = "No pacing"
     start: float = 2027.0
-    audit_hours: float = 0.0  # 0 is no audit; 1 is the central standard; 2 is twice the hours
+    audits: bool = False  # comprehension audits: a lab deploys only what its people understand
     lag: float = 0.0  # years by which the AI a lab may use internally trails its newest
     compute_share: float = 1.0  # share of its scheduled compute a lab may use for research
     # and for training
@@ -151,13 +152,11 @@ class Policy:
 
 POLICIES = (
     Policy(),
-    Policy("Comprehension audits, light", audit_hours=0.5),
-    Policy("Comprehension audits, central", audit_hours=1.0),
-    Policy("Comprehension audits, strict", audit_hours=2.0),
+    Policy("Comprehension audits", audits=True),
     Policy("Internal-use lag, 3 months", lag=0.25),
     Policy("Internal-use lag, 9 months", lag=0.75),
     Policy("R&D compute at a third of baseline", compute_share=1 / 3),
-    Policy("Comprehension audits (central) + 9-month lag", audit_hours=1.0, lag=0.75),
+    Policy("Comprehension audits + 9-month lag", audits=True, lag=0.75),
 )
 
 
@@ -258,7 +257,7 @@ def research(
     ai: dict,
     p: Params,
     experiments: float = 1.0,
-    audit_hours: float = 0.0,
+    audits: bool = False,
     labor_at_ref: float = 1.0,
 ) -> dict:
     """Research per researcher against Oct 1, 2025, real and as measured on the lab's metrics.
@@ -275,7 +274,7 @@ def research(
     gain = ideas + p.value_of_selection * (best_of(n) - best_of(n0))  # at small scale
     vouched = min(gain, p.value_per_sd * p.vouch_sd)
     beyond = gain - vouched
-    if audit_hours > 0.0 and p.audit_needs_vouching:
+    if audits and p.audit_needs_vouching:
         # An audit passes a change only if the lab's people understand it, and they cannot
         # understand a gain past what they can vouch for. That part is not deployed.
         gain, beyond = vouched, 0.0
@@ -295,12 +294,10 @@ def research(
     handed_over = 1.0 - n0 / n
     free = p.time_judging + (1.0 - p.time_judging - p.time_managing) * handed_over
     per_experiment = p.time_judging * (n / n0) ** p.volume_elasticity
-    if audit_hours > 0.0:
+    if audits:
         # `everything` is the time to understand all deployed changes, as a share of
         # researcher time. The lab deploys only what it understands, the most valuable first.
-        everything = (
-            audit_hours * p.understanding_today * (ai["labor"] / labor_at_ref) ** p.change_growth
-        )
+        everything = p.understanding_today * (ai["labor"] / labor_at_ref) ** p.change_growth
         audit = np.minimum(SHARES * everything, free)
         deployed = audit / everything
     else:
@@ -326,7 +323,7 @@ def lab_choice(
     ai: dict,
     p: Params,
     compute: float = 1.0,
-    audit_hours: float = 0.0,
+    audits: bool = False,
     labor_at_ref: float = 1.0,
     choose_labor: bool = True,
 ) -> dict:
@@ -338,7 +335,7 @@ def lab_choice(
     def run(labor: float) -> dict:
         used = dict(ai, labor=float(labor), candidates=candidates_behind(labor, p, compute))
         experiments = experiments_at_scale(labor, p, compute)
-        lab = research(used, p, experiments, audit_hours, labor_at_ref)
+        lab = research(used, p, experiments, audits, labor_at_ref)
         return dict(
             lab,
             labor_used=float(labor),
@@ -422,8 +419,8 @@ def simulate(
         # Training cannot use more than is allowed, and what it has already used stays used.
         hardware_pace = compute_pace if hardware <= allowed + 1e-9 else 0.0
         ai = ai_state(out["progress"][j], p, compute)
-        audit_hours = policy.audit_hours if paced else 0.0
-        lab = lab_choice(ai, p, compute, audit_hours, labor_at_ref, choose_labor)
+        audits = policy.audits and paced
+        lab = lab_choice(ai, p, compute, audits, labor_at_ref, choose_labor)
         # Each year of software progress halves what research buys, `difficulty` times over.
         # The lab's other inputs double as often per calendar year, which held the pace at 1
         # before AI helped. Any shortfall in compute is already in `experiments`.
@@ -626,6 +623,7 @@ SENSITIVITY = (
     ("Selection worth twice as much", dict(value_of_selection=0.6)),
     ("Up to a million candidates behind each experiment", dict(candidates_max=1e6)),
     ("Compute grows at half the historical rate from 2029", dict(compute_slows_in=2029.0)),
+    ("Understanding all deployed changes takes twice the time", dict(understanding_today=0.28)),
     ("Audit time counts in full as judging", dict(audit_credit=1.0)),
     ("Audit time does not count as judging", dict(audit_credit=0.0)),
     ("Deployed changes do not grow with AI labor", dict(change_growth=0.0)),
@@ -675,14 +673,14 @@ def arrival_table(p: Params) -> list[str]:
 def pacing_table(p: Params) -> list[str]:
     by_name = {policy.name: policy for policy in POLICIES}
     names = (
-        "Comprehension audits, central",
-        "Comprehension audits, strict",
+        "Comprehension audits",
         "Internal-use lag, 9 months",
+        "Comprehension audits + 9-month lag",
         "R&D compute at a third of baseline",
     )
     out = [
-        "| AI judgment gained per year | TED-AI, no pacing | Central audits | Strict audits | "
-        "9-month lag | Compute at a third of baseline |",
+        "| AI judgment gained per year | TED-AI, no pacing | Comprehension audits | "
+        "9-month lag | Audits and 9-month lag | Compute at a third of baseline |",
         "|---|---|---|---|---|---|",
     ]
     for label, rates in CASES:
@@ -695,12 +693,12 @@ def pacing_table(p: Params) -> list[str]:
 
 def difficulty_table(p: Params) -> list[str]:
     by_name = {policy.name: policy for policy in POLICIES}
-    audits = by_name["Comprehension audits, central"]
+    audits = by_name["Comprehension audits"]
     fast, slow = (dict(CASES)[c] for c in (CASES[0][0], PRIMARY))
     out = [
         "| Halvings of what research buys per year of software progress | Share of a gain the "
         "AI must keep for the loop to run away | TED-AI, all judgment +3 SD | TED-AI, ideas and "
-        "transfer +3 and metrics +0.5 | Central audits delay it |",
+        "transfer +3 and metrics +0.5 | Audits delay it |",
         "|---|---|---|---|---|",
     ]
     for difficulty, fit in DIFFICULTY_FITS.items():
@@ -753,10 +751,9 @@ def path_table(p: Params) -> list[str]:
 
 def sensitivity_table(p: Params) -> list[str]:
     by_name = {policy.name: policy for policy in POLICIES}
-    audits, lag = by_name["Comprehension audits, central"], by_name["Internal-use lag, 9 months"]
+    audits, lag = by_name["Comprehension audits"], by_name["Internal-use lag, 9 months"]
     out = [
-        "| Case | Researcher-level AI | TED-AI | Central audits delay TED-AI | "
-        "9-month lag delays TED-AI |",
+        "| Case | Researcher-level AI | TED-AI | Audits delay TED-AI | 9-month lag delays TED-AI |",
         "|---|---|---|---|---|",
     ]
     for label, change in SENSITIVITY:
