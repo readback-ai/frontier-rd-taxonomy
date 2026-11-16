@@ -16,6 +16,8 @@ Terms:
 
 ## How the model works
 
+![The chain from an AI's ideas through small experiments and experiments at scale to real value, with the transfer and validity links and the loop back to better AI](results/chain.png)
+
 **Experiments.** Experiments at scale are limited by compute. Behind each one the lab runs many small experiments and backs the candidate that looks best. AI labor raises the number of experiments a lab gets from its compute, with diminishing returns and a ceiling. It also multiplies the candidates, which helps less and less: the best of n candidates is about sqrt(2 ln n) SD better than a typical one.
 
 **The chain.** Two links separate how good a candidate looks from what it is worth.
@@ -228,6 +230,7 @@ The primary scenario, one input at a time. TED-AI is December 2028 in the centra
 pip install -r requirements.txt
 python chain_model.py > results/tables.md
 python figure.py
+python diagram.py
 pytest
 ```
 
@@ -237,6 +240,7 @@ pytest
 |---|---|
 | `chain_model.py` | The model and the code that writes the tables |
 | `figure.py` | Draws `results/pace.png`. Needs matplotlib |
+| `diagram.py` | Draws `results/chain.png`, the diagram of the chain. Needs matplotlib |
 | `test_chain_model.py` | Nineteen checks: the calibration, the AI Futures case the model reduces to, and the directions its results must move in |
 | `results/tables.md` | Every table, written by the model |
 | `LICENSE` | MIT |
