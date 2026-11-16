@@ -140,7 +140,7 @@ The two 2028 rows look different because the lab has two ways of working. It can
 
 ![Pace of AI progress in the primary scenario under four pacing policies](results/pace.png)
 
-The figure is the primary scenario. Each line is the pace under one policy and ends when TED-AI arrives. The two open circles are the paces measured on METR's index, and the dashed line through them is the model's pace on metrics, to which they are fitted. The real pace runs below it.
+The figure is the primary scenario. Each line is the pace under one policy and ends when TED-AI arrives. The two open circles are the paces measured on METR's index, and the dashed line through them is the model's pace on metrics, to which they are fitted. The real pace runs below it. A dotted line is the pace a lagged lab would have at once with its newest AI.
 
 Delay to TED-AI:
 
@@ -164,6 +164,7 @@ Delay to TED-AI:
 **Lag and compute**
 
 - **A 9-month lag delays TED-AI by 10 to 12 months in every scenario.** It sets back the AI the lab may use, and so the judgment that drives the loop.
+- **A lag leaves an overhang.** The milestones are about the newest AI, which a lagged lab has and may not use for research. The dotted lines in the figure are the pace the lab would have at once with that AI. Under the 9-month lag in the primary scenario it is 3.3 times in January 2029 against 1.8 in use, and 44 times against 2.4 when TED-AI arrives. With audits as well it is 2.1 times against 1.3 at that point, because an audit holds the newest AI's gains to what people can vouch for too. These are paces at one moment and not a path, and they are not in the results file.
 - **Audits and the lag together delay it by 11 to 17 months.** That is less than the two delays added up. In the primary scenario the two together give 16 months, against 12 and 12 apart, and the pace ends at 1.3 times.
 - **The compute cap delays it by 7 to 12 months, once.** Training waits a year and a half for its allowance to catch up with what it has already used, and research runs on a fifth of the compute from then on. In the primary scenario the pace drops to 0.7 times when the cap starts and is back above 1 in April 2028. A cut in research buys a fixed delay because difficulty is exponential: a lab with half the research ends up one year of software progress behind and stays there.
 - **The cap is the AI Futures Project's.** A chart in its ["How to Pace the US Frontier"](https://blog.aifutures.org/p/how-to-pace-the-us-frontier) (August 2026) gives three examples of compute rules. It estimates capabilities compute at 48% of a company's compute today. Under a floor of 90% for external inference it is 9.6%, the second tightest of the three, and the model holds research compute to the same fraction of its schedule, 9.6/48. The figures were read from the chart.
@@ -252,6 +253,6 @@ pytest
 | `chain_model.py` | The model and the code that writes the tables |
 | `figure.py` | Draws `results/pace.png` and `results/measured.png`. Needs matplotlib |
 | `diagram.py` | Draws `results/chain.png`, the diagram of the chain. Needs matplotlib |
-| `test_chain_model.py` | Nineteen checks: the calibration, the AI Futures case the model reduces to, and the directions its results must move in |
+| `test_chain_model.py` | Twenty checks: the calibration, the AI Futures case the model reduces to, and the directions its results must move in |
 | `results/tables.md` | Every table, written by the model |
 | `LICENSE` | MIT |

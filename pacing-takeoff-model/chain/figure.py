@@ -65,6 +65,8 @@ def pace_axis(ax, top: float, bottom: float = 1.0) -> None:
     """Pace on a log scale, so that equal steps are equal multiples. `bottom` is the lowest
     pace drawn, and the axis gains a tick below 1 when a line goes under it."""
     ticks = TICKS if bottom >= 0.95 else (0.75, *TICKS)
+    if top > 20.0:  # a line goes well over the usual range
+        ticks = (*ticks, 30.0, 50.0)
     ax.set_yscale("log")
     ax.set_ylim(0.9 * min(1.0, bottom), 1.15 * top)
     ax.yaxis.set_major_locator(FixedLocator(ticks))
@@ -158,12 +160,23 @@ def main() -> None:
     p = replace(Params(), **dict(CASES)[PRIMARY])
     by_name = {policy.name: policy for policy in POLICIES}
     fig, ax = canvas()
-    ends, lowest = [], 1.0
+    ends, lowest, highest = [], 1.0, TICKS[-1]
     for name, label, color in SERIES:
         run = simulate(p, by_name[name])
         if name == "No pacing":
             unpaced = run
         shown = run["t"] >= START
+        if by_name[name].lag > 0.0:
+            # Under a lag the lab works with an older AI. The dotted line is the pace it would
+            # have at once with its newest one: the gap is capability held back.
+            paced = run["t"] >= PACING
+            ax.plot(run["t"][paced], run["newest_pace"][paced], color=color, lw=1.6,
+                    ls=(0, (1, 1.8)), dash_capstyle="round", zorder=2)  # fmt: skip
+            newest = float(run["newest_pace"][-1])
+            highest = max(highest, float(run["newest_pace"][paced].max()))
+            ax.annotate(f"{newest:.0f}x" if newest >= 10.0 else f"{newest:.1f}x",
+                        (float(run["t"][-1]), newest), xytext=(6, 0), textcoords="offset points",
+                        va="center", color=SECONDARY, fontsize=8.5)  # fmt: skip
         ax.plot(
             run["t"][shown],
             run["pace"][shown],
@@ -176,6 +189,7 @@ def main() -> None:
         )
         ends.append((float(run["t"][-1]), float(run["pace"][-1]), color, run["dates"]["ted_ai"]))
         lowest = min(lowest, float(run["pace"][shown].min()))
+        highest = max(highest, float(run["pace"][shown].max()))
     # End labels sit to the right of each end. The first sits to the left, clear of the lines
     # that end after it.
     places = {0: dict(xytext=(-8, 0), ha="right", va="center")}
@@ -196,15 +210,16 @@ def main() -> None:
     ax.axvline(PACING, color=AXIS, lw=1.0, zorder=1)
     ax.annotate(
         "pacing starts",
-        (PACING, TICKS[-1]),
-        xytext=(5, -2),
+        (PACING, 1.0),
+        xycoords=("data", "axes fraction"),
+        xytext=(5, -3),
         textcoords="offset points",
         va="top",
         color=MUTED,
         fontsize=9,
     )
     last = max(when for when, *_ in ends)
-    pace_axis(ax, max(TICKS[-1], max(pace for _, pace, *_ in ends)), lowest)
+    pace_axis(ax, highest, lowest)
     frame(ax, last)
     ax.set_ylabel("Pace: years of progress per calendar year", color=SECONDARY, fontsize=9)
     fig.subplots_adjust(left=0.065, right=0.955, top=0.80, bottom=0.085)
@@ -212,8 +227,11 @@ def main() -> None:
         fig,
         "Pace of AI progress under four pacing policies",
         "Primary scenario: AI ideas and transfer judgment improve 3 SD a year, metric judgment "
-        "0.5 SD.\nEach line ends when TED-AI arrives, at the date shown.",
+        "0.5 SD.\nEach line ends when TED-AI arrives, at the date shown. Under a lag the lab works "
+        "with a nine-month-old AI.",
     )
+    ax.plot([], [], color=SECONDARY, lw=1.6, ls=(0, (1, 1.8)), dash_capstyle="round",
+            label="A lagged lab's pace with its newest AI")  # fmt: skip
     legend = ax.legend(
         loc="upper left",
         bbox_to_anchor=(0.0, 0.80),

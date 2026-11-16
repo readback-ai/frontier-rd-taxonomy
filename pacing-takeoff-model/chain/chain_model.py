@@ -375,6 +375,7 @@ KEYS = (
     "progress",
     "measured_progress",
     "pace",
+    "newest_pace",
     "measured_pace",
     "labor",
     "labor_used",
@@ -446,6 +447,12 @@ def simulate(
         measured_pace = lab["measured"] / 2.0**measured_harder
         pace = w * software_pace + (1.0 - w) * hardware_pace
         out["pace"][i] = pace
+        # Under a lag, the pace the lab would have at once if it could use its newest AI.
+        out["newest_pace"][i] = pace
+        if j < i:
+            ahead = ai_state(progress, p, compute)
+            ahead = lab_choice(ahead, p, compute, audits, labor_at_ref, choose_labor)
+            out["newest_pace"][i] = w * ahead["real"] / 2.0**harder + (1.0 - w) * hardware_pace
         out["measured_pace"][i] = w * measured_pace + (1.0 - w) * hardware_pace
         out["kept_ai"][i] = ai["transfer"] * ai["validity"]
         for key in ("labor", "idea_sd", "transfer_sd", "metric_sd"):

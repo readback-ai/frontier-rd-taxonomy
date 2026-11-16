@@ -149,6 +149,14 @@ def test_an_audited_lab_runs_less_ai_labor_and_keeps_its_pace_above_the_old_one(
     assert np.allclose(free["labor_used"], free["labor"])
 
 
+def test_under_a_lag_the_newest_ai_would_give_a_faster_pace_than_the_one_in_use():
+    lag = simulate(SLOW, BY_NAME["Internal-use lag, 9 months"])
+    after = lag["t"] > 2027.5
+    assert np.all(lag["newest_pace"][after] > lag["pace"][after])
+    free = simulate(SLOW, t_end=2027.5)
+    assert np.array_equal(free["newest_pace"], free["pace"])
+
+
 def test_no_pacing_policy_brings_a_milestone_forward():
     for q in (FAST, SLOW):
         base = simulate(q)
