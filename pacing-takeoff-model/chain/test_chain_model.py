@@ -12,7 +12,6 @@ from chain_model import (
     PACE_MAY,
     PACE_REF,
     POLICIES,
-    SD_RESEARCHER,
     T_MAY,
     T_REF,
     Params,
@@ -25,6 +24,7 @@ from chain_model import (
     research,
     simulate,
     standing,
+    steady_pace,
 )
 
 P = Params()
@@ -133,8 +133,9 @@ def test_audits_cost_less_when_their_hours_also_count_as_judging():
     assert full < half < none
 
 
-def test_the_loop_runs_away_only_if_the_ai_keeps_more_than_the_critical_share():
-    # Hold the AI's transfer and metric judgment still and set what it keeps of a gain.
+def test_the_pace_settles_below_the_critical_share_and_runs_away_above_it():
+    # Hold the AI's transfer and metric judgment still, set what it keeps of a gain, and let
+    # people vouch for nothing, so the AI's own judgment is all that carries its ideas.
     def fixed(kept: float) -> Params:
         return replace(
             P,
@@ -147,27 +148,10 @@ def test_the_loop_runs_away_only_if_the_ai_keeps_more_than_the_critical_share():
 
     critical = critical_share(P)
     assert 0.5 < critical < 1.0
+    assert steady_pace(critical, P) == math.inf
+    for kept in (critical - 0.4, critical - 0.3):
+        run = simulate(fixed(kept))
+        assert run["pace"][-1] == pytest.approx(steady_pace(kept, P), rel=0.1)
     above = simulate(fixed(critical + 0.1))
-    below = simulate(fixed(critical - 0.3))
-    assert above["dates"]["ted_ai"] < 2030.0
-    assert below["pace"][-1] < 5.0
-    assert np.nanmax(below["pace"][below["t"] > 2035.0]) < 5.0
-
-
-def test_judgment_that_comes_with_calendar_time_separates_the_milestones():
-    by_progress = simulate(SLOW)["dates"]
-    by_time = simulate(replace(SLOW, transfer_with_time=1.0, metric_with_time=1.0))["dates"]
-    assert by_time["ted_ai"] > by_progress["ted_ai"] + 0.5
-    assert by_time["every_judgment"] > by_time["ted_ai"] + 1.0
-    weakest = SD_RESEARCHER - SLOW.judgment_start
-    assert by_time["every_judgment"] == pytest.approx(T_REF + weakest / SLOW.metric_rate, abs=0.02)
-
-
-def test_metric_judgment_is_the_slow_judgment_that_decides_the_date():
-    both = simulate(replace(SLOW, transfer_with_time=1.0, metric_with_time=1.0))["dates"]
-    metric_only = simulate(replace(SLOW, metric_with_time=1.0))["dates"]
-    transfer_only = simulate(replace(SLOW, transfer_with_time=1.0))["dates"]
-    with_progress = simulate(SLOW)["dates"]
-    assert abs(metric_only["ted_ai"] - both["ted_ai"]) < 0.5
-    assert metric_only["ted_ai"] - with_progress["ted_ai"] > 1.0
-    assert transfer_only["ted_ai"] - with_progress["ted_ai"] < 1.0
+    assert above["pace"][-1] > 1.4 * at(above, "pace", above["t"][-1] - 0.25)
+    assert above["dates"]["ted_ai"] < simulate(fixed(critical - 0.3))["dates"]["ted_ai"] - 1.0

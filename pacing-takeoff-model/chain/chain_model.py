@@ -92,9 +92,6 @@ class Params:
     idea_rate: float = 3.0  # proposing candidates on a well-defined problem
     transfer_rate: float = 1.0  # judging which small-scale gains hold at scale
     metric_rate: float = 1.0  # defining metrics and debugging results that game them
-    transfer_with_time: float = 0.0  # share of the gain in transfer judgment that comes with
-    # calendar time. The rest comes with progress
-    metric_with_time: float = 0.0  # the same for metric judgment
     # The two links. Only their ratios to people's values enter
     transfer_people: float = 0.7  # share of a small-scale gain that holds at scale, people judging
     transfer_ai_start: float = 0.2  # the same with the AI judging, on Nov 1, 2026
@@ -175,17 +172,11 @@ def link(sd: float, people: float, ai_start: float, top: float, p: Params) -> fl
     return min(top, people * math.exp(per_sd * sd))
 
 
-def ai_state(progress: float, p: Params, years: float | None = None) -> dict:
-    """What an AI at this level of progress supplies, `years` after Nov 1, 2026. With no
-    `years` given, calendar time is taken to have kept step with progress."""
+def ai_state(progress: float, p: Params) -> dict:
+    """What an AI at this level of progress supplies."""
     ahead = progress - p.progress_at_ref
-    years = ahead if years is None else years
-    transfer_sd = p.judgment_start + p.transfer_rate * (
-        (1.0 - p.transfer_with_time) * ahead + p.transfer_with_time * years
-    )
-    metric_sd = p.judgment_start + p.metric_rate * (
-        (1.0 - p.metric_with_time) * ahead + p.metric_with_time * years
-    )
+    transfer_sd = p.judgment_start + p.transfer_rate * ahead
+    metric_sd = p.judgment_start + p.metric_rate * ahead
     labor = 1.0 + p.u0 * 2.0 ** min(progress / p.uplift_doubling, 1000.0)
     # Small experiments grow with AI labor. Experiments at scale grow more slowly, so the
     # candidates behind each one multiply.
@@ -307,14 +298,13 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
     policy = policy or Policy()
     w = p.software_share
     levels = {"researcher": SD_RESEARCHER, "ted_ai": SD_TED}
-    names = (*levels, "every_judgment")
     labor_at_ref = ai_state(p.progress_at_ref, p)["labor"]
     base_labor = labor_effect(1.0 + p.u0, p)
     n = int(round((t_end - T_BASE) / dt))
     start_step = int(round((policy.start - T_BASE) / dt))
     lag_steps = int(round(policy.lag / dt))
     out = {key: np.full(n, np.nan) for key in KEYS}
-    dates = dict.fromkeys(names, math.nan)
+    dates = dict.fromkeys(levels, math.nan)
     software = measured_software = hardware = 0.0
     last = n
     for i in range(n):
@@ -327,7 +317,7 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         # The AI the lab may use. Under a lag it is the AI of `lag` years ago, and no older
         # than the AI it had when the policy started.
         j = min(i, max(start_step, i - lag_steps)) if paced else i
-        ai = ai_state(out["progress"][j], p, out["t"][j] - T_REF)
+        ai = ai_state(out["progress"][j], p)
         compute_pace = p.compute_slow_pace if t >= p.compute_slows_in else 1.0
         # Compute against the historical schedule: behind it once its growth slows, and cut
         # by the policy.
@@ -351,14 +341,11 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         for key in ("covered", "time_audit", "deployed"):
             out[key][i] = lab[key]
         # Milestones are about the newest AI, whatever the lab is allowed to use.
-        newest = ai_state(progress, p, t - T_REF)
+        newest = realized_sd(ai_state(progress, p))
         for name, level in levels.items():
-            if dates[name] != dates[name] and realized_sd(newest) >= level:
+            if dates[name] != dates[name] and newest >= level:
                 dates[name] = t
-        weakest = min(newest["idea_sd"], newest["transfer_sd"], newest["metric_sd"])
-        if dates["every_judgment"] != dates["every_judgment"] and weakest >= SD_RESEARCHER:
-            dates["every_judgment"] = t
-        if pace > 1e4 or progress > 300.0 or all(dates[name] == dates[name] for name in names):
+        if pace > 1e4 or progress > 300.0 or dates["ted_ai"] == dates["ted_ai"]:
             last = i + 1
             break
         software += software_pace * dt
@@ -366,19 +353,9 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         hardware += compute_pace * dt
     out = {key: value[:last] for key, value in out.items()}
     ran_away = bool(out["pace"][-1] > 1e4 or out["progress"][-1] > 300.0)
-    if ran_away:
-        # Everything that comes with progress arrives at once. Judgment that comes only with
-        # calendar time still takes its time.
+    if ran_away:  # everything left arrives at once
         end = float(out["t"][-1])
-        arrives = dict.fromkeys(names, end)
-        needed = SD_RESEARCHER - p.judgment_start
-        for share, rate in (
-            (p.transfer_with_time, p.transfer_rate),
-            (p.metric_with_time, p.metric_rate),
-        ):
-            if share >= 1.0:
-                arrives["every_judgment"] = max(arrives["every_judgment"], T_REF + needed / rate)
-        dates = {name: (when if when == when else arrives[name]) for name, when in dates.items()}
+        dates = {name: (when if when == when else end) for name, when in dates.items()}
     return dict(out, dates=dates, ran_away=ran_away)
 
 
@@ -438,6 +415,18 @@ def critical_share(p: Params) -> float:
     """Share of a gain the AI's own judgment must keep, against the share people's keep, for
     the loop to run away on better ideas alone."""
     return math.log(2.0) * p.stock_doublings / (p.value_per_sd * p.idea_rate * p.software_share)
+
+
+def steady_pace(kept: float, p: Params) -> float:
+    """Where the pace settles once AI labor is at its ceiling, if the AI keeps the share `kept`
+    of a gain, against the share people keep, and that share stays put. Infinite at or above
+    the critical share."""
+    doublings = p.value_per_sd * p.idea_rate * kept / math.log(2.0) / p.stock_doublings
+    w = p.software_share
+    if w * doublings >= 1.0:
+        return math.inf
+    software = (1.0 + doublings * (1.0 - w)) / (1.0 - w * doublings)
+    return w * software + (1.0 - w)
 
 
 def fmt_date(x: float) -> str:
@@ -512,9 +501,9 @@ def scenario_table(p: Params) -> list[str]:
 
 def arrival_table(p: Params) -> list[str]:
     out = [
-        "| AI judgment gained per year of progress | Researcher-level AI | TED-AI | AI passes the "
-        "best researcher on every kind of judgment | Pace in Jan 2028 | As measured |",
-        "|---|---|---|---|---|---|",
+        "| AI judgment gained per year of progress | Researcher-level AI | TED-AI | "
+        "Pace in Jan 2028 | As measured |",
+        "|---|---|---|---|---|",
     ]
     for label, rates in CASES:
         run = simulate(replace(p, **rates))
@@ -573,9 +562,9 @@ def sensitivity_table(p: Params) -> list[str]:
     by_name = {policy.name: policy for policy in POLICIES}
     audits, lag = by_name["Comprehension audits, central"], by_name["Internal-use lag, 9 months"]
     out = [
-        "| Case | Researcher-level AI | TED-AI | AI passes the best researcher on every kind "
-        "of judgment | Central audits delay TED-AI | 9-month lag delays TED-AI |",
-        "|---|---|---|---|---|---|",
+        "| Case | Researcher-level AI | TED-AI | Central audits delay TED-AI | "
+        "9-month lag delays TED-AI |",
+        "|---|---|---|---|---|",
     ]
     for label, change in SENSITIVITY:
         q = replace(p, **change)
@@ -591,54 +580,42 @@ def sensitivity_table(p: Params) -> list[str]:
 
 def tables(p: Params | None = None) -> str:
     p = p or Params()
-    split = replace(p, metric_with_time=1.0)
-    by_time = replace(p, transfer_with_time=1.0, metric_with_time=1.0)
     case = "Ideas +3, transfer +1, metrics +0.5"
+    slow = replace(p, **dict(CASES)[case])
     out = [
         "# Chain model: milestone dates by scenario",
         "",
         "Written by `chain_model.py`. Do not edit by hand.",
         "",
         "Delays are against no pacing. Pacing starts Jan 1, 2027. Rates are SD of researcher "
-        "judgment. Ideas gain theirs per year of progress. Transfer and metric judgment gain "
-        "theirs per year of progress in the first set of tables. In the second, metric judgment "
-        "gains its rate per calendar year. In the third, both do. The loop runs away on better "
-        "ideas alone once the AI's own judgment keeps "
-        f"{critical_share(p):.0%} of the share of a gain that people's judgment keeps.",
+        "judgment gained per year of progress. The loop runs away on better ideas alone once "
+        f"the AI's own judgment keeps {critical_share(p):.0%} of the share of a gain that "
+        "people's judgment keeps.",
         "",
         "Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a lab "
-        "of researchers at AI Futures' two levels, +3.09 and +7.72 SD. The third date is when "
-        "the AI's weakest kind of judgment passes the best researcher's. `over` means the run "
+        "of researchers at AI Futures' two levels, +3.09 and +7.72 SD. `over` means the run "
         "had ended by then.",
         "",
+        "## No pacing",
+        "",
+        *arrival_table(p),
+        "",
+        "## Delay to TED-AI",
+        "",
+        *pacing_table(p),
+        "",
+        f"## The path with no pacing: {case[0].lower()}{case[1:]}",
+        "",
+        *path_table(slow),
+        "",
+        f"## Each input moved: {case[0].lower()}{case[1:]}",
+        "",
+        *sensitivity_table(slow),
+        "",
+        "## Every scenario",
+        "",
+        *scenario_table(p),
     ]
-    for title, q in (
-        ("Transfer and metric judgment come with progress", p),
-        ("Transfer judgment comes with progress and metric judgment with calendar time", split),
-        ("Transfer and metric judgment come with calendar time", by_time),
-    ):
-        out += [
-            f"## {title}",
-            "",
-            "### No pacing",
-            "",
-            *arrival_table(q),
-            "",
-            "### Delay to TED-AI",
-            "",
-            *pacing_table(q),
-            "",
-            f"### The path with no pacing: {case[0].lower()}{case[1:]}",
-            "",
-            *path_table(replace(q, **dict(CASES)[case])),
-            "",
-            f"### Each input moved: {case[0].lower()}{case[1:]}",
-            "",
-            *sensitivity_table(replace(q, **dict(CASES)[case])),
-            "",
-        ]
-    out += ["## Every scenario, with transfer and metric judgment coming with progress", ""]
-    out += scenario_table(p)
     return "\n".join(out)
 
 
