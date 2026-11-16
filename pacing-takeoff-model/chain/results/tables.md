@@ -19,14 +19,14 @@ Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a
 
 ## Delay to TED-AI
 
-| AI judgment gained per year | TED-AI, no pacing | Central audits | Strict audits | 9-month lag | 3-fold compute cut |
-|---|---|---|---|---|---|
-| Ideas, transfer and metrics all +3 SD a year | Jun 2027 | +0 mo | +1 mo | +11 mo | +1 mo |
-| Ideas and transfer +3, metrics +1 | Nov 2027 | +4 mo | +6 mo | +11 mo | +1 mo |
-| Ideas and transfer +3, metrics +0.5 | Jun 2028 | +16 mo | +19 mo | +12 mo | +1 mo |
-| Ideas +3, transfer and metrics +1 | Mar 2028 | +6 mo | +8 mo | +10 mo | +2 mo |
-| Ideas +3, transfer +1, metrics +0.5 | Nov 2028 | +16 mo | +19 mo | +12 mo | +2 mo |
-| Ideas +3, transfer and metrics +0.5 | Jul 2029 | +23 mo | +26 mo | +10 mo | +2 mo |
+| AI judgment gained per year | TED-AI, no pacing | Central audits | Strict audits | 9-month lag | Compute at a third of baseline | Compute frozen | Compute frozen at a third |
+|---|---|---|---|---|---|---|---|
+| Ideas, transfer and metrics all +3 SD a year | Jun 2027 | +0 mo | +1 mo | +11 mo | +2 mo | +1 mo | +4 mo |
+| Ideas and transfer +3, metrics +1 | Nov 2027 | +4 mo | +6 mo | +11 mo | +2 mo | +1 mo | +3 mo |
+| Ideas and transfer +3, metrics +0.5 | Jun 2028 | +16 mo | +19 mo | +12 mo | +2 mo | +2 mo | +3 mo |
+| Ideas +3, transfer and metrics +1 | Mar 2028 | +6 mo | +8 mo | +10 mo | +2 mo | +2 mo | +4 mo |
+| Ideas +3, transfer +1, metrics +0.5 | Nov 2028 | +16 mo | +19 mo | +12 mo | +2 mo | +2 mo | +4 mo |
+| Ideas +3, transfer and metrics +0.5 | Jul 2029 | +23 mo | +26 mo | +10 mo | +2 mo | +4 mo | +6 mo |
 
 ## The path with no pacing: ideas +3, transfer +1, metrics +0.5
 
@@ -55,7 +55,7 @@ Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a
 | Ideas improve +2.1 SD a year | Jan 2029 | Apr 2029 | +21 mo | +12 mo |
 | Selection worth twice as much | Jul 2028 | Sep 2028 | +15 mo | +12 mo |
 | Up to a million candidates behind each experiment | Aug 2028 | Oct 2028 | +15 mo | +13 mo |
-| Compute grows at half the historical rate from 2029 | Aug 2028 | Nov 2028 | +19 mo | +13 mo |
+| Compute grows at half the historical rate from 2029 | Aug 2028 | Nov 2028 | +18 mo | +13 mo |
 | Audit time counts in full as judging | Aug 2028 | Nov 2028 | +12 mo | +12 mo |
 | Audit time does not count as judging | Aug 2028 | Nov 2028 | +19 mo | +12 mo |
 | Deployed changes do not grow with AI labor | Aug 2028 | Nov 2028 | +0 mo | +12 mo |
@@ -72,7 +72,9 @@ Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a
 | Comprehension audits, strict | Jul 2027 | +1 mo | Jul 2027 | +1 mo |
 | Internal-use lag, 3 months | Oct 2027 | +4 mo | Nov 2027 | +5 mo |
 | Internal-use lag, 9 months | Jan 2028 | +7 mo | May 2028 | +11 mo |
-| R&D compute cut 3x | Jul 2027 | +1 mo | Jul 2027 | +1 mo |
+| R&D compute at a third of baseline | Aug 2027 | +2 mo | Aug 2027 | +2 mo |
+| R&D compute frozen at its Jan 2027 level | Jun 2027 | +1 mo | Jul 2027 | +1 mo |
+| R&D compute frozen at a third of its Jan 2027 level | Sep 2027 | +3 mo | Oct 2027 | +4 mo |
 | Comprehension audits (central) + 9-month lag | Jan 2028 | +8 mo | May 2028 | +12 mo |
 
 ### Ideas and transfer +3, metrics +1
@@ -85,7 +87,9 @@ Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a
 | Comprehension audits, strict | Mar 2028 | +5 mo | Apr 2028 | +6 mo |
 | Internal-use lag, 3 months | Feb 2028 | +4 mo | Apr 2028 | +6 mo |
 | Internal-use lag, 9 months | Jun 2028 | +8 mo | Sep 2028 | +11 mo |
-| R&D compute cut 3x | Nov 2027 | +1 mo | Dec 2027 | +1 mo |
+| R&D compute at a third of baseline | Dec 2027 | +2 mo | Dec 2027 | +2 mo |
+| R&D compute frozen at its Jan 2027 level | Nov 2027 | +1 mo | Nov 2027 | +1 mo |
+| R&D compute frozen at a third of its Jan 2027 level | Jan 2028 | +3 mo | Feb 2028 | +3 mo |
 | Comprehension audits (central) + 9-month lag | Jul 2028 | +10 mo | Nov 2028 | +13 mo |
 
 ### Ideas and transfer +3, metrics +0.5
@@ -98,7 +102,9 @@ Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a
 | Comprehension audits, strict | Apr 2029 | +13 mo | Feb 2030 | +19 mo |
 | Internal-use lag, 3 months | Jul 2028 | +4 mo | Dec 2028 | +6 mo |
 | Internal-use lag, 9 months | Dec 2028 | +9 mo | Jul 2029 | +12 mo |
-| R&D compute cut 3x | Apr 2028 | +1 mo | Aug 2028 | +1 mo |
+| R&D compute at a third of baseline | May 2028 | +2 mo | Aug 2028 | +2 mo |
+| R&D compute frozen at its Jan 2027 level | Apr 2028 | +1 mo | Aug 2028 | +2 mo |
+| R&D compute frozen at a third of its Jan 2027 level | Jun 2028 | +2 mo | Oct 2028 | +3 mo |
 | Comprehension audits (central) + 9-month lag | Apr 2029 | +12 mo | Apr 2030 | +21 mo |
 
 ### Ideas +3, transfer and metrics +1
@@ -111,7 +117,9 @@ Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a
 | Comprehension audits, strict | Sep 2028 | +8 mo | Nov 2028 | +8 mo |
 | Internal-use lag, 3 months | May 2028 | +3 mo | Aug 2028 | +5 mo |
 | Internal-use lag, 9 months | Sep 2028 | +7 mo | Dec 2028 | +10 mo |
-| R&D compute cut 3x | Mar 2028 | +1 mo | Apr 2028 | +2 mo |
+| R&D compute at a third of baseline | Apr 2028 | +2 mo | May 2028 | +2 mo |
+| R&D compute frozen at its Jan 2027 level | Mar 2028 | +1 mo | Apr 2028 | +2 mo |
+| R&D compute frozen at a third of its Jan 2027 level | May 2028 | +4 mo | Jul 2028 | +4 mo |
 | Comprehension audits (central) + 9-month lag | Nov 2028 | +9 mo | Mar 2029 | +13 mo |
 
 ### Ideas +3, transfer +1, metrics +0.5
@@ -124,7 +132,9 @@ Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a
 | Comprehension audits, strict | Nov 2029 | +15 mo | May 2030 | +19 mo |
 | Internal-use lag, 3 months | Dec 2028 | +3 mo | Apr 2029 | +6 mo |
 | Internal-use lag, 9 months | Mar 2029 | +7 mo | Nov 2029 | +12 mo |
-| R&D compute cut 3x | Oct 2028 | +1 mo | Dec 2028 | +2 mo |
+| R&D compute at a third of baseline | Oct 2028 | +2 mo | Jan 2029 | +2 mo |
+| R&D compute frozen at its Jan 2027 level | Oct 2028 | +2 mo | Jan 2029 | +2 mo |
+| R&D compute frozen at a third of its Jan 2027 level | Dec 2028 | +4 mo | Feb 2029 | +4 mo |
 | Comprehension audits (central) + 9-month lag | Sep 2029 | +13 mo | Aug 2030 | +22 mo |
 
 ### Ideas +3, transfer and metrics +0.5
@@ -137,6 +147,8 @@ Researcher-level AI and TED-AI are the dates an AI-only lab's research matches a
 | Comprehension audits, strict | Dec 2030 | +21 mo | Sep 2031 | +26 mo |
 | Internal-use lag, 3 months | Jun 2029 | +2 mo | Dec 2029 | +5 mo |
 | Internal-use lag, 9 months | Sep 2029 | +6 mo | May 2030 | +10 mo |
-| R&D compute cut 3x | May 2029 | +2 mo | Sep 2029 | +2 mo |
+| R&D compute at a third of baseline | May 2029 | +2 mo | Oct 2029 | +2 mo |
+| R&D compute frozen at its Jan 2027 level | Jun 2029 | +3 mo | Nov 2029 | +4 mo |
+| R&D compute frozen at a third of its Jan 2027 level | Jul 2029 | +4 mo | Jan 2030 | +6 mo |
 | Comprehension audits (central) + 9-month lag | Sep 2030 | +17 mo | Oct 2031 | +27 mo |
 

@@ -12,8 +12,8 @@ Terms used below:
 
 - **Progress** is measured in years of AI progress at the rate before October 2025. **Pace** is years of progress per calendar year.
 - **SD** is a standard deviation of research judgment across a lab's researchers. The best researcher is at +3.09 SD.
-- **Researcher-level AI** is the date an AI-only lab's research matches a lab made up of its best researchers. **TED-AI** is the date it matches the level the AI Futures Project uses for AI that dominates top experts, +7.72 SD.
-- **Comprehension audits** let a lab deploy only the changes its own people understand. An **internal-use lag** makes a lab work with the AI it had some months ago.
+- **Researcher-level AI** is the date an AI-only lab's research matches a lab made up of its best researchers. **TED-AI** is the date it matches the level the AI Futures Project uses for top-expert-dominating AI, +7.72 SD. "Where the two levels come from" below gives their source.
+- **Comprehension audits** let a lab deploy only the changes its own people understand. An **internal-use lag** makes a lab work with the AI it had some months ago. A **limit on research compute** holds a lab to a share of the compute it would otherwise use for research, or freezes that compute at a level.
 
 ## The chain
 
@@ -102,23 +102,32 @@ The path in that case:
 
 Delay to TED-AI. Pacing starts January 1, 2027.
 
-| AI judgment gained per year of progress | Central audits | Strict audits | 9-month lag | 3-fold compute cut |
-|---|---|---|---|---|
-| Ideas, transfer and metrics all +3 SD | +0 mo | +1 mo | +11 mo | +1 mo |
-| Ideas and transfer +3, metrics +1 | +4 mo | +6 mo | +11 mo | +1 mo |
-| Ideas and transfer +3, metrics +0.5 | +16 mo | +19 mo | +12 mo | +1 mo |
-| Ideas +3, transfer and metrics +1 | +6 mo | +8 mo | +10 mo | +2 mo |
-| Ideas +3, transfer +1, metrics +0.5 | +16 mo | +19 mo | +12 mo | +2 mo |
-| Ideas +3, transfer and metrics +0.5 | +23 mo | +26 mo | +10 mo | +2 mo |
+| AI judgment gained per year of progress | Central audits | Strict audits | 9-month lag | Compute at a third of baseline | Compute frozen | Compute frozen at a third |
+|---|---|---|---|---|---|---|
+| Ideas, transfer and metrics all +3 SD | +0 mo | +1 mo | +11 mo | +2 mo | +1 mo | +4 mo |
+| Ideas and transfer +3, metrics +1 | +4 mo | +6 mo | +11 mo | +2 mo | +1 mo | +3 mo |
+| Ideas and transfer +3, metrics +0.5 | +16 mo | +19 mo | +12 mo | +2 mo | +2 mo | +3 mo |
+| Ideas +3, transfer and metrics +1 | +6 mo | +8 mo | +10 mo | +2 mo | +2 mo | +4 mo |
+| Ideas +3, transfer +1, metrics +0.5 | +16 mo | +19 mo | +12 mo | +2 mo | +2 mo | +4 mo |
+| Ideas +3, transfer and metrics +0.5 | +23 mo | +26 mo | +10 mo | +2 mo | +4 mo | +6 mo |
 
-Central audits take the hours to understand every deployed change that researchers are assumed to spend today, 14% of their time. Strict audits take twice the hours.
+Central audits take the hours to understand every deployed change that researchers are assumed to spend today, 14% of their time. Strict audits take twice the hours. The three limits on research compute are a third of what the lab would otherwise use, a freeze at the level of January 2027, and a freeze at a third of that level. Each covers the compute for experiments at scale, for small experiments and for running AI labor. Compute for training the next model stays on its schedule.
 
 - **Audits delay TED-AI more the slower the AI's metric judgment.** Central audits delay it by nothing where all judgment improves 3 SD a year, by 4 to 6 months with metrics at +1 SD and by 16 to 23 months at +0.5 SD.
 - **The reason is people's time.** Audit hours come out of time that is already short, so each hour means experiments left to the AI. That costs most where the AI's own judgment is weak for longest.
 - **With metrics at +0.5 SD audits pass a 9-month lag.** The lag delays TED-AI by 10 to 12 months in every case.
 - **The audit result rests on one assumption.** If deployed changes do not grow with AI labor, central audits delay TED-AI by nothing. The model assumes 0.4% more changes for each 1% more labor.
 - **Half of audit time is taken to count as judging.** At none of it the central delay in the fifth case is 19 months, and at all of it 12.
-- **A compute cut does little.** A 3-fold cut delays TED-AI by 1 to 2 months.
+- **Limits on research compute do little.** A third of baseline delays TED-AI by 2 months, a freeze by 1 to 4 and a freeze at a third by 3 to 6. Experiments rise with the square root of compute, what AI labor adds flattens toward a ceiling, and the takeoff runs on the AI's judgment, which a compute limit leaves alone.
+
+## Where the two levels come from
+
+Both levels are the AI Futures Project's, read from its public code.
+
+- **Its definitions.** A superhuman AI researcher "can fully automate AI R&D". A TED-AI "is at least as good as top human experts at virtually all cognitive tasks".
+- **How its model marks them.** Both are levels of one quantity, AI research taste, in SD of the researcher distribution. The superhuman AI researcher is at the top researcher's level, which the model takes as the 99.9th percentile of a normal distribution, +3.09 SD. TED-AI is a number of median-to-top gaps further on, each 3.09 SD.
+- **The +7.72 SD.** The number of gaps is a forecaster's judgment. It is 1.50 in the parameters of the example trajectory in the project's update of November 10, 2026, which gives 3.09 times 2.50, or +7.72 SD. The default in the public code is 1.00, which gives +6.18 SD.
+- **What this model does with them.** It applies both levels to the research an AI-only lab gets from an experiment, after transfer and validity. It does not test "virtually all cognitive tasks".
 
 ## Each input moved
 
@@ -128,6 +137,7 @@ Case: ideas +3, transfer +1, metrics +0.5. TED-AI is November 2028 in the centra
 - **Latest.** Judging time that grows with candidates (May 2029). Ideas at +2.1 SD (April 2029). Validity of 0.01 with the AI judging today (March 2029).
 - **What the AI keeps today moves the date by about a year.** Validity with the AI judging runs from 0.3 to 0.01, against 0.05 in the central case, and TED-AI moves from April 2028 to March 2029.
 - **The delay from central audits runs from 8 to 21 months** across the rows that leave the audit inputs alone.
+- **The level set for TED-AI matters little.** At the public code's default of +6.18 SD, TED-AI in this case comes in October 2028, a month earlier. That run is not in the results file.
 
 ## Inputs
 
@@ -175,7 +185,7 @@ pytest
 | File | What it is |
 |---|---|
 | `chain_model.py` | The model and the code that writes the tables |
-| `test_chain_model.py` | Eleven checks: the calibration, the AI Futures case the model reduces to, and the directions its results must move in |
+| `test_chain_model.py` | Thirteen checks: the calibration, the AI Futures case the model reduces to, and the directions its results must move in |
 | `results/tables.md` | Every table, written by the script |
 | `LICENSE` | MIT |
 

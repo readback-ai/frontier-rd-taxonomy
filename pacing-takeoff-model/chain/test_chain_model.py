@@ -15,6 +15,7 @@ from chain_model import (
     T_MAY,
     T_REF,
     Params,
+    Policy,
     ai_state,
     at,
     best_of,
@@ -155,3 +156,26 @@ def test_the_pace_settles_below_the_critical_share_and_runs_away_above_it():
     above = simulate(fixed(critical + 0.1))
     assert above["pace"][-1] > 1.4 * at(above, "pace", above["t"][-1] - 0.25)
     assert above["dates"]["ted_ai"] < simulate(fixed(critical - 0.3))["dates"]["ted_ai"] - 1.0
+
+
+def test_tighter_limits_on_research_compute_delay_more_and_less_than_a_lag():
+    base = simulate(SLOW)
+
+    def delay(**limit) -> float:
+        return months(base, simulate(SLOW, Policy("limit", **limit)))
+
+    third, tenth = delay(compute_share=1 / 3), delay(compute_share=0.1)
+    frozen, frozen_third = delay(compute_cap=1.0), delay(compute_cap=1 / 3)
+    assert 0.0 < third < tenth
+    assert 0.0 < frozen < frozen_third
+    assert third < frozen_third
+    # A limit on compute leaves the AI's judgment alone, which is what the takeoff runs on.
+    assert frozen_third < months(base, simulate(SLOW, BY_NAME["Internal-use lag, 9 months"]))
+
+
+def test_a_compute_limit_cuts_ai_labor_and_small_experiments_as_well_as_experiments_at_scale():
+    full = ai_state(3.0, P)
+    third = ai_state(3.0, P, compute=1 / 3)
+    assert third["labor"] - 1.0 == pytest.approx((full["labor"] - 1.0) / 3.0)
+    assert third["candidates"] < full["candidates"]
+    assert third["idea_sd"] == full["idea_sd"]

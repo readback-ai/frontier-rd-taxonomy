@@ -118,7 +118,9 @@ class Policy:
     start: float = 2027.0
     audit_hours: float = 0.0  # 0 is no audit; 1 is the central standard; 2 is twice the hours
     lag: float = 0.0  # years by which the AI a lab may use internally trails its newest
-    compute_cut: float = 1.0  # factor by which compute for experiments is cut
+    compute_share: float = 1.0  # share of its scheduled research compute a lab may use
+    compute_cap: float = math.inf  # most research compute a lab may use, as a multiple of what
+    # it used when the policy started
 
 
 POLICIES = (
@@ -128,7 +130,9 @@ POLICIES = (
     Policy("Comprehension audits, strict", audit_hours=2.0),
     Policy("Internal-use lag, 3 months", lag=0.25),
     Policy("Internal-use lag, 9 months", lag=0.75),
-    Policy("R&D compute cut 3x", compute_cut=3.0),
+    Policy("R&D compute at a third of baseline", compute_share=1 / 3),
+    Policy("R&D compute frozen at its Jan 2027 level", compute_cap=1.0),
+    Policy("R&D compute frozen at a third of its Jan 2027 level", compute_cap=1 / 3),
     Policy("Comprehension audits (central) + 9-month lag", audit_hours=1.0, lag=0.75),
 )
 
@@ -172,12 +176,14 @@ def link(sd: float, people: float, ai_start: float, top: float, p: Params) -> fl
     return min(top, people * math.exp(per_sd * sd))
 
 
-def ai_state(progress: float, p: Params) -> dict:
-    """What an AI at this level of progress supplies."""
+def ai_state(progress: float, p: Params, compute: float = 1.0) -> dict:
+    """What an AI at this level of progress supplies. `compute` is the lab's research compute
+    against the historical schedule. It scales the AI labor the lab can run and the small
+    experiments it can afford."""
     ahead = progress - p.progress_at_ref
     transfer_sd = p.judgment_start + p.transfer_rate * ahead
     metric_sd = p.judgment_start + p.metric_rate * ahead
-    labor = 1.0 + p.u0 * 2.0 ** min(progress / p.uplift_doubling, 1000.0)
+    labor = 1.0 + compute * p.u0 * 2.0 ** min(progress / p.uplift_doubling, 1000.0)
     # Small experiments grow with AI labor. Experiments at scale grow more slowly, so the
     # candidates behind each one multiply.
     more_labor = labor / (1.0 + p.u0)
@@ -186,7 +192,7 @@ def ai_state(progress: float, p: Params) -> dict:
     validity = link(metric_sd, p.validity_people, p.validity_ai_start, p.validity_max, p)
     return dict(
         labor=labor,
-        candidates=min(p.candidates_max, p.candidates_base * more_labor / more_at_scale),
+        candidates=min(p.candidates_max * compute, p.candidates_base * more_labor / more_at_scale),
         idea_sd=p.judgment_start + p.idea_rate * ahead,
         transfer_sd=transfer_sd,
         metric_sd=metric_sd,
@@ -317,12 +323,19 @@ def simulate(p: Params, policy: Policy | None = None, t_end: float = 2046.0, dt:
         # The AI the lab may use. Under a lag it is the AI of `lag` years ago, and no older
         # than the AI it had when the policy started.
         j = min(i, max(start_step, i - lag_steps)) if paced else i
-        ai = ai_state(out["progress"][j], p)
         compute_pace = p.compute_slow_pace if t >= p.compute_slows_in else 1.0
-        # Compute against the historical schedule: behind it once its growth slows, and cut
-        # by the policy.
+        # Research compute against the historical schedule: behind it once compute growth
+        # slows, held to a share of it by the policy, and under a cap on its level. The
+        # schedule keeps growing, so a capped lab falls further behind it each year.
         compute = 2.0 ** (p.compute_doublings * (hardware - elapsed))
-        compute /= policy.compute_cut if paced else 1.0
+        if i == start_step:
+            compute_at_start, elapsed_at_start = compute, elapsed
+        if paced:
+            behind = 2.0 ** (p.compute_doublings * (elapsed - elapsed_at_start))
+            compute = min(
+                compute * policy.compute_share, policy.compute_cap * compute_at_start / behind
+            )
+        ai = ai_state(out["progress"][j], p, compute)
         experiments = (
             labor_effect(ai["labor"], p) / base_labor * compute ** (1.0 - p.labor_exponent)
         )
@@ -522,12 +535,15 @@ def pacing_table(p: Params) -> list[str]:
         "Comprehension audits, central",
         "Comprehension audits, strict",
         "Internal-use lag, 9 months",
-        "R&D compute cut 3x",
+        "R&D compute at a third of baseline",
+        "R&D compute frozen at its Jan 2027 level",
+        "R&D compute frozen at a third of its Jan 2027 level",
     )
     out = [
         "| AI judgment gained per year | TED-AI, no pacing | Central audits | Strict audits | "
-        "9-month lag | 3-fold compute cut |",
-        "|---|---|---|---|---|---|",
+        "9-month lag | Compute at a third of baseline | Compute frozen | "
+        "Compute frozen at a third |",
+        "|---|---|---|---|---|---|---|---|",
     ]
     for label, rates in CASES:
         q = replace(p, **rates)
