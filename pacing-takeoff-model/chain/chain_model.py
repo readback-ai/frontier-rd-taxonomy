@@ -68,6 +68,8 @@ import numpy as np
 
 T_BASE = 2025.75  # Oct 1, 2025: the pace is 1 up to here
 T_MAY, T_REF = 2026.33, 2026.83  # May 1 and Nov 1, 2026: the two dates with a measured pace
+# The two paces are read from METR's capability index, which is built from benchmarks. The
+# model takes them as the pace on the lab's metrics, which runs ahead of the real pace.
 PACE_MAY, PACE_REF = 1.2, 1.7
 # AI labor per researcher: agent hours for each human work-hour in Anthropic's research
 # organizations in late August 2026, from its report "How employment is changing at Anthropic"
@@ -98,9 +100,9 @@ class Params:
     # Throughput
     labor_exponent: float = 0.5  # experiments rise with the square root of AI labor
     labor_ceiling: float = 15.0  # most that unlimited labor can multiply experiments by
-    u0: float = 0.029674  # AI labor per researcher on Oct 1, 2025. Fitted
-    uplift_doubling: float = 0.112319  # years of progress per doubling of AI labor. Fitted
-    progress_at_ref: float = 1.336045  # years of progress from Oct 1, 2025 to Nov 1, 2026. Fitted
+    u0: float = 0.067640  # AI labor per researcher on Oct 1, 2025. Fitted
+    uplift_doubling: float = 0.124880  # years of progress per doubling of AI labor. Fitted
+    progress_at_ref: float = 1.260772  # years of progress from Oct 1, 2025 to Nov 1, 2026. Fitted
     compute_doublings: float = 1.5  # doublings of compute per year on the historical schedule
     compute_slows_in: float = math.inf  # year from which compute grows at `compute_slow_pace`
     compute_slow_pace: float = 0.5  # that growth, as a share of the historical rate
@@ -129,7 +131,7 @@ class Params:
     # pipelines. Anthropic reports 22% of model researchers' agent sessions in spring 2026
     time_judging: float = 0.4  # share of researcher time on results, metrics and plans on
     # Oct 1, 2025. The rest was implementation
-    volume_elasticity: float = 0.187287  # percent more judging time per experiment at scale per
+    volume_elasticity: float = 0.401283  # percent more judging time per experiment at scale per
     # percent more candidates behind it, net of AI help with the analysis. Fitted
     # Comprehension audits
     understanding_today: float = 0.14  # time to understand all deployed changes, Nov 1, 2026
@@ -472,9 +474,14 @@ def pace_on(run: dict, date: float) -> float:
     return at(run, "pace", date)
 
 
+def metric_pace_on(run: dict, date: float) -> float:
+    """The pace the lab's metrics show. The two measured paces are fitted to this."""
+    return at(run, "measured_pace", date)
+
+
 def fit_labor(p: Params, labor_ref: float = LABOR_REF, steps: int = 16) -> Params:
     """Fit AI labor on Oct 1, 2025 to AI labor in late August 2026, and its doubling to the pace
-    in May 2026, leaving every other input of `p` as it is. Two nested bisections."""
+    on metrics in May 2026, leaving every other input of `p` as it is. Two nested bisections."""
 
     def short(q: Params) -> dict:
         return simulate(q, t_end=T_REF + 0.01, choose_labor=False)
@@ -490,12 +497,15 @@ def fit_labor(p: Params, labor_ref: float = LABOR_REF, steps: int = 16) -> Param
                 lo = mid
         return replace(q, u0=math.sqrt(lo * hi))
 
-    # With AI labor fixed in November, a slower doubling puts more of it early, so May runs
-    # hotter.
-    lo, hi = 0.05, 2.0
+    # With AI labor fixed in late August, a slower doubling puts more of it early, so May runs
+    # hotter. Past some point labor hardly grows at all and May cools again. The fit is on the
+    # first branch, so the search stops at the peak.
+    grid = np.geomspace(0.05, 2.0, 12)
+    may = [metric_pace_on(short(fit_level(float(doubling))), T_MAY) for doubling in grid]
+    lo, hi = float(grid[0]), float(grid[int(np.argmax(may))])
     for _ in range(steps):
         mid = math.sqrt(lo * hi)
-        if pace_on(short(fit_level(mid)), T_MAY) > PACE_MAY:
+        if metric_pace_on(short(fit_level(mid)), T_MAY) > PACE_MAY:
             hi = mid
         else:
             lo = mid
@@ -503,20 +513,21 @@ def fit_labor(p: Params, labor_ref: float = LABOR_REF, steps: int = 16) -> Param
     return replace(fitted, progress_at_ref=at(short(fitted), "progress", T_REF))
 
 
-def pace_in_november(p: Params) -> float:
-    return pace_on(simulate(p, t_end=T_REF + 0.01, choose_labor=False), T_REF)
+def metric_pace_in_november(p: Params) -> float:
+    return metric_pace_on(simulate(p, t_end=T_REF + 0.01, choose_labor=False), T_REF)
 
 
 def calibrate(p: Params, steps: int = 16) -> Params:
     """Fit three inputs to three measurements: AI labor on Oct 1, 2025 and its doubling as in
-    `fit_labor`, and the growth of judging time with the number of candidates to the pace in
-    November 2026."""
+    `fit_labor`, and the growth of judging time with the number of candidates to the pace on
+    metrics in November 2026."""
     # The more judging time each experiment takes, the fewer people judge, and November runs
     # cooler.
     lo, hi = 0.0, 1.0
     for _ in range(steps):
         mid = 0.5 * (lo + hi)
-        if pace_in_november(fit_labor(replace(p, volume_elasticity=mid), steps=steps)) > PACE_REF:
+        fitted = fit_labor(replace(p, volume_elasticity=mid), steps=steps)
+        if metric_pace_in_november(fitted) > PACE_REF:
             lo = mid
         else:
             hi = mid
@@ -524,15 +535,15 @@ def calibrate(p: Params, steps: int = 16) -> Params:
 
 
 def max_difficulty(p: Params, labor_ref: float = LABOR_REF, steps: int = 11) -> float:
-    """The highest difficulty at which the model still reaches the pace measured in November
-    2026, with AI labor and the pace of May 2026 matched. Judging time is taken not to grow
+    """The highest difficulty at which the model's metrics still show the pace measured in
+    November 2026, with AI labor and the pace of May 2026 matched. Judging time is taken not to grow
     with candidates, which favors a high pace. Returns the bottom of the search, 0.3, if no
     difficulty above it fits. Takes about a minute."""
     easy = replace(p, volume_elasticity=0.0)
     lo, hi = 0.3, 3.0
     for _ in range(steps):
         mid = 0.5 * (lo + hi)
-        if pace_in_november(fit_labor(replace(easy, difficulty=mid), labor_ref)) >= PACE_REF:
+        if metric_pace_in_november(fit_labor(replace(easy, difficulty=mid), labor_ref)) >= PACE_REF:
             lo = mid
         else:
             hi = mid
@@ -583,29 +594,30 @@ CASES = (
 # The three fitted inputs refitted by `calibrate` at other difficulties.
 DIFFICULTY_FITS = {
     0.5: dict(
-        u0=0.038462, uplift_doubling=0.116652, volume_elasticity=0.285144, progress_at_ref=1.329253
+        u0=0.128633, uplift_doubling=0.139723, volume_elasticity=0.524873, progress_at_ref=1.243083
     ),
     1.0: {},
     1.5: dict(
-        u0=0.024921, uplift_doubling=0.109672, volume_elasticity=0.096138, progress_at_ref=1.341833
+        u0=0.040791, uplift_doubling=0.115612, volume_elasticity=0.270503, progress_at_ref=1.279999
     ),
     2.0: dict(
-        u0=0.022122, uplift_doubling=0.107969, volume_elasticity=0.012197, progress_at_ref=1.346145
+        u0=0.029595, uplift_doubling=0.110853, volume_elasticity=0.141505, progress_at_ref=1.299466
     ),
 }
 # The highest difficulty that still fits the pace of November 2026, from `max_difficulty`, at
-# the central inputs and with one input moved. `None` means no difficulty above 0.3 fits.
+# the central inputs and with one input moved. The search runs from 0.3 to 3.0, and 3.0 here
+# means that every difficulty searched fits.
 DIFFICULTY_BOUNDS = (
-    ("Central", dict(), 2.08),
-    ("AI labor per researcher in late August 2026: 38, twice Anthropic's figure", dict(), 2.63),
-    ("AI labor per researcher in late August 2026: 9.5, half of it", dict(), 1.36),
-    ("AI labor per researcher in late August 2026: 3.8, OpenAI's trend", dict(), None),
-    ("No researcher time goes to managing agents", dict(time_managing=0.0), 2.47),
-    ("25% of researcher time was on judging in Oct 2025", dict(time_judging=0.25), 2.69),
-    ("60% of researcher time was on judging in Oct 2025", dict(time_judging=0.6), 0.38),
-    ("Experiments rise with AI labor to the power 0.4", dict(labor_exponent=0.4), 1.75),
-    ("Experiments rise with AI labor to the power 0.6", dict(labor_exponent=0.6), 2.29),
-    ("Experiments from unlimited AI labor: 60 times", dict(labor_ceiling=60.0), 2.52),
+    ("Central", dict(), 2.62),
+    ("AI labor per researcher in late August 2026: 38, twice Anthropic's figure", dict(), 3.0),
+    ("AI labor per researcher in late August 2026: 9.5, half of it", dict(), 1.74),
+    ("AI labor per researcher in late August 2026: 3.8, OpenAI's trend", dict(), 0.31),
+    ("No researcher time goes to managing agents", dict(time_managing=0.0), 2.91),
+    ("25% of researcher time was on judging in Oct 2025", dict(time_judging=0.25), 3.0),
+    ("60% of researcher time was on judging in Oct 2025", dict(time_judging=0.6), 1.62),
+    ("Experiments rise with AI labor to the power 0.4", dict(labor_exponent=0.4), 2.16),
+    ("Experiments rise with AI labor to the power 0.6", dict(labor_exponent=0.6), 2.96),
+    ("Experiments from unlimited AI labor: 60 times", dict(labor_ceiling=60.0), 3.0),
 )
 
 SENSITIVITY = (
@@ -727,10 +739,10 @@ def bound_table(p: Params) -> list[str]:
         "|---|---|---|",
     ]
     for label, _, bound in DIFFICULTY_BOUNDS:
-        if bound is None:
-            out.append(f"| {label} | none above 0.3 | |")
+        share = critical_share(replace(p, difficulty=bound))
+        if bound >= 3.0:
+            out.append(f"| {label} | 3.0 or more | {share:.0%} or more |")
         else:
-            share = critical_share(replace(p, difficulty=bound))
             out.append(f"| {label} | {bound:.2f} | {share:.0%} |")
     return out
 

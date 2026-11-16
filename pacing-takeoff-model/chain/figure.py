@@ -40,7 +40,7 @@ SERIES = (
     ("Comprehension audits + 9-month lag", "Audits and 9-month lag", "#1baf7a"),
     ("R&D compute at a third of baseline", "Compute at a third of baseline", "#eda100"),
 )
-START, TICKS = 2026.0, (1.0, 1.5, 2.0, 3.0, 5.0, 10.0, 15.0)
+START, PACING, TICKS = 2026.0, 2027.0, (1.0, 1.5, 2.0, 3.0, 5.0, 10.0, 15.0)
 OUT = Path(__file__).parent / "results" / "pace.png"
 OUT_MEASURED = Path(__file__).parent / "results" / "measured.png"
 MEASURED = "#2a78d6"
@@ -60,13 +60,15 @@ def frame(ax, last: float) -> None:
     ax.spines["bottom"].set_color(AXIS)
 
 
-def pace_axis(ax, top: float) -> None:
-    """Pace on a log scale, so that equal steps are equal multiples."""
+def pace_axis(ax, top: float, bottom: float = 1.0) -> None:
+    """Pace on a log scale, so that equal steps are equal multiples. `bottom` is the lowest
+    pace drawn, and the axis gains a tick below 1 when a line goes under it."""
+    ticks = TICKS if bottom >= 0.95 else (0.75, *TICKS)
     ax.set_yscale("log")
-    ax.set_ylim(0.9, 1.15 * top)
-    ax.yaxis.set_major_locator(FixedLocator(TICKS))
+    ax.set_ylim(0.9 * min(1.0, bottom), 1.15 * top)
+    ax.yaxis.set_major_locator(FixedLocator(ticks))
     ax.yaxis.set_minor_formatter(NullFormatter())
-    ax.set_yticklabels([f"{tick:g}x" for tick in TICKS])
+    ax.set_yticklabels([f"{tick:g}x" for tick in ticks])
 
 
 def titles(fig, title: str, subtitle: str) -> None:
@@ -76,11 +78,18 @@ def titles(fig, title: str, subtitle: str) -> None:
     )
 
 
-def fitted_points(ax) -> None:
-    """The two measured paces the model is fitted to."""
+def fitted_points(ax, run: dict, color: str) -> None:
+    """The two paces measured on METR's index, and the model's pace on metrics that is fitted
+    to them. It is drawn up to the start of pacing, and the real pace runs below it."""
+    early = (run["t"] >= START) & (run["t"] <= PACING)
+    ax.plot(run["t"][early], run["measured_pace"][early], color=color, lw=1.4, ls=(0, (3, 2)),
+            zorder=4)  # fmt: skip
     ax.plot(
         [T_MAY, T_REF], [PACE_MAY, PACE_REF], "o", ms=5, mfc=SURFACE, mec=INK, mew=1.2, zorder=5
     )
+    ax.annotate("measured on\nMETR's index", (T_REF, PACE_REF), xytext=(-8, 6),
+                textcoords="offset points", ha="right", color=MUTED, fontsize=8.5,
+                linespacing=1.25)  # fmt: skip
 
 
 def canvas(rows: int = 1, height: float = 5.6):
@@ -108,9 +117,7 @@ def measured_figure(run: dict) -> None:
     above.annotate(f"TED-AI, {fmt_date(run['dates']['ted_ai'])}", (when, pace[-1]), xytext=(-10, 0),
                    textcoords="offset points", ha="right", va="center", color=SECONDARY,
                    fontsize=9)  # fmt: skip
-    fitted_points(above)
-    above.annotate("measured", (T_REF, PACE_REF), xytext=(-6, 8), textcoords="offset points",
-                   ha="right", color=MUTED, fontsize=9)  # fmt: skip
+    fitted_points(above, run, MEASURED)
     pace_axis(above, max(TICKS[-1], float(pace.max())))
     frame(above, when)
 
@@ -150,7 +157,7 @@ def main() -> None:
     p = replace(Params(), **dict(CASES)[PRIMARY])
     by_name = {policy.name: policy for policy in POLICIES}
     fig, ax = canvas()
-    ends = []
+    ends, lowest = [], 1.0
     for name, label, color in SERIES:
         run = simulate(p, by_name[name])
         if name == "No pacing":
@@ -167,6 +174,7 @@ def main() -> None:
             zorder=3 if name == "No pacing" else 2,
         )
         ends.append((float(run["t"][-1]), float(run["pace"][-1]), color, run["dates"]["ted_ai"]))
+        lowest = min(lowest, float(run["pace"][shown].min()))
     # End labels sit to the right of each end. The first sits to the left, clear of the lines
     # that end after it.
     places = {0: dict(xytext=(-8, 0), ha="right", va="center")}
@@ -183,20 +191,11 @@ def main() -> None:
             fontsize=9,
             **place,
         )
-    fitted_points(ax)
-    ax.annotate(
-        "measured",
-        (T_REF, PACE_REF),
-        xytext=(-6, 8),
-        textcoords="offset points",
-        ha="right",
-        color=MUTED,
-        fontsize=9,
-    )
-    ax.axvline(2027.0, color=AXIS, lw=1.0, zorder=1)
+    fitted_points(ax, unpaced, MUTED)
+    ax.axvline(PACING, color=AXIS, lw=1.0, zorder=1)
     ax.annotate(
         "pacing starts",
-        (2027.0, TICKS[-1]),
+        (PACING, TICKS[-1]),
         xytext=(5, -2),
         textcoords="offset points",
         va="top",
@@ -204,7 +203,7 @@ def main() -> None:
         fontsize=9,
     )
     last = max(when for when, *_ in ends)
-    pace_axis(ax, max(TICKS[-1], max(pace for _, pace, *_ in ends)))
+    pace_axis(ax, max(TICKS[-1], max(pace for _, pace, *_ in ends)), lowest)
     frame(ax, last)
     ax.set_ylabel("Pace: years of progress per calendar year", color=SECONDARY, fontsize=9)
     fig.subplots_adjust(left=0.065, right=0.955, top=0.80, bottom=0.085)

@@ -25,7 +25,8 @@ from chain_model import (
     critical_share,
     fit_labor,
     lab_judgment,
-    pace_in_november,
+    metric_pace_in_november,
+    metric_pace_on,
     pace_on,
     realized_sd,
     research,
@@ -49,8 +50,9 @@ def months(base: dict, paced: dict, name: str = "ted_ai") -> float:
 
 def test_defaults_reproduce_the_three_measurements():
     run = simulate(P, t_end=T_REF + 0.01)
-    assert abs(pace_on(run, T_MAY) - PACE_MAY) < 0.005
-    assert abs(pace_on(run, T_REF) - PACE_REF) < 0.005
+    assert abs(metric_pace_on(run, T_MAY) - PACE_MAY) < 0.005
+    assert abs(metric_pace_on(run, T_REF) - PACE_REF) < 0.005
+    assert pace_on(run, T_REF) < PACE_REF  # the real pace runs behind the pace on metrics
     assert abs(at(run, "labor", T_LABOR) - 1.0 - LABOR_REF) < 0.05
     assert abs(at(run, "progress", T_REF) - P.progress_at_ref) < 0.002
 
@@ -140,7 +142,7 @@ def test_audits_delay_more_the_slower_the_ais_own_judgment_and_the_more_hours_th
 def test_an_audited_lab_runs_less_ai_labor_and_keeps_its_pace_above_the_old_one():
     run = simulate(SLOW, AUDITS)
     late = run["t"] > 2027.5
-    assert np.all(run["labor_used"][late] < 0.2 * run["labor"][late])
+    assert np.all(run["labor_used"][late] < 0.5 * run["labor"][late])  # well under what it has
     assert np.all(run["pace"][late] > 1.0)
     # Through 2026 a lab with no audit runs all the AI labor it has.
     free = simulate(SLOW, t_end=T_REF)
@@ -218,7 +220,7 @@ def test_harder_research_delays_the_takeoff_and_raises_what_the_ai_must_keep():
         q = replace(SLOW, difficulty=difficulty, **fit)
         when.append(simulate(q)["dates"]["ted_ai"])
         critical.append(critical_share(q))
-        assert abs(pace_in_november(q) - PACE_REF) < 0.005
+        assert abs(metric_pace_in_november(q) - PACE_REF) < 0.005
     assert when == sorted(when)
     assert critical == sorted(critical)
     assert critical[-1] / critical[0] == pytest.approx(2.0 / 0.5)
@@ -227,8 +229,8 @@ def test_harder_research_delays_the_takeoff_and_raises_what_the_ai_must_keep():
 def test_the_pace_of_2026_cannot_be_fitted_much_above_the_central_difficulty():
     central = DIFFICULTY_BOUNDS[0][2]
     easy = replace(P, volume_elasticity=0.0)
-    assert pace_in_november(fit_labor(replace(easy, difficulty=central - 0.05))) >= PACE_REF
-    assert pace_in_november(fit_labor(replace(easy, difficulty=central + 0.05))) < PACE_REF
+    assert metric_pace_in_november(fit_labor(replace(easy, difficulty=central - 0.05))) >= PACE_REF
+    assert metric_pace_in_november(fit_labor(replace(easy, difficulty=central + 0.05))) < PACE_REF
 
 
 def test_an_audited_lab_cannot_deploy_gains_past_what_its_people_can_vouch_for():
