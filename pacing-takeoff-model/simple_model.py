@@ -321,7 +321,7 @@ def table(p: Params | None = None) -> str:
             "",
             f"Pace once AI labor is at its ceiling: {settled}.",
             "",
-            "| Scenario | Researcher-level AI | Delay | TED-AI | Delay |",
+            "| Scenario | SAR | Delay | TED-AI | Delay |",
             "|---|---|---|---|---|",
         ]
         for policy in POLICIES:

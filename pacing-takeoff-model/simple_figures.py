@@ -147,7 +147,7 @@ def pace_paths_figure(p: Params) -> None:
         run = simulate(q)
         keep = (run["t"] >= 2026.0) & (run["t"] <= hi) & (run["pace"] <= top)
         ax.plot(run["t"][keep], run["pace"][keep], color=color, linewidth=2, label=label)
-        for name, text in (("researcher", "researcher-level AI"), ("ted_ai", "TED-AI")):
+        for name, text in (("researcher", "SAR"), ("ted_ai", "TED-AI")):
             when = run["dates"][name]
             pace = float(np.interp(when, run["t"], run["pace"])) if when == when else math.nan
             if not (when <= hi and pace <= top):

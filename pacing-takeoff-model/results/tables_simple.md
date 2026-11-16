@@ -8,7 +8,7 @@ Delays are against no pacing. Pacing starts Jan 1, 2027. Critical rate: 2.34 SD 
 
 Pace once AI labor is at its ceiling: runs away.
 
-| Scenario | Researcher-level AI | Delay | TED-AI | Delay |
+| Scenario | SAR | Delay | TED-AI | Delay |
 |---|---|---|---|---|
 | No pacing | Aug 2027 |  | Nov 2027 |  |
 | Comprehension audits, light | Sep 2027 | +0 mo | Nov 2027 | +0 mo |
@@ -23,7 +23,7 @@ Pace once AI labor is at its ceiling: runs away.
 
 Pace once AI labor is at its ceiling: 1.7x.
 
-| Scenario | Researcher-level AI | Delay | TED-AI | Delay |
+| Scenario | SAR | Delay | TED-AI | Delay |
 |---|---|---|---|---|
 | No pacing | Aug 2030 |  | Apr 2033 |  |
 | Comprehension audits, light | Sep 2030 | +2 mo | Jul 2035 | +27 mo |
@@ -38,7 +38,7 @@ Pace once AI labor is at its ceiling: 1.7x.
 
 Pace once AI labor is at its ceiling: 1.7x.
 
-| Scenario | Researcher-level AI | Delay | TED-AI | Delay |
+| Scenario | SAR | Delay | TED-AI | Delay |
 |---|---|---|---|---|
 | No pacing | Dec 2027 |  | Jan 2029 |  |
 | Comprehension audits, light | Dec 2027 | +0 mo | Feb 2029 | +1 mo |
@@ -53,7 +53,7 @@ Pace once AI labor is at its ceiling: 1.7x.
 
 Pace once AI labor is at its ceiling: 1.3x.
 
-| Scenario | Researcher-level AI | Delay | TED-AI | Delay |
+| Scenario | SAR | Delay | TED-AI | Delay |
 |---|---|---|---|---|
 | No pacing | May 2028 |  | Jun 2034 |  |
 | Comprehension audits, light | May 2028 | +0 mo | Aug 2034 | +2 mo |

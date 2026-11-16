@@ -6,14 +6,14 @@ Draft of 2026-11-13, revised the same day against the full model's sampled resul
 
 AI now does a growing share of AI research. If better AI makes research faster and faster research makes better AI, the pace can compound. Three kinds of policy are proposed to hold it down: comprehension audits, which let a lab deploy only what its people understand; an internal-use lag, which makes a lab work with the AI it had some months ago; and limits on research compute. This model asks what each does to the dates of two milestones:
 
-- **Researcher-level AI:** an all-AI lab has the research judgment of the best human researcher.
+- **SAR:** AI Futures' superhuman AI researcher. An all-AI lab has the research judgment of the best human researcher, +3.09 SD above the median.
 - **TED-AI:** an all-AI lab is far past every human expert. The level is AI Futures' definition.
 
 ## Two findings
 
-**1. How fast AI judgment improves on the tasks people cannot grade, how much of research those tasks are, and how much work still needs a person set the timeline.** If the slowest kind of judgment improves faster than 2.3 SD a year, the loop runs away and TED-AI follows researcher-level AI within months. Below that rate the pace settles at 1.3 to 1.7 times the historical rate and TED-AI is later: January 2029 at 1 SD a year and June 2034 at 0.5 SD. The weight of those tasks matters as much as the rate. With supervisable work at 65% of research in place of 80%, the two dates are April 2030 and October 2037. Work that needs a person changes nothing in the fast case and delays researcher-level AI by a month or two in the slow ones.
+**1. How fast AI judgment improves on the tasks people cannot grade, how much of research those tasks are, and how much work still needs a person set the timeline.** If the slowest kind of judgment improves faster than 2.3 SD a year, the loop runs away and TED-AI follows SAR within months. Below that rate the pace settles at 1.3 to 1.7 times the historical rate and TED-AI is later: January 2029 at 1 SD a year and June 2034 at 0.5 SD. The weight of those tasks matters as much as the rate. With supervisable work at 65% of research in place of 80%, the two dates are April 2030 and October 2037. Work that needs a person changes nothing in the fast case and delays SAR by a month or two in the slow ones.
 
-**2. Comprehension audits pace by months, and by a year or more only where judgment is slow across much of research.** In the fast case they buy a month. In the slow cases central audits buy 3 to 5 months in this model and a median of 1 to 2 months in the full model, where strict audits buy 3 to 5. They move researcher-level AI by a month or less. At a supervisable weight of 65% this model has 10 to 15 months, and with one judgment improving 1 SD a year on every task the full model's median is 10 months. How much they buy in a slow case turns on four inputs nobody has measured: the weight of HTS fuzzy work, how long the work that needs a person lasts, how many hours it takes to understand a change, and how fast deployed changes grow with AI labor.
+**2. Comprehension audits pace by months, and by a year or more only where judgment is slow across much of research.** In the fast case they buy a month. In the slow cases central audits buy 3 to 5 months in this model and a median of 1 to 2 months in the full model, where strict audits buy 3 to 5. They move SAR by a month or less. At a supervisable weight of 65% this model has 10 to 15 months, and with one judgment improving 1 SD a year on every task the full model's median is 10 months. How much they buy in a slow case turns on four inputs nobody has measured: the weight of HTS fuzzy work, how long the work that needs a person lasts, how many hours it takes to understand a change, and how fast deployed changes grow with AI labor.
 
 ## Five ideas
 
@@ -65,7 +65,7 @@ Dates with no pacing, and the delay each policy adds, from `results/tables_simpl
 
 | | One judgment, +3 SD | Supervisable +3, HTS fuzzy +1 SD | Supervisable +3, HTS fuzzy +0.5 SD |
 |---|---|---|---|
-| Researcher-level AI, no pacing | Aug 2027 | Dec 2027 | May 2028 |
+| SAR, no pacing | Aug 2027 | Dec 2027 | May 2028 |
 | TED-AI, no pacing | Nov 2027 | Jan 2029 | Jun 2034 |
 | Central audits delay TED-AI | +1 mo | +3 mo | +5 mo |
 | Strict audits delay TED-AI | +3 mo | +6 mo | +8 mo |
@@ -75,7 +75,7 @@ Dates with no pacing, and the delay each policy adds, from `results/tables_simpl
 
 - **The rate on HTS fuzzy tasks decides the dates.** Halving it moves TED-AI by more than five years. Lowering the supervisable rate from 3 to 2.1 SD moves it by seven months.
 - **The weight of supervisable work matters as much.** At 65%, the central value until 2026-11-13, TED-AI is April 2030 and October 2037 in the two slow cases, and central audits buy 10 and 15 months. At 90% it is April 2028 and July 2030, and audits buy 1 and 2 months. Nobody has measured the weight.
-- **Audits barely move researcher-level AI.** They delay it by a month in each of these cases. The gate starts to bind only about when that level arrives.
+- **Audits barely move SAR.** They delay it by a month in each of these cases. The gate starts to bind only about when that level arrives.
 - **Where judgment improves fast, audits buy a month.** The loop runs away on judgment, and people's time to understand what is deployed stops mattering within months.
 - **Where HTS fuzzy judgment is slow, audits buy 3 to 5 months here.** The next section compares that with the full models.
 - **How fast deployed changes grow with AI labor decides the audit result.** At 0.2% more changes per 1% more labor, central audits delay TED-AI by under a month in the middle case. At 0.6% they delay it by 8. Nobody has measured this number.
@@ -87,8 +87,8 @@ The comparison is with the full model's medians over 96 sampled trajectories, wi
 
 | | One judgment, +3 SD | Supervisable +3, HTS fuzzy +1 SD | Supervisable +3, HTS fuzzy +0.5 SD |
 |---|---|---|---|
-| Researcher-level AI, no pacing: simple | Aug 2027 | Dec 2027 | May 2028 |
-| Researcher-level AI, no pacing: full | Jul 2027 | Oct 2027 | May 2028 |
+| SAR, no pacing: simple | Aug 2027 | Dec 2027 | May 2028 |
+| SAR, no pacing: full | Jul 2027 | Oct 2027 | May 2028 |
 | TED-AI, no pacing: simple | Nov 2027 | Jan 2029 | Jun 2034 |
 | TED-AI, no pacing: full | Sep 2027 | Jul 2028 | Jul 2032 |
 | Central audits delay TED-AI: simple | +1 mo | +3 mo | +5 mo |
@@ -103,8 +103,8 @@ The comparison is with the full model's medians over 96 sampled trajectories, wi
 Where the two agree:
 
 - **The HTS fuzzy rate decides the date of TED-AI, and matters more than the supervisable rate.**
-- **Researcher-level AI with no pacing.** The two are within two months in every case.
-- **Audits move researcher-level AI by a month or less.**
+- **SAR with no pacing.** The two are within two months in every case.
+- **Audits move SAR by a month or less.**
 - **With judgment improving fast on every task, audits buy a month and a lag buys its length or more.**
 - **What audits add rises as the rate on HTS fuzzy tasks falls, and stays small.** The simple model has 1, 3 and 5 months under central audits. The full model's medians are 1, 1 and 2.
 - **Work that needs a person changes nothing when judgment is fast, delays the milestones when HTS fuzzy judgment is slow, and cuts what audits add.**
