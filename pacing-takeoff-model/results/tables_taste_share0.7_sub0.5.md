@@ -2,13 +2,13 @@
 
 Written by `montecarlo_taste.py`. Do not edit by hand.
 
-96 of 9630 sampled trajectories (1.0%) had a pace of 1.5x to 2x on Nov 1, 2026 with AI research taste too low to contribute, and are kept. Parameters other than taste are drawn from AI Futures' August 2026 distribution for Daniel, seed 20261110. Median pace of the kept trajectories: 1.67x. Every taste model puts AI research taste at -3.5 SD on Sep 2026, in both classes of task where there are two. In the split models crisp tasks take 70% of research effort while judgment is equal across the classes, and the elasticity of substitution between the classes is 0.5. Pacing starts Jan 1, 2027. Delays are paired: each trajectory under a scenario against the same trajectory with no pacing. A milestone not reached by the end of 2039 counts as later than that. The link from comprehension to human judgment is on except where a table says otherwise.
+96 of 9630 sampled trajectories (1.0%) had a pace of 1.5x to 2x on Nov 1, 2026 with AI research taste too low to contribute, and are kept. Parameters other than taste are drawn from AI Futures' August 2026 distribution for Daniel, seed 20261110. Median pace of the kept trajectories: 1.67x. Every taste model puts AI research taste at -3.5 SD on Sep 2026, in both classes of task where there are two. In the split models supervisable tasks take 70% of research effort while judgment is equal across the classes, and the elasticity of substitution between the classes is 0.5. Pacing starts Jan 1, 2027. Delays are paired: each trajectory under a scenario against the same trajectory with no pacing. A milestone not reached by the end of 2039 counts as later than that. The link from comprehension to human judgment is on except where a table says otherwise.
 
 ## Summary
 
-### Superhuman AI researcher, crisp and fuzzy tasks: median date and median delay
+### Superhuman AI researcher, supervisable and HTS fuzzy tasks: median date and median delay
 
-| Scenario | Crisp +3, fuzzy +1 SD: median date | Crisp +3, fuzzy +1 SD: median delay | Crisp +3, fuzzy +0.5 SD: median date | Crisp +3, fuzzy +0.5 SD: median delay |
+| Scenario | Supervisable +3, HTS fuzzy +1 SD: median date | Supervisable +3, HTS fuzzy +1 SD: median delay | Supervisable +3, HTS fuzzy +0.5 SD: median date | Supervisable +3, HTS fuzzy +0.5 SD: median delay |
 |---|---|---|---|---|
 | No pacing | Oct 2027 |  | Jan 2028 |  |
 | Human sign-off, no comprehension standard | Oct 2027 | +0 mo | Mar 2028 | +0 mo |
@@ -21,9 +21,9 @@ Written by `montecarlo_taste.py`. Do not edit by hand.
 | Comprehension audits (central) + 3-month lag | Mar 2028 | +5 mo | Aug 2028 | +5 mo |
 | Comprehension audits (central) + 9-month lag | Sep 2028 | +10 mo | Apr 2029 | +11 mo |
 
-### TED-AI, crisp and fuzzy tasks: median date and median delay
+### TED-AI, supervisable and HTS fuzzy tasks: median date and median delay
 
-| Scenario | Crisp +3, fuzzy +1 SD: median date | Crisp +3, fuzzy +1 SD: median delay | Crisp +3, fuzzy +0.5 SD: median date | Crisp +3, fuzzy +0.5 SD: median delay |
+| Scenario | Supervisable +3, HTS fuzzy +1 SD: median date | Supervisable +3, HTS fuzzy +1 SD: median delay | Supervisable +3, HTS fuzzy +0.5 SD: median date | Supervisable +3, HTS fuzzy +0.5 SD: median delay |
 |---|---|---|---|---|
 | No pacing | May 2028 |  | May 2031 |  |
 | Human sign-off, no comprehension standard | Jun 2028 | +0 mo | Nov 2031 | +0 mo |
@@ -36,7 +36,7 @@ Written by `montecarlo_taste.py`. Do not edit by hand.
 | Comprehension audits (central) + 3-month lag | Feb 2029 | +7 mo | Jul 2032 | +10 mo |
 | Comprehension audits (central) + 9-month lag | Sep 2029 | +15 mo | Jan 2033 | +17 mo |
 
-## Crisp tasks improve +3 SD and fuzzy tasks +1 SD per year of 2025 progress (split_3_1)
+## Supervisable tasks improve +3 SD and HTS fuzzy tasks +1 SD per year of 2025 progress (split_3_1)
 
 ### Superhuman AI researcher
 
@@ -86,7 +86,7 @@ Paired across trajectories, the link moves the no-pacing date of the superhuman 
 | Before Nov 1, 2026 | 49 | Nov 2027 | Jul 2028 | +0 mo | +1 mo | +5 mo |
 | Nov 1, 2026 or later | 47 | Sep 2027 | Mar 2028 | +1 mo | +3 mo | +6 mo |
 
-## Crisp tasks improve +3 SD and fuzzy tasks +0.5 SD per year of 2025 progress (split_3_0.5)
+## Supervisable tasks improve +3 SD and HTS fuzzy tasks +0.5 SD per year of 2025 progress (split_3_0.5)
 
 ### Superhuman AI researcher
 

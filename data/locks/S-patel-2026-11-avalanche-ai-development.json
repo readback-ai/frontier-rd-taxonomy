@@ -1,0 +1,21 @@
+{
+  "source_id": "S-patel-2026-11-avalanche-ai-development",
+  "snapshot": {
+    "url": "https://www.dwarkesh.com/p/rsi",
+    "final_url": "https://www.dwarkesh.com/p/rsi",
+    "retrieved": "2026-11-16",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "d9f587854fabcc11ae6d0a5e573bf88311e54e36a6ed923ebac1963f5c895604",
+    "text_sha256": "4843810ac5a21b61097aa80e38ee1909297b18eec0df0b451f0e4acace82b3f7",
+    "text_chars": 53895,
+    "paywalled": false
+  },
+  "quotes": {
+    "EV-patel-2026-11-avalanche-ai-development-01": {
+      "quote_sha256": "50db7b4a30aa9c376271491258ea4608684c3faa6af6ea8cf0fc68d61bd78f8b",
+      "text_sha256": "4843810ac5a21b61097aa80e38ee1909297b18eec0df0b451f0e4acace82b3f7",
+      "verified": "2026-11-16"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "source_id": "S-greenblatt-2026-04-mythos-4x-productivity",
+  "snapshot": {
+    "url": "https://www.lesswrong.com/posts/Jga7PHMzfZf4fbdyo/if-mythos-actually-made-anthropic-employees-4x-more",
+    "final_url": "https://www.lesswrong.com/posts/Jga7PHMzfZf4fbdyo/if-mythos-actually-made-anthropic-employees-4x-more",
+    "retrieved": "2026-11-16",
+    "method": "http",
+    "content_type": "text/html; charset=utf-8",
+    "raw_sha256": "ecdda470087ff01dbd1e5d3579ddd68b2a929a6055621ce905814ddc390e48fb",
+    "text_sha256": "5fcc7f131b0b1bd6c306eab3da85d73551ef5c82d4a89466794a2f39c861d834",
+    "text_chars": 25496,
+    "paywalled": false
+  },
+  "quotes": {
+    "EV-greenblatt-2026-04-mythos-4x-productivity-01": {
+      "quote_sha256": "1a360f66e4234fe2d79b6a495dbd655a23dfeda207fa2837ab29087a03889e1e",
+      "text_sha256": "5fcc7f131b0b1bd6c306eab3da85d73551ef5c82d4a89466794a2f39c861d834",
+      "verified": "2026-11-16"
+    },
+    "EV-greenblatt-2026-04-mythos-4x-productivity-02": {
+      "quote_sha256": "41be8146fdcf9b277538fcaa88f7d0334e21dbd178730e753a7d8c64a95f2c0a",
+      "text_sha256": "5fcc7f131b0b1bd6c306eab3da85d73551ef5c82d4a89466794a2f39c861d834",
+      "verified": "2026-11-16"
+    },
+    "EV-greenblatt-2026-04-mythos-4x-productivity-03": {
+      "quote_sha256": "7b844b0926670bfe537b134df93cdd3e4fbf71d73818ba5475a347a34cc9e279",
+      "text_sha256": "5fcc7f131b0b1bd6c306eab3da85d73551ef5c82d4a89466794a2f39c861d834",
+      "verified": "2026-11-16"
+    },
+    "EV-greenblatt-2026-04-mythos-4x-productivity-04": {
+      "quote_sha256": "37e66bfa73cc74527023dfbd17324a0b4161d81d58a7ae0a929acf33eea3d827",
+      "text_sha256": "5fcc7f131b0b1bd6c306eab3da85d73551ef5c82d4a89466794a2f39c861d834",
+      "verified": "2026-11-16"
+    }
+  }
+}

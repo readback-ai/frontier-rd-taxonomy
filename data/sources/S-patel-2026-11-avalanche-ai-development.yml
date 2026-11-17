@@ -1,0 +1,41 @@
+id: S-patel-2026-11-avalanche-ai-development
+title: The avalanche that hit math is coming for AI development
+publisher: Dwarkesh Podcast
+authors: [Dwarkesh Patel]
+published: 2026-11-13
+url: https://www.dwarkesh.com/p/rsi
+type: forecast_or_model
+vantage: external_third_party
+labs: []
+summary: >-
+  An essay forecasting that automated AI researchers will speed up AI progress because they will
+  be faster, smarter and more numerous than human researchers, and asking whether the speed-up
+  compounds into a software-only singularity or fades as research gets harder. The essay's
+  subtitle says the author now expects superintelligence by 2030.
+limits: >-
+  One writer's argument and forecast, made without internal access to any developer. It measures
+  no hours, tasks or decisions, and the figures it gives about developers are relayed from others.
+  The author grants that some parts of AI research are less verifiable than math and that adding
+  parallel researchers has steeply diminishing returns. Only the passage quoted in the pacing
+  briefing was extracted; the appendix on verifiable proxies and the rest of the essay are not in
+  this record.
+evidence:
+  - id: EV-patel-2026-11-avalanche-ai-development-01
+    claim: >-
+      Patel argues that AI research parallelizes across many agents more like formalizing a
+      theorem than like writing a novel, because there is a lot of independent modular work and
+      there are verifiable proxies for progress.
+    quote: >-
+      AI research is closer to formalizing a theorem than to writing a novel, because there is a
+      lot of independent modular work to do, and there are verifiable proxies for progress.
+    locator: Section "More"
+    kind: pace
+    strength: anecdote
+    grade: C
+    tasks: []
+    note: >-
+      A general remark about the field, not about a named developer, made as a reason that more
+      automated researchers speed up progress. The next paragraph says there will be steeply
+      diminishing returns from adding parallel researchers, and elsewhere the essay says some
+      parts of AI research are less verifiable than math. No task is tagged because the claim is
+      about AI research as a whole.

@@ -1,0 +1,42 @@
+# TASTE (see taste_by_model.csv) rerun on 36 models and plotted against the Epoch Capabilities Index, from a chart
+# posted on X by @hasanbaig8 in November 2026 and supplied to this project by the PI as an image. The chart prints
+# "Expert human performance 77%", a band "Within 95% binomial noise of chance" from about 40% to 60%, and "Spearman
+# rank correlation -0.16 (n = 36)". The post was not fetched. All values were read by eye from the image, to about
+# one point of accuracy and half a point of ECI.
+model,eci,taste_accuracy
+Haiku 4.5,142.8,0.560
+Opus 4.5,152.0,0.543
+Sonnet 4.6,152.8,0.560
+GLM 5.2,153.0,0.462
+Qwen3.7-Max,154.5,0.522
+Mistral Large 4,154.6,0.614
+Muse Spark 1.1,154.8,0.505
+Grok 4.5,155.0,0.576
+Kimi K3,155.2,0.560
+Qwen3.8-Max,156.0,0.576
+Gemini 3.1 Pro,156.2,0.413
+Opus 4.6,156.3,0.451
+GPT-5.6-luna,156.7,0.484
+Sonnet 5,156.9,0.522
+GLM 5.3,157.1,0.549
+Opus 4.7,157.4,0.489
+Muse Spark 1.3,158.2,0.386
+Gemini 3.5 Flash,158.6,0.587
+Gemini 3.8 Flash,158.8,0.446
+DeepSeek V4.1 Flash,159.4,0.576
+Opus 4.8,159.9,0.554
+Haiku 5.5,160.4,0.462
+GPT-5.6-terra,160.7,0.478
+Kimi K3.1 Pro,161.4,0.576
+Muse Wonder,161.6,0.457
+GPT-5.6-sol,163.0,0.478
+GPT-6 Sol,163.7,0.402
+Fable 5,164.1,0.603
+Opus 5,164.7,0.511
+Gemini 4 Argon,166.5,0.549
+Sonnet 5.5,166.6,0.625
+Fable 5.1,167.0,0.587
+Opus 5.5,168.5,0.489
+GPT-6.1 Sol,168.5,0.397
+GPT-6 Astra,169.0,0.424
+Fable 5.2,173.4,0.505
