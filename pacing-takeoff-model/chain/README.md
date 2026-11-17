@@ -103,13 +103,14 @@ The two paces come from METR's capability index, which is built from benchmarks.
 
 ## Results with no pacing
 
-The primary scenario is the third row.
+The primary scenario is the third row. The fourth slows ideas and transfer to +2.1 SD a year, the lower of the two rates the AI Futures Project's authors use.
 
 | AI judgment gained per year of progress | SAR | TED-AI |
 |---|---|---|
 | Ideas, transfer and metrics all +3 SD | Jun 2027 | Jun 2027 |
 | Ideas and transfer +3, metrics +1 | Feb 2028 | Feb 2028 |
 | **Ideas and transfer +3, metrics +0.5 (primary)** | **Jan 2029** | **Feb 2029** |
+| Ideas and transfer +2.1, metrics +0.5 | Jul 2029 | Sep 2029 |
 | Ideas +3, transfer and metrics +1 | Jun 2028 | Jun 2028 |
 | Ideas +3, transfer +1, metrics +0.5 | Apr 2029 | Jun 2029 |
 | Ideas +3, transfer and metrics +0.5 | Jan 2030 | Feb 2030 |
@@ -149,6 +150,7 @@ Delay to TED-AI:
 | Ideas, transfer and metrics all +3 SD | +0 mo | +11 mo | +11 mo | +7 mo |
 | Ideas and transfer +3, metrics +1 | +3 mo | +10 mo | +11 mo | +11 mo |
 | **Ideas and transfer +3, metrics +0.5 (primary)** | **+12 mo** | **+12 mo** | **+16 mo** | **+10 mo** |
+| Ideas and transfer +2.1, metrics +0.5 | +11 mo | +12 mo | +16 mo | +11 mo |
 | Ideas +3, transfer and metrics +1 | +4 mo | +10 mo | +11 mo | +12 mo |
 | Ideas +3, transfer +1, metrics +0.5 | +12 mo | +12 mo | +17 mo | +11 mo |
 | Ideas +3, transfer and metrics +0.5 | +13 mo | +11 mo | +17 mo | +12 mo |
@@ -158,7 +160,7 @@ Delay to TED-AI:
 - **Under audits the loop does not run away.** In the primary scenario the pace peaks at 2.6 times in February 2028 and is 1.3 to 1.8 times from mid-2028 on. With no pacing it reaches 15.9 times as TED-AI arrives.
 - **TED-AI still arrives, 12 months later, as a capability the lab may not fully use.** The lab keeps making progress on gains its people can vouch for, and the AI keeps improving with that progress. In March 2030 the newest AI could do research at the TED-AI level. The audited lab deploys only the part of its ideas that people can vouch for.
 - **The reach does the work.** If any change passes once people have spent the hours, audits delay TED-AI by 1 month. If the hours double, the delay goes from 12 months to 13.
-- **Audits delay most where the AI's metric judgment is slow.** They delay TED-AI by 12 to 13 months with metrics at +0.5 SD, by 3 to 4 months at +1 SD and by less than a month where all judgment improves 3 SD a year. In that last scenario TED-AI arrives before the AI's ideas are far past people's.
+- **Audits delay most where the AI's metric judgment is slow.** They delay TED-AI by 11 to 13 months with metrics at +0.5 SD, by 3 to 4 months at +1 SD and by less than a month where all judgment improves 3 SD a year. In that last scenario TED-AI arrives before the AI's ideas are far past people's.
 - **An audited lab keeps people judging for longer.** With no pacing the lab runs a handful of agents per researcher from December 2027 to August 2028 and then goes back to running every agent. The audited lab stays with 3 to 19 agents per researcher, and people judging a quarter to two thirds of its experiments, from November 2027 to June 2029.
 
 **Lag and compute**
@@ -168,7 +170,8 @@ Delay to TED-AI:
 - **Audits and the lag together delay it by 11 to 17 months.** That is less than the two delays added up. In the primary scenario the two together give 16 months, against 12 and 12 apart, and the pace ends at 1.3 times.
 - **The compute cap delays it by 7 to 12 months, once.** Training waits a year and a half for its allowance to catch up with what it has already used, and research runs on a fifth of the compute from then on. In the primary scenario the pace drops to 0.7 times when the cap starts and is back above 1 in April 2028. A cut in research buys a fixed delay because difficulty is exponential: a lab with half the research ends up one year of software progress behind and stays there.
 - **The cap is the AI Futures Project's.** A chart in its ["How to Pace the US Frontier"](https://blog.aifutures.org/p/how-to-pace-the-us-frontier) (August 2026) gives three examples of compute rules. It estimates capabilities compute at 48% of a company's compute today. Under a floor of 90% for external inference it is 9.6%, the second tightest of the three, and the model holds research compute to the same fraction of its schedule, 9.6/48. The figures were read from the chart.
-- **Other rules from the same chart.** Its tightest example, 5% under floors of 70% for inference and 25% for safety, delays TED-AI by 13 months in the primary scenario. Its loosest, 12.5% under a safety floor of 75%, delays it by 8. A cut to a third of baseline delays it by 7. If the base is the 62% that the project's input series gives for experiments, training and running AI researchers in 2026, a cap of 9.6% delays it by 11. Those runs are not in the results file.
+- **The cap stands for the project's tightest rule as well.** That rule leaves capabilities 5% of compute, under floors of 70% for external inference and 25% for safety. The project models it as worth about 10% to capabilities, because it assumes safety compute helps capabilities by as much as another 5% would, and says this "could also be thought of as modeling the effect of a 90% external inference floor". A cap held to 5% with no such help delays TED-AI by 13 months in the primary scenario.
+- **Other rules from the same chart.** In the primary scenario its loosest, 12.5% under a safety floor of 75%, delays TED-AI by 8 months. A cut to a third of baseline delays it by 7. If the base is the 62% that the project's input series gives for experiments, training and running AI researchers in 2026, a cap of 9.6% delays it by 11. Those runs are not in the results file.
 
 ## How fast research gets harder
 
