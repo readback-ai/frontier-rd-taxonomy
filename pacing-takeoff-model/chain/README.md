@@ -103,13 +103,14 @@ The two paces come from METR's capability index, which is built from benchmarks.
 
 ## Results with no pacing
 
-The primary scenario is the third row.
+The primary scenario is the third row. The fourth slows ideas and transfer to +2.1 SD a year, the lower of the two rates the AI Futures Project's authors use.
 
 | AI judgment gained per year of progress | SAR | TED-AI |
 |---|---|---|
 | Ideas, transfer and metrics all +3 SD | Jun 2027 | Jun 2027 |
 | Ideas and transfer +3, metrics +1 | Feb 2028 | Feb 2028 |
 | **Ideas and transfer +3, metrics +0.5 (primary)** | **Jan 2029** | **Feb 2029** |
+| Ideas and transfer +2.1, metrics +0.5 | Jul 2029 | Sep 2029 |
 | Ideas +3, transfer and metrics +1 | Jun 2028 | Jun 2028 |
 | Ideas +3, transfer +1, metrics +0.5 | Apr 2029 | Jun 2029 |
 | Ideas +3, transfer and metrics +0.5 | Jan 2030 | Feb 2030 |
@@ -149,6 +150,7 @@ Delay to TED-AI:
 | Ideas, transfer and metrics all +3 SD | +0 mo | +11 mo | +11 mo | +7 mo |
 | Ideas and transfer +3, metrics +1 | +3 mo | +10 mo | +11 mo | +11 mo |
 | **Ideas and transfer +3, metrics +0.5 (primary)** | **+12 mo** | **+12 mo** | **+16 mo** | **+10 mo** |
+| Ideas and transfer +2.1, metrics +0.5 | +11 mo | +12 mo | +16 mo | +11 mo |
 | Ideas +3, transfer and metrics +1 | +4 mo | +10 mo | +11 mo | +12 mo |
 | Ideas +3, transfer +1, metrics +0.5 | +12 mo | +12 mo | +17 mo | +11 mo |
 | Ideas +3, transfer and metrics +0.5 | +13 mo | +11 mo | +17 mo | +12 mo |
@@ -158,7 +160,7 @@ Delay to TED-AI:
 - **Under audits the loop does not run away.** In the primary scenario the pace peaks at 2.6 times in February 2028 and is 1.3 to 1.8 times from mid-2028 on. With no pacing it reaches 15.9 times as TED-AI arrives.
 - **TED-AI still arrives, 12 months later, as a capability the lab may not fully use.** The lab keeps making progress on gains its people can vouch for, and the AI keeps improving with that progress. In March 2030 the newest AI could do research at the TED-AI level. The audited lab deploys only the part of its ideas that people can vouch for.
 - **The reach does the work.** If any change passes once people have spent the hours, audits delay TED-AI by 1 month. If the hours double, the delay goes from 12 months to 13.
-- **Audits delay most where the AI's metric judgment is slow.** They delay TED-AI by 12 to 13 months with metrics at +0.5 SD, by 3 to 4 months at +1 SD and by less than a month where all judgment improves 3 SD a year. In that last scenario TED-AI arrives before the AI's ideas are far past people's.
+- **Audits delay most where the AI's metric judgment is slow.** They delay TED-AI by 11 to 13 months with metrics at +0.5 SD, by 3 to 4 months at +1 SD and by less than a month where all judgment improves 3 SD a year. In that last scenario TED-AI arrives before the AI's ideas are far past people's.
 - **An audited lab keeps people judging for longer.** With no pacing the lab runs a handful of agents per researcher from December 2027 to August 2028 and then goes back to running every agent. The audited lab stays with 3 to 19 agents per researcher, and people judging a quarter to two thirds of its experiments, from November 2027 to June 2029.
 
 **Lag and compute**

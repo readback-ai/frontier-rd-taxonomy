@@ -599,6 +599,10 @@ CASES = (
     ("Ideas, transfer and metrics all +3 SD a year", dict(transfer_rate=3.0, metric_rate=3.0)),
     ("Ideas and transfer +3, metrics +1", dict(transfer_rate=3.0, metric_rate=1.0)),
     ("Ideas and transfer +3, metrics +0.5", dict(transfer_rate=3.0, metric_rate=0.5)),
+    (
+        "Ideas and transfer +2.1, metrics +0.5",
+        dict(idea_rate=2.1, transfer_rate=2.1, metric_rate=0.5),
+    ),
     ("Ideas +3, transfer and metrics +1", dict(transfer_rate=1.0, metric_rate=1.0)),
     ("Ideas +3, transfer +1, metrics +0.5", dict(transfer_rate=1.0, metric_rate=0.5)),
     ("Ideas +3, transfer and metrics +0.5", dict(transfer_rate=0.5, metric_rate=0.5)),
