@@ -17,7 +17,6 @@ import numpy as np
 from chain_model import (
     CASES,
     COMPUTE_LIMIT,
-    COMPUTE_LIMIT_TIGHT,
     MONTHS,
     PACE_MAY,
     PACE_REF,
@@ -41,10 +40,7 @@ SERIES = (
     ("Internal-use lag, 9 months", "Internal-use lag, 9 months", "#eb6834"),
     ("Comprehension audits + 9-month lag", "Audits and 9-month lag", "#1baf7a"),
     (COMPUTE_LIMIT, "Compute capped at 9.6% of total", "#eda100"),
-    (COMPUTE_LIMIT_TIGHT, "Compute capped at 5% of total", "#eda100"),
 )
-# The two compute caps share a color. The tighter one is dashed.
-DASHED = {COMPUTE_LIMIT_TIGHT: (0, (4, 1.6))}
 START, PACING, TICKS = 2026.0, 2027.0, (1.0, 1.5, 2.0, 3.0, 5.0, 10.0, 15.0)
 OUT = Path(__file__).parent / "results" / "pace.png"
 OUT_MEASURED = Path(__file__).parent / "results" / "measured.png"
@@ -186,7 +182,6 @@ def main() -> None:
             run["pace"][shown],
             color=color,
             lw=2.0,
-            ls=DASHED.get(name, "-"),
             label=label,
             solid_capstyle="round",
             solid_joinstyle="round",
@@ -197,10 +192,7 @@ def main() -> None:
         highest = max(highest, float(run["pace"][shown].max()))
     # End labels sit to the right of each end. The first sits to the left, clear of the lines
     # that end after it.
-    places = {
-        0: dict(xytext=(-8, 0), ha="right", va="center"),
-        4: dict(xytext=(8, 7), ha="left", va="center"),  # clear of the tighter cap's end
-    }
+    places = {0: dict(xytext=(-8, 0), ha="right", va="center")}
     for k, (when, pace, color, ted) in enumerate(ends):
         ax.plot(
             [when], [pace], "o", ms=8, color=color, mec=SURFACE, mew=2.0, zorder=4, clip_on=False
@@ -233,7 +225,7 @@ def main() -> None:
     fig.subplots_adjust(left=0.065, right=0.955, top=0.80, bottom=0.085)
     titles(
         fig,
-        "Pace of AI progress under pacing policies",
+        "Pace of AI progress under four pacing policies",
         "Primary scenario: AI ideas and transfer judgment improve 3 SD a year, metric judgment "
         "0.5 SD.\nEach line ends when TED-AI arrives, at the date shown. Under a lag the lab works "
         "with a nine-month-old AI.",
