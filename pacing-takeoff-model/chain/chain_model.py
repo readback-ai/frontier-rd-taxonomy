@@ -81,6 +81,11 @@ T_LABOR, LABOR_REF = 2026.65, 19.0
 # compute to the same fraction of its schedule.
 COMPUTE_TODAY, COMPUTE_CAP = 0.48, 0.096
 COMPUTE_LIMIT = "R&D compute capped at 9.6% of all compute"
+# The tightest of the three examples: 5% for capabilities under floors of 70% for external
+# inference and 25% for safety. The project's own modeling of this rule adds another 5% for what
+# safety compute does for capabilities, which is the 9.6% case above.
+COMPUTE_CAP_TIGHT = 0.05
+COMPUTE_LIMIT_TIGHT = "R&D compute capped at 5% of all compute"
 # The two milestone levels are the AI Futures Project's, in SD of researcher judgment. In its
 # public code (github.com/AI-Futures-Project, `progress_model/config.py` and `_impl.py`) both
 # are levels of AI research taste.
@@ -164,6 +169,7 @@ POLICIES = (
     Policy("Internal-use lag, 3 months", lag=0.25),
     Policy("Internal-use lag, 9 months", lag=0.75),
     Policy(COMPUTE_LIMIT, compute_share=COMPUTE_CAP / COMPUTE_TODAY),
+    Policy(COMPUTE_LIMIT_TIGHT, compute_share=COMPUTE_CAP_TIGHT / COMPUTE_TODAY),
     Policy("Comprehension audits + 9-month lag", audits=True, lag=0.75),
 )
 
@@ -713,11 +719,13 @@ def pacing_table(p: Params) -> list[str]:
         "Internal-use lag, 9 months",
         "Comprehension audits + 9-month lag",
         COMPUTE_LIMIT,
+        COMPUTE_LIMIT_TIGHT,
     )
     out = [
         "| AI judgment gained per year | TED-AI, no pacing | Comprehension audits | "
-        "9-month lag | Audits and 9-month lag | Compute capped at 9.6% |",
-        "|---|---|---|---|---|---|",
+        "9-month lag | Audits and 9-month lag | Compute capped at 9.6% | "
+        "Compute capped at 5% |",
+        "|---|---|---|---|---|---|---|",
     ]
     for label, rates in CASES:
         q = replace(p, **rates)
