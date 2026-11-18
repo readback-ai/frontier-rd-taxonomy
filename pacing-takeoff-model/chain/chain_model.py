@@ -81,6 +81,13 @@ T_LABOR, LABOR_REF = 2026.65, 19.0
 # compute to the same fraction of its schedule.
 COMPUTE_TODAY, COMPUTE_CAP = 0.48, 0.096
 COMPUTE_LIMIT = "R&D compute capped at 9.6% of all compute"
+# Two policies after Anton Leicht's "Pacing" (November 2026). A speed limit holds the pace a
+# capability index shows, which the model takes as the pace on the lab's metrics, at the 1.7
+# times measured in November 2026. His sequence starts with a cut in compute and moves to a
+# speed limit before the pace recovers: here the compute cap for six months, then the pace on
+# metrics held at what it was when the cap ended.
+SPEED_LIMIT = "Speed limit: pace on metrics held to 1.7x"
+CUT_THEN_HOLD = "Compute cap for 6 months, then pace on metrics held"
 # The two milestone levels are the AI Futures Project's, in SD of researcher judgment. In its
 # public code (github.com/AI-Futures-Project, `progress_model/config.py` and `_impl.py`) both
 # are levels of AI research taste.
@@ -156,6 +163,10 @@ class Policy:
     lag: float = 0.0  # years by which the AI a lab may use internally trails its newest
     compute_share: float = 1.0  # share of its scheduled compute a lab may use for research
     # and for training
+    compute_months: float = math.inf  # how long the compute share lasts
+    speed_limit: float = math.inf  # the most the pace on the lab's metrics may be
+    hold_pace: bool = False  # once the compute share ends, the pace on metrics may not go
+    # above what it was when it ended
 
 
 POLICIES = (
@@ -165,6 +176,13 @@ POLICIES = (
     Policy("Internal-use lag, 9 months", lag=0.75),
     Policy(COMPUTE_LIMIT, compute_share=COMPUTE_CAP / COMPUTE_TODAY),
     Policy("Comprehension audits + 9-month lag", audits=True, lag=0.75),
+    Policy(SPEED_LIMIT, speed_limit=PACE_REF),
+    Policy(
+        CUT_THEN_HOLD,
+        compute_share=COMPUTE_CAP / COMPUTE_TODAY,
+        compute_months=6.0,
+        hold_pace=True,
+    ),
 )
 
 
@@ -341,16 +359,34 @@ def lab_choice(
     audits: bool = False,
     labor_at_ref: float = 1.0,
     choose_labor: bool = True,
+    metric_cap: float = math.inf,
 ) -> dict:
     """What the lab does with the AI it may use. It runs the amount of AI labor that gives it
     the most research. More agents mean more experiments and more candidates, and also more
     for people to judge and, under audits, more changes to understand. With `choose_labor`
-    off it runs all the AI labor it has."""
+    off it runs all the AI labor it has.
+
+    `metric_cap` is the most research the lab may show on its metrics, under a speed limit.
+    A lab over it runs fewer experiments at scale, which leaves people judging a larger share
+    of them, and picks the amount of labor that gives the most real research at the cap."""
 
     def run(labor: float) -> dict:
         used = dict(ai, labor=float(labor), candidates=candidates_behind(labor, p, compute))
         experiments = experiments_at_scale(labor, p, compute)
         lab = research(used, p, experiments, audits, labor_at_ref)
+        if lab["measured"] > metric_cap:
+            # What the metrics show rises with the number of experiments, so bisect on it,
+            # by ratio because the share that fits can be very small.
+            low, high = 1e-9, 1.0
+            for _ in range(20):
+                mid = math.sqrt(low * high)
+                trial = research(used, p, experiments * mid, audits, labor_at_ref)
+                if trial["measured"] > metric_cap:
+                    high = mid
+                else:
+                    low = mid
+            experiments *= low
+            lab = research(used, p, experiments, audits, labor_at_ref)
         return dict(
             lab,
             labor_used=float(labor),
@@ -375,7 +411,7 @@ KEYS = (
     "progress",
     "measured_progress",
     "pace",
-    "newest_pace",
+    "released_pace",
     "measured_pace",
     "labor",
     "labor_used",
@@ -408,6 +444,8 @@ def simulate(
     n = int(round((t_end - T_BASE) / dt))
     start_step = int(round((policy.start - T_BASE) / dt))
     lag_steps = int(round(policy.lag / dt))
+    cut_ends = policy.start + policy.compute_months / 12.0  # when the compute share ends
+    held = math.nan  # the pace on metrics when it ended, which `hold_pace` then holds
     out = {key: np.full(n, np.nan) for key in KEYS}
     dates = dict.fromkeys(levels, math.nan)
     # `scheduled` is the compute growth a lab would have with no policy, in years of growth at
@@ -428,7 +466,7 @@ def simulate(
         # The compute the lab may use, in the same years of growth. A share of the schedule
         # sets it a fixed number of doublings back.
         allowed = scheduled
-        if paced:
+        if paced and t < cut_ends:
             allowed += math.log2(policy.compute_share) / p.compute_doublings
         # Research compute against the historical schedule.
         compute = 2.0 ** (p.compute_doublings * (allowed - elapsed))
@@ -436,23 +474,37 @@ def simulate(
         hardware_pace = compute_pace if hardware <= allowed + 1e-9 else 0.0
         ai = ai_state(out["progress"][j], p, compute)
         audits = policy.audits and paced
-        lab = lab_choice(ai, p, compute, audits, labor_at_ref, choose_labor)
         # Each year of software progress halves what research buys, `difficulty` times over.
         # The lab's other inputs double as often per calendar year, which held the pace at 1
         # before AI helped. Any shortfall in compute is already in `experiments`.
         harder = p.difficulty * (software - elapsed)
-        software_pace = lab["real"] / 2.0**harder
         # Measured progress can run far ahead of real progress, so its halvings are capped.
         measured_harder = min(p.difficulty * (measured_software - elapsed), 1000.0)
+        # A speed limit caps the pace on the lab's metrics. Training counts toward it, and
+        # slows too if the limit is below what training alone would give.
+        limit = policy.speed_limit if paced else math.inf
+        if policy.hold_pace and t >= cut_ends:
+            if held != held:
+                held = float(out["measured_pace"][i - 1])
+            limit = min(limit, held)
+        metric_cap = math.inf
+        if limit < math.inf:
+            hardware_pace = min(hardware_pace, limit / (1.0 - w))
+            room = max(0.0, limit - (1.0 - w) * hardware_pace) / w
+            metric_cap = room * 2.0**measured_harder
+        lab = lab_choice(ai, p, compute, audits, labor_at_ref, choose_labor, metric_cap)
+        software_pace = lab["real"] / 2.0**harder
         measured_pace = lab["measured"] / 2.0**measured_harder
         pace = w * software_pace + (1.0 - w) * hardware_pace
         out["pace"][i] = pace
-        # Under a lag, the pace the lab would have at once if it could use its newest AI.
-        out["newest_pace"][i] = pace
-        if j < i:
+        # The pace the lab would have at once if the hold on it were lifted: with its newest
+        # AI under a lag, and with no cap under a speed limit.
+        out["released_pace"][i] = pace
+        if j < i or metric_cap < math.inf:
             ahead = ai_state(progress, p, compute)
             ahead = lab_choice(ahead, p, compute, audits, labor_at_ref, choose_labor)
-            out["newest_pace"][i] = w * ahead["real"] / 2.0**harder + (1.0 - w) * hardware_pace
+            free = compute_pace if hardware <= allowed + 1e-9 else 0.0
+            out["released_pace"][i] = w * ahead["real"] / 2.0**harder + (1.0 - w) * free
         out["measured_pace"][i] = w * measured_pace + (1.0 - w) * hardware_pace
         out["kept_ai"][i] = ai["transfer"] * ai["validity"]
         for key in ("labor", "idea_sd", "transfer_sd", "metric_sd"):
@@ -713,11 +765,14 @@ def pacing_table(p: Params) -> list[str]:
         "Internal-use lag, 9 months",
         "Comprehension audits + 9-month lag",
         COMPUTE_LIMIT,
+        SPEED_LIMIT,
+        CUT_THEN_HOLD,
     )
     out = [
         "| AI judgment gained per year | TED-AI, no pacing | Comprehension audits | "
-        "9-month lag | Audits and 9-month lag | Compute capped at 9.6% |",
-        "|---|---|---|---|---|---|",
+        "9-month lag | Audits and 9-month lag | Compute capped at 9.6% | "
+        "Speed limit at 1.7x | Compute cap, then pace held |",
+        "|---|---|---|---|---|---|---|---|",
     ]
     for label, rates in CASES:
         q = replace(p, **rates)

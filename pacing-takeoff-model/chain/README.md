@@ -4,7 +4,7 @@ Draft of 2026-11-16, from Readback Labs. This folder is self-contained: one mode
 
 ## The question
 
-AI now does a growing share of AI research. If better AI makes research faster and faster research makes better AI, the pace can compound. This model asks when that happens and what three pacing policies, and two of them together, do about it.
+AI now does a growing share of AI research. If better AI makes research faster and faster research makes better AI, the pace can compound. This model asks when that happens and what three pacing policies, two of them together, and two kinds of speed limit do about it.
 
 It is built for one disagreement. One side holds that AI research is mostly hill-climbing on measurable targets, so AI will soon do all of it. The other holds that the hard part is deciding what to climb: defining a metric that means what you want, and noticing when a result games it. The model gives each of those its own place, so the disagreement becomes a question about a few inputs.
 
@@ -65,6 +65,11 @@ kept  = transfer * validity, each measured against people's
 - **Compute cap.** Capabilities work may use at most 9.6% of a lab's compute. That is a fifth of what it otherwise would use for experiments, for running AI labor and for training.
 
 Audits and the lag are also run together.
+
+**Two speed limits.** These follow Anton Leicht's ["Pacing"](https://writing.antonleicht.me/p/pacing) (November 2026), which proposes limiting how much capability a developer may add per period on a capability index.
+
+- **Speed limit.** The pace on the lab's metrics may not pass 1.7 times, the pace measured in November 2026. A capability index is built from benchmarks, so the limit is on progress as the metrics show it and not on real progress. A lab over the limit runs fewer experiments at scale.
+- **Compute cap, then the pace held.** Leicht's sequence starts with a cut in compute and moves to a speed limit before the pace recovers. Here the compute cap lasts six months. Compute then returns, and the pace on metrics may not pass what it was when the cap ended.
 
 ## What it builds on
 
@@ -145,15 +150,15 @@ The figure is the primary scenario. Each line is the pace under one policy and e
 
 Delay to TED-AI:
 
-| AI judgment gained per year of progress | Comprehension audits | 9-month lag | Audits and 9-month lag | Compute capped at 9.6% |
-|---|---|---|---|---|
-| Ideas, transfer and metrics all +3 SD | +0 mo | +11 mo | +11 mo | +7 mo |
-| Ideas and transfer +3, metrics +1 | +3 mo | +10 mo | +11 mo | +11 mo |
-| **Ideas and transfer +3, metrics +0.5 (primary)** | **+12 mo** | **+12 mo** | **+16 mo** | **+10 mo** |
-| Ideas and transfer +2.1, metrics +0.5 | +11 mo | +12 mo | +16 mo | +11 mo |
-| Ideas +3, transfer and metrics +1 | +4 mo | +10 mo | +11 mo | +12 mo |
-| Ideas +3, transfer +1, metrics +0.5 | +12 mo | +12 mo | +17 mo | +11 mo |
-| Ideas +3, transfer and metrics +0.5 | +13 mo | +11 mo | +17 mo | +12 mo |
+| AI judgment gained per year of progress | Comprehension audits | 9-month lag | Audits and 9-month lag | Compute capped at 9.6% | Speed limit at 1.7x | Compute cap, then pace held |
+|---|---|---|---|---|---|---|
+| Ideas, transfer and metrics all +3 SD | +0 mo | +11 mo | +11 mo | +7 mo | +7 mo | +15 mo |
+| Ideas and transfer +3, metrics +1 | +3 mo | +10 mo | +11 mo | +11 mo | +10 mo | +23 mo |
+| **Ideas and transfer +3, metrics +0.5 (primary)** | **+12 mo** | **+12 mo** | **+16 mo** | **+10 mo** | **+25 mo** | **+52 mo** |
+| Ideas and transfer +2.1, metrics +0.5 | +11 mo | +12 mo | +16 mo | +11 mo | +15 mo | +49 mo |
+| Ideas +3, transfer and metrics +1 | +4 mo | +10 mo | +11 mo | +12 mo | +7 mo | +28 mo |
+| Ideas +3, transfer +1, metrics +0.5 | +12 mo | +12 mo | +17 mo | +11 mo | +22 mo | +64 mo |
+| Ideas +3, transfer and metrics +0.5 | +13 mo | +11 mo | +17 mo | +12 mo | +13 mo | +60 mo |
 
 **Comprehension audits**
 
@@ -172,6 +177,19 @@ Delay to TED-AI:
 - **The cap is the AI Futures Project's.** A chart in its ["How to Pace the US Frontier"](https://blog.aifutures.org/p/how-to-pace-the-us-frontier) (August 2026) gives three examples of compute rules. It estimates capabilities compute at 48% of a company's compute today. Under a floor of 90% for external inference it is 9.6%, the second tightest of the three, and the model holds research compute to the same fraction of its schedule, 9.6/48. The figures were read from the chart.
 - **The cap stands for the project's tightest rule as well.** That rule leaves capabilities 5% of compute, under floors of 70% for external inference and 25% for safety. The project models it as worth about 10% to capabilities, because it assumes safety compute helps capabilities by as much as another 5% would, and says this "could also be thought of as modeling the effect of a 90% external inference floor". A cap held to 5% with no such help delays TED-AI by 13 months in the primary scenario.
 - **Other rules from the same chart.** In the primary scenario its loosest, 12.5% under a safety floor of 75%, delays TED-AI by 8 months. A cut to a third of baseline delays it by 7. If the base is the 62% that the project's input series gives for experiments, training and running AI researchers in 2026, a cap of 9.6% delays it by 11. Those runs are not in the results file.
+
+**Speed limits**
+
+![The real pace under the two speed limits, beside the pace on the lab's metrics that each holds](results/speed.png)
+
+The figure is the primary scenario. Solid lines are the real pace and dashed lines the pace on the lab's metrics. "If lifted" is the pace the lab would have at once with no limit.
+
+- **A speed limit at 1.7 times delays TED-AI by 7 to 25 months.** In the primary scenario it comes in March 2031, 25 months later. The limit holds what the metrics show, and what is real runs below it for most of the period: the real pace is 1.2 to 1.4 times in 2027 and falls to 0.9 times in October 2029.
+- **The delay varies widely across scenarios.** It is 25 months in the primary scenario and 22 with transfer judgment at +1 SD and metric judgment at +0.5, against 7 to 15 months in the other five. A limit on the metric costs the most real progress where an experiment the AI judges scores far more on the metric than it is worth.
+- **The lab complies by doing less and having its people judge more of it.** It runs fewer experiments at scale and fewer agents. From March 2028 its people judge every experiment. From December 2027 to June 2028 that raises the real pace above the limit, to 2.5 times, because work people have judged is worth as much as the metric shows. When TED-AI arrives the lab is running 3% of the experiments at scale it ran in October 2025.
+- **The overhang is larger than under any other policy.** When TED-AI arrives the lab is making progress at 1.3 times and would make it at 129 times with the limit lifted. Leicht names this risk: a speed limit has to be seen through.
+- **A compute cap for six months and then the pace held delays TED-AI by 15 to 64 months.** The pace on metrics when the cap ends is 1.09 times, about the pace before AI helped, and that is where it is held. In the primary scenario TED-AI comes in June 2033, 52 months later. The real pace is between 0.6 and 1.3 times, and the pace with the limit lifted is 1,166 times when TED-AI arrives.
+- **What these runs leave out.** The lab cannot game the index beyond what weak metric judgment already does, which is the failure Leicht worries about. The limit is never raised or lifted. And the quality of the AI's ideas does not depend on how many agents a lab runs, so a lab held to a few experiments still gets its newest AI's ideas for them.
 
 ## How fast research gets harder
 
@@ -254,8 +272,8 @@ pytest
 | File | What it is |
 |---|---|
 | `chain_model.py` | The model and the code that writes the tables |
-| `figure.py` | Draws `results/pace.png` and `results/measured.png`. Needs matplotlib |
+| `figure.py` | Draws `results/pace.png`, `results/measured.png` and `results/speed.png`. Needs matplotlib |
 | `diagram.py` | Draws `results/chain.png`, the diagram of the chain. Needs matplotlib |
-| `test_chain_model.py` | Twenty checks: the calibration, the AI Futures case the model reduces to, and the directions its results must move in |
+| `test_chain_model.py` | Twenty-two checks: the calibration, the AI Futures case the model reduces to, and the directions its results must move in |
 | `results/tables.md` | Every table, written by the model |
 | `LICENSE` | MIT |

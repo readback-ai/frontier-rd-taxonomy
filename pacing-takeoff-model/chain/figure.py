@@ -17,11 +17,13 @@ import numpy as np
 from chain_model import (
     CASES,
     COMPUTE_LIMIT,
+    CUT_THEN_HOLD,
     MONTHS,
     PACE_MAY,
     PACE_REF,
     POLICIES,
     PRIMARY,
+    SPEED_LIMIT,
     T_MAY,
     T_REF,
     Params,
@@ -44,6 +46,7 @@ SERIES = (
 START, PACING, TICKS = 2026.0, 2027.0, (1.0, 1.5, 2.0, 3.0, 5.0, 10.0, 15.0)
 OUT = Path(__file__).parent / "results" / "pace.png"
 OUT_MEASURED = Path(__file__).parent / "results" / "measured.png"
+OUT_SPEED = Path(__file__).parent / "results" / "speed.png"
 MEASURED = "#2a78d6"
 
 
@@ -156,6 +159,70 @@ def measured_figure(run: dict) -> None:
     print(f"wrote {OUT_MEASURED}")
 
 
+def speed_figure(p: Params, by_name: dict, unpaced: dict) -> None:
+    """The real pace under the two speed limits, beside the pace on metrics that each holds."""
+    fig, ax = canvas()
+    # Policy, legend name, color, and where its end label sits clear of the lines.
+    series = (
+        (SPEED_LIMIT, "Speed limit: pace on metrics held to 1.7x", "#2a78d6",
+         dict(xytext=(9, 2), ha="left")),
+        (CUT_THEN_HOLD, "Compute cap for 6 months, then pace on metrics held", "#eda100",
+         dict(xytext=(-9, 15), ha="right")),
+    )  # fmt: skip
+    shown = unpaced["t"] >= START
+    ax.plot(unpaced["t"][shown], unpaced["pace"][shown], color=INK, lw=2.0, label="No pacing",
+            solid_capstyle="round", solid_joinstyle="round", zorder=3)  # fmt: skip
+    ends = [(float(unpaced["t"][-1]), float(unpaced["pace"][-1]), INK,
+             fmt_date(unpaced["dates"]["ted_ai"]), dict(xytext=(8, 0), ha="left"))]  # fmt: skip
+    lowest, last = 1.0, float(unpaced["t"][-1])
+    for name, label, color, place in series:
+        run = simulate(p, by_name[name])
+        paced = run["t"] >= PACING
+        shown = run["t"] >= START
+        ax.plot(run["t"][shown], run["pace"][shown], color=color, lw=2.0, label=label,
+                solid_capstyle="round", solid_joinstyle="round", zorder=2)  # fmt: skip
+        # What the limit holds: the pace the lab's metrics show.
+        ax.plot(run["t"][paced], run["measured_pace"][paced], color=color, lw=1.3,
+                ls=(0, (4, 2)), zorder=1)  # fmt: skip
+        lowest = min(
+            lowest, float(run["pace"][shown].min()), float(run["measured_pace"][paced].min())
+        )
+        last = max(last, float(run["t"][-1]))
+        lifted = float(run["released_pace"][-1])
+        text = f"{fmt_date(run['dates']['ted_ai'])}, {lifted:,.0f}x if lifted"
+        ends.append((float(run["t"][-1]), float(run["pace"][-1]), color, text, place))
+    for when, pace, color, text, place in ends:
+        ax.plot([when], [pace], "o", ms=8, color=color, mec=SURFACE, mew=2.0, zorder=4,
+                clip_on=False)  # fmt: skip
+        ax.annotate(text, (when, pace), textcoords="offset points", va="center", color=SECONDARY,
+                    fontsize=9, linespacing=1.3, **place)  # fmt: skip
+    fitted_points(ax, unpaced, MUTED)
+    ax.axvline(PACING, color=AXIS, lw=1.0, zorder=1)
+    ax.annotate("pacing starts", (PACING, 1.0), xycoords=("data", "axes fraction"),
+                xytext=(5, -3), textcoords="offset points", va="top", color=MUTED,
+                fontsize=9)  # fmt: skip
+    pace_axis(ax, max(TICKS[-1], float(unpaced["pace"].max())), lowest)
+    frame(ax, last)
+    ax.set_ylabel("Pace: years of progress per calendar year", color=SECONDARY, fontsize=9)
+    fig.subplots_adjust(left=0.065, right=0.955, top=0.80, bottom=0.085)
+    titles(
+        fig,
+        "A speed limit on measured progress",
+        "Primary scenario. Solid lines are the real pace. Dashed lines are the pace on the lab's "
+        'metrics, which the limit holds.\nEach line ends when TED-AI arrives. "If lifted" is '
+        "the pace the lab would have at once with no limit.",
+    )
+    ax.plot(
+        [], [], color=SECONDARY, lw=1.3, ls=(0, (4, 2)), label="The same lab's pace on its metrics"
+    )
+    legend = ax.legend(loc="upper right", bbox_to_anchor=(1.0, 0.86), frameon=False, fontsize=9,
+                       labelcolor=SECONDARY, handlelength=1.8, borderaxespad=0.6)  # fmt: skip
+    for line in legend.get_lines():
+        line.set_linewidth(2.0)
+    fig.savefig(OUT_SPEED, facecolor=SURFACE)
+    print(f"wrote {OUT_SPEED}")
+
+
 def main() -> None:
     p = replace(Params(), **dict(CASES)[PRIMARY])
     by_name = {policy.name: policy for policy in POLICIES}
@@ -170,10 +237,10 @@ def main() -> None:
             # Under a lag the lab works with an older AI. The dotted line is the pace it would
             # have at once with its newest one: the gap is capability held back.
             paced = run["t"] >= PACING
-            ax.plot(run["t"][paced], run["newest_pace"][paced], color=color, lw=1.6,
+            ax.plot(run["t"][paced], run["released_pace"][paced], color=color, lw=1.6,
                     ls=(0, (1, 1.8)), dash_capstyle="round", zorder=2)  # fmt: skip
-            newest = float(run["newest_pace"][-1])
-            highest = max(highest, float(run["newest_pace"][paced].max()))
+            newest = float(run["released_pace"][-1])
+            highest = max(highest, float(run["released_pace"][paced].max()))
             ax.annotate(f"{newest:.0f}x" if newest >= 10.0 else f"{newest:.1f}x",
                         (float(run["t"][-1]), newest), xytext=(6, 0), textcoords="offset points",
                         va="center", color=SECONDARY, fontsize=8.5)  # fmt: skip
@@ -247,6 +314,7 @@ def main() -> None:
     fig.savefig(OUT, facecolor=SURFACE)
     print(f"wrote {OUT}")
     measured_figure(unpaced)
+    speed_figure(p, by_name, unpaced)
 
 
 if __name__ == "__main__":

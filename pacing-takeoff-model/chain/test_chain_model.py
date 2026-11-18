@@ -8,12 +8,15 @@ import numpy as np
 import pytest
 from chain_model import (
     CASES,
+    CUT_THEN_HOLD,
     DIFFICULTY_BOUNDS,
     DIFFICULTY_FITS,
     LABOR_REF,
     PACE_MAY,
     PACE_REF,
     POLICIES,
+    PRIMARY,
+    SPEED_LIMIT,
     T_LABOR,
     T_MAY,
     T_REF,
@@ -152,9 +155,32 @@ def test_an_audited_lab_runs_less_ai_labor_and_keeps_its_pace_above_the_old_one(
 def test_under_a_lag_the_newest_ai_would_give_a_faster_pace_than_the_one_in_use():
     lag = simulate(SLOW, BY_NAME["Internal-use lag, 9 months"])
     after = lag["t"] > 2027.5
-    assert np.all(lag["newest_pace"][after] > lag["pace"][after])
+    assert np.all(lag["released_pace"][after] > lag["pace"][after])
     free = simulate(SLOW, t_end=2027.5)
-    assert np.array_equal(free["newest_pace"], free["pace"])
+    assert np.array_equal(free["released_pace"], free["pace"])
+
+
+def test_a_speed_limit_holds_the_pace_on_metrics_and_leaves_an_overhang():
+    base = simulate(BY_CASE[PRIMARY])
+    run = simulate(BY_CASE[PRIMARY], BY_NAME[SPEED_LIMIT])
+    limited = run["t"] > 2027.01
+    assert np.all(run["measured_pace"][limited] <= PACE_REF + 1e-6)
+    assert months(base, run) > 12.0
+    # What the lab could do at once with the limit lifted grows far past what it does.
+    assert run["released_pace"][-1] > 10.0 * run["pace"][-1]
+
+
+def test_after_a_compute_cut_the_pace_on_metrics_is_held_where_the_cut_left_it():
+    run = simulate(BY_CASE[PRIMARY], BY_NAME[CUT_THEN_HOLD])
+    held = float(run["measured_pace"][run["t"] < 2027.5][-1])  # the last step of the cut
+    later = run["t"] >= 2027.5
+    assert held < PACE_REF
+    assert np.all(run["measured_pace"][later] <= held + 1e-6)
+    # The compute comes back when the cut ends, so the AI labor a lab has jumps.
+    assert at(run, "labor", 2027.52) > 3.0 * at(run, "labor", 2027.48)
+    assert (
+        run["dates"]["ted_ai"] > simulate(BY_CASE[PRIMARY], BY_NAME[SPEED_LIMIT])["dates"]["ted_ai"]
+    )
 
 
 def test_no_pacing_policy_brings_a_milestone_forward():
